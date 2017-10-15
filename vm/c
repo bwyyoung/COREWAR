@@ -1,0 +1,4 @@
+#!/bin/bash
+
+./asm $1.s; make; ./vm $1.cor
+
