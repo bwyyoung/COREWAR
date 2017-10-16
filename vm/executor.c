@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:10:13 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/14 18:13:00 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/16 12:30:37 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	get_types(t_process *process, uint8_t types, uint8_t op)
 {
-	if (validate_types(op, types))
+	if (is_types_invalid(op, types))
 	{
 		inc_pc(process->regs, 2);
 		return (1);
@@ -32,6 +32,7 @@ static void	execute_op(t_env *env, t_process *process)
 	op = env->board[pc];
 	if (get_types(process, env->board[(pc + 1) % MEM_SIZE], op))
 		return ;
+	get_params(env, process, op);
 	if (op == live)
 		op_live(env, process, pc);
 	else if (op == ld || op == lld)
@@ -75,11 +76,8 @@ static void	execute_process(t_process *process, t_env *env)
 void		execute_cycle(t_env *env)
 {
 	t_list		*processes;
-	uintmax_t	num_processes;
 
 	processes = env->processes;
-	num_processes = env->num_processes;
-	// while (num_processes--)
 	while (processes)
 	{
 		execute_process(processes->content, env);

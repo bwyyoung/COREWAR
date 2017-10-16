@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2017/10/15 19:38:12 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/16 12:23:46 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,11 @@ static int	is_invalid_op(t_process *process, uint8_t op)
 	return (is_invalid);
 }
 
+int			op_has_type(uint8_t op)
+{
+	return (g_op_tab[op].has_type);
+}
+
 uint32_t	get_cycles(t_env *env, t_process *process)
 {
 	uint8_t		op;
@@ -74,17 +79,19 @@ uint32_t	get_label_size(t_env *env, t_process *process)
 	return (g_op_tab[op].label_size);
 }
 
-int			validate_types(uint8_t op, uint8_t types)
+int			is_types_invalid(uint8_t op, uint8_t types)
 {
 	t_op	op_info;
 	int		i;
 	int		num_types;
 	uint8_t	type;
 
+	if (op > aff)
+		return (1);
 	op_info = g_op_tab[op];
 	if (op_info.has_type == 0)
 		return (0);
-	if (op > aff || types == 0)
+	if (types == 0)
 		return (1);
 	num_types = op_info.argc;
 	i = 0;

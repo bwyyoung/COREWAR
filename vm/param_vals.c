@@ -6,13 +6,13 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:27:07 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/13 19:20:59 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/16 12:19:32 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void			get_params(t_env *env, t_process *process)
+void			get_params(t_env *env, t_process *process, uint8_t op)
 {
 	uint8_t		types;
 	uint8_t		type;
@@ -20,8 +20,10 @@ void			get_params(t_env *env, t_process *process)
 	int			i;
 	int			param_size;
 
-	pc = process->regs[0];
 	types = process->types;
+	if (!op_has_type(op))
+		return ;
+	pc = process->regs[0];
 	i = 0;
 	param_size = 0;
 	pc = pc + 2;

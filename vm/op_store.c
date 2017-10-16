@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:16:50 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/14 17:27:13 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/16 12:30:50 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ static void	op_st(t_env *env, t_process *process, uint32_t pc)
 	int			reg_val;
 	int			param_val;
 
-	get_params(env, process);
 	reg_num = process->params[0].val;
 	if (valid_reg_num(reg_num))
 	{
@@ -68,7 +67,6 @@ static void	op_sti(t_env *env, t_process *process, uint32_t pc)
 	int			index2;
 	int			index_sum;
 
-	get_params(env, process);
 	reg_num = process->params[0].val;
 	if (valid_reg_num(reg_num))
 	{

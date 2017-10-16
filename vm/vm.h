@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 15:37:30 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/14 16:38:16 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/16 12:22:52 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,11 @@ typedef struct		s_process
 char				*get_op_name_test(uint8_t op);
 
 // op.c
+int					op_has_type(uint8_t op);
 uint32_t			get_label_size(t_env *env, t_process *process);
 uint32_t			get_cycles(t_env *env, t_process *process);
 uint32_t			get_op_size(t_env *env, t_process *process);
-int					validate_types(uint8_t op, uint8_t types);
+int					is_types_invalid(uint8_t op, uint8_t types);
 
 int					valid_reg_num(uint8_t reg_num);
 int					get_idx_val(int val);
@@ -112,7 +113,7 @@ void				run_game(t_env *env);
 void				execute_cycle(t_env *env);
 int					get_param_val(uint8_t *board, t_param param,
 									t_process *process, uint8_t ind_size);
-void				get_params(t_env *env, t_process *process);
+void				get_params(t_env *env, t_process *process, uint8_t op);
 t_env				*create_env(uint8_t *board);
 uint8_t				*create_board(void);
 t_player			*create_player(uint32_t prog_num);

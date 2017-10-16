@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 19:03:47 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/13 20:30:18 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/16 12:31:17 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void		op_bitwise(t_env *env, t_process *process, int op)
 	uint32_t val2;
 	uint32_t result;
 
-	get_params(env, process);
-	// check reg_nums
 	val1 = get_param_val(env->board, process->params[0], process, IND_SIZE);
 	val2 = get_param_val(env->board, process->params[1], process, IND_SIZE);
 	result = 0;

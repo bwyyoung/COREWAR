@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:13:26 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/13 19:13:09 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/16 12:31:29 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void		op_arithmetic(t_env *env, t_process *process, int op)
 	int			reg_num1;
 	int			reg_num2;
 
-	get_params(env, process);
 	reg_num1 = process->params[0].val;
 	reg_num2 = process->params[1].val;
 	if (valid_reg_num(reg_num1) && valid_reg_num(reg_num2))
