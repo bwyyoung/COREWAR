@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:10:13 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/16 12:46:54 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/17 00:41:02 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void	execute_op(t_env *env, t_process *process)
 	op = env->board[pc];
 	if (get_types(process, env->board[(pc + 1) % MEM_SIZE], op))
 		return ;
+	process->op = op;
 	get_params(env, process, op);
 	if (op == live)
 		op_live(env, process, pc);
@@ -51,6 +52,8 @@ static void	execute_op(t_env *env, t_process *process)
 		op_forker(env, process, pc, op);
 	else if (op == aff)
 		op_aff(env, process, pc);
+	if (op != zjmp)
+		inc_pc(process->regs, get_op_size(env, process));
 }
 
 static void	execute_process(t_process *process, t_env *env)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_arithmetic.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:13:26 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/16 12:31:29 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/17 00:49:13 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void		op_arithmetic(t_env *env, t_process *process, int op)
 
 	reg_num1 = process->params[0].val;
 	reg_num2 = process->params[1].val;
-	if (valid_reg_num(reg_num1) && valid_reg_num(reg_num2))
+	if (valid_reg_num(reg_num1) && valid_reg_num(reg_num2)) // test what happens when reg_num is invalid
 	{
 		reg_val1 = get_reg_val(process, reg_num1);
 		reg_val2 = get_reg_val(process, reg_num2);
@@ -34,7 +34,6 @@ void		op_arithmetic(t_env *env, t_process *process, int op)
 		set_reg_val(process, process->params[2].val, result);
 		modify_carry(process, result);
 	}
-	inc_pc(process->regs, get_op_size(env, process));
 }
 
 /*

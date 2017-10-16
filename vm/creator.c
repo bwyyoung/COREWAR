@@ -6,7 +6,7 @@
 /*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 17:12:50 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/16 16:54:23 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/17 00:01:19 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,6 @@ t_process	*create_process(int offset, uint32_t prog_num, char *player_name)
 	process->lives = 0;
 	process->regs[0] = offset;
 	process->regs[1] = prog_num;
+	process->op = 0;
 	return (process);
 }

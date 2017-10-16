@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_load.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:18:48 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/16 12:48:43 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/17 00:49:46 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,15 @@
 void		op_basic_load(t_env *env, t_process *process, int op)
 {
 	uint8_t			*board;
-	uint32_t		index;
-	int				new_reg_val;
-	uint32_t		pc;
+	uint32_t		new_reg_val;
+	uint32_t		read_size;
+	uint8_t			type;
 
-	pc = process->regs[0];
 	board = env->board;
-	index = get_param_val(board, process->params[0], process, IND_SIZE);
-	if (op == ld && process->params[0].type == IND_CODE)
-		new_reg_val = get_board_val(board, pc + get_idx_val(process->params[0].val), REG_SIZE);
-	else if (process->params[0].type == IND_CODE)
-		new_reg_val = get_board_val(board, pc + index, REG_SIZE);
-	else
-		new_reg_val = index;
+	type = process->params[0].type;
+	new_reg_val = get_param_val(board, process->params[0], process, IND_SIZE); // should be reg_size
 	set_reg_val(process, process->params[1].val, new_reg_val);
 	modify_carry(process, new_reg_val);
-	inc_pc(process->regs, get_op_size(env, process));
 }
 
 /*
@@ -89,26 +82,15 @@ void		op_index_load(t_env *env, t_process *process, int op)
 	int			index2;
 	int			index_sum;
 	int			new_reg_val;
-	uint32_t	pc;
 
-	pc = process->regs[0];
-	if (op == ldi && process->params[0].type == IND_CODE)
-		index1 = get_board_val(env->board, pc + get_idx_val(process->params[0].val), IND_SIZE);
-	else if (op == lldi && process->params[0].type == IND_CODE)
-		index1 = get_board_val(env->board, pc + process->params[0].val, IND_SIZE);
-	else
-		index1 = get_param_val(env->board, process->params[0],
+	index1 = get_param_val(env->board, process->params[0],
 							process, IND_SIZE);
 	index2 = get_param_val(env->board, process->params[1],
 							process, IND_SIZE);
 	index_sum = index1 + index2;
-	if (op == ldi)
-		new_reg_val = get_board_val(env->board, pc + get_idx_val(index_sum), REG_SIZE);
-	else
-		new_reg_val = get_board_val(env->board, pc + index_sum, REG_SIZE);
+	new_reg_val = get_ind_val(env->board, process, index_sum, REG_SIZE);
 	set_reg_val(process, process->params[2].val, new_reg_val);
 	modify_carry(process, new_reg_val);
-	inc_pc(process->regs, get_op_size(env, process));
 }
 						
 

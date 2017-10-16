@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_bitwise.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 19:03:47 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/16 12:31:17 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/17 00:47:05 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,14 @@ void		op_bitwise(t_env *env, t_process *process, int op)
 
 	val1 = get_param_val(env->board, process->params[0], process, IND_SIZE);
 	val2 = get_param_val(env->board, process->params[1], process, IND_SIZE);
-	result = 0;
 	if (op == and)
 		result = val1 & val2;
 	else if (op == or)
 		result = val1 | val2;
-	else if (op == xor)
+	else
 		result = val1 ^ val2;
-	set_reg_val(process, get_param_val(env->board, process->params[2],
-										process, 1), result);
+	set_reg_val(process, process->params[2].val, result);
 	modify_carry(process, result);
-	inc_pc(process->regs, get_op_size(env, process));
 }
 
 /*

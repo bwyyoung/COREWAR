@@ -6,7 +6,7 @@
 /*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:27:07 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/16 19:13:16 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/17 00:17:56 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,22 @@ void			get_params(t_env *env, t_process *process, uint8_t op)
 	}
 }
 
-static uint32_t	get_ind_val(uint8_t *board, t_process *process,
-							uint32_t param_val, uint32_t size)
+uint32_t		get_ind_val(uint8_t *board, t_process *process,
+							uint32_t param_val, uint32_t read_size)
 {
 	uint32_t pc;
+	uint32_t val;
 
 	pc = process->regs[0];
-	return (get_board_val(board, (pc + param_val) % MEM_SIZE, size));
+	if (use_idx(process->op))
+		val = get_board_val(board, pc + get_idx_val(param_val), read_size);
+	else
+		val = get_board_val(board, pc + param_val, read_size);
+	return (val);
 }
 
 int				get_param_val(uint8_t *board, t_param param_struct,
-								t_process *process, uint8_t ind_size)
+								t_process *process, uint8_t read_size)
 {
 	int			val;
 	uint8_t		type;
@@ -60,7 +65,7 @@ int				get_param_val(uint8_t *board, t_param param_struct,
 	if (type == REG_CODE)
 		val = get_reg_val(process, param_val);
 	else if (type == IND_CODE)
-		val = get_ind_val(board, process, param_val, ind_size);
+		val = get_ind_val(board, process, param_val, read_size);
 	else
 		val = param_val;
 	return (val);

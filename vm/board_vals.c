@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   board_vals.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 15:01:59 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/12 15:12:52 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/17 00:17:07 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,12 @@ uint32_t	get_board_val(uint8_t *board, uint32_t index, uint32_t size)
 	i = 0;
 	pval = (uint8_t*)&val;
 	while (size--)
-		pval[i++] = board[(index + size) % MEM_SIZE];
+	{
+		pval[i] = board[(index + size) % MEM_SIZE];
+		// pval[size] = board[(index + i) % MEM_SIZE];
+		// ft_printf("size %d, val %x\n", size, pval[i]);
+		i++;
+	}
 	return (val);
 }
 

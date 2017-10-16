@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_aff.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 20:59:21 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/13 18:57:55 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/17 00:50:18 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,4 @@ void		op_aff(t_env *env, t_process *process, uint32_t pc)
 		reg_val = get_reg_val(process, reg_num);
 		ft_putchar(reg_val % 256);
 	}
-	inc_pc(process->regs, 3);
 }

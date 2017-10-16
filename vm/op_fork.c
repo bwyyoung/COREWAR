@@ -6,7 +6,7 @@
 /*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 20:31:02 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/16 16:55:16 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/17 00:51:19 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,12 @@ void			op_forker(t_env *env, t_process *process, uint32_t pc, int op)
 		ft_error_errno(NULL);
 	ft_memcpy(process_cpy, process, sizeof(t_process));
 	index = get_board_val(env->board, pc + 1, IND_SIZE);
-	if (op == e_fork)
-		inc_pc(process_cpy->regs, get_idx_val(index));
-	else
+	if (op == lfork)
 		inc_pc(process_cpy->regs, index);
+	else
+		inc_pc(process_cpy->regs, get_idx_val(index));
 	process_cpy->cycles_left = 0;
 	add_process(env, process_cpy);
-	inc_pc(process->regs, 1 + IND_SIZE);
 }
 
 /*

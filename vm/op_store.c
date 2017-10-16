@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_store.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:16:50 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/16 12:30:50 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/17 00:49:57 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static void	op_st(t_env *env, t_process *process, uint32_t pc)
 		else
 			set_board_val(env->board, pc + get_idx_val(param_val), REG_SIZE, reg_val);
 	}
-	inc_pc(process->regs, get_op_size(env, process));
 }
 
 /*
@@ -71,12 +70,11 @@ static void	op_sti(t_env *env, t_process *process, uint32_t pc)
 	if (valid_reg_num(reg_num))
 	{
 		reg_val = get_reg_val(process, reg_num);
-		index1 = get_param_val(env->board, process->params[1], process, 4);
-		index2 = get_param_val(env->board, process->params[2], process, 4);
+		index1 = get_param_val(env->board, process->params[1], process, REG_SIZE);
+		index2 = get_param_val(env->board, process->params[2], process, REG_SIZE);
 		index_sum = index1 + index2;
 		set_board_val(env->board, pc + get_idx_val(index_sum), REG_SIZE, reg_val);
 	}
-	inc_pc(process->regs, get_op_size(env, process));
 }
 
 void	op_store(t_env *env, t_process *process, uint32_t pc, uint8_t op)

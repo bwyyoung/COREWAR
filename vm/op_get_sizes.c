@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_get_sizes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:16:05 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/14 16:37:06 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/17 00:38:18 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,29 @@ uint32_t	get_arg_size(uint8_t type, int label_size)
 	return (size);
 }
 
+static int	get_op_size_no_type(uint8_t op)
+{
+	int size;
+
+	size = 1;
+	if (op == live)
+		size += DIR_SIZE;
+	else if (op == aff)
+		size += IND_SIZE;
+	else if (op == lfork)
+		size += IND_SIZE;
+	else
+		size += IND_SIZE;
+	return (size);
+}
+
 uint32_t	get_op_size(t_env *env, t_process *process)
 {
 	uint32_t	size;
 	uint8_t		types;
 
+	if (!op_has_type(process->op))
+		return (get_op_size_no_type(process->op));
 	types = process->types;
 	size = 2;
 	while (types)

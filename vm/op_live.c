@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_live.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:22:29 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/13 18:10:23 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/17 00:52:38 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,4 @@ void			op_live(t_env *env, t_process *process, uint32_t pc)
 	}
 	process->lives++;
 	env->total_lives++;
-	inc_pc(process->regs, 5);
 }
