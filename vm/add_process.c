@@ -3,20 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   add_process.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:20:09 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/12 15:12:16 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/16 17:05:56 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	add_process(t_env *env, t_process *process)
+void	add_process(t_env *env, t_process *new_process)
 {
-	t_list *processes;
+	t_list *new_node;
 
-	processes = ft_lstnew(process, sizeof(t_process));// unprotected
-	ft_lstadd(&env->processes, processes);
+	if (!(new_node = ft_lstnew(new_process, sizeof(t_process))))
+		ft_error_errno(NULL);
+	ft_lstadd(&env->processes, new_node);
 	env->num_processes++;
 }
+

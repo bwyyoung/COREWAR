@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 13:26:46 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/12 15:25:53 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/16 17:50:41 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ void		handle_args(t_env *env, int argc, char *argv[])
 static void	declare_winner(t_env *env)
 {
 	if (env->last_live_name)
-		ft_printf("Contestant %d, \"%s\" won\n",
+		ft_printf("Contestant %d, \"%s\", has won !\n",
 					env->last_live_num * -1,
 					env->last_live_name);
 	else
-		ft_printf("Contestant %d, \"%s\" won\n",
+		ft_printf("Contestant %d, \"%s\", has won !\n",
 					((t_player*)env->players->content)->prog_num * -1,
 					((t_player*)env->players->content)->name);
 }

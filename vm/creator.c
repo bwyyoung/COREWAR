@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   creator.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 17:12:50 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/12 14:55:10 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/16 16:54:23 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_env		*create_env(uint8_t *board)
 	t_env	*env;
 
 	if (!(env = (t_env*)malloc(sizeof(t_env))))
-		exit(ft_printf("malloc failed\n"));
+		ft_error_errno(NULL);
 	env->cycle_to_die = CYCLE_TO_DIE;
 	env->cycles_since_check = 0;
 	env->total_cycles = 0;
@@ -45,7 +45,7 @@ uint8_t		*create_board(void)
 	uint8_t *board;
 
 	if (!(board = (uint8_t*)malloc(MEM_SIZE)))
-		exit(ft_printf("malloc failed\n"));
+		ft_error_errno(NULL);
 	ft_bzero(board, MEM_SIZE);
 	return (board);
 }
@@ -55,7 +55,7 @@ t_player	*create_player(uint32_t prog_num)
 	t_player	*player;
 
 	if (!(player = (t_player*)malloc(sizeof(t_player))))
-		exit(ft_printf("player malloc failed\n"));
+		ft_error_errno(NULL);
 	player->lives = 0;
 	player->name = ft_strnew(128);
 	player->prog_num = prog_num;
@@ -68,7 +68,7 @@ t_process	*create_process(int offset, uint32_t prog_num, char *player_name)
 	t_process *process;
 
 	if (!(process = (t_process*)malloc(sizeof(t_process))))
-		exit(ft_printf("process malloc failed\n"));
+		ft_error_errno(NULL);
 	process->carry = 0;
 	process->cycles_left = 0;
 	process->name = player_name;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 15:37:30 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/16 12:22:52 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/16 16:54:45 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include "op.h"
 # include <unistd.h>
 # include <fcntl.h>
+# include <errno.h>
+# include <stdio.h>
 
 enum
 {
@@ -95,6 +97,7 @@ typedef struct		s_process
 	int				lives;
 }					t_process;
 
+void				ft_error_errno(char *msg);
 // test
 char				*get_op_name_test(uint8_t op);
 
