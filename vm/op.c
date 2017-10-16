@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2017/10/16 12:23:46 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/16 12:43:25 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int			is_types_invalid(uint8_t op, uint8_t types)
 		return (0);
 	if (types == 0)
 		return (1);
-	num_types = op_info.argc;
+	num_types = op_info.num_types;
 	i = 0;
 	while (num_types--)
 	{

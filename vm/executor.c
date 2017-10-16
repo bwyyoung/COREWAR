@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:10:13 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/16 12:30:37 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/16 12:46:54 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,7 @@ static void	execute_process(t_process *process, t_env *env)
 	else if (process->cycles_left <= 0)
 	{
 		if (env->board[process->regs[0]] != 0)
-		{
 			process->cycles_left = get_cycles(env, process) - 1;
-		}
 		else
 			inc_pc(process->regs, 1);
 	}

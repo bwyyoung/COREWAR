@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 20:31:02 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/14 15:58:29 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/16 12:38:28 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void			op_forker(t_env *env, t_process *process, uint32_t pc, int op)
 	t_process	*process_cpy;
 	int			index;
 
-	process_cpy = (t_process*)malloc(sizeof(t_process));
+	process_cpy = (t_process*)malloc(sizeof(t_process)); // unprotected
 	ft_memcpy(process_cpy, process, sizeof(t_process));
 	index = get_board_val(env->board, pc + 1, IND_SIZE);
 	if (op == e_fork)

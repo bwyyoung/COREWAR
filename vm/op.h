@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2017/10/14 14:32:21 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/16 12:43:17 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct					s_header
 typedef struct					s_op
 {
 	char						*name;
-	int							argc;
+	int							num_types;
 	int							arg_types[3];
 	int							cycles;
 	int							has_type;

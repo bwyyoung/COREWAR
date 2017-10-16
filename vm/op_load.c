@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:18:48 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/16 12:31:00 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/16 12:48:43 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ void		op_index_load(t_env *env, t_process *process, int op)
 	pc = process->regs[0];
 	if (op == ldi && process->params[0].type == IND_CODE)
 		index1 = get_board_val(env->board, pc + get_idx_val(process->params[0].val), IND_SIZE);
+	else if (op == lldi && process->params[0].type == IND_CODE)
+		index1 = get_board_val(env->board, pc + process->params[0].val, IND_SIZE);
 	else
 		index1 = get_param_val(env->board, process->params[0],
 							process, IND_SIZE);
