@@ -1,0 +1,17 @@
+vm - Douglas
+- Loads assembly code
+- runs assembly code
+- command line output of corewar battles
+- create memory spaces for each champion
+- 4 champions max
+- graphics
+- flags and options keeper
+- scheduling
+
+
+Brian -- Arguments and flags
+-- additional diagnostic info
+
+Compiler - Palash
+- transform champion code into assembly
+- 
