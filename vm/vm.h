@@ -49,7 +49,8 @@ enum
 	s
 }					e_options;
 
-typedef struct		s_cursor{
+typedef struct		s_cursor
+{
 	struct s_cursor	*next;
 	struct s_cursor	*prev;
 	int				carry;

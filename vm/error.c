@@ -12,7 +12,7 @@
 
 #include "vm.h"
 
-void	clean_head(t_cursor *head)
+void		clean_head(t_cursor *head)
 {
 	t_cursor *temp;
 
@@ -59,7 +59,7 @@ void		print_instructions(void)
 }
 
 
-void	error_msg_2(int i)
+void		error_msg_2(int i)
 {
 	if (i == 11)
 		ft_putstr_fd("\x1b[31m[Too few arguments for -dump]\x1b[0m ", 2);
@@ -87,7 +87,7 @@ void	error_msg_2(int i)
 	exit(1);
 }
 
-void	error_msg(int i)
+void		error_msg(int i)
 {
 	if (i == 1)
 		ft_putstr_fd("\x1b[31m[Failed to open]\x1b[0m ", 2);
@@ -115,7 +115,7 @@ void	error_msg(int i)
 	exit(1);
 }
 
-void	error_exit(t_env *e, int i)
+void		error_exit(t_env *e, int i)
 {
 	if (e->head)
 		clean_head(e->head);
