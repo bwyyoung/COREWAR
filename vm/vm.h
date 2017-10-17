@@ -18,7 +18,10 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <errno.h>
+# include <limits.h>
 # include <stdio.h>
+# define LABEL_NUMBERS "-0123456789"
+
 
 enum
 {
@@ -47,8 +50,36 @@ enum
 	s
 }					e_options;
 
+typedef struct		s_cursor{
+	struct s_cursor	*next;
+	struct s_cursor	*prev;
+	int				carry;
+	int				life;
+	int				dead;
+	int				counter;
+	int				running;
+	int				player;
+	int				nbr;
+	int				index;
+	int				color;
+	int				cycle;
+	int				reg[REG_NUMBER];
+}					t_cursor;
+
+
+typedef struct		s_player
+{
+	int				lives;
+	char			*name;
+	long			prog_num;
+	int				is_alive;
+	int				file_pos;
+
+}					t_player;
+
 typedef struct		s_env
 {
+	t_cursor		*head;
 	int				cycle_to_die;
 	int				cycles_since_check;
 	uintmax_t		total_cycles;
@@ -64,15 +95,12 @@ typedef struct		s_env
 	uintmax_t		option_num;
 	int				num_players;
 	int				to_die;
+	int				dump;
+	int				bonus;
+	long			dump_value;
+	t_player		player[MAX_PLAYERS + 1];
+	int				cursors;
 }					t_env;
-
-typedef struct		s_player
-{
-	int				lives;
-	char			*name;
-	int				prog_num;
-	int				is_alive;
-}					t_player;
 
 // typedef struct		s_reg
 // {
@@ -150,4 +178,13 @@ void				op_index_load(t_env *env, t_process *process, int op);
 void				op_forker(t_env *env, t_process *process, uint32_t pc, int op);
 void				op_aff(t_env *env, t_process *process, uint32_t pc);
 
+void				print_instructions(void);
+void				error_exit(t_env *e, int i);
+void				add_bonus(t_env *e, int args, int *i);
+t_bool				loop_duplicate(t_env *e, long nbr);
+void				check_number(t_env *e, char *nbr);
+long				smallest_number(t_env *e);
+void				capture_number(t_env *e, char *nbr, int *i, int args);
+void				add_player_w_nbr(t_env *e, char *nbr, int args, int *i);
+void				add_player_empty(t_env *e, int *i, int players);
 #endif

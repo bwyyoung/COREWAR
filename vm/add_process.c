@@ -21,4 +21,3 @@ void	add_process(t_env *env, t_process *new_process)
 	ft_lstadd(&env->processes, new_node);
 	env->num_processes++;
 }
-

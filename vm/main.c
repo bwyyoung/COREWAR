@@ -12,42 +12,40 @@
 
 #include "vm.h"
 
-void		add_option(t_env *env, char *option)
+void	parse_flags(t_env *e, int args, char **av)
 {
-	if (ft_strequ(option, "-d"))
-		env->options[d] = 1;
-	if (ft_strequ(option, "-s"))
-		env->options[s] = 1;	
-}
+	int	i;
 
-void		handle_args(t_env *env, int argc, char *argv[])
-{
-	int i;
-
-	i = 0;
-	while (argv[i + 1])
+	i = 1;
+	e->num_players = 0;
+	if (ft_strequ(av[i], "-dump"))
+		capture_number(e, av[i + 1], &i, args);
+	else if (ft_strequ(av[i], "-visual"))
+		add_bonus(e, args, &i);
+	while (i < args)
 	{
-		if (argv[i][0] == '-')
-		{
-			add_option(env, argv[i]);
-			env->option_num = ft_atoi(argv[i + 1]);
-			argc -= 2;
-		}
+		if (ft_strequ(av[i], "-n"))
+			add_player_w_nbr(e, av[i + 1], args, &i);
+		else
+			add_player_empty(e, &i, e->num_players);
+		e->num_players += 1;
+		if (e->num_players > MAX_PLAYERS)
+			error_exit(e, 8);
 		i++;
 	}
-	env->num_players = argc - 1;
+	e->cursors = e->num_players;
 }
 
 static void	declare_winner(t_env *env)
 {
 	if (env->last_live_name)
 		ft_printf("Contestant %d, \"%s\", has won !\n",
-					env->last_live_num * -1,
-					env->last_live_name);
+		env->last_live_num * -1,
+		env->last_live_name);
 	else
 		ft_printf("Contestant %d, \"%s\", has won !\n",
-					((t_player*)env->players->content)->prog_num * -1,
-					((t_player*)env->players->content)->name);
+		((t_player*)env->players->content)->prog_num * -1,
+		((t_player*)env->players->content)->name);
 }
 
 int			main(int argc, char *argv[])
@@ -56,10 +54,13 @@ int			main(int argc, char *argv[])
 	t_env			*env;
 
 	if (argc < 2)
+	{
+		print_instructions();
 		return (0);
+	}
 	board = create_board();
 	env = create_env(board);
-	handle_args(env, argc, argv);
+	parse_flags(env, argc, argv);
 	load_programs(env, ++argv);
 	run_game(env);
 	declare_winner(env);

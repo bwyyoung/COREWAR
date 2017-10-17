@@ -20,7 +20,10 @@ SRC = main.c run_game.c load_programs.c creator.c regs.c ft_error.c \
 		kill_processes.c add_process.c dump_memory.c executor.c\
 		param_vals.c board_vals.c \
 		op_utility.c op_get_sizes.c op_arithmetic.c op_store.c op_load.c \
-		op_zjmp.c op_live.c op_bitwise.c op_fork.c op.c op_aff.c
+		op_zjmp.c op_live.c op_bitwise.c op_fork.c op.c op_aff.c \
+		parse_flags.c	\
+		error.c			\
+		parse_flags_calc.c
 
 SRCO = ${SRC:%.c=%.o}
 

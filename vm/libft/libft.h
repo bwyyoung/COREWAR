@@ -31,6 +31,22 @@
 # define CYAN_COLOR "\x1B[36m"
 # define WHITE_COLOR "\x1B[37m"
 
+# define SAFE_DELETE(a) if((a) != NULL) free(a); (a) = NULL;
+# ifndef T_BOOL
+#  define T_BOOL
+typedef enum
+{
+	false,
+	true
+}	t_bool;
+# endif
+
+# ifndef BOOL_INT
+#  define BOOL_INT
+#  define TRUE 1
+#  define FALSE 0
+# endif
+
 void				ft_print_color(char *str, char *color);
 void				ft_print_till(char *str, char c);
 char				*ft_strjoinfree(int free1, char *s1, int free2, char *s2);
@@ -146,4 +162,5 @@ void				ft_lstadd(t_list **alst, t_list *new);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 void				ft_lstadd_rev(t_list **start, t_list *new);
+long				ft_atoli(const char *str);
 #endif
