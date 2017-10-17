@@ -1,0 +1,8 @@
+#!/bin/bash
+
+make
+./asm $1.s
+
+./corewar -v 2 $1.cor | awk '{v[c++]=$0}END{print v[c-2]}'
+echo "============================"
+./vm $1.cor

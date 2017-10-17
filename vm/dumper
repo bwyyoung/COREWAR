@@ -1,0 +1,7 @@
+#!/bin/bash
+
+make
+./asm $1.s
+./vm -d $2 $1.cor > ft
+./corewar -d $2 $1.cor > cp
+diff ft cp
