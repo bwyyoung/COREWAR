@@ -1,4 +1,4 @@
 #!/bin/bash
 
-./asm $1.s; make; ./vm $1.cor
+./asm ../champions/$1.s; make; ./vm ../champions/$1.cor
 
