@@ -12,20 +12,20 @@
 
 #include "vm.h"
 
-void	parse_flags(t_env *e, int args, char **av)
+void	parse_flags(t_env *e, int argc, char **argv)
 {
 	int	i;
 
 	i = 1;
 	e->num_players = 0;
-	if (ft_strequ(av[i], "-dump"))
-		capture_number(e, av[i + 1], &i, args);
-	else if (ft_strequ(av[i], "-visual"))
-		add_bonus(e, args, &i);
-	while (i < args)
+	if (ft_strequ(argv[i], "-dump"))
+		capture_number(e, argv[i + 1], &i, argc);
+	else if (ft_strequ(argv[i], "-visual"))
+		add_bonus(e, argc, &i);
+	while (i < argc)
 	{
-		if (ft_strequ(av[i], "-n"))
-			add_player_with_number(e, av[i + 1], args, &i);
+		if (ft_strequ(argv[i], "-n"))
+			add_player_with_number(e, argv[i + 1], argc, &i);
 		else
 			add_player_empty(e, &i, e->num_players);
 		e->num_players += 1;

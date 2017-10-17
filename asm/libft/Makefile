@@ -101,6 +101,7 @@ SRCS = $(SDIR)/ft_atoi.c \
 	   $(SDIR)/ft_strtrim.c \
 	   $(SDIR)/ft_tolower.c \
 	   $(SDIR)/ft_toupper.c \
+	   $(SDIR)/ft_atoli.c \
 	   $(SDIR)/get_next_line.c
 
 PFSRCS = $(SDIRPF)/ft_printf.c \

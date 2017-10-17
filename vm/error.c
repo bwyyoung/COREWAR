@@ -22,13 +22,10 @@ void	clean_head(t_cursor *head)
 		{
 			temp = head;
 			head = head->next;
-			free(temp);
+			SAFE_DELETE(temp);
 		}
 		if (head->counter)
-		{
-			free(head);
-			head = NULL;
-		}
+			SAFE_DELETE(head);
 	}
 }
 
@@ -39,9 +36,9 @@ void		print_instructions(void)
 	ft_printf("-a        : Prints output from \"aff\" (Default is to hide it)");
 	ft_printf("\n#### TEXT OUTPUT MODE #######################################"
 		"###################\n");
-	ft_printf("\t-d N    : Dumps memory after N cycles then exits\n");
-	ft_printf("\t-s N    : Runs N cycles, dumps memory, pauses, then repeats\n");
-	ft_printf("\t-v N    : Verbosity levels, can be added together to enable "
+	ft_printf("\t-d N   : Dumps memory after N cycles then exits\n");
+	ft_printf("\t-s N   : Runs N cycles, dumps memory, pauses, then repeats\n");
+	ft_printf("\t-v N   : Verbosity levels, can be added together to enable "
 		"several\n");
 	ft_printf("\t\t- 0 : Show only essentials\n");
 	ft_printf("\t\t- 1 : Show lives\n");
@@ -126,4 +123,5 @@ void	error_exit(t_env *e, int i)
 		ft_error_msg(i);
 	else if (i > 10)
 		ft_error_msg_2(i);
+	exit(1);
 }

@@ -16,14 +16,12 @@ long	find_next_value(t_env *e)
 {
 	long		i;
 
-	i = smallest_number(e);
-	i++;
+	i = smallest_number(e) + 1;
 	while (loop_duplicate(e, i))
 	{
 		if (i == INT_MAX)
 			error_exit(e, 7);
-		else
-			i++;
+		i++;
 	}
 	return (i);
 }
@@ -49,7 +47,7 @@ void	capture_number(t_env *e, char *nbr, int *i, int args)
 
 void	add_player_with_number(t_env *e, char *nbr, int args, int *i)
 {
-	long	temp;
+	long	long_num;
 	int		players;
 
 	players = e->num_players;
@@ -58,12 +56,12 @@ void	add_player_with_number(t_env *e, char *nbr, int args, int *i)
 	check_number(e, nbr);
 	if (ft_strlen(nbr) > 15)
 		error_exit(e, 7);
-	temp = ft_atoli(nbr);
-	if (temp > INT_MAX || temp < INT_MIN)
+	long_num = ft_atoli(nbr);
+	if (long_num > INT_MAX || long_num < INT_MIN)
 		error_exit(e, 15);
-	if (loop_duplicate(e, temp))
+	if (loop_duplicate(e, long_num))
 		error_exit(e, 9);
-	e->player[players].prog_num = temp;
+	e->player[players].prog_num = long_num;
 	*i += 2;
 	e->player[players].file_pos = *i;
 }

@@ -16,6 +16,23 @@
 # include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
+
+# define SAFE_DELETE(a) if((a) != NULL) free(a); (a) = NULL;
+# ifndef T_BOOL
+#  define T_BOOL
+typedef enum
+{
+	false,
+	true
+}	t_bool;
+# endif
+# define ABS(value)  (value > 0 ? value : -value)
+# ifndef BOOL_INT
+#  define BOOL_INT
+#  define TRUE 1
+#  define FALSE 0
+# endif
+
 # define FT_MIN(x, y) (x) < (y) ? (x) : (y)
 # define FT_MAX(x, y) (x) > (y) ? (x) : (y)
 
@@ -105,5 +122,6 @@ char			**ft_split_whitespaces(char *str);
 size_t			ft_lstsize(t_list **lst);
 int				get_next_line(int fd, char **line);
 int				ft_printf(const char *format, ...);
+long			ft_atoli(const char *str);
 
 #endif

@@ -22,8 +22,8 @@ void	add_bonus(t_env *e, int args, int *i)
 
 long	smallest_number(t_env *e)
 {
-	int i;
-	long small;
+	int			i;
+	long		small;
 
 	i = 0;
 	small = e->player[i].prog_num;
@@ -35,7 +35,7 @@ long	smallest_number(t_env *e)
 
 void	check_number(t_env *e, char *nbr)
 {
-	int		i;
+	int			i;
 
 	i = -1;
 	while (nbr[++i])

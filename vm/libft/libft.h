@@ -40,7 +40,7 @@ typedef enum
 	true
 }	t_bool;
 # endif
-
+# define ABS(value)  (value > 0 ? value : -value)
 # ifndef BOOL_INT
 #  define BOOL_INT
 #  define TRUE 1
