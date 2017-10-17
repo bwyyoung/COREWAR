@@ -16,8 +16,8 @@ long	find_next_value(t_env *e)
 {
 	long		i;
 
-	i = smallest_number(e) + 1;
-	while (loop_duplicate(e, i))
+	i = get_smallest_number(e) + 1;
+	while (check_duplicate(e, i))
 	{
 		if (i == INT_MAX)
 			error_exit(e, 7);
@@ -26,7 +26,7 @@ long	find_next_value(t_env *e)
 	return (i);
 }
 
-void	capture_number(t_env *e, char *nbr, int *i, int args)
+void	get_long_number(t_env *e, char *nbr, int *i, int args)
 {
 	long		temp;
 
@@ -59,7 +59,7 @@ void	add_player_with_number(t_env *e, char *nbr, int args, int *i)
 	long_num = ft_atoli(nbr);
 	if (long_num > INT_MAX || long_num < INT_MIN)
 		error_exit(e, 15);
-	if (loop_duplicate(e, long_num))
+	if (check_duplicate(e, long_num))
 		error_exit(e, 9);
 	e->player[players].prog_num = long_num;
 	*i += 2;

@@ -20,7 +20,7 @@ void	add_bonus(t_env *e, int args, int *i)
 	*i += 1;
 }
 
-long	smallest_number(t_env *e)
+long	get_smallest_number(t_env *e)
 {
 	int			i;
 	long		small;
@@ -43,7 +43,7 @@ void	check_number(t_env *e, char *nbr)
 			error_exit(e, 14);
 }
 
-t_bool	loop_duplicate(t_env *e, long nbr)
+t_bool	check_duplicate(t_env *e, long nbr)
 {
 	long		k;
 

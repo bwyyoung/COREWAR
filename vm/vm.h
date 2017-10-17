@@ -180,10 +180,10 @@ void				op_aff(t_env *env, t_process *process, uint32_t pc);
 void				print_instructions(void);
 void				error_exit(t_env *e, int i);
 void				add_bonus(t_env *e, int args, int *i);
-t_bool				loop_duplicate(t_env *e, long nbr);
+t_bool				check_duplicate(t_env *e, long nbr);
 void				check_number(t_env *e, char *nbr);
-long				smallest_number(t_env *e);
-void				capture_number(t_env *e, char *nbr, int *i, int args);
+long				get_smallest_number(t_env *e);
+void				get_long_number(t_env *e, char *nbr, int *i, int args);
 void				add_player_with_number(t_env *e, char *nbr, int args,
 					int *i);
 void				add_player_empty(t_env *e, int *i, int players);
