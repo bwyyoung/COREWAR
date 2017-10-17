@@ -59,7 +59,7 @@ void		print_instructions(void)
 }
 
 
-void	ft_error_msg_2(int i)
+void	error_msg_2(int i)
 {
 	if (i == 11)
 		ft_putstr_fd("\x1b[31m[Too few arguments for -dump]\x1b[0m ", 2);
@@ -87,7 +87,7 @@ void	ft_error_msg_2(int i)
 	exit(1);
 }
 
-void	ft_error_msg(int i)
+void	error_msg(int i)
 {
 	if (i == 1)
 		ft_putstr_fd("\x1b[31m[Failed to open]\x1b[0m ", 2);
@@ -120,8 +120,8 @@ void	error_exit(t_env *e, int i)
 	if (e->head)
 		clean_head(e->head);
 	if (i > 0 && i < 11)
-		ft_error_msg(i);
+		error_msg(i);
 	else if (i > 10)
-		ft_error_msg_2(i);
+		error_msg_2(i);
 	exit(1);
 }
