@@ -25,7 +25,7 @@ void	parse_flags(t_env *e, int args, char **av)
 	while (i < args)
 	{
 		if (ft_strequ(av[i], "-n"))
-			add_player_w_nbr(e, av[i + 1], args, &i);
+			add_player_with_number(e, av[i + 1], args, &i);
 		else
 			add_player_empty(e, &i, e->num_players);
 		e->num_players += 1;

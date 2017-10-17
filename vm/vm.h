@@ -22,7 +22,6 @@
 # include <stdio.h>
 # define LABEL_NUMBERS "-0123456789"
 
-
 enum
 {
 	zero,
@@ -185,6 +184,7 @@ t_bool				loop_duplicate(t_env *e, long nbr);
 void				check_number(t_env *e, char *nbr);
 long				smallest_number(t_env *e);
 void				capture_number(t_env *e, char *nbr, int *i, int args);
-void				add_player_w_nbr(t_env *e, char *nbr, int args, int *i);
+void				add_player_with_number(t_env *e, char *nbr, int args,
+					int *i);
 void				add_player_empty(t_env *e, int *i, int players);
 #endif

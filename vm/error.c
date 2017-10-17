@@ -46,7 +46,7 @@ void		print_instructions(void)
 	ft_printf("\t\t- 0 : Show only essentials\n");
 	ft_printf("\t\t- 1 : Show lives\n");
 	ft_printf("\t\t- 2 : Show cycles\n");
-	ft_printf("\t\t- 4 : Show operations (Params are NOT litteral ...)\n");
+	ft_printf("\t\t- 4 : Show operations (Params are NOT literal ...)\n");
 	ft_printf("\t\t- 8 : Show deaths\n");
 	ft_printf("\t\t- 16 : Show PC movements (Except for jumps)\n");
 	ft_printf("#### BINARY OUTPUT MODE ########################################"

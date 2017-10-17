@@ -47,7 +47,7 @@ void	capture_number(t_env *e, char *nbr, int *i, int args)
 	*i += 1;
 }
 
-void	add_player_w_nbr(t_env *e, char *nbr, int args, int *i)
+void	add_player_with_number(t_env *e, char *nbr, int args, int *i)
 {
 	long	temp;
 	int		players;
