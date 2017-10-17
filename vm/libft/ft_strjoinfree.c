@@ -32,8 +32,8 @@ char	*ft_strjoinfree(int free1, char *s1, int free2, char *s2)
 		joined[i++] = s2[ii++];
 	joined[i] = '\0';
 	if (free1)
-		free(s1);
+		SAFE_DELETE(s1);
 	if (free2)
-		free(s2);
+		SAFE_DELETE(s2);
 	return (joined);
 }

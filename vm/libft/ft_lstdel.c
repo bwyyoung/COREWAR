@@ -20,7 +20,7 @@ void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 	{
 		tmp = (*alst)->next;
 		ft_lstdelone(&(*alst), del);
-		free(*alst);
+		SAFE_DELETE(*alst);
 		*alst = tmp;
 	}
 }

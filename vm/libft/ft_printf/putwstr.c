@@ -45,10 +45,10 @@ size_t		ft_putwstr(wchar_t *str, t_id *id)
 	{
 		tmp = ft_putwchar(*str++, id);
 		ft_strcat(result, tmp);
-		free(tmp);
+		SAFE_DELETE(tmp);
 	}
 	len = ft_printstr(result, id);
-	free(result);
+	SAFE_DELETE(result);
 	return (len);
 }
 

@@ -24,6 +24,6 @@ void	btree_free(t_btree **root, void (*free_item)(void*))
 	if (r->right)
 		btree_free(&r->right, free_item);
 	free_item(r->item);
-	free(r);
+	SAFE_DELETE(r);
 	*root = NULL;
 }

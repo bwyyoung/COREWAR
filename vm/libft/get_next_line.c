@@ -55,7 +55,7 @@ static int		read_and_enqueue(int fd, t_queue *q)
 			if (buffer[i] == '\n')
 				new_line = 1;
 		}
-		free(buffer);
+		SAFE_DELETE(buffer);
 	}
 	return (read_return);
 }
@@ -70,7 +70,7 @@ static char		dequeue(t_queue *q)
 	c = q->head->value;
 	tmp = q->head;
 	q->head = q->head->next;
-	free(tmp);
+	SAFE_DELETE(tmp);
 	return (c);
 }
 

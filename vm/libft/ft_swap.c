@@ -21,5 +21,5 @@ void	ft_swap(void *a, void *b, int size)
 	ft_memcpy(temp, a, size);
 	ft_memcpy(a, b, size);
 	ft_memcpy(b, temp, size);
-	free(temp);
+	SAFE_DELETE(temp);
 }

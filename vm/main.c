@@ -66,6 +66,6 @@ int			main(int argc, char *argv[])
 	declare_winner(env);
 	ft_printf("cycle_to_die %d\n", env->cycle_to_die);
 	ft_printf("total cycles %d\n", env->total_cycles);
-	free(board);
+	SAFE_DELETE(board);
 	return (0);
 }

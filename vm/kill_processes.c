@@ -14,8 +14,8 @@
 
 static void		free_node(t_list *node)
 {
-	free(node->content);
-	free(node);
+	SAFE_DELETE(node->content);
+	SAFE_DELETE(node);
 }
 
 t_list			*kill_processes(t_env *env)

@@ -21,6 +21,6 @@ int	ft_putstrfree(char *str)
 		return (0);
 	while (str[len])
 		ft_putchar(str[len++]);
-	free(str);
+	SAFE_DELETE(str);
 	return (len);
 }

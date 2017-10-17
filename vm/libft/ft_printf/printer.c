@@ -34,7 +34,7 @@ static int		function_caller(char c, size_t num, t_id *id, va_list ap)
 	len += (c == 'S' || (c == 's' && id->e_length == l))
 			? ft_putwstr(va_arg(ap, wchar_t*), id) : 0;
 	if (tmp)
-		free(tmp);
+		SAFE_DELETE(tmp);
 	return (len);
 }
 
@@ -69,8 +69,8 @@ int				ft_printer(char *format, t_id *id, va_list ap)
 			;
 		tmp = id;
 		id = id->next;
-		free(tmp);
+		SAFE_DELETE(tmp);
 	}
-	free(id);
+	SAFE_DELETE(id);
 	return (len);
 }

@@ -74,7 +74,7 @@ static	int		sign_adder(t_id *id, int minus, char *nbr, int len)
 		{
 			joined = ft_strjoin(get_sign(minus, id), nbr);
 			len += ft_putstrfree(padding(joined, id, len));
-			free(joined);
+			SAFE_DELETE(joined);
 		}
 	}
 	else
@@ -104,7 +104,7 @@ int				ft_print_nbr(char *nbr, t_id *id)
 	if (id->space && ft_strchr("di", id->specifier) && !minus && !id->plus)
 		len = write(1, " ", 1);
 	len = sign_adder(id, minus, nbr, len);
-	free(prec);
+	SAFE_DELETE(prec);
 	return (len);
 }
 
@@ -123,6 +123,6 @@ int				ft_base(size_t n, char c, t_id *id)
 	tmp = ft_itoa_base(n, base);
 	len = ft_print_nbr(tmp, id);
 	if (tmp)
-		free(tmp);
+		SAFE_DELETE(tmp);
 	return (len);
 }

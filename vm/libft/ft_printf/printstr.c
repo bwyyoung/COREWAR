@@ -25,6 +25,6 @@ int		ft_printstr(char *str, t_id *id)
 	if (!tmp)
 		exit(-1);
 	len = ft_putstrfree(padding(tmp, id, 0));
-	free(tmp);
+	SAFE_DELETE(tmp);
 	return (len);
 }

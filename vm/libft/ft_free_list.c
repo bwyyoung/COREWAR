@@ -14,8 +14,8 @@
 
 static void	free_node(t_list *node)
 {
-	free(node->content);
-	free(node);
+	SAFE_DELETE(node->content);
+	SAFE_DELETE(node);
 }
 
 void		ft_free_list(t_list *start)

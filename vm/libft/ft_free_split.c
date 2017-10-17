@@ -18,6 +18,6 @@ void		ft_free_split(char **split)
 
 	i = 0;
 	while (split[i])
-		free(split[i++]);
-	free(split);
+		SAFE_DELETE(split[i++]);
+	SAFE_DELETE(split);
 }
