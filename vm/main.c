@@ -19,7 +19,7 @@ void	parse_flags(t_env *e, int argc, char **argv)
 	i = 1;
 	e->num_players = 0;
 	if (ft_strequ(argv[i], "-dump"))
-		get_long_number(e, argv[i + 1], &i, argc);
+		get_dump_number(e, argv[i + 1], &i, argc);
 	else if (ft_strequ(argv[i], "-visual"))
 		add_bonus(e, argc, &i);
 	while (i < argc)

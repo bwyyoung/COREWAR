@@ -12,7 +12,7 @@
 
 #include "vm.h"
 
-long	find_next_value(t_env *e)
+long	find_next_player_value(t_env *e)
 {
 	long		i;
 
@@ -26,7 +26,7 @@ long	find_next_value(t_env *e)
 	return (i);
 }
 
-void	get_long_number(t_env *e, char *nbr, int *i, int args)
+void	get_dump_number(t_env *e, char *nbr, int *i, int args)
 {
 	long		temp;
 
@@ -73,7 +73,7 @@ void	add_player_empty(t_env *e, int *i, int players)
 	if (players == 0)
 		value = 1;
 	else
-		value = find_next_value(e);
+		value = find_next_player_value(e);
 	e->player[players].prog_num = value;
 	e->player[players].file_pos = *i;
 }
