@@ -20,7 +20,7 @@ void	add_bonus(t_env *e, int args, int *i)
 	*i += 1;
 }
 
-long	get_smallest_number(t_env *e)
+long	get_smallest_player_id(t_env *e)
 {
 	int			i;
 	long		small;
@@ -33,7 +33,7 @@ long	get_smallest_number(t_env *e)
 	return (small);
 }
 
-void	check_number(t_env *e, char *nbr)
+void	check_flag_number_valid(t_env *e, char *nbr)
 {
 	int			i;
 
@@ -43,7 +43,7 @@ void	check_number(t_env *e, char *nbr)
 			error_exit(e, 14);
 }
 
-t_bool	check_duplicate(t_env *e, long nbr)
+t_bool	check_duplicate_player(t_env *e, long nbr)
 {
 	long		k;
 
