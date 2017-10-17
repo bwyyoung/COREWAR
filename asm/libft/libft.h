@@ -6,7 +6,7 @@
 /*   By: ppatel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/21 11:20:39 by ppatel            #+#    #+#             */
-/*   Updated: 2017/01/20 18:51:37 by ppatel           ###   ########.fr       */
+/*   Updated: 2017/10/17 17:31:36 by ppatel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define SAFE_DELETE(a) if((a) != NULL) free(a); (a) = NULL;
 # ifndef T_BOOL
 #  define T_BOOL
+
 typedef enum
 {
 	false,

@@ -6,63 +6,58 @@
 /*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 13:47:13 by ppatel            #+#    #+#             */
-/*   Updated: 2017/10/15 17:16:25 by ppatel           ###   ########.fr       */
+/*   Updated: 2017/10/17 17:55:17 by ppatel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
-#include <stdio.h>
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include "../includes/op.h"
 #include "../includes/asm.h"
 
-void	print_tokens(t_env *env)
-{
-	t_token		*token;
+// void	print_tokens(t_env *env)
+// {
+// 	t_token		*token;
 
-	token = env->token;
-	while (token)
-	{
-		ft_printf("[line:col] = [%d:%d], Type : '%d', Value : '%s'\n", 
-		token->pos->line, token->pos->col, token->type, token->value);
-		token = token->next;
-	}
-}
+// 	token = env->token;
+// 	while (token)
+// 	{
+// 		ft_printf("[line:col] = [%d:%d], Type : '%d', Value : '%s'\n", 
+// 		token->pos->line, token->pos->col, token->type, token->value);
+// 		token = token->next;
+// 	}
+// }
 
-void	print_labels(t_env *env)
-{
-	t_label		*label;
-	int			i = 0;
+// void	print_labels(t_env *env)
+// {
+// 	t_label		*label;
+// 	int			i = 0;
 
-	while (i < env->label_count)
-	{
-		label = env->labels[i];
-		ft_printf("[line:col] = [%d:%d], LABEL : '%s', Addr : '%d'\n", 
-		label->name->pos->line, label->name->pos->col, label->name->value, label->addr);
-		i++;
-	}
-}
+// 	while (i < env->label_count)
+// 	{
+// 		label = env->labels[i];
+// 		ft_printf("[line:col] = [%d:%d], LABEL : '%s', Addr : '%d'\n", 
+// 		label->name->pos->line, label->name->pos->col, label->name->value, label->addr);
+// 		i++;
+// 	}
+// }
 
-void	print_inst(t_env *env)
-{
-	t_inst		*inst;
-	int			i = 0;
+// void	print_inst(t_env *env)
+// {
+// 	t_inst		*inst;
+// 	int			i = 0;
 
-	inst = env->inst;
-	while (inst)
-	{
-		ft_printf("%d\n", i++);
-		// if (inst->label)
-		// 	ft_printf("LABEL: '%s', ", inst->label->name->value);
-		// else
-		// 	ft_printf("NO LABEL, ");
-		ft_printf("OPCODE = '%d', Type : '%d', size : '%d', pcount : '%d', params : '%s', line[%d:%d]\n", 
-		inst->opcode, inst->type, inst->size, inst->pcount, inst->params->value, inst->params->pos->line, inst->params->pos->col);
-		inst = inst->next;
-	}
-}
+// 	inst = env->inst;
+// 	while (inst)
+// 	{
+// 		ft_printf("%d\n", i++);
+// 		ft_printf("OPCODE = '%d', Type : '%d', size : '%d', pcount : '%d', params : '%s', line[%d:%d]\n", 
+// 		inst->opcode, inst->type, inst->size, inst->pcount, inst->params->value, inst->params->pos->line, inst->params->pos->col);
+// 		inst = inst->next;
+// 	}
+// }
 
 char	*ft_strndup(const char *src, size_t len)
 {
@@ -125,30 +120,6 @@ void		ft_exit(char *str)
 	exit(-1);
 }
 
-// void		ft_check_header(int fd, t_env *env)
-// {
-// 	char	*line;
-// 	int		i;
-
-// 	i = 0;
-// 	while(get_next_line(fd, &line) > 0)
-// 	{
-// 		env->line = env->line + 1;
-// 		while(line && line[i] && (line[i] == ' ' || line[i] == '\t'))
-// 			i++;
-// 		if (line[i] != '.' && line[i] != '\0')
-// 		{
-// 			ft_printf("Lexical error [%d:%d]", env->line, i);
-// 			ft_exit("");
-// 		}
-// 		else if (ft_strstr(line + i, NAME_CMD_STRING))
-// 		{
-// 			creat
-// 		}
-// 		free(line);
-// 	}
-// }
-
 t_token		*create_token(t_env *env, int *col, char type, char *value)
 {
 	t_token		*token;
@@ -159,7 +130,7 @@ t_token		*create_token(t_env *env, int *col, char type, char *value)
 		return NULL;
 	token->pos->line = env->line;
 	token->pos->col = *col + 1;
-	token->type = type;							//ft_strdup(type);
+	token->type = type;
 	token->value = ft_strdup(value);
 	token->next = NULL;
 	*col = *col + ft_strlen(value);
@@ -179,7 +150,7 @@ void		add_token(t_env *env, int *col, char type, char *value)
 	env->last = token;
 }
 
-void		check_command(t_env *env, char *line, int *col)//, int *quotation)
+void		check_command(t_env *env, char *line, int *col)
 {
 	if (ft_strstr(line + *col, NAME_CMD_STRING))
 		add_token(env, col, '.', NAME_CMD_STRING);
@@ -198,15 +169,12 @@ void		check_quotation(t_env *env, char *line, int *col, int *quotation)
 	char	*str;
 
 	j = 0;
-	if (*quotation == 0)
-		*col = *col + 1;
-	// *quotation = 1;
+	*col = *quotation == 0 ? *col + 1 : *col;
 	while (line[*col + j] && line[*col + j] != '"')
 		j++;
 	str = ft_strndup(line + *col, j);
 	if (*quotation == 1)
 	{
-		// printf("Quotation : 1\n");
 		env->last->value = ft_concat(env->last->value, "\n");
 		env->last->value = ft_concat(env->last->value, str);
 		*col = *col + j;
@@ -221,40 +189,35 @@ void		check_quotation(t_env *env, char *line, int *col, int *quotation)
 		*quotation = 0;
 		*col = *col + 1;
 	}
-	// printf("Quotation : 0000%d	line: '%s'\n", *quotation, line);
-	// 	ft_printf("[line:col] = [%d:%d], Type : '%s', Value : '%s'\n", 
-	// 	env->last->pos->line, env->last->pos->col, env->last->type, env->last->value);
 	free(str);
 }
 
-void		check_direct(t_env *env, char *line, int *col)//, int *quotation)
+void		check_direct(t_env *env, char *line, int *col)
 {
 	int		j;
 	char	*str;
 
-	j = 0;
+	j = 1;
 	*col = *col + 1;
-	if (line[*col] == LABEL_CHAR)
+	if (line[*col] == LABEL_CHAR && ft_strchr(LABEL_CHARS, line[*col + 1]))
 	{
-		// *col = *col + 1;
-		// while (line[*col + j] && line[*col + j] != LABEL_CHAR &&
-		// line[*col + j] != SEPARATOR_CHAR && line[*col + j] != COMMENT_CHAR && 
-		// line[*col + j] != DIRECT_CHAR && 
-		// line[*col + j] != ' ' && line[*col + j] != '\t')
-		while (line[*col + j + 1] && ft_strchr(LABEL_CHARS, line[*col + j + 1]))
+		while (line[*col + j] && ft_strchr(LABEL_CHARS, line[*col + j]))
 			j++;
-		str = ft_strndup(line + *col, j + 1);
-		add_token(env, col, T_DIR, str);
+	}
+	else if ((line[*col] == '-' && ft_isdigit(line[*col + 1])) ||
+	 ft_isdigit(line[*col]))
+	{
+		j = line[*col] == '-' ? 1 : 0;
+		while (line[*col + j] && ft_isdigit(line[*col + j]))
+			j++;
 	}
 	else
 	{
-		if (line[*col + j] == '-')
-			j++;
-		while (line[*col + j] && ft_isdigit(line[*col + j]))
-			j++;
-		str = ft_strndup(line + *col, j);
-		add_token(env, col, T_DIR, str);
+		ft_printf("Lexical error at [%d:%d].", env->line, *col);
+		ft_exit("");
 	}
+	str = ft_strndup(line + *col, j);
+	add_token(env, col, T_DIR, str);
 	free(str);
 }
 
@@ -264,9 +227,13 @@ void		check_label(t_env *env, char *line, int *col, int j)
 
 	if (j == 0)
 	{
-		// *col = *col + 1;
 		while (ft_strchr(LABEL_CHARS, line[*col + j + 1]))
 			j++;
+		if (j == 0)
+		{
+			ft_printf("Lexical error at [%d:%d].", env->line, *col + 1);
+			ft_exit("");
+		}
 		str = ft_strndup(line + *col, j + 1);
 		add_token(env, col, T_IND, str);
 	}
@@ -295,8 +262,8 @@ int			check_op_by_name(char *name)
 
 void		check_op_reg(t_env *env, int *col, char *str)
 {
-	int		nb;
-	int		i;
+	int			nb;
+	size_t		i;
 
 	nb = 0;
 	i = 0;
@@ -309,27 +276,29 @@ void		check_op_reg(t_env *env, int *col, char *str)
 		nb = ft_atoi(str + 1);
 		if (nb > 0 && nb <= REG_NUMBER)
 			add_token(env, col, T_REG, str);
+		else
+		{
+			ft_printf("Lexical error at [%d:%d].", env->line, *col + 1);
+			ft_exit("");
+		}
 	}
 	else if (i == ft_strlen(str))
 		add_token(env, col, T_IND, str);
 	else
-	{
 		add_token(env, col, 0, str);
-		// ft_printf("Lexical error at [%d:%d].", env->line, *col + 1);
-		// ft_exit("");
-	}
 }
 
 void		check_token(t_env *env, char *line, int *col, int j)
 {
 	char	*str;
 
+	str = NULL;
 	if (j != 0)
 	{
 		str = ft_strndup(line + *col, j);
-		check_op_reg(env, col, str);// "TOKEN", str);
+		check_op_reg(env, col, str);
 	}
-	else if (j == 0 && line[*col + j] == '-')
+	else if (j == 0 && line[*col] == '-' && ft_isdigit(line[*col + 1]))
 	{
 		j++;
 		while (ft_isdigit(line[*col + j]))
@@ -352,34 +321,17 @@ void		generate_token(t_env *env, char *line, int *col, int *quotation)
 	j = 0;
 	if (line[*col] == '"' || *quotation == 1)
 		check_quotation(env, line, col, quotation);
-	// if (line[*col] == '.' && ft_strstr(line + col, NAME_CMD_STRING))
-	// {
-	// 	add_token(env, col, "CMD", NAME_CMD_STRING);
-	// 	// *col = *col + ft_strlen(NAME_CMD_STRING);
-	// }
-	// else if (line[*col] == '.' && ft_strstr(line + col, COMMENT_CMD_STRING))
-	// {
-	// 	add_token(env, col, "CMD", COMMENT_CMD_STRING);
-	// 	// *col = *col + ft_strlen(COMMENT_CMD_STRING);
-	// }
 	else if (line[*col] == '.')
-		check_command(env, line, col);//, quotation);
-		// ft_exit("Lexical error");
-	// else if (line[*col] == LABEL_CHAR)
-	// 	add_token(env, col, "LABEL_CHAR", ":");
+		check_command(env, line, col);
 	else if (line[*col] == SEPARATOR_CHAR)
 		add_token(env, col, SEPARATOR_CHAR, ",");
 	else if (line[*col] == DIRECT_CHAR)
-		check_direct(env, line, col);//, quotation);
+		check_direct(env, line, col);
 	else if (line[*col] == COMMENT_CHAR || line[*col] == ';')
 		while (line[*col])
 			*col = *col + 1;
 	else
 	{
-		// while (line[*col + j] && line[*col + j] != LABEL_CHAR &&
-		// line[*col + j] != SEPARATOR_CHAR && line[*col + j] != COMMENT_CHAR && 
-		// line[*col + j] != DIRECT_CHAR && 
-		// line[*col + j] != ' ' && line[*col + j] != '\t')
 		while (line[*col + j] && ft_strchr(LABEL_CHARS, line[*col + j]))
 			j++;
 		if (line[*col + j] == LABEL_CHAR)
@@ -402,23 +354,67 @@ void		lexical_analyser(int fd, t_env *env)
 		env->line = env->line + 1;
 		if (!line[i] && quotation)
 			env->last->value = ft_concat(env->last->value, "\n");
-		// printf("[%d]	'%s'\n", env->line, line);
 		while (line && line[i])
 		{
 			while(line[i] && !quotation && (line[i] == ' ' || line[i] == '\t'))
 				i++;
 			if (line[i])
 				generate_token(env, line, &i, &quotation);
-			// if (line[i] == '.')
-			// {
-			// 	if (ft_strstr(line + i, NAME_CMD_STRING) || 
-			// 	ft_strstr(line + i, COMMENT_CMD_STRING))
-			// 		add_token(token, line + i)
-			// }
-			// i = i + ret;
 		}
 		free(line);
 	}
+}
+
+void		free_tokens(t_token *token)
+{
+	t_token		*tmp;
+
+	while (token)
+	{
+		free(token->pos);
+		free(token->value);
+		tmp = token->next;
+		free(token);
+		token = tmp;
+	}
+}
+
+void		free_labels(t_label **labels, int count)
+{
+	int		i;
+
+	i = 0;
+	while (i < count)
+		free(labels[i++]);
+	free(labels);
+}
+
+void		free_inst(t_inst *inst)
+{
+	t_inst	*tmp;
+
+	while (inst)
+	{
+		tmp = inst->next;
+		free(inst);
+		inst = tmp;
+	}
+}
+
+void		free_env(t_env *env)
+{
+	if (env->header)
+		free(env->header);
+	if (env->token)
+		free_tokens(env->token);
+	if	(env->labels)
+		free_labels(env->labels, env->label_count);
+	if (env->inst)
+		free_inst(env->inst);
+	if (env->str)
+		free(env->str);
+	if (env->filename)
+		free(env->filename);
 }
 
 void		init_env(t_env *env)
@@ -430,103 +426,78 @@ void		init_env(t_env *env)
 	env->last = NULL;
 	env->labels = NULL;
 	env->inst = NULL;
+	env->str = NULL;
+	env->filename = NULL;
 	env->label_count = 0;
-	// if (!(env->symbol = (t_symbol)malloc(sizeof(t_symbol))))
-	// 	ft_exit("Malloc Error.");
-	// init_symbol(env->symbol);
 }
 
-void		syntax_error(t_token *token)
+void		syntax_error(t_token *token, t_env *env)
 {
 	if (token)
 		ft_printf("Syntax error at token [%d:%d] %d '%s'", 
 		token->pos->line, token->pos->col, token->type, token->value);
 	else
 		ft_printf("Syntax error at END '(NULL)'");
-	// free_env();
+	free_env(env);
 	ft_exit("");
 }
 
-t_token		*syntax_header(t_token *token)
+t_token		*syntax_header(t_token *token, t_env *env)
 {
 	if (ft_strcmp(token->value, NAME_CMD_STRING))
-		syntax_error(token);
+		syntax_error(token, env);
 	token = token->next;
-	if (token->type != 32)//(ft_strcmp(token->type, "STRING"))
-		syntax_error(token);
+	if (token->type != 32)
+		syntax_error(token, env);
 	token = token->next;
 	if (ft_strcmp(token->value, COMMENT_CMD_STRING))
-		syntax_error(token);
+		syntax_error(token, env);
 	token = token->next;
-	if (token->type != 32)//(ft_strcmp(token->type, "STRING"))
-		syntax_error(token);
+	if (token->type != 32)
+		syntax_error(token, env);
 	if (!token->next)
-		syntax_error(NULL);
+		syntax_error(NULL, env);
 	return (token->next);
 }
 
 
-t_token		*syntax_instruction(t_token *token)
+t_token		*syntax_instruction(t_token *token, t_env *env)
 {
 	int		line;
 
-	if (token && token->type == T_LAB)//!ft_strcmp(token->type, "LABEL"))
-		token = token->next;
-	if (token && token->type == T_LAB)//!ft_strcmp(token->type, "LABEL"))
+	token = token->type == T_LAB ? token->next : token;
+	if (token && token->type == T_LAB)
 		return(token);
-	if (!token || token->type != 16)//ft_strcmp(token->type, "OPCODE"))
-		syntax_error(token);
+	if (!token || token->type != 16)
+		syntax_error(token, env);
 	line = token->pos->line;
 	token = token->next;
-	// if (!token || (ft_strcmp(token->type, "TOKEN") && 
-	// ft_strcmp(token->type, "DIRECT_LABEL") && ft_strcmp(token->type, "INDIRECT_LABEL")))
 	if (!token || (token->type != T_REG && token->type != T_DIR
-		 && token->type != T_IND))//(ft_strcmp(token->type, "REG") && !ft_strstr(token->type, "DIRECT")))
-		syntax_error(token);
+		 && token->type != T_IND))
+		syntax_error(token, env);
 	token = token->next;
 	while (token && token->pos->line == line)
 	{
 		if (!token || token->value[0] != SEPARATOR_CHAR ||
 			 !token->next || token->next->pos->line != line)
-			syntax_error(token);
+			syntax_error(token, env);
 		token = token->next;
-		// if (!token || token->pos->line != line)
-		// 	syntax_error(NULL);
-		if (!token || (token->type != T_REG && token->type != T_DIR
-			&& token->type != T_IND))//(ft_strcmp(token->type, "REG") && !ft_strstr(token->type, "DIRECT")))
-			syntax_error(token);
+		if (!token || (token->type != T_REG && token->type != T_DIR &&
+			 token->type != T_IND))
+			syntax_error(token, env);
 		token = token->next;
 	}
-	// if (ft_strcmp(token->type, "STRING"))
-	// 	syntax_error(token);
-	// if (!token->next)
-	// 	syntax_error(NULL);
 	return (token);
 }
 
-// t_token		*syntax_analyser(t_token *token, t_env *env)
-// {
-// 	int		line;
-
-// 	line = token->pos->line;
-// 	while (token && token->pos->line == line)
-// 	{
-// 		while (token && !ft_strcmp(token->type, "LABEL"))
-// 			add_label(token);
-// 			// token = token->next;
-// 	}
-// 	return (token);
-// }
-
 void		init_label(t_env *env, t_token *token)
 {
-	t_label		*label;
 	int			count;
 
 	count = 0;
 	while (token)
 	{
-		if (token->type == T_LAB)//(!ft_strcmp(token->type, "LABEL"))
+		if (token->type == T_LAB)
 			count++;
 		token = token->next;
 	}
@@ -545,23 +516,21 @@ t_inst		*init_inst()
 	inst->type = 0;
 	inst->pcount = 0;
 	inst->params = NULL;
-	// inst->p1 = NULL;
-	// inst->p2 = NULL;
-	// inst->p3 = NULL;
 	inst->next = NULL;
 	return (inst);
 }
 
-void		add_label(t_token *token, t_env *env)
+t_token		*add_label(t_token *token, t_env *env)
 {
 	t_label		*label;
 
 	if (!(label = (t_label *)malloc(sizeof(t_label))))
-		return ;
+		return (NULL);
 	label->name = token;
 	label->addr = env->pc;
 	env->labels[env->label_count] = label;
 	env->label_count = env->label_count + 1;
+	return (token->next);
 }
 
 void		add_inst(t_inst *inst, t_env *env)
@@ -595,18 +564,17 @@ void		type_byte(t_inst *inst, t_token *param, int pcount)
 	else if (param->type == T_IND)
 		type = type | 1 << (8 - bit) | 1 << (8 - bit - 1);
 	inst->type = inst->type | type;
-	// ft_printf("Type : '%d', Bit : '%d'\n", type, bit);
 }
 
-void		ft_error(t_token *token, char *str)
+void		ft_error(t_token *token, t_env *env, char *str)
 {
 	ft_printf("Syntax error at token [%d:%d] '%s' ", 
 	token->pos->line, token->pos->col, token->value);
-	// free_env();
+	free_env(env);
 	ft_exit(str);
 }
 
-void		check_ptype(t_inst *inst, t_op *op)
+void		check_ptype(t_inst *inst, t_op *op, t_env *env)
 {
 	char	ptypes[inst->pcount];
 	char	tmp;
@@ -621,7 +589,7 @@ void		check_ptype(t_inst *inst, t_op *op)
 		ptypes[i] = param->type;
 		tmp = ptypes[i] | op->ptypes[i];
 		if (tmp != op->ptypes[i])
-			ft_error(param, "Parameter type not valid.");
+			ft_error(param, env, "Parameter type not valid.");
 		if (op->code_byte)
 			type_byte(inst, param, i + 1);
 		i++;
@@ -630,34 +598,32 @@ void		check_ptype(t_inst *inst, t_op *op)
 	}
 }
 
-void		check_pcount(t_token *start, t_token *end,
-			 t_inst *inst, t_op *op)
+void		check_pcount(t_token *start, t_token *end, t_inst *inst, t_env *env)
 {
 	int		i;
 
 	i = 0;
-	while (i < op->pcount && start->next != end)
+	while (i < inst->pcount && start->next != end)
 	{
 		start = start->next;
-		if (start->type == T_REG)//(!ft_strcmp(start->type, "REG"))
+		if (start->type == T_REG)
 			inst->size = inst->size + 1;
-		else if (start->type == T_IND)//(ft_strstr(start->type, "INDIRECT"))// ||
-		//  !ft_strcmp(start->type, "DIRECT_LABEL"))
+		else if (start->type == T_IND)
 			inst->size = inst->size + 2;
 		else
 		{
-			if (op->label_size)
+			if (inst->type)
 				inst->size = inst->size + 2;
 			else
 				inst->size = inst->size + 4;
 		}
-		// inst->params[i] = start;
 		i++;
-		if (i < op->pcount && start->next != end)
+		if (i < inst->pcount && start->next != end)
 			start = start->next;
 	}
-	if (start->next != end || i != op->pcount)
-		ft_error(start, "Parameters count not matching.");
+	inst->type = 0;
+	if (start->next != end || i != inst->pcount)
+		ft_error(start, env, "Parameters count not matching.");
 }
 
 t_op		*get_op_by_name(char *str)
@@ -681,97 +647,192 @@ void		ft_add_inst(t_token *start, t_token *end, t_env *env)
 	int			i;
 
 	i = 0;
-	inst = init_inst();
 	op = NULL;
-	// while (start != end)
-	// {
-	if (start->type == T_LAB)//(!ft_strcmp(start->type, "LABEL"))
-	{
-		add_label(start, env);
-		// inst->label = env->labels[env->label_count - 1];
-		// ft_printf("Label : '%s', Addr : '%d'\n", inst->label->name->value, inst->label->addr);
-		start = start->next;
-	}
+	if (start->type == T_LAB)
+		start = add_label(start, env);
 	if (start == end)
 		return ;
-	if (start != end && start->type == 16)//!ft_strcmp(start->type, "OPCODE"))
+	inst = init_inst();
+	if (start != end && start->type == 16)
 	{
 		op = get_op_by_name(start->value);
 		inst->opcode = op->opcode;
-		inst->size = inst->size + 1;
-		if (op->code_byte)
-			inst->size = inst->size + 1;
+		inst->size = op->code_byte ? inst->size + 2 : inst->size + 1;
 	}
-	// count = op->pcount;
-	// start = start->next;
 	if (start->next != end)
 		inst->params = start->next;
 	inst->pcount = op->pcount;
-	check_pcount(start, end, inst, op);
-	check_ptype(inst, op);
-	// while (i < op->pcount && start->next != end)
-	// {
-	// 	start = start->next;
-	// 	if (!ft_strcmp(start->type, "REG"))
-	// 		inst->size = inst->size + 1;
-	// 	else if (ft_strstr(start->type, "INDIRECT"))// ||
-	// 	//  !ft_strcmp(start->type, "DIRECT_LABEL"))
-	// 		inst->size = inst->size + 2;
-	// 	else
-	// 	{
-	// 		if (op->label_size)
-	// 			inst->size = inst->size + 2;
-	// 		else
-	// 			inst->size = inst->size + 4;
-	// 	}
-	// 	// inst->params[i] = start;
-	// 	i++;
-	// 	if (i < op->count && start->next != end)
-	// 		start = start->next;
-	// }
-	// if (start->next != end)
-	// 	ft_exit("Parameters count not matching.");
+	inst->type = op->label_size ? 1 : 0;
+	check_pcount(start, end, inst, env);
+	check_ptype(inst, op, env);
 	env->pc = env->pc + inst->size;
 	add_inst(inst, env);
-	// 	start = start->next;
-	// }
 }
 
 void		syntax_analyser(t_env *env)
 {
 	t_token		*token;
 	t_token		*end;
-	t_inst		*inst;
-	int			i;
 
 	token = env->token;
-	token = syntax_header(token);
-	printf("token after header : '%s'", token->value);
+	token = syntax_header(token, env);
 	init_label(env, token);
 	while (token)
-	// {
-	// 	if (!ft_strcmp(token->type, "TOKEN"))
-	// 	{
-	// 		i = 0;
-	// 		// printf("OKK");
-	// 		while (op_tab[i].opcode)
-	// 		{
-	// 			if (!ft_strcmp(token->value, op_tab[i].op))
-	// 				ft_printf("OP: [%s:%d:%d,%d,%d]\n", op_tab[i].op, op_tab[i].opcode, op_tab[i].ptypes[0], op_tab[i].ptypes[1], op_tab[i].ptypes[2]);
-	// 			i++;
-	// 		}
-	// 	}
-	// 	token = token->next;
-	// }
 	{
-		end = syntax_instruction(token);//, env);
+		end = syntax_instruction(token, env);
 		ft_add_inst(token,end, env);
 		token = end;
 	}
-	// while (token)
-	// {
+}
 
-	// }
+void		reverse_bytes(char *str, int start, int n)
+{
+	int		i;
+	int		j;
+	char	tmp;
+
+	i = 0;
+	j = n - 1;
+	while (i < n / 2)
+	{
+		tmp = str[start + i];
+		str[start + i] = str[start + j];
+		str[start + j] = tmp;
+		i++;
+		j--;
+	}
+}
+
+void		add_ind(t_env *env, t_token *param, int start)
+{
+	uint16_t	ind;
+	int			i;
+
+	i = 0;
+	ind = 0;
+	if (param->value[0] != LABEL_CHAR)
+		ind = ft_atoi(param->value);
+	else
+	{
+		while (i < env->label_count &&
+			ft_strcmp(&param->value[1], env->labels[i]->name->value))
+			i++;
+		if (i == env->label_count)
+			ft_error(param, env, "Label not defined.");
+		ind = env->labels[i]->addr - start;
+	}
+	ft_memcpy(env->str + env->pc, &ind, sizeof(uint16_t));
+	reverse_bytes(env->str, env->pc, 2);
+	env->pc = env->pc + 2;
+}
+
+void		add_dir(t_env *env, t_inst *inst, t_token *param, int start)
+{
+	int			i;
+	int			size;
+	uint32_t	dir;
+
+	i = 0;
+	dir = 0;
+	size = op_tab[inst->opcode - 1].label_size ? 2 : 4;
+	if (param->value[0] != LABEL_CHAR)
+		dir = ft_atoi(param->value);
+	else
+	{
+		while (i < env->label_count &&
+			ft_strcmp(&param->value[1], env->labels[i]->name->value))
+			i++;
+		if (i == env->label_count)
+			ft_error(param, env, "Label not defined.");
+		dir = env->labels[i]->addr - start;
+	}
+	ft_memcpy(env->str + env->pc, &dir, size);
+	reverse_bytes(env->str, env->pc, size);
+	env->pc = env->pc + size;
+}
+
+void		ft_add_inst_bytes(t_env *env, t_inst *inst, int start)
+{
+	int			i;
+	t_token		*param;
+	char		*str;
+
+	i = 0;
+	str = env->str;
+	param = inst->params;
+	str[env->pc++] = inst->opcode;
+	if (inst->type)
+		str[env->pc++] = inst->type;
+	while (i < inst->pcount)
+	{
+		if (param->type == T_REG)
+		{
+			env->str[env->pc] = (char)ft_atoi(param->value + 1);
+			env->pc = env->pc + 1;
+		}
+		else if (param->type == T_DIR)
+			add_dir(env, inst, param, start);
+		else if (param->type == T_IND)
+			add_ind(env, param, start);
+		if (++i < inst->pcount)
+			param = param->next->next;
+	}
+}
+
+void		ft_write_hex(t_env *env)
+{
+	t_inst	*inst;
+	char	*str;
+	int		fd;
+
+	inst = env->inst;
+	if (!(str = (char *)malloc(sizeof(char) * env->pc + 1)))
+		ft_exit("");
+	env->pc = 0;
+	env->str = str;
+	while (inst)
+	{
+		ft_add_inst_bytes(env, inst, env->pc);
+		inst = inst->next;
+	}
+	fd = open(env->filename, O_WRONLY | O_TRUNC | O_CREAT,
+		 S_IWUSR | S_IRUSR | S_IRGRP | S_IROTH);
+	write(fd, env->header, sizeof(header_t));
+	write(fd, str, env->pc);
+}
+
+void		fill_header(t_env *env)
+{
+	header_t	*header;
+	t_token		*str;
+
+	if (!(header = (header_t *)malloc(sizeof(header_t))))
+		ft_exit("");
+	header->magic = COREWAR_EXEC_MAGIC;
+	header->prog_size = env->pc;
+	str = env->token->next;
+	if (ft_strlen(str->value) > PROG_NAME_LENGTH)
+		ft_error(str, env, "Program name too big.");
+	ft_strcpy(header->prog_name, str->value);
+	str = str->next->next;
+	if (ft_strlen(str->value) > COMMENT_LENGTH)
+		ft_error(str, env, "Comment is too big.");
+	ft_strcpy(header->comment, str->value);
+	reverse_bytes((char *)header, 0, 4);
+	reverse_bytes((char *)&header->prog_size, 0, 4);
+	env->header = header;
+}
+
+void		get_filename(t_env *env, char *name)
+{
+	char	*str;
+
+	if (!(str = (char *)malloc(sizeof(char) * ft_strlen(name) + 3)))
+		ft_exit("");
+	ft_strcpy(str, name);
+	str[ft_strlen(name) - 1] = '\0';
+	ft_strcat(str, "cor");
+	env->filename = str;
 }
 
 int			main(int argc, char **argv)
@@ -779,73 +840,31 @@ int			main(int argc, char **argv)
 	int			len;
 	int			fd;
 	t_env		env;
+	int			i;
 
+	i = 1;
 	if (argc != 2)
 		return (0);
-	len = ft_strlen(argv[1]);
-	if (argv[1][len - 2] != '.' && argv[1][len - 1] != 's')
-		ft_exit("Usage: ./asm <filename>.s");
-	fd = open(argv[1], O_RDONLY);
-	init_env(&env);
-	lexical_analyser(fd, &env);
-	print_tokens(&env);
-	syntax_analyser(&env);
-	print_inst(&env);
-	print_labels(&env);
-	ft_printf("PC : %d\n", env.pc);
-	// print_tokens(&env);
-	// ft_check_header(fd, &env);
-	// ft_make_string(fd);
+	while (i < argc)
+	{
+		len = ft_strlen(argv[i]);
+		if (len < 3 || (argv[i][len - 2] != '.' && argv[i][len - 1] != 's'))
+			ft_exit("Usage: ./asm <filename>.s");
+		fd = open(argv[i], O_RDONLY);
+		if (fd < 0)
+			ft_exit("Error opening the file.");
+		init_env(&env);
+		lexical_analyser(fd, &env);
+		// print_tokens(&env);
+		syntax_analyser(&env);
+		get_filename(&env, argv[i]);
+		fill_header(&env);
+		// print_inst(&env);
+		// print_labels(&env);
+		// ft_printf("PC : %d\n", env.pc);
+		ft_write_hex(&env);
+		ft_printf("Writing output program to %s\n", env.filename);
+		free_env(&env);
+		i++;
+	}
 }
-// int		main(int argc, char **argv)
-// {
-// 	int		len;
-// 	int		fd;
-// 	char	*str;
-// 	int		size = 16;
-// 	int 	i = 0;
-// 	char	*file_name;
-
-// 	if (argc != 2)
-// 		return (0);
-// 						printf("%s\n", argv[1]);
-// 	len = ft_strlen(argv[1]);
-// 						printf("%d\n", len);
-// 	if (argv[1][len - 1] != 's' || argv[1][len - 2] != '.')
-// 	{
-// 		printf("Only '.s' file extension allowed.\n");
-// 		return (0);
-// 	}
-// 	file_name = (char *)malloc(sizeof(char) * len + 3);
-// 	ft_strncpy(file_name, argv[1], len - 1);
-// 	ft_strcat(file_name, "cor");
-// 	fd = open(argv[1], O_RDONLY);
-// 	str = (char *)malloc(sizeof(char) * (size + 1));
-// 	while (i < 16)
-// 	{
-// 		str[i] = i;
-// 		i++;
-// 	}
-// 	printf("str = '%s'\n", str);
-// 	fd = open(file_name, O_RDWR | O_CREAT, S_IWUSR | S_IRUSR | S_IRGRP | S_IROTH);
-// 	printf("fd = %d\n", fd);
-// 	write(fd, str, 16);
-// 	write(fd, str, 16);
-// 	// write(fd, "Hii", 3);
-// 	// ft_putnstr_fd(str, 16, fd);
-
-
-// 	char	*line;
-
-// 	while (get_next_line(&line, fd) > 0)
-// 	{
-// 		if (line && *line)
-// 		{
-// 			while (*line)
-// 			{
-// 				while (*line && *line)
-// 			}
-// 		}
-// 	}
-// 	return (0);
-// }
