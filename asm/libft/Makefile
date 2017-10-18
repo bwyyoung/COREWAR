@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ppatel <marvin@42.fr>                      +#+  +:+       +#+         #
+#    By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/08/22 12:35:39 by ppatel            #+#    #+#              #
-#    Updated: 2017/08/22 12:35:46 by ppatel           ###   ########.fr        #
+#    Updated: 2017/10/18 17:43:20 by ppatel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -102,6 +102,7 @@ SRCS = $(SDIR)/ft_atoi.c \
 	   $(SDIR)/ft_tolower.c \
 	   $(SDIR)/ft_toupper.c \
 	   $(SDIR)/ft_atoli.c \
+	   $(SDIR)/ft_strndup.c \
 	   $(SDIR)/get_next_line.c
 
 PFSRCS = $(SDIRPF)/ft_printf.c \
