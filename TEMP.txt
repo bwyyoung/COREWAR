@@ -1,0 +1,31 @@
+#( 10/18/17@ 3:57PM )( bwyyoung@0 ):/Volumes/SD_CACHE/dropbox_gmail/Dropbox/42_LOCAL/Documents/ANNEE_3/FINISH_42/corewar/brian@master✗✗✗
+   git pull
+Auto-merging vm/vm.h
+Merge made by the 'recursive' strategy.
+ software/asm         | Bin 0 -> 106608 bytes
+ software/corewar     | Bin 0 -> 52400 bytes
+ vm/board_vals.c      |   6 ++----
+ vm/c.sh              |   4 ++++
+ vm/creator.c         |  13 ++++++++-----
+ vm/cycle.sh          |   8 ++++++++
+ vm/dumper.sh         |   7 +++++++
+ vm/executor.c        |  50 +++++++++++++++++++++++++++++++++++++++++++-------
+ vm/kill_processes.c  |   4 ++--
+ vm/libft/ft_lstnew.c |   4 +++-
+ vm/load_programs.c   |   4 ++--
+ vm/main.c            |  49 +++++++++++++++++++++++++++++++++++++++++--------
+ vm/op.c              |  89 ++++++++++++++++++++++++++++++++++++++++++-----------------------------------------------
+ vm/op.h              |   7 +++----
+ vm/op_arithmetic.c   |   9 +++++++--
+ vm/op_bitwise.c      |  11 +++++++++--
+ vm/op_fork.c         |   8 ++++++--
+ vm/op_get_sizes.c    |  33 ++++++++++++++++++++++++---------
+ vm/op_live.c         |  14 ++++++++++----
+ vm/op_load.c         |  13 +++++++++++--
+ vm/op_store.c        |   8 ++++++--
+ vm/op_utility.c      |  23 ++++++++++++++++++++---
+ vm/op_zjmp.c         |   4 ++--
+ vm/param_vals.c      |  43 +++++++++++++++++++++++++++++++++++++++----
+ vm/parse_flags.c     |   4 ++--
+ vm/run_game.c        |  21 +++++++++++++--------
+ vm/vm.h              |  17 ++++++++---------
