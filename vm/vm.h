@@ -46,7 +46,11 @@ enum
 enum
 {
 	d,
-	s
+	s,
+	visual,
+	v,
+	b,
+	stealth
 }					e_options;
 
 typedef struct		s_cursor
@@ -90,7 +94,7 @@ typedef struct		s_env
 	char			*last_live_name;
 	int				checks;
 	int				options[5];
-	uintmax_t		option_num;
+	int				option_num;
 	int				num_players;
 	int				to_die;
 	int				dump;

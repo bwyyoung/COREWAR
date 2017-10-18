@@ -30,6 +30,7 @@ void	get_dump_number(t_env *e, char *nbr, int *i, int args)
 {
 	long		temp;
 
+	e->options[d] = 1;
 	if ((*i + 3) > args)
 		error_exit(e, 11);
 	*i += 1;

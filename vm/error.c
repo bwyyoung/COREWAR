@@ -29,10 +29,19 @@ void		clean_head(t_cursor *head)
 	}
 }
 
+/*
+**	Example: ./corewar -visual -n -1 filename.cor
+**	GUI: ./corewar -visual [Players]
+**	Default Player Numbers: 1, 2, 3, 4...
+**	Change Player Number: -n -1 filename.cor
+**	Dump: ./corewar -dump 300 [Players](prints the memory after 300 cycles)
+*/
 void		print_instructions(void)
 {
-	ft_printf("Usage: ./corewar [-d N -s N -v N | -b --stealth | -n --stealth] "
-		"[-a] <champion1.cor> <...>\n");
+	ft_printf("Usage: ./corewar [-d N -s N -v N | -b --stealth "
+		"| --visual --stealth] [-a] <champion1.cor> <...>\n");
+	ft_printf("Example              : ./corewar --visual -n -1 filename.cor");
+	ft_printf("\t-n: Specify Number of Players(-n -1 filename.cor)");
 	ft_printf("-a        : Prints output from \"aff\" (Default is to hide it)");
 	ft_printf("\n#### TEXT OUTPUT MODE #######################################"
 		"###################\n");
@@ -48,11 +57,11 @@ void		print_instructions(void)
 	ft_printf("\t\t- 16 : Show PC movements (Except for jumps)\n");
 	ft_printf("#### BINARY OUTPUT MODE ########################################"
 		"################\n");
-	ft_printf("-b        : Binary output mode for corewar.42.fr\n");
+	ft_printf("-b        : Binary output mode for corewar\n");
 	ft_printf("		--stealth : Hides the real contents of the memory\n");
 	ft_printf("#### NCURSES OUTPUT MODE #######################################"
 		"################\n");
-	ft_printf("-n        : Ncurses output mode\n");
+	ft_printf("--visual  : Visual output mode\n");
 	ft_printf("--stealth : Hides the real contents of the memory\n");
 	ft_printf("################################################################"
 		"################\n");
