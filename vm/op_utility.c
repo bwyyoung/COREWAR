@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:12:02 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/18 14:52:06 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/18 17:39:47 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void		modify_carry(t_process *process, uint32_t val)
 }
 
 /*
-** If the val is more than MEM_SIZE means that the val is behind the pc,
-** so needs to be negative which is done by taking the val minus 0x10000.
+** If the val is more than MEM_SIZE it means that the val is behind the pc,
+** so the val needs to be negative which is done by taking the val minus 0x10000.
 ** Example:
 ** if zjmp has the param 0xfffb (like in zork)
 ** we will take 0xfffb - 0x10000 which is -5

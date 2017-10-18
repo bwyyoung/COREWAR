@@ -6,14 +6,18 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 20:31:02 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/18 10:47:41 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/18 16:16:56 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
 /*
-Creates a new process. The new process will be the same except for the pc and cycles_left.
+** Creates a new process. The new process will be the same except for the pc and cycles_left.
+** The difference between fork and lfork is that fork will use a idx_val to increase the pc
+** while lfork will just use the ind_val directly.
+**
+** T_DIR
 */
 
 void			op_forker(t_env *env, t_process *process, uint32_t pc, int op)
@@ -34,30 +38,23 @@ void			op_forker(t_env *env, t_process *process, uint32_t pc, int op)
 }
 
 /*
+fork
+
+//epitech
 fork:
 This instruction is not followed by a parameter encoding byte.
 It always takes an index and creates a new program,
 which is executed from address : (PC + (first parameter % IDX_MOD)).
 Fork %34 creates a new program. The new program inherits all of its father’s states.
 
+//42
 there is no argument’s coding byte, take an index, opcode 0x0c. Create a
 new process that will inherit the different states of its father, except its PC, which
 will be put at (PC + (1st parameter % IDX_MOD)).
 
-T_DIR
 */
-
-// void		op_fork(t_env *env, t_process *process, uint32_t pc)
-// {
-// 	forker(env, process, pc, idx);
-// }
 
 /*
 lfork:
 Same as fork, without the % IDX_MOD This operation modifies the carry.
 */
-
-// void		op_lfork(t_env *env, t_process *process, uint32_t pc)
-// {
-// 	forker(env, process, pc, no_idx);
-// }

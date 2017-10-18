@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:10:13 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/18 14:12:23 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/18 16:37:35 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	execute_op(t_env *env, t_process *process)
 	if (op == live)
 		op_live(env, process, pc);
 	else if (op == ld || op == lld)
-		op_basic_load(env, process, op);
+		op_load(env, process, op);
 	else if (op == st || op == sti)
 		op_store(env, process, pc, op);
 	else if (op == add || op == sub)
