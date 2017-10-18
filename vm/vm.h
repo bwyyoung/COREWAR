@@ -74,7 +74,6 @@ typedef struct		s_player
 	long			prog_num;
 	int				is_alive;
 	int				file_pos;
-
 }					t_player;
 
 typedef struct		s_env

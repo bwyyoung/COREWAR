@@ -123,5 +123,10 @@ void		error_exit(t_env *e, int i)
 		error_msg(i);
 	else if (i > 10)
 		error_msg_2(i);
-	exit(1);
+	else
+	{
+		ft_putstr_fd("\x1b[31m[Unknown Error Message: ]\x1b[0m ", 2);
+		ft_printf("Code %i\n", i);
+		exit(1);
+	}
 }
