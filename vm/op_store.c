@@ -3,16 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   op_store.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:16:50 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/17 00:49:57 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/18 08:41:30 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
 /*
+
+Store takes a register and stores its value either on the board or in another registry.
+
+
 st: take a registry and a registry or an indirect and store the value of the registry
 toward a second argument. Its opcode is 0x03. For example, st r1, 42 store the
 value of r1 at the address (PC + (42 % IDX_MOD))

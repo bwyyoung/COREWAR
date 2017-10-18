@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 11:11:21 by dengstra          #+#    #+#             */
-/*   Updated: 2017/04/18 11:11:22 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/18 09:58:24 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ t_list	*ft_lstnew(void const *content, size_t content_size)
 	else
 	{
 		lst->content = (void*)malloc(sizeof(*content) * content_size);
+		if (!lst->content)
+			return (NULL);
 		ft_memcpy(lst->content, content, content_size);
 		lst->content_size = content_size;
 	}

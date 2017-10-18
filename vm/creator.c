@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   creator.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 17:12:50 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/17 00:01:19 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/18 15:29:10 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_env		*create_env(uint8_t *board)
 	env->cycle_to_die = CYCLE_TO_DIE;
 	env->cycles_since_check = 0;
 	env->total_cycles = 0;
-	env->total_lives = 0;
+	env->lives_since_check = 0;
 	env->num_processes = 0;
 	env->board = board;
 	env->processes = NULL;
@@ -40,6 +40,10 @@ t_env		*create_env(uint8_t *board)
 	return (env);
 }
 
+/*
+** Create a one dimensional array to represent the board and
+** initialize all the bytes to zero.
+*/
 uint8_t		*create_board(void)
 {
 	uint8_t *board;
@@ -57,9 +61,8 @@ t_player	*create_player(uint32_t prog_num)
 	if (!(player = (t_player*)malloc(sizeof(t_player))))
 		ft_error_errno(NULL);
 	player->lives = 0;
-	player->name = ft_strnew(128);
+	player->name = ft_strnew(PROG_NAME_LENGTH);
 	player->prog_num = prog_num;
-	player->is_alive = 1;
 	return (player);
 }
 

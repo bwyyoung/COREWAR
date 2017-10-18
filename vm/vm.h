@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 15:37:30 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/17 00:17:32 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/18 15:24:05 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,7 @@ typedef struct		s_player
 	int				lives;
 	char			*name;
 	long			prog_num;
-	int				is_alive;
 	int				file_pos;
-
 }					t_player;
 
 typedef struct		s_env
@@ -83,7 +81,7 @@ typedef struct		s_env
 	int				cycle_to_die;
 	int				cycles_since_check;
 	uintmax_t		total_cycles;
-	int				total_lives;
+	int				lives_since_check;
 	int				num_processes;
 	uint8_t			*board;
 	t_list			*processes;
@@ -133,11 +131,11 @@ void				ft_error_errno(char *msg);
 char				*get_op_name_test(uint8_t op);
 
 // op.c
-int					use_idx(uint8_t op);
+int					op_uses_idx(uint8_t op);
 int					op_has_type(uint8_t op);
-uint32_t			get_label_size(t_env *env, t_process *process);
-uint32_t			get_cycles(t_env *env, t_process *process);
-uint32_t			get_op_size(t_env *env, t_process *process);
+uint32_t			get_label_size(uint8_t op);
+uint32_t			get_cycles(uint8_t op);
+uint32_t			get_op_size(uint8_t op, uint8_t types);
 int					is_types_invalid(uint8_t op, uint8_t types);
 
 int					valid_reg_num(uint8_t reg_num);
@@ -165,7 +163,7 @@ uint32_t			get_board_val(uint8_t *board, uint32_t index,
 									uint32_t size);
 void				set_board_val(uint8_t *board, uint32_t index,
 									uint32_t size, uint32_t val);
-uint32_t			get_arg_size(uint8_t type, int label_size);
+uint32_t			get_param_size(uint8_t type, int label_size);
 void				add_process(t_env *env, t_process *process);
 t_list				*kill_processes(t_env *env);
 void				op_live(t_env *env, t_process *process, uint32_t pc);

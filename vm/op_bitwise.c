@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   op_bitwise.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 19:03:47 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/17 00:47:05 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/18 08:39:54 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+/*
+Apply a bitwise operation on the two first params and store the result in a
+register(P3).
+
+P3 = P1 & P2
+*/
 
 void		op_bitwise(t_env *env, t_process *process, int op)
 {

@@ -6,15 +6,15 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:13:32 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/12 16:16:11 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/18 15:33:10 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static void	check_lives(t_env *env)
+static void	perform_check(t_env *env)
 {
-	if (env->total_lives >= NBR_LIVE || env->checks == MAX_CHECKS - 1)
+	if (env->lives_since_check >= NBR_LIVE || env->checks == MAX_CHECKS - 1)
 	{
 		env->cycle_to_die -= CYCLE_DELTA;
 		// ft_printf("CYCLE TO DIE IS NOW %d\n", env->cycle_to_die);
@@ -23,18 +23,23 @@ static void	check_lives(t_env *env)
 	else
 		env->checks++;
 	env->cycles_since_check = 0;
-	env->total_lives = 0;
+	env->lives_since_check = 0;
+	kill_processes(env);
 }
 
+/*
+** This is the main game loop.
+** The game ends when all of the processes have died (env->processes == NULL)
+** Every time cycles_since_check is >= cycle_to_die we have to
+** perform check. During the check all the processes that didn't execute the
+** live command will be deleted.
+*/
 void		run_game(t_env *env)
 {
 	while (1)
 	{
 		if (env->cycles_since_check >= env->cycle_to_die)
-		{
-			check_lives(env);
-			kill_processes(env);
-		}
+			perform_check(env);
 		if (env->processes == NULL)
 			break;
 		if (env->options[d] == 1 && env->option_num == env->total_cycles)

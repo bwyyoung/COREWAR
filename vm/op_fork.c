@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   op_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 20:31:02 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/17 00:51:19 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/18 10:47:41 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+/*
+Creates a new process. The new process will be the same except for the pc and cycles_left.
+*/
 
 void			op_forker(t_env *env, t_process *process, uint32_t pc, int op)
 {

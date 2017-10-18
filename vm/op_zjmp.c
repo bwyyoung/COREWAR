@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:21:37 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/16 12:37:08 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/18 12:08:35 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,6 @@ void	op_zjmp(t_env *env, t_process *process, uint32_t pc)
 	index = get_board_val(env->board, pc + 1, IND_SIZE);
 	if (process->carry == 1)
 		inc_pc(process->regs, get_idx_val(index));
-	else
+	else // do nothing, skip forward skipping the jmp instruction, and its parameters.
 		inc_pc(process->regs, 1 + IND_SIZE);
 }
