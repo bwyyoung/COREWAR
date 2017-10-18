@@ -6,17 +6,17 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 19:03:47 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/18 08:39:54 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/18 16:06:50 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
 /*
-Apply a bitwise operation on the two first params and store the result in a
-register(P3).
-
-P3 = P1 & P2
+** Apply a bitwise operation on the two first params and store the result in a
+** register(P3).
+**
+** P3 = P1 & P2
 */
 
 void		op_bitwise(t_env *env, t_process *process, int op)
@@ -43,12 +43,6 @@ in a registry, which is the third argument. Opcode 0x06. Modifies the carry.
 (T_REG | T_DIR | T_IND), (T_REG | T_IND | T_DIR), T_REG
 
 label_size 4
-*/
-
-// void			op_and(t_env *env, t_process *process)
-// {
-// 	bitwise(env, process, and);
-// }
 
 /*
 or: This operation is an bit-to-bit OR, in the same spirit and principle of and, its
@@ -58,11 +52,6 @@ opcode is obviously 7.
 label_size 4
 */
 
-// void			op_or(t_env *env, t_process *process)
-// {
-// 	bitwise(env, process, or);
-// }
-
 /*
 xor: Acts like and with an exclusive OR. As you will have guessed, its opcode in
 octal is 10.
@@ -71,7 +60,3 @@ octal is 10.
 label_size 4
 */
 
-// void			op_xor(t_env *env, t_process *process)
-// {
-// 	bitwise(env, process, xor);
-// }
