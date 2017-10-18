@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 19:03:47 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/18 16:06:50 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/18 17:23:34 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 ** register(P3).
 **
 ** P3 = P1 & P2
+** PARAM_TYPES: (T_REG | T_DIR | T_IND), (T_REG | T_IND | T_DIR), T_REG
 */
 
 void		op_bitwise(t_env *env, t_process *process, int op)
@@ -42,21 +43,15 @@ and: Apply an & (bit-to-bit AND) over the first two arguments and store the resu
 in a registry, which is the third argument. Opcode 0x06. Modifies the carry.
 (T_REG | T_DIR | T_IND), (T_REG | T_IND | T_DIR), T_REG
 
-label_size 4
 
-/*
 or: This operation is an bit-to-bit OR, in the same spirit and principle of and, its
 opcode is obviously 7.
 (T_REG | T_IND | T_DIR), (T_REG | T_IND | T_DIR), T_REG
 
-label_size 4
-*/
 
-/*
 xor: Acts like and with an exclusive OR. As you will have guessed, its opcode in
 octal is 10.
 (T_REG | T_IND | T_DIR), (T_REG | T_IND | T_DIR), T_REG
 
-label_size 4
 */
 

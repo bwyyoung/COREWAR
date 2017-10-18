@@ -6,15 +6,16 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:13:26 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/18 08:38:17 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/18 17:22:50 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
 /*
-Takes three registers and either adds or subs them and then stores it in the third registry.
-P3 = P1 + P2
+** Takes three registers and either adds or subs their values and then stores it in the third registry.
+** P3 = P1 + P2
+** PARAM TYPES: T_REG, T_REG, T_REG
 */
 
 void		op_arithmetic(t_env *env, t_process *process, int op)
@@ -42,25 +43,13 @@ void		op_arithmetic(t_env *env, t_process *process, int op)
 }
 
 /*
+// 42
 add: Opcode 4. Take three registries, add the first two, and place the result in the
 third, right before modifying the carry.
 
-// T_REG, T_REG, T_REG
-
-*/
-// void		op_add(t_env *env, t_process *process)
-// {
-// 	arithmetic(env, process, add);
-// }
-
-/*
+// epitech
 This instruction takes 3 registers as parameter,
 subs the contents of the 2 first and stores the result in the third.
 This operation modifies the carry.
 sub r2,r3,r5 subs r2 and r3 and stores the result in r5
 */
-// T_REG, T_REG, T_REG
-// void		op_sub(t_env *env, t_process *process)
-// {
-// 	arithmetic(env, process, sub);
-// }

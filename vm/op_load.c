@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:18:48 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/18 16:24:26 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/18 17:50:33 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 /*
 ** ld: Take a param and load it into a registry(P2)
-** lld: Doesn't use IDX_MOD if p1 is an IND_VAL
+** lld: The same as ld but doesn't use IDX_MOD
 ** (T_DIR | T_IND), T_REG
 */
 
-void		op_basic_load(t_env *env, t_process *process, int op)
+void		op_load(t_env *env, t_process *process, int op)
 {
 	uint8_t			*board;
 	uint32_t		new_reg_val;
@@ -57,8 +57,12 @@ label_size 4
 
 
 
-
 /*
+** ldi adds its params P1 and P2 and converts that sum to an idx_val.
+** It then uses the idx_val to read REG_SIZE bytes from the board.
+** It then loads the val it has read from the board into the P3 register.
+**
+** lldi works the same but it does not convert the val into an idx_val.
 **
 ** (T_REG | T_DIR | T_IND) , (T_DIR | T_REG), T_REG
 */
@@ -75,12 +79,16 @@ void		op_index_load(t_env *env, t_process *process, int op)
 	index2 = get_param_val(env->board, process->params[1],
 							process, IND_SIZE);
 	index_sum = index1 + index2;
-	new_reg_val = get_ind_val(env->board, process, index_sum, REG_SIZE);
+	if (op == ldi)
+		new_reg_val = get_ind_val(env->board, process, get_idx_val(index_sum), REG_SIZE);
+	else
+		new_reg_val = get_ind_val(env->board, process, index_sum, REG_SIZE);
 	set_reg_val(process, process->params[2].val, new_reg_val);
 	modify_carry(process, new_reg_val);
 }
-						
+
 /*
+// epitech
 ldi:
 This operation modifies the carry.
 ldi 3,%4,r1 reads IND_SIZE bytes at address: (PC + (3 % IDX_MOD)),
@@ -88,6 +96,7 @@ adds 4 to this value. We will name this sum S.
 Read REG_SIZE bytes at address (PC + (S % IDX_MOD)),
 which are copied to r1. Parameters 1 and 2 are indexes.
 
+// 42
 ldi, ldi, as per the name, does not imply to go swimming
 in chestnut cream,
 even if its code is 0x0a.
@@ -96,8 +105,6 @@ two, treating that like an address,
 reading a value of a registry’s size and putting it on the third.
 
 
-*/
-/*
 lldi:
 Same as ldi, without the % IDX_MOD This operation modifies the carry.
 */

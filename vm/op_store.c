@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:16:50 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/18 16:15:47 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/18 17:37:54 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ st r4,34 stores the value of r4 at the address
 
 
 /*
-** sti adds its params P2 and P3, converts that sum to an idx_val
-** and then uses that val as an index to write the value of P1 (REG) to the
-** board.
+** sti adds its params P2 and P3 and converts that sum to an idx_val.
+** It then uses that idx_val as an index to decide where on the board
+** to write the value of P1 (REG).
 **
 ** T_REG, (T_REG | T_DIR | T_IND), (T_DIR | T_REG)
 */
@@ -88,8 +88,6 @@ Opcode 11. Take a registry, and two indexes (potentially registries)
 add the two indexes, and use this result as an address
 where the value of the first parameter
 will be copied.
-
-label_size 2
 */
 
 void	op_store(t_env *env, t_process *process, uint32_t pc, uint8_t op)
