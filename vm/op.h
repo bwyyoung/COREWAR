@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2017/10/16 23:58:57 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/18 12:26:42 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,10 @@ typedef struct					s_header
 typedef struct					s_op
 {
 	char						*name;
-	int							num_types;
+	int							num_params;
 	int							arg_types[3];
 	int							cycles;
 	int							has_type;
-	int							index;
 	int							label_size;
 	int							use_idx;
 }								t_op;

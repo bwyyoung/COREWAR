@@ -3,14 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   param_vals.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:27:07 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/17 00:17:56 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/18 14:42:11 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+/*
+** Then get the params. Every process has an array of three param structs.
+** A param struct contains an uint8_t type, and a uint32_t val.
+** Example:
+**			AND op
+**			op type	param1	param2			param3
+**			06 64	01		00 00 00 05		03
+**			
+**			After using get_params the param structs will look like this.
+**			param[0]	type	REG_CODE (01)
+**						val		1
+**			param[1]	type	DIR_CODE (11)
+**						val		5
+**			param[2]	type	REG_CODE (01)
+**						val		3
+*/
 
 void			get_params(t_env *env, t_process *process, uint8_t op)
 {
@@ -31,7 +47,7 @@ void			get_params(t_env *env, t_process *process, uint8_t op)
 	{
 		type = (types & 0b11000000) >> 6;
 		process->params[i].type = type;
-		param_size = get_arg_size(type, get_label_size(env, process));
+		param_size = get_param_size(type, get_label_size(op));
 		process->params[i].val = get_board_val(env->board, pc, param_size);
 		types = types << 2;
 		pc += param_size;
@@ -39,6 +55,19 @@ void			get_params(t_env *env, t_process *process, uint8_t op)
 	}
 }
 
+/*
+** This function will get a value from the board.
+** It will either get the val with the param_val itself
+** or by converting it to a idx_val depending on the op.
+** It uses the function op_uses_idx to do that which is
+** defined in the op.c.
+** IND_VALs are always relative to the pc,
+** so the val is always added to the pc.
+** The function will read a val of size read_size.
+** This is because different ops will need different size vals
+** for example one op will want a REG_VAL of size 4 and another
+** will want a IND_VAL of size 2.
+*/
 uint32_t		get_ind_val(uint8_t *board, t_process *process,
 							uint32_t param_val, uint32_t read_size)
 {
@@ -46,13 +75,19 @@ uint32_t		get_ind_val(uint8_t *board, t_process *process,
 	uint32_t val;
 
 	pc = process->regs[0];
-	if (use_idx(process->op))
+	if (op_uses_idx(process->op))
 		val = get_board_val(board, pc + get_idx_val(param_val), read_size);
 	else
 		val = get_board_val(board, pc + param_val, read_size);
 	return (val);
 }
 
+/*
+** Get the value that the param_val represents.
+** If the param_val is a registry(REG_VAL), get the value inside that registry.
+** If the param_val is an indirect val(IND_VAL), get the value from the board.
+** If the param_val is a direct val(DIR_VAL), return the param_val.
+*/
 int				get_param_val(uint8_t *board, t_param param_struct,
 								t_process *process, uint8_t read_size)
 {

@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   op_load.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:18:48 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/17 00:49:46 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/18 09:10:47 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+/*
+ld: Take a param and load it into a registry(P2)
+lld: Doesn't use IDX_MOD if p1 is an IND_VAL
+*/
 
 void		op_basic_load(t_env *env, t_process *process, int op)
 {
@@ -56,6 +61,10 @@ label_size 4
 // }
 
 /*
+ldi: Gets an index by adding P1 and P2, use this address to get
+a value to load into a registry(P3)
+
+
 ldi:
 This operation modifies the carry.
 ldi 3,%4,r1 reads IND_SIZE bytes at address: (PC + (3 % IDX_MOD)),
