@@ -6,7 +6,7 @@
 /*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 13:47:13 by ppatel            #+#    #+#             */
-/*   Updated: 2017/10/17 17:55:17 by ppatel           ###   ########.fr       */
+/*   Updated: 2017/10/18 12:13:43 by ppatel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -466,7 +466,7 @@ t_token		*syntax_instruction(t_token *token, t_env *env)
 	int		line;
 
 	token = token->type == T_LAB ? token->next : token;
-	if (token && token->type == T_LAB)
+	if (!token || (token && token->type == T_LAB))
 		return(token);
 	if (!token || token->type != 16)
 		syntax_error(token, env);
@@ -799,6 +799,7 @@ void		ft_write_hex(t_env *env)
 		 S_IWUSR | S_IRUSR | S_IRGRP | S_IROTH);
 	write(fd, env->header, sizeof(header_t));
 	write(fd, str, env->pc);
+	close(fd);
 }
 
 void		fill_header(t_env *env)
@@ -855,13 +856,14 @@ int			main(int argc, char **argv)
 			ft_exit("Error opening the file.");
 		init_env(&env);
 		lexical_analyser(fd, &env);
-		// print_tokens(&env);
+				// print_tokens(&env);
+		close(fd);
 		syntax_analyser(&env);
 		get_filename(&env, argv[i]);
 		fill_header(&env);
-		// print_inst(&env);
-		// print_labels(&env);
-		// ft_printf("PC : %d\n", env.pc);
+				// print_inst(&env);
+				// print_labels(&env);
+				// ft_printf("PC : %d\n", env.pc);
 		ft_write_hex(&env);
 		ft_printf("Writing output program to %s\n", env.filename);
 		free_env(&env);
