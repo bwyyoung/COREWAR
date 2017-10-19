@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ppatel <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/21 11:20:39 by ppatel            #+#    #+#             */
-/*   Updated: 2017/10/17 17:31:36 by ppatel           ###   ########.fr       */
+/*   Updated: 2017/10/18 17:42:45 by ppatel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,5 +124,6 @@ size_t			ft_lstsize(t_list **lst);
 int				get_next_line(int fd, char **line);
 int				ft_printf(const char *format, ...);
 long			ft_atoli(const char *str);
+char			*ft_strndup(const char *src, size_t len);
 
 #endif

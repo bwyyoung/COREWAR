@@ -6,7 +6,7 @@
 #    By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/17 14:59:23 by ppatel            #+#    #+#              #
-#    Updated: 2017/10/17 16:46:22 by ppatel           ###   ########.fr        #
+#    Updated: 2017/10/18 20:07:48 by ppatel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,16 @@ SDIR = srcs
 ODIR = objects
 
 SRCS = $(SDIR)/asm.c \
-	#    $(SDIR)/free_all.c \
+	   $(SDIR)/op.c \
+	   $(SDIR)/lexical.c \
+	   $(SDIR)/check_lexical.c \
+	   $(SDIR)/syntax_analyser.c \
+	   $(SDIR)/check_syntax.c \
+	   $(SDIR)/instructions.c \
+	   $(SDIR)/write_hex.c \
+	   $(SDIR)/tools.c \
+	   $(SDIR)/error.c \
+	   $(SDIR)/free.c \
 
 OBJ = $(SRCS:$(SDIR)/%.c=$(ODIR)/%.o)
 
