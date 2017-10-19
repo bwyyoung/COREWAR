@@ -6,7 +6,7 @@
 /*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/18 18:41:56 by ppatel            #+#    #+#             */
-/*   Updated: 2017/10/18 20:28:05 by ppatel           ###   ########.fr       */
+/*   Updated: 2017/10/19 15:48:26 by ppatel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_token		*add_label(t_token *token, t_env *env)
 	return (token->next);
 }
 
-static void         add_inst(t_inst *inst, t_env *env)
+static void			add_inst(t_inst *inst, t_env *env)
 {
 	t_inst	*tmp;
 
@@ -39,26 +39,12 @@ static void         add_inst(t_inst *inst, t_env *env)
 		tmp->next = inst;
 }
 
-// static t_op 		*get_op_by_name(char *str)
-// {
-// 	int		i;
-
-// 	i = 0;
-// 	while (i < 16)
-// 	{
-// 		if (!ft_strcmp(str, g_op_tab[i].op))
-// 			return (&g_op_tab[i]);
-// 		i++;
-// 	}
-// 	return (NULL);
-// }
-
-static t_inst		*init_inst()
+static t_inst		*init_inst(void)
 {
 	t_inst		*inst;
 
 	if (!(inst = (t_inst *)malloc(sizeof(t_inst))))
-		return (NULL);
+		ft_exit("Malloc Error.");
 	inst->size = 0;
 	inst->opcode = 0;
 	inst->type = 0;
@@ -68,7 +54,7 @@ static t_inst		*init_inst()
 	return (inst);
 }
 
-void    		    ft_make_inst(t_token *start, t_token *end, t_env *env)
+void				ft_make_inst(t_token *start, t_token *end, t_env *env)
 {
 	t_inst		*inst;
 	t_op		*op;
