@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2017/10/18 17:41:00 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/19 10:59:53 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ t_op	g_op_tab[17] =
 	{"st", 2, {T_REG, T_IND | T_REG}, 5, 1, 0, 1},
 	{"add", 3, {T_REG, T_REG, T_REG}, 10, 1, 0, 0},
 	{"sub", 3, {T_REG, T_REG, T_REG}, 10, 1, 0, 0},
-	{"and", 3, {T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG}, 6,
-					1, 4, 0},
-	{"or", 3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG}, 6,
-					1, 4, 0},
+	{"and", 3, {T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG},
+					6, 1, 4, 0},
+	{"or", 3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG},
+					6, 1, 4, 0},
 	{"xor", 3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG},
 					6, 1, 4, 0}, 
 	{"zjmp", 1, {T_DIR}, 20, 0, 2, 1},

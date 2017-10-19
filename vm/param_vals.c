@@ -6,14 +6,14 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:27:07 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/18 17:41:36 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/19 11:09:29 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 /*
-** Then get the params. Every process has an array of three param structs.
-** A param struct contains an uint8_t type, and a uint32_t val.
+** Every process has an array of three param structs.
+** A param struct contains an uint8_t type, and an uint32_t val.
 ** Example:
 **			AND op
 **			op type	param1	param2			param3

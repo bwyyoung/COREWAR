@@ -6,14 +6,14 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:13:26 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/18 17:22:50 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/19 15:26:11 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
 /*
-** Takes three registers and either adds or subs their values and then stores it in the third registry.
+** Takes three registers and adds or subs the two first registers values, and then stores it in the third registry.
 ** P3 = P1 + P2
 ** PARAM TYPES: T_REG, T_REG, T_REG
 */

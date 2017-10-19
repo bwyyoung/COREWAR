@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:18:48 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/18 17:50:33 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/19 15:17:39 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void		op_load(t_env *env, t_process *process, int op)
 
 	board = env->board;
 	type = process->params[0].type;
-	new_reg_val = get_param_val(board, process->params[0], process, IND_SIZE); // should be reg_size
+	new_reg_val = get_param_val(board, process->params[0], process, REG_SIZE);
 	set_reg_val(process, process->params[1].val, new_reg_val);
 	modify_carry(process, new_reg_val);
 }
