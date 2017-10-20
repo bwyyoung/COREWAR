@@ -22,7 +22,6 @@ void		op_load(t_env *env, t_process *process, int op)
 {
 	uint8_t			*board;
 	uint32_t		new_reg_val;
-	uint32_t		read_size;
 	uint8_t			type;
 
 	board = env->board;

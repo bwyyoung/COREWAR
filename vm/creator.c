@@ -34,8 +34,10 @@ t_env		*create_env(uint8_t *board)
 	env->options[2] = 0;
 	env->options[3] = 0;
 	env->options[4] = 0;
-	env->option_num = 0;
+	env->dump_value = 0;
 	env->num_players = 0;
+	env->prog_num = 0xffffffff;
+	env->offset = 0;
 	env->to_die = CYCLE_TO_DIE;
 	return (env);
 }
@@ -58,6 +60,7 @@ t_player	*create_player(uint32_t prog_num)
 {
 	t_player	*player;
 
+	ft_printf("Creating Player\n");
 	if (!(player = (t_player*)malloc(sizeof(t_player))))
 		ft_error_errno(NULL);
 	player->lives = 0;

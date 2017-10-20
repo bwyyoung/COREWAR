@@ -11,45 +11,39 @@
 
 #include "vm.h"
 
-t_bool			add_option(t_env *e, char **argv, int *i, int argc)
+t_bool		add_option(t_env *e, char **argv, int *i, int argc)
 {
 	if (ft_strequ(argv[*i], "-d"))
-	{
-		e->options[d] = true;
-		get_dump_number(e, argv[*i + 1], i,argc);
-		*i += 1;
-	}
+		return (get_dump_number(e, argv[*i + 1], i, argc));
 	else if (ft_strequ(argv[*i], "-s"))
-		e->options[s] = true;
+		return (get_cycle_number(e, argv[*i + 1], i, argc));
 	else if (ft_strequ(argv[*i], "--visual"))
-	{
-		e->options[visual] = 1;
-		add_bonus(e, argc, i);
-	}
+		return (add_visual(e));
 	else if (ft_strequ(argv[*i], "-v"))
-		e->options[v] = true;
+		return (get_verbose_level(e, argv[*i + 1], i, argc));
 	else if (ft_strequ(argv[*i], "-b"))
-		e->options[b] = true;
+		return (add_binary(e));
 	else if (ft_strequ(argv[*i], "--stealth"))
-		e->options[stealth] = 1;
+		return (add_stealth(e));
+	return (false);
 }
 
 void			parse_flags(t_env *e, int argc, char **argv)
 {
 	int	i;
 
-	i = 1;
+	i = 0;
 	e->num_players = 0;
-	while (i < argc)
+	while (++i < argc)
 	{
-		add_option(e, argv, &i, argc);
-		//add_player_empty(e, &i, e->num_players);
-		e->num_players += 1;
+		ft_printf("parse_flags %i %s\n", i , argv[i]);
+		if (!add_option(e, argv, &i, argc) && (i < argc))
+			add_player(e, argv, &i);
 		if (e->num_players > MAX_PLAYERS)
 			error_exit(e, 8);
-		i++;
+		ft_printf("parse_flags1 %i/%i %s\n", i , argc, argv[i]);
 	}
-	e->cursors = e->num_players;
+	ft_printf("Finish Parse Flags\n");
 }
 
 
@@ -63,7 +57,7 @@ void		handle_args(t_env *env, int argc, char *argv[])
 		if (argv[i][0] == '-')
 		{
 			//add_option(env, argv[i]);
-			env->option_num = ft_atoi(argv[i + 1]);
+			env->dump_value = ft_atoi(argv[i + 1]);
 			argc -= 2;
 		}
 		i++;
@@ -101,11 +95,16 @@ int			main(int argc, char *argv[])
 	}
 	board = create_board();
 	env = create_env(board);
-	// parse_flags(env, argc, argv);
-	handle_args(env, argc, argv);
-	load_programs(env, ++argv);
+	parse_flags(env, argc, argv);
+	//handle_args(env, argc, argv);
+	//load_programs(env, ++argv);
+	ft_printf("main 1\n");
 	run_game(env);
+	ft_printf("main 2\n");
+
 	declare_winner(env);
+	ft_printf("main 3\n");
+
 	ft_printf("cycle_to_die %d\n", env->cycle_to_die);
 	ft_printf("total cycles %d\n", env->total_cycles);
 	SAFE_DELETE(board);

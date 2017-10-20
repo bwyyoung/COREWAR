@@ -53,24 +53,6 @@ enum
 	stealth
 }					e_options;
 
-typedef struct		s_cursor
-{
-	struct s_cursor	*next;
-	struct s_cursor	*prev;
-	int				carry;
-	int				life;
-	int				dead;
-	int				counter;
-	int				running;
-	int				player;
-	int				nbr;
-	int				index;
-	int				color;
-	int				cycle;
-	int				reg[REG_NUMBER];
-}					t_cursor;
-
-
 typedef struct		s_player
 {
 	int				lives;
@@ -81,10 +63,9 @@ typedef struct		s_player
 
 typedef struct		s_env
 {
-	t_cursor		*head;
 	int				cycle_to_die;
 	int				cycles_since_check;
-	uintmax_t		total_cycles;
+	long			total_cycles;
 	int				lives_since_check;
 	int				num_processes;
 	uint8_t			*board;
@@ -93,15 +74,23 @@ typedef struct		s_env
 	int				last_live_num;
 	char			*last_live_name;
 	int				checks;
-	int				options[5];
-	int				option_num;
+	int				options[6];
 	int				num_players;
 	int				to_die;
-	int				dump;
-	int				bonus;
 	long			dump_value;
+	long			cycle_value;
+	long			verbose_value;
+	t_player		*new_player;
+	uint32_t		prog_num;
+	int				offset;
+	//dump_value == options_num (OLD)
 	t_player		player[MAX_PLAYERS + 1];
-	int				cursors;
+	int				i;
+	int				j;
+	int				k;
+	int				x;
+	int				y;
+	int				z;
 }					t_env;
 
 // typedef struct		s_reg
@@ -178,11 +167,15 @@ void				op_aff(t_env *env, t_process *process, uint32_t pc);
 
 void				print_instructions(void);
 void				error_exit(t_env *e, int i);
-void				add_bonus(t_env *e, int args, int *i);
+t_bool add_visual(t_env *e);
+t_bool add_binary(t_env *e);
+t_bool add_stealth(t_env *e);
 t_bool				check_duplicate_player(t_env *e, long nbr);
 void				check_flag_number_valid(t_env *e, char *nbr);
-long				get_smallest_player_id(t_env *e);
-void				get_dump_number(t_env *e, char *nbr, int *i, int args);
-void				check_verbose_level(t_env *e, char *nbr);
-void				add_player_empty(t_env *e, int *i, int players);
+t_bool				get_dump_number(t_env *e, char *nbr, int *i, int args);
+t_bool				get_verbose_level(t_env *e, char *nbr, int *i, int args);
+t_bool				get_cycle_number(t_env *e, char *nbr, int *i, int args);
+void				reader(t_env *e, int offset, char *arg);
+void				add_player_list(t_env *env, t_player *new_player);
+void add_player(t_env *e, char **argv, int *i);
 #endif

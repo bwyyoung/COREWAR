@@ -26,6 +26,7 @@ void		op_arithmetic(t_env *env, t_process *process, int op)
 	int			reg_num1;
 	int			reg_num2;
 
+	(void)env;
 	reg_num1 = process->params[0].val;
 	reg_num2 = process->params[1].val;
 	if (valid_reg_num(reg_num1) && valid_reg_num(reg_num2)) // test what happens when reg_num is invalid

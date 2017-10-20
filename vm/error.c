@@ -12,23 +12,6 @@
 
 #include "vm.h"
 
-void		clean_head(t_cursor *head)
-{
-	t_cursor *temp;
-
-	while (head)
-	{
-		if (head->next)
-		{
-			temp = head;
-			head = head->next;
-			SAFE_DELETE(temp);
-		}
-		if (head->counter)
-			SAFE_DELETE(head);
-	}
-}
-
 /*
 **	Example: ./corewar -visual -n -1 filename.cor
 **	GUI: ./corewar -visual [Players]
@@ -56,12 +39,11 @@ void		print_instructions(void)
 	ft_printf("\t\t- 16 : Show PC movements (Except for jumps)\n");
 	ft_printf("#### BINARY OUTPUT MODE ########################################"
 		"################\n");
-	ft_printf("-b        : Binary output mode for corewar\n");
-	ft_printf("		--stealth : Hides the real contents of the memory\n");
+	ft_printf("\t-b        : Binary output mode for corewar\n");
+	ft_printf("\t--stealth : Hides the real contents of the memory\n");
 	ft_printf("#### NCURSES OUTPUT MODE #######################################"
 		"################\n");
-	ft_printf("--visual  : Visual output mode\n");
-	ft_printf("--stealth : Hides the real contents of the memory\n");
+	ft_printf("\t--visual  : Visual output mode\n");
 	ft_printf("################################################################"
 		"################\n");
 }
@@ -70,27 +52,27 @@ void		print_instructions(void)
 void		error_msg_2(int i)
 {
 	if (i == 11)
-		ft_putstr_fd("\x1b[31m[Too few arguments for -dump]\x1b[0m ", 2);
+		ft_putstr_fd("\x1b[31m[Too few arguments for d/s/v flag]\x1b[0m ", 2);
 	else if (i == 12)
-		ft_putstr_fd("\x1b[31m[-dump value is larger than int max]\x1b[0m ", 2);
+		ft_putstr_fd("\x1b[31m[arg value is larger than int max]\x1b[0m ", 2);
 	else if (i == 13)
-		ft_putstr_fd("\x1b[31m[Too few arguments for -n flag]\x1b[0m ", 2);
+		ft_putstr_fd("\x1b[31m[Invalid argument for -v flag]\x1b[0m ", 2);
 	else if (i == 14)
 		ft_putstr_fd("\x1b[31m[Non numerical chars in numb input]\x1b[0m ", 2);
 	else if (i == 15)
-		ft_putstr_fd("\x1b[31m[Wrong int value for -n flag.]\x1b[0m ", 2);
+		ft_putstr_fd("\x1b[31m[Wrong int value for d/s/v flag.]\x1b[0m ", 2);
 	else if (i == 16)
 		ft_putstr_fd("\x1b[31m[Wrong file type. Usage: .cor]\x1b[0m ", 2);
 	else if (i == 17)
 		ft_putstr_fd("\x1b[31m[The file size is too large.]\x1b[0m ", 2);
 	else if (i == 18)
-		ft_putstr_fd("\x1b[31m[Too few arguments for -bonus flag]\x1b[0m ", 2);
+		ft_putstr_fd("\x1b[31m[Too few arguments for --visual flag]\x1b[0m ", 2);
 	else if (i == 19)
-		ft_putstr_fd("\x1b[31m[Wrong int value for -dump flag]\x1b[0m ", 2);
+		ft_putstr_fd("\x1b[31m[Wrong int value for -d flag]\x1b[0m ", 2);
 	else if (i == 20)
 		ft_putstr_fd("\x1b[31m[Incorrect comment chars]\x1b[0m ", 2);
-	else
-		ft_putstr_fd("\x1b[31m[ERROR]\x1b[0m ", 2);
+	else if (i == 21)
+		ft_putstr_fd("\x1b[31m[Unknown Argument]\x1b[0m ", 2);
 	ft_putstr_fd("\n", 2);
 	exit(1);
 }
@@ -125,16 +107,12 @@ void		error_msg(int i)
 
 void		error_exit(t_env *e, int i)
 {
-	if (e->head)
-		clean_head(e->head);
+	SAFE_DELETE(e);
 	if (i > 0 && i < 11)
 		error_msg(i);
-	else if (i > 10)
+	else if (i >= 11 && i <= 21)
 		error_msg_2(i);
-	else
-	{
-		ft_putstr_fd("\x1b[31m[Unknown Error Message: ]\x1b[0m ", 2);
-		ft_printf("Code %i\n", i);
-		exit(1);
-	}
+	ft_putstr_fd("\x1b[31m[Unknown Error Message: ]\x1b[0m ", 2);
+	ft_printf("Code %i\n", i);
+	exit(1);
 }

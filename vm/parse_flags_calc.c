@@ -12,45 +12,46 @@
 
 #include "vm.h"
 
-void	add_bonus(t_env *e, int args, int *i)
+t_bool add_visual(t_env *e)
 {
-	if ((*i + 2) > args)
-		error_exit(e, 18);
-	e->bonus = 1;
 	e->options[visual] = true;
-	*i += 1;
+	return (true);
 }
 
-long	get_smallest_player_id(t_env *e)
+t_bool add_binary(t_env *e)
 {
-	int			i;
-	long		small;
+	e->options[b] = true;
+	return (true);
+}
 
-	i = 0;
-	small = e->player[i].prog_num;
-	while (++i < e->num_players)
-		if (small > e->player[i].prog_num)
-			small = e->player[i].prog_num;
-	return (small);
+t_bool add_stealth(t_env *e)
+{
+	e->options[stealth] = true;
+	return (true);
+}
+
+void add_player(t_env *e, char **argv, int *i)
+{
+	e->new_player = create_player(e->prog_num);
+	reader(e, e->offset, argv[*i]);
+	ft_printf("add_player 1\n");
+	add_process(e, create_process(e->offset, e->prog_num,
+	e->new_player->name));
+	ft_printf("add_player 2\n");
+	add_player_list(e, e->new_player);
+	ft_printf("add_player 5\n");
+	e->num_players += 1;
+	ft_printf("add_player 3 %i %i %i \n", e->offset, MEM_SIZE, e->num_players);
+	e->offset += MEM_SIZE / (e->num_players);
+	ft_printf("add_player 4\n");
+	e->prog_num--;
+	ft_printf("add_player 6\n");
 }
 
 void	check_flag_number_valid(t_env *e, char *nbr)
 {
-	int			i;
-
-	i = -1;
-	while (nbr[++i])
-		if (!(ft_strchr(LABEL_NUMBERS, nbr[i])))
+	e->i = -1;
+	while (nbr[++e->i])
+		if (!(ft_strchr(LABEL_NUMBERS, nbr[e->i])))
 			error_exit(e, 14);
-}
-
-t_bool	check_duplicate_player(t_env *e, long nbr)
-{
-	long		k;
-
-	k = -1;
-	while (++k < e->num_players)
-		if (nbr == e->player[k].prog_num)
-			return (true);
-	return (false);
 }

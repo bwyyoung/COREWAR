@@ -51,34 +51,40 @@ uint32_t	rev_endian(uint32_t num)
 ** The file is invalid if it doesn't have the COREWAR_EXEC_MAGIC
 ** at the start of it.
 */
-void	reader(uint8_t *board, t_player *player, int offset, char *arg)
+void	reader(t_env *e, int offset, char *arg)
 {
 	int			fd;
 	uint32_t	magic;
 
 	magic = 0;
+	ft_printf("opening %s\n", arg);
 	if (-1 == (fd = open(arg, O_RDONLY)))
-		ft_error_errno(arg);
+		error_exit(e, 1);
 	if (-1 == read(fd, &magic, 4))
-		ft_error_errno(NULL);
+		error_exit(e, 4);
 	magic = rev_endian(magic);
+	ft_printf("reader 1\n");
 	if (magic != COREWAR_EXEC_MAGIC)
-		ft_error("No magic in source file");
+		error_exit(e, 4);
 	if (-1 == lseek(fd, sizeof(uint32_t), 0))
+		error_exit(e, 4);
+	ft_printf("reader 2\n");
+	if (-1 == read(fd, e->new_player->name, PROG_NAME_LENGTH))
 		ft_error_errno(NULL);
-	if (-1 == read(fd, player->name, PROG_NAME_LENGTH))
-		ft_error_errno(NULL);
+	ft_printf("reader 3\n");
 	if (-1 == lseek(fd, sizeof(t_header), 0))
 		ft_error_errno(NULL);
-	write_program_to_board(&board[offset], fd);
+	ft_printf("reader 4\n");
+	write_program_to_board(&e->board[offset], fd);
 	if (-1 == close(fd))
 		ft_error_errno(NULL);
+	ft_printf("reader 5\n");
 }
 
 /*
 ** Adds a player to the list of players.
 */
-void	add_player(t_env *env, t_player *new_player)
+void	add_player_list(t_env *env, t_player *new_player)
 {
 	t_list *new_node;
 
@@ -90,7 +96,7 @@ void	add_player(t_env *env, t_player *new_player)
 /*
 ** Creates the players and processes.
 ** Writes the programs to the board.
-*/
+
 void		load_programs(t_env *env, char *argv[])
 {
 	uint8_t			*board;
@@ -108,9 +114,10 @@ void		load_programs(t_env *env, char *argv[])
 		new_player = create_player(prog_num);
 		reader(board, new_player, offset, *argv);
 		add_process(env, create_process(offset, prog_num, new_player->name));
-		add_player(env, new_player);
+		add_player_list(env, new_player);
 		offset += MEM_SIZE / (env->num_players);
 		argv++;
 		prog_num--;
 	}
 }
+*/

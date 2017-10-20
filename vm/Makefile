@@ -11,8 +11,8 @@
 # **************************************************************************** #
 
 NAME = vm
-#FLAGS = -Wextra -Wall -Werror
-FLAGS =
+FLAGS = -g -Wextra -Wall -Werror
+#FLAGS =
 LIBFT = ./libft
 LIB = libft/libft.a
 

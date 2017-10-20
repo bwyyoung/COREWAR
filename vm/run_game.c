@@ -42,12 +42,12 @@ void		run_game(t_env *env)
 			perform_check(env);
 		if (env->processes == NULL)
 			break;
-		if (env->options[d] == 1 && env->option_num == env->total_cycles)
+		if (env->options[d] == 1 && env->dump_value == env->total_cycles)
 		{
 			dump_memory(env);
 			break;
 		}
-		if (env->options[s] == 1 && (env->total_cycles % env->option_num) == 0)
+		if (env->options[s] == 1 && (env->total_cycles % env->cycle_value) == 0)
 		{
 			dump_memory(env);
 			ft_printf("total %d\n", env->total_cycles);
