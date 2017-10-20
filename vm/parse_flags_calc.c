@@ -17,6 +17,7 @@ void	add_bonus(t_env *e, int args, int *i)
 	if ((*i + 2) > args)
 		error_exit(e, 18);
 	e->bonus = 1;
+	e->options[visual] = true;
 	*i += 1;
 }
 
