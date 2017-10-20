@@ -6,13 +6,13 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:22:29 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/18 17:24:51 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/20 10:36:15 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static void		add_live(t_env *env, char *name)
+void			add_live(t_env *env, char *name)
 {
 	t_list *players;
 

@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:16:50 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/18 17:37:54 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/20 10:43:27 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** T_REG, (T_IND | T_REG)
 */
 
-static void	op_st(t_env *env, t_process *process, uint32_t pc)
+void		op_st(t_env *env, t_process *process, uint32_t pc)
 {
 	uint32_t	reg_num;
 	int			reg_val;
@@ -58,7 +58,7 @@ st r4,34 stores the value of r4 at the address
 ** T_REG, (T_REG | T_DIR | T_IND), (T_DIR | T_REG)
 */
 
-static void	op_sti(t_env *env, t_process *process, uint32_t pc)
+void	op_sti(t_env *env, t_process *process, uint32_t pc)
 {
 	int			reg_val;
 	int			reg_num;

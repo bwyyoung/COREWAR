@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 15:01:59 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/19 15:41:41 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/19 16:12:35 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,7 @@ uint32_t	get_board_val(uint8_t *board, uint32_t index, uint32_t size)
 	i = 0;
 	pval = (uint8_t*)&val;
 	while (size--)
-	{
-		pval[i] = board[(index + size) % MEM_SIZE];
-		i++;
-	}
+		pval[i++] = board[(index + size) % MEM_SIZE];
 	return (val);
 }
 

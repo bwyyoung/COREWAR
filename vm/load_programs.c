@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:18:29 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/19 15:49:40 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/20 10:32:37 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** The board is already incremented by offset so that all the programs are
 ** evenly spaced on the board.
 */
-static void	write_program_to_board(uint8_t *board, int fd)
+void	write_program_to_board(uint8_t *board, int fd)
 {
 	uint8_t	c;
 	int		read_return;
@@ -38,7 +38,7 @@ static void	write_program_to_board(uint8_t *board, int fd)
 **		ea83f3. Therefore we need to reverse the board value
 **		before comparing it to the header value.
 */
-static uint32_t	rev_endian(uint32_t num)
+uint32_t	rev_endian(uint32_t num)
 {
 	return (((num << 24))
 			| ((num << 8) & 0x00ff0000)
@@ -51,7 +51,7 @@ static uint32_t	rev_endian(uint32_t num)
 ** The file is invalid if it doesn't have the COREWAR_EXEC_MAGIC
 ** at the start of it.
 */
-static void	reader(uint8_t *board, t_player *player, int offset, char *arg)
+void	reader(uint8_t *board, t_player *player, int offset, char *arg)
 {
 	int			fd;
 	uint32_t	magic;
@@ -78,7 +78,7 @@ static void	reader(uint8_t *board, t_player *player, int offset, char *arg)
 /*
 ** Adds a player to the list of players.
 */
-static void	add_player(t_env *env, t_player *new_player)
+void	add_player(t_env *env, t_player *new_player)
 {
 	t_list *new_node;
 
