@@ -24,13 +24,16 @@ void		parse_flags(t_env *e, int argc, char **argv)
 	while (i < argc)
 	{
 		if (ft_strequ(argv[i], "-d"))
-			e->options[d] = 1;
+			e->options[d] = true;
 		if (ft_strequ(argv[i], "-s"))
-			e->options[s] = 1;
-		if (ft_strequ(argv[i], "-n"))
-			add_player_with_number(e, argv[i + 1], argc, &i);
-		else
-			add_player_empty(e, &i, e->num_players);
+			e->options[s] = true;
+		if (ft_strequ(argv[i], "-v"))
+			e->options[v] = true;
+		if (ft_strequ(argv[i], "-b"))
+			e->options[b] = true;
+		if (ft_strequ(argv[i], "--stealth"))
+			e->options[stealth] = 1;
+		add_player_empty(e, &i, e->num_players);
 		e->num_players += 1;
 		if (e->num_players > MAX_PLAYERS)
 			error_exit(e, 8);

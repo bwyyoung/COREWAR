@@ -40,8 +40,7 @@ void		print_instructions(void)
 {
 	ft_printf("Usage: ./corewar [-d N -s N -v N | -b --stealth "
 		"| --visual --stealth] [-a] <champion1.cor> <...>\n");
-	ft_printf("Example              : ./corewar --visual -n -1 filename.cor");
-	ft_printf("\t-n: Specify Number of Players(-n -1 filename.cor)");
+	ft_printf("Example              : ./corewar --visual filename.cor");
 	ft_printf("-a        : Prints output from \"aff\" (Default is to hide it)");
 	ft_printf("\n#### TEXT OUTPUT MODE #######################################"
 		"###################\n");
