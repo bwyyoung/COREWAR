@@ -1,3 +1,31 @@
+
+
+
+bool init = false
+
+
+static void foo()
+{
+	int		i;
+	if (!init)
+	{
+		i = 5;
+		init = true;
+	}
+	i = i + 1;
+	printf("%i\n", i);
+}
+
+void main()
+{
+	foo();
+	foo();
+	foo();
+	foo();
+	foo();
+}
+
+
 #( 10/18/17@ 3:57PM )( bwyyoung@0 ):/Volumes/SD_CACHE/dropbox_gmail/Dropbox/42_LOCAL/Documents/ANNEE_3/FINISH_42/corewar/brian@master✗✗✗
    git pull
 Auto-merging vm/vm.h

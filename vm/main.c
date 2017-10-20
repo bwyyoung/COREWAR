@@ -12,43 +12,45 @@
 
 #include "vm.h"
 
-void		parse_flags(t_env *e, int argc, char **argv)
+t_bool			add_option(t_env *e, char **argv, int *i, int argc)
+{
+	if (ft_strequ(argv[*i], "-d"))
+	{
+		e->options[d] = true;
+		get_dump_number(e, argv[*i + 1], i,argc);
+		*i += 1;
+	}
+	else if (ft_strequ(argv[*i], "-s"))
+		e->options[s] = true;
+	else if (ft_strequ(argv[*i], "--visual"))
+	{
+		e->options[visual] = 1;
+		add_bonus(e, argc, i);
+	}
+	else if (ft_strequ(argv[*i], "-v"))
+		e->options[v] = true;
+	else if (ft_strequ(argv[*i], "-b"))
+		e->options[b] = true;
+	else if (ft_strequ(argv[*i], "--stealth"))
+		e->options[stealth] = 1;
+}
+
+void			parse_flags(t_env *e, int argc, char **argv)
 {
 	int	i;
 
 	i = 1;
 	e->num_players = 0;
-	if (ft_strequ(argv[i], "-d"))
-		get_dump_number(e, argv[i + 1], &i, argc);
-	else if (ft_strequ(argv[i], "--visual"))
-		add_bonus(e, argc, &i);
 	while (i < argc)
 	{
-		if (ft_strequ(argv[i], "-d"))
-			e->options[d] = true;
-		if (ft_strequ(argv[i], "-s"))
-			e->options[s] = true;
-		if (ft_strequ(argv[i], "-v"))
-			e->options[v] = true;
-		if (ft_strequ(argv[i], "-b"))
-			e->options[b] = true;
-		if (ft_strequ(argv[i], "--stealth"))
-			e->options[stealth] = 1;
-		add_player_empty(e, &i, e->num_players);
+		add_option(e, argv, &i, argc);
+		//add_player_empty(e, &i, e->num_players);
 		e->num_players += 1;
 		if (e->num_players > MAX_PLAYERS)
 			error_exit(e, 8);
 		i++;
 	}
 	e->cursors = e->num_players;
-}
-
-static void		add_option(t_env *env, char *option)
-{
-	if (ft_strequ(option, "-d"))
-		env->options[d] = 1;
-	if (ft_strequ(option, "-s"))
-		env->options[s] = 1;	
 }
 
 static void		handle_args(t_env *env, int argc, char *argv[])
@@ -60,7 +62,7 @@ static void		handle_args(t_env *env, int argc, char *argv[])
 	{
 		if (argv[i][0] == '-')
 		{
-			add_option(env, argv[i]);
+			//add_option(env, argv[i]);
 			env->option_num = ft_atoi(argv[i + 1]);
 			argc -= 2;
 		}

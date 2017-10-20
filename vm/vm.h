@@ -183,7 +183,6 @@ t_bool				check_duplicate_player(t_env *e, long nbr);
 void				check_flag_number_valid(t_env *e, char *nbr);
 long				get_smallest_player_id(t_env *e);
 void				get_dump_number(t_env *e, char *nbr, int *i, int args);
-void				add_player_with_number(t_env *e, char *nbr, int args,
-					int *i);
+void				check_verbose_level(t_env *e, char *nbr);
 void				add_player_empty(t_env *e, int *i, int players);
 #endif
