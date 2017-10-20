@@ -6,7 +6,7 @@
 /*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 15:28:47 by ppatel            #+#    #+#             */
-/*   Updated: 2017/10/19 16:40:11 by ppatel           ###   ########.fr       */
+/*   Updated: 2017/10/20 13:01:14 by ppatel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "../includes/op.h"
 #include "../includes/asm.h"
 
-t_token			*create_token(t_env *env, int *col, char type, char *value)
+t_token		*create_token(t_env *env, int *col, char type, char *value)
 {
 	t_token		*token;
 
@@ -33,7 +33,7 @@ t_token			*create_token(t_env *env, int *col, char type, char *value)
 	return (token);
 }
 
-void			add_token(t_env *env, int *col, char type, char *value)
+void		add_token(t_env *env, int *col, char type, char *value)
 {
 	t_token		*token;
 
@@ -46,7 +46,7 @@ void			add_token(t_env *env, int *col, char type, char *value)
 	env->last = token;
 }
 
-static void		init_env(t_env *env)
+void		init_env(t_env *env)
 {
 	env->line = 0;
 	env->pc = 0;
@@ -60,7 +60,7 @@ static void		init_env(t_env *env)
 	env->label_count = 0;
 }
 
-static void		get_filename(t_env *env, char *name)
+void		get_filename(t_env *env, char *name)
 {
 	char	*str;
 
@@ -72,7 +72,7 @@ static void		get_filename(t_env *env, char *name)
 	env->filename = str;
 }
 
-int				main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	int			len;
 	int			fd;

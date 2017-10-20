@@ -6,7 +6,7 @@
 /*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/18 19:22:16 by ppatel            #+#    #+#             */
-/*   Updated: 2017/10/19 16:41:35 by ppatel           ###   ########.fr       */
+/*   Updated: 2017/10/20 12:29:11 by ppatel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "../includes/op.h"
 #include "../includes/asm.h"
 
-static void		add_ind(t_env *env, t_token *param, int start)
+void		add_ind(t_env *env, t_token *param, int start)
 {
 	uint16_t	ind;
 	int			i;
@@ -39,7 +39,7 @@ static void		add_ind(t_env *env, t_token *param, int start)
 	env->pc = env->pc + 2;
 }
 
-static void		add_dir(t_env *env, t_inst *inst, t_token *param, int start)
+void		add_dir(t_env *env, t_inst *inst, t_token *param, int start)
 {
 	int			i;
 	int			size;
@@ -64,7 +64,7 @@ static void		add_dir(t_env *env, t_inst *inst, t_token *param, int start)
 	env->pc = env->pc + size;
 }
 
-static void		ft_add_inst_bytes(t_env *env, t_inst *inst, int start)
+void		ft_add_inst_bytes(t_env *env, t_inst *inst, int start)
 {
 	int			i;
 	t_token		*param;
@@ -92,7 +92,7 @@ static void		ft_add_inst_bytes(t_env *env, t_inst *inst, int start)
 	}
 }
 
-static void		fill_header(t_env *env)
+void		fill_header(t_env *env)
 {
 	t_header	*header;
 	t_token		*str;
@@ -114,7 +114,7 @@ static void		fill_header(t_env *env)
 	env->header = header;
 }
 
-void			ft_write_hex(t_env *env)
+void		ft_write_hex(t_env *env)
 {
 	t_inst	*inst;
 	char	*str;

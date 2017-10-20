@@ -6,14 +6,14 @@
 /*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/18 17:53:46 by ppatel            #+#    #+#             */
-/*   Updated: 2017/10/19 15:49:39 by ppatel           ###   ########.fr       */
+/*   Updated: 2017/10/20 12:58:15 by ppatel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/op.h"
 #include "../includes/asm.h"
 
-static void		check_op_reg(t_env *env, int *col, char *str)
+void		check_op_reg(t_env *env, int *col, char *str)
 {
 	int			nb;
 	size_t		i;
@@ -41,7 +41,7 @@ static void		check_op_reg(t_env *env, int *col, char *str)
 		add_token(env, col, 0, str);
 }
 
-static void		check_token(t_env *env, char *line, int *col, int j)
+void		check_token(t_env *env, char *line, int *col, int j)
 {
 	char	*str;
 
@@ -67,7 +67,7 @@ static void		check_token(t_env *env, char *line, int *col, int j)
 	free(str);
 }
 
-static void		generate_token(t_env *env, char *line, int *col, int *quotation)
+void		generate_token(t_env *env, char *line, int *col, int *quotation)
 {
 	int		j;
 
@@ -94,7 +94,7 @@ static void		generate_token(t_env *env, char *line, int *col, int *quotation)
 	}
 }
 
-void			lexical_analyser(int fd, t_env *env)
+void		lexical_analyser(int fd, t_env *env)
 {
 	char	*line;
 	int		i;

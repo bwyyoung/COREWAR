@@ -6,14 +6,14 @@
 /*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/18 18:41:56 by ppatel            #+#    #+#             */
-/*   Updated: 2017/10/19 15:48:26 by ppatel           ###   ########.fr       */
+/*   Updated: 2017/10/20 12:28:31 by ppatel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/op.h"
 #include "../includes/asm.h"
 
-static t_token		*add_label(t_token *token, t_env *env)
+t_token		*add_label(t_token *token, t_env *env)
 {
 	t_label		*label;
 
@@ -26,7 +26,7 @@ static t_token		*add_label(t_token *token, t_env *env)
 	return (token->next);
 }
 
-static void			add_inst(t_inst *inst, t_env *env)
+void		add_inst(t_inst *inst, t_env *env)
 {
 	t_inst	*tmp;
 
@@ -39,7 +39,7 @@ static void			add_inst(t_inst *inst, t_env *env)
 		tmp->next = inst;
 }
 
-static t_inst		*init_inst(void)
+t_inst		*init_inst(void)
 {
 	t_inst		*inst;
 
@@ -54,7 +54,7 @@ static t_inst		*init_inst(void)
 	return (inst);
 }
 
-void				ft_make_inst(t_token *start, t_token *end, t_env *env)
+void		ft_make_inst(t_token *start, t_token *end, t_env *env)
 {
 	t_inst		*inst;
 	t_op		*op;
