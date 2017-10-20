@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:10:13 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/19 12:45:39 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/20 10:39:55 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** If it is not valid inc the pc by 2 to skip the op byte and the type byte
 ** else just return 0
 */
-static int	get_types(t_process *process, uint8_t types, uint8_t op)
+int	get_types(t_process *process, uint8_t types, uint8_t op)
 {
 	if (is_types_invalid(op, types))
 	{
@@ -38,7 +38,7 @@ static int	get_types(t_process *process, uint8_t types, uint8_t op)
 **	If the op is zjmp, don't modify the pc because it has already been
 **	changed by the zjmp function.
 */
-static void	execute_op(t_env *env, t_process *process)
+void	execute_op(t_env *env, t_process *process)
 {
 	uint8_t			op;
 	int				pc;
@@ -83,7 +83,7 @@ static void	execute_op(t_env *env, t_process *process)
 ** it can try and execute the new byte that the pc is pointing towards.
 **
 */
-static void	execute_process(t_process *process, t_env *env)
+void	execute_process(t_process *process, t_env *env)
 {
 	uint8_t op;
 

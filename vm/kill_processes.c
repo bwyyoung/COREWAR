@@ -6,18 +6,21 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/28 21:47:27 by douglas           #+#    #+#             */
-/*   Updated: 2017/10/19 10:38:49 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/20 10:35:02 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static void		free_node(t_list *node)
+void			free_node(t_list *node)
 {
 	SAFE_DELETE(node->content);
 	SAFE_DELETE(node);
 }
 
+/*
+** Linus Torvalds double pointer
+*/
 t_list			*kill_processes(t_env *env)
 {
 	t_list		*processes;

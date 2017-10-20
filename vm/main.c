@@ -1,7 +1,6 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*                                                        :::      ::::::::   */ /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -40,7 +39,7 @@ void		parse_flags(t_env *e, int argc, char **argv)
 	e->cursors = e->num_players;
 }
 
-static void		add_option(t_env *env, char *option)
+void		add_option(t_env *env, char *option)
 {
 	if (ft_strequ(option, "-d"))
 		env->options[d] = 1;
@@ -48,7 +47,7 @@ static void		add_option(t_env *env, char *option)
 		env->options[s] = 1;	
 }
 
-static void		handle_args(t_env *env, int argc, char *argv[])
+void		handle_args(t_env *env, int argc, char *argv[])
 {
 	int i;
 
@@ -72,7 +71,7 @@ static void		handle_args(t_env *env, int argc, char *argv[])
 ** So if there are four player player 4 will win.
 ** Else the player who has gotten the last live wins
 */
-static void	declare_winner(t_env *env)
+void	declare_winner(t_env *env)
 {
 	if (!env->last_live_name)
 		ft_printf("Contestant %d, \"%s\", has won !\n",

@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:16:05 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/18 12:53:49 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/20 10:36:04 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ uint32_t	get_param_size(uint8_t type, int label_size)
 /*
 ** Returns the size of ops that don't have a type byte.
 */
-static int	get_op_size_no_type(uint8_t op)
+int		get_op_size_no_type(uint8_t op)
 {
 	int size;
 
