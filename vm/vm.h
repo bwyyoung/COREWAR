@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 15:37:30 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/18 16:37:45 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/19 15:33:33 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,17 +131,14 @@ typedef struct		s_process
 uint32_t			get_ind_val(uint8_t *board, t_process *process,
 							uint32_t param_val, uint32_t read_size);
 void				ft_error_errno(char *msg);
-// test
+void				ft_error(char *msg);
 char				*get_op_name_test(uint8_t op);
-
-// op.c
 int					op_uses_idx(uint8_t op);
 int					op_has_type(uint8_t op);
 uint32_t			get_label_size(uint8_t op);
 uint32_t			get_cycles(uint8_t op);
 uint32_t			get_op_size(uint8_t op, uint8_t types);
 int					is_types_invalid(uint8_t op, uint8_t types);
-
 int					valid_reg_num(uint8_t reg_num);
 int					get_idx_val(int val);
 void				load_programs(t_env *env, char *argv[]);
@@ -160,7 +157,6 @@ int					is_reg_num_invalid(uint8_t reg_num);
 uint32_t			get_reg_val(t_process *process, uint8_t reg_num);
 void				set_reg_val(t_process *process, uint8_t reg_num,
 								uint32_t new_val);
-void				ft_error(char *msg);
 void				inc_pc(uint32_t *regs, int inc);
 void				modify_carry(t_process *process, uint32_t val);
 uint32_t			get_board_val(uint8_t *board, uint32_t index,

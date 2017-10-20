@@ -6,14 +6,14 @@
 /*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/18 18:52:09 by ppatel            #+#    #+#             */
-/*   Updated: 2017/10/18 18:54:50 by ppatel           ###   ########.fr       */
+/*   Updated: 2017/10/19 15:37:52 by ppatel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/op.h"
 #include "../includes/asm.h"
 
-static void		type_byte(t_inst *inst, t_token *param, int pcount)
+static void	type_byte(t_inst *inst, t_token *param, int pcount)
 {
 	unsigned char	type;
 	int				bit;
@@ -33,7 +33,7 @@ static void		type_byte(t_inst *inst, t_token *param, int pcount)
 	inst->type = inst->type | type;
 }
 
-void    		check_ptype(t_inst *inst, t_op *op, t_env *env)
+void		check_ptype(t_inst *inst, t_op *op, t_env *env)
 {
 	char	ptypes[inst->pcount];
 	char	tmp;
@@ -57,7 +57,7 @@ void    		check_ptype(t_inst *inst, t_op *op, t_env *env)
 	}
 }
 
-void    		check_pcount(t_token *start, t_token *end, t_inst *inst, t_env *env)
+void		check_pcount(t_token *start, t_token *end, t_inst *inst, t_env *env)
 {
 	int		i;
 

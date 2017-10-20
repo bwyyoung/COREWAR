@@ -6,14 +6,14 @@
 /*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/18 18:07:20 by ppatel            #+#    #+#             */
-/*   Updated: 2017/10/18 18:55:01 by ppatel           ###   ########.fr       */
+/*   Updated: 2017/10/19 15:53:23 by ppatel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/op.h"
 #include "../includes/asm.h"
 
-static void         init_label(t_env *env, t_token *token)
+static void			init_label(t_env *env, t_token *token)
 {
 	int			count;
 
@@ -28,7 +28,7 @@ static void         init_label(t_env *env, t_token *token)
 		return ;
 }
 
-static t_token	    *syntax_header(t_token *token, t_env *env)
+static t_token		*syntax_header(t_token *token, t_env *env)
 {
 	if (ft_strcmp(token->value, NAME_CMD_STRING))
 		syntax_error(token, env);
@@ -46,37 +46,36 @@ static t_token	    *syntax_header(t_token *token, t_env *env)
 	return (token->next);
 }
 
-
-static t_token      *syntax_instruction(t_token *token, t_env *env)
+static t_token		*syntax_instruction(t_token *token, t_env *env)
 {
 	int		line;
 
 	token = token->type == T_LAB ? token->next : token;
 	if (!token || (token && token->type == T_LAB))
-		return(token);
+		return (token);
 	if (!token || token->type != 16)
 		syntax_error(token, env);
 	line = token->pos->line;
 	token = token->next;
 	if (!token || (token->type != T_REG && token->type != T_DIR
-		 && token->type != T_IND))
+		&& token->type != T_IND))
 		syntax_error(token, env);
 	token = token->next;
 	while (token && token->pos->line == line)
 	{
 		if (!token || token->value[0] != SEPARATOR_CHAR ||
-			 !token->next || token->next->pos->line != line)
+			!token->next || token->next->pos->line != line)
 			syntax_error(token, env);
 		token = token->next;
 		if (!token || (token->type != T_REG && token->type != T_DIR &&
-			 token->type != T_IND))
+			token->type != T_IND))
 			syntax_error(token, env);
 		token = token->next;
 	}
 	return (token);
 }
 
-void                syntax_analyser(t_env *env)
+void				syntax_analyser(t_env *env)
 {
 	t_token		*token;
 	t_token		*end;
@@ -87,7 +86,7 @@ void                syntax_analyser(t_env *env)
 	while (token)
 	{
 		end = syntax_instruction(token, env);
-		ft_make_inst(token,end, env);
+		ft_make_inst(token, end, env);
 		token = end;
 	}
 }

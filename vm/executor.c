@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:10:13 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/18 16:37:35 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/19 12:45:39 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ static void	execute_process(t_process *process, t_env *env)
 }
 
 /*
-** Goes through the whole list of processes and executes the in order.
+** Goes through the whole list of processes and executes them.
 */
 void		execute_cycle(t_env *env)
 {

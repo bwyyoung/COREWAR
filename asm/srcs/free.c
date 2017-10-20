@@ -6,7 +6,7 @@
 /*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/18 17:23:23 by ppatel            #+#    #+#             */
-/*   Updated: 2017/10/18 20:39:04 by ppatel           ###   ########.fr       */
+/*   Updated: 2017/10/19 15:40:13 by ppatel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void			free_env(t_env *env)
 		free(env->header);
 	if (env->token)
 		free_tokens(env->token);
-	if	(env->labels)
+	if (env->labels)
 		free_labels(env->labels, env->label_count);
 	if (env->inst)
 		free_inst(env->inst);

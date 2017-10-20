@@ -6,14 +6,14 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:12:02 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/18 17:39:47 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/19 11:08:36 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
 /*
-** Change the pc value of a process. regs[0] == pc
+** Change the pc value of a process. (regs[0] == pc)
 ** Use % MEM_SIZE because memory is circular
 ** MEM_SIZE == 4096 == 4 * 1024
 */
@@ -36,7 +36,7 @@ void		modify_carry(t_process *process, uint32_t val)
 ** Example:
 ** if zjmp has the param 0xfffb (like in zork)
 ** we will take 0xfffb - 0x10000 which is -5
-** then return -5 % IDX_MOD(IDX_MOD == 512 == MEM_SIZE / 8)
+** then return -5 % IDX_MOD (IDX_MOD == 512 == MEM_SIZE / 8)
 ** which means we will return -5
 */
 int			get_idx_val(int val)

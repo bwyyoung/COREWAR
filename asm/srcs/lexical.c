@@ -6,26 +6,12 @@
 /*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/18 17:53:46 by ppatel            #+#    #+#             */
-/*   Updated: 2017/10/18 20:23:45 by ppatel           ###   ########.fr       */
+/*   Updated: 2017/10/19 15:49:39 by ppatel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/op.h"
 #include "../includes/asm.h"
-
-// static int		check_op_by_name(char *name)
-// {
-// 	int		i;
-	
-// 	i = 0;
-// 	while (i < 16)
-// 	{
-// 		if (!ft_strcmp(name, g_op_tab[i].op))
-// 			return (1);
-// 		i++;
-// 	}
-// 	return (0);
-// }
 
 static void		check_op_reg(t_env *env, int *col, char *str)
 {
@@ -108,14 +94,14 @@ static void		generate_token(t_env *env, char *line, int *col, int *quotation)
 	}
 }
 
-void    		lexical_analyser(int fd, t_env *env)
+void			lexical_analyser(int fd, t_env *env)
 {
 	char	*line;
 	int		i;
 	int		quotation;
 
 	quotation = 0;
-	while(get_next_line(fd, &line) > 0)
+	while (get_next_line(fd, &line) > 0)
 	{
 		i = 0;
 		env->line = env->line + 1;
@@ -123,7 +109,7 @@ void    		lexical_analyser(int fd, t_env *env)
 			env->last->value = ft_concat(env->last->value, "\n");
 		while (line && line[i])
 		{
-			while(line[i] && !quotation && (line[i] == ' ' || line[i] == '\t'))
+			while (line[i] && !quotation && (line[i] == ' ' || line[i] == '\t'))
 				i++;
 			if (line[i])
 				generate_token(env, line, &i, &quotation);

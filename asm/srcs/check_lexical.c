@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check.c                                            :+:      :+:    :+:   */
+/*   check_lexical.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/18 17:48:23 by ppatel            #+#    #+#             */
-/*   Updated: 2017/10/18 17:48:25 by ppatel           ###   ########.fr       */
+/*   Updated: 2017/10/19 15:35:49 by ppatel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void		check_direct(t_env *env, char *line, int *col)
 			j++;
 	}
 	else if ((line[*col] == '-' && ft_isdigit(line[*col + 1])) ||
-	 ft_isdigit(line[*col]))
+	ft_isdigit(line[*col]))
 	{
 		j = line[*col] == '-' ? 1 : 0;
 		while (line[*col + j] && ft_isdigit(line[*col + j]))

@@ -6,13 +6,18 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:18:29 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/18 10:11:41 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/19 15:49:40 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static void	read_program(uint8_t *board, int fd)
+/*
+** Reads the program bytes from the file and writes them to the board.
+** The board is already incremented by offset so that all the programs are
+** evenly spaced on the board.
+*/
+static void	write_program_to_board(uint8_t *board, int fd)
 {
 	uint8_t	c;
 	int		read_return;
@@ -25,6 +30,14 @@ static void	read_program(uint8_t *board, int fd)
 	}
 }
 
+/*
+** Switches the endian of the num.
+** Example:
+**		The magic bytes are stored in the file as f383ea
+**		but in the header file the magic num is stored as
+**		ea83f3. Therefore we need to reverse the board value
+**		before comparing it to the header value.
+*/
 static uint32_t	rev_endian(uint32_t num)
 {
 	return (((num << 24))
@@ -33,6 +46,11 @@ static uint32_t	rev_endian(uint32_t num)
 			| ((num >> 24)));
 }
 
+/*
+** Reads the .cor file given as argument.
+** The file is invalid if it doesn't have the COREWAR_EXEC_MAGIC
+** at the start of it.
+*/
 static void	reader(uint8_t *board, t_player *player, int offset, char *arg)
 {
 	int			fd;
@@ -48,15 +66,18 @@ static void	reader(uint8_t *board, t_player *player, int offset, char *arg)
 		ft_error("No magic in source file");
 	if (-1 == lseek(fd, sizeof(uint32_t), 0))
 		ft_error_errno(NULL);
-	if (-1 == read(fd, player->name, 128))
+	if (-1 == read(fd, player->name, PROG_NAME_LENGTH))
 		ft_error_errno(NULL);
 	if (-1 == lseek(fd, sizeof(t_header), 0))
 		ft_error_errno(NULL);
-	read_program(&board[offset], fd);
+	write_program_to_board(&board[offset], fd);
 	if (-1 == close(fd))
 		ft_error_errno(NULL);
 }
 
+/*
+** Adds a player to the list of players.
+*/
 static void	add_player(t_env *env, t_player *new_player)
 {
 	t_list *new_node;
@@ -66,6 +87,10 @@ static void	add_player(t_env *env, t_player *new_player)
 	ft_lstadd(&env->players, new_node);
 }
 
+/*
+** Creates the players and processes.
+** Writes the programs to the board.
+*/
 void		load_programs(t_env *env, char *argv[])
 {
 	uint8_t			*board;

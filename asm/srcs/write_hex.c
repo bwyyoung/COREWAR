@@ -6,7 +6,7 @@
 /*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/18 19:22:16 by ppatel            #+#    #+#             */
-/*   Updated: 2017/10/18 20:50:18 by ppatel           ###   ########.fr       */
+/*   Updated: 2017/10/19 16:41:35 by ppatel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,10 @@ static void		ft_add_inst_bytes(t_env *env, t_inst *inst, int start)
 
 static void		fill_header(t_env *env)
 {
-	header_t	*header;
+	t_header	*header;
 	t_token		*str;
 
-	if (!(header = (header_t *)malloc(sizeof(header_t))))
+	if (!(header = (t_header *)malloc(sizeof(t_header))))
 		ft_exit("Malloc Error.");
 	header->magic = COREWAR_EXEC_MAGIC;
 	header->prog_size = env->pc;
@@ -114,7 +114,7 @@ static void		fill_header(t_env *env)
 	env->header = header;
 }
 
-void    		ft_write_hex(t_env *env)
+void			ft_write_hex(t_env *env)
 {
 	t_inst	*inst;
 	char	*str;
@@ -132,8 +132,8 @@ void    		ft_write_hex(t_env *env)
 		inst = inst->next;
 	}
 	fd = open(env->filename, O_WRONLY | O_TRUNC | O_CREAT,
-		 S_IWUSR | S_IRUSR | S_IRGRP | S_IROTH);
-	write(fd, env->header, sizeof(header_t));
+		S_IWUSR | S_IRUSR | S_IRGRP | S_IROTH);
+	write(fd, env->header, sizeof(t_header));
 	write(fd, str, env->pc);
 	close(fd);
 }
