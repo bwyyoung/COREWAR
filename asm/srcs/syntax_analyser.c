@@ -6,14 +6,14 @@
 /*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/18 18:07:20 by ppatel            #+#    #+#             */
-/*   Updated: 2017/10/19 15:53:23 by ppatel           ###   ########.fr       */
+/*   Updated: 2017/10/20 12:57:33 by ppatel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/op.h"
 #include "../includes/asm.h"
 
-static void			init_label(t_env *env, t_token *token)
+void		init_label(t_env *env, t_token *token)
 {
 	int			count;
 
@@ -28,7 +28,7 @@ static void			init_label(t_env *env, t_token *token)
 		return ;
 }
 
-static t_token		*syntax_header(t_token *token, t_env *env)
+t_token		*syntax_header(t_token *token, t_env *env)
 {
 	if (ft_strcmp(token->value, NAME_CMD_STRING))
 		syntax_error(token, env);
@@ -46,7 +46,7 @@ static t_token		*syntax_header(t_token *token, t_env *env)
 	return (token->next);
 }
 
-static t_token		*syntax_instruction(t_token *token, t_env *env)
+t_token		*syntax_instruction(t_token *token, t_env *env)
 {
 	int		line;
 
@@ -75,7 +75,7 @@ static t_token		*syntax_instruction(t_token *token, t_env *env)
 	return (token);
 }
 
-void				syntax_analyser(t_env *env)
+void		syntax_analyser(t_env *env)
 {
 	t_token		*token;
 	t_token		*end;

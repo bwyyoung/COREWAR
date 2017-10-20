@@ -6,14 +6,14 @@
 /*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/18 17:23:23 by ppatel            #+#    #+#             */
-/*   Updated: 2017/10/19 15:40:13 by ppatel           ###   ########.fr       */
+/*   Updated: 2017/10/20 12:27:31 by ppatel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/op.h"
 #include "../includes/asm.h"
 
-static void		free_tokens(t_token *token)
+void		free_tokens(t_token *token)
 {
 	t_token		*tmp;
 
@@ -27,7 +27,7 @@ static void		free_tokens(t_token *token)
 	}
 }
 
-static void		free_labels(t_label **labels, int count)
+void		free_labels(t_label **labels, int count)
 {
 	int		i;
 
@@ -37,7 +37,7 @@ static void		free_labels(t_label **labels, int count)
 	free(labels);
 }
 
-static void		free_inst(t_inst *inst)
+void		free_inst(t_inst *inst)
 {
 	t_inst	*tmp;
 
@@ -49,7 +49,7 @@ static void		free_inst(t_inst *inst)
 	}
 }
 
-void			free_env(t_env *env)
+void		free_env(t_env *env)
 {
 	if (env->header)
 		free(env->header);

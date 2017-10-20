@@ -6,14 +6,14 @@
 /*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/18 18:52:09 by ppatel            #+#    #+#             */
-/*   Updated: 2017/10/19 15:37:52 by ppatel           ###   ########.fr       */
+/*   Updated: 2017/10/20 12:59:33 by ppatel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/op.h"
 #include "../includes/asm.h"
 
-static void	type_byte(t_inst *inst, t_token *param, int pcount)
+void		type_byte(t_inst *inst, t_token *param, int pcount)
 {
 	unsigned char	type;
 	int				bit;
