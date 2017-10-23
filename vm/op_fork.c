@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 20:31:02 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/20 10:40:54 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/23 11:12:14 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 ** T_DIR
 */
 
-void			op_forker(t_env *env, t_process *process, uint32_t pc, int op)
+void			op_forker(t_env *env, t_process *process, int op)
 {
 	t_process	*process_cpy;
 	int			index;
@@ -28,7 +28,7 @@ void			op_forker(t_env *env, t_process *process, uint32_t pc, int op)
 	if (!(process_cpy = (t_process*)malloc(sizeof(t_process))))
 		ft_error_errno(NULL);
 	ft_memcpy(process_cpy, process, sizeof(t_process));
-	index = get_board_val(env->board, pc + 1, IND_SIZE);
+	index = process->params[0].val;
 	if (op == lfork)
 		inc_pc(process_cpy->regs, index);
 	else

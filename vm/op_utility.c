@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_utility.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:12:02 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/19 11:08:36 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/23 12:08:46 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,22 @@ int			get_idx_val(int val)
 	if (val >= MEM_SIZE)
 		val -= 0x10000;
 	return (val % IDX_MOD);
+}
+
+void		print_verbosity_four_vals(t_process *process)
+{
+	int num_params;
+	int	i;
+
+	num_params = get_num_params(process->op);
+	i = 0;
+	while (num_params--)
+	{
+		if (process->params[i].type == REG_CODE)
+			ft_putchar('r');
+		ft_printf("%d", process->params[i].val);
+		if (num_params > 0)
+			ft_putchar(' ');
+		i++;
+	}
 }

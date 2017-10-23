@@ -3,30 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:10:13 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/20 10:39:55 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/23 12:06:39 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-
-/*
-** Make sure the type byte is valid for the current op.
-** If it is not valid inc the pc by 2 to skip the op byte and the type byte
-** else just return 0
-*/
-int	get_types(t_process *process, uint8_t types, uint8_t op)
-{
-	if (is_types_invalid(op, types))
-	{
-		inc_pc(process->regs, 2);
-		return (1);
-	}
-	process->types = types;
-	return (0);
-}
 
 /*
 ** Execute the current process op.
@@ -45,11 +29,10 @@ void	execute_op(t_env *env, t_process *process)
 
 	pc = process->regs[0];
 	op = process->op;
-	if (get_types(process, env->board[(pc + 1) % MEM_SIZE], op))
-		return ;
+	process->types = env->board[(pc + 1) % MEM_SIZE];
 	get_params(env, process, op);
 	if (op == live)
-		op_live(env, process, pc);
+		op_live(env, process);
 	else if (op == ld || op == lld)
 		op_load(env, process, op);
 	else if (op == st || op == sti)
@@ -59,15 +42,15 @@ void	execute_op(t_env *env, t_process *process)
 	else if (op == and || op == or || op == xor)
 		op_bitwise(env, process, op);
 	else if (op == zjmp)
-		op_zjmp(env, process, pc);
+		op_zjmp(env, process);
 	else if (op == ldi || op == lldi)
 		op_index_load(env, process, op);
 	else if (op == e_fork || op == lfork)
-		op_forker(env, process, pc, op);
+		op_forker(env, process, op);
 	else if (op == aff)
 		op_aff(env, process, pc);
 	if (op != zjmp)
-		inc_pc(process->regs, get_op_size(op, process->types));
+		inc_pc(process->regs, get_op_size(process));
 }
 
 /*

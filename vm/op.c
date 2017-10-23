@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2017/10/19 10:59:53 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/22 14:22:14 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_op	g_op_tab[17] =
 	{"aff", 1, {T_REG}, 2, 1, 0, 0},
 };
 
-char		*get_op_name_test(uint8_t op)
+char		*get_op_name(uint8_t op)
 {
 	return (ft_strdup(g_op_tab[op].name));
 }
@@ -74,34 +74,7 @@ uint32_t	get_label_size(uint8_t op)
 	return (g_op_tab[op].label_size);
 }
 
-/*
-** checks if the types byte is valid
-** returns 1 if invalid
-** returns 0 if valid
-*/
-int			is_types_invalid(uint8_t op, uint8_t types)
+int			get_num_params(uint8_t op)
 {
-	t_op	op_info;
-	int		i;
-	int		num_types;
-	uint8_t	type;
-
-	if (op > aff)
-		return (1);
-	op_info = g_op_tab[op];
-	if (op_info.has_type == 0)
-		return (0);
-	if (types == 0)
-		return (1);
-	num_types = op_info.num_params;
-	i = 0;
-	while (num_types--)
-	{
-		type = types >> (num_types * 2);
-		type = types & 0b00000011;
-		if (type != (type & op_info.arg_types[num_types]))
-			return (1);
-		types = types << 2;
-	}
-	return (0);
+	return (g_op_tab[op].num_params);
 }

@@ -36,34 +36,16 @@ void			parse_flags(t_env *e, int argc, char **argv)
 	e->num_players = 0;
 	while (++i < argc)
 	{
-		ft_printf("parse_flags %i %s\n", i , argv[i]);
+		// ft_printf("parse_flags %i %s\n", i , argv[i]);
 		if (!add_option(e, argv, &i, argc) && (i < argc))
 			add_player(e, argv, &i);
 		if (e->num_players > MAX_PLAYERS)
 			error_exit(e, 8);
-		ft_printf("parse_flags1 %i/%i %s\n", i , argc, argv[i]);
+		// ft_printf("parse_flags1 %i/%i %s\n", i , argc, argv[i]);
 	}
-	ft_printf("Finish Parse Flags\n");
+	// ft_printf("Finish Parse Flags\n");
 }
 
-
-void		handle_args(t_env *env, int argc, char *argv[])
-{
-	int i;
-
-	i = 0;
-	while (argv[i + 1])
-	{
-		if (argv[i][0] == '-')
-		{
-			//add_option(env, argv[i]);
-			env->dump_value = ft_atoi(argv[i + 1]);
-			argc -= 2;
-		}
-		i++;
-	}
-	env->num_players = argc - 1;
-}
 
 /*
 ** Declare the winner of the game.
@@ -83,6 +65,21 @@ void	declare_winner(t_env *env)
 		env->last_live_name);
 }
 
+void		free_node(void *content, size_t size)
+{
+	(void)size;
+
+	SAFE_DELETE(((t_player*)content)->name);
+	SAFE_DELETE(content);
+}
+
+void		freer(t_env *env)
+{
+	ft_lstdel(&env->players, free_node);
+	SAFE_DELETE(env->board);
+	SAFE_DELETE(env);
+}
+
 int			main(int argc, char *argv[])
 {
 	uint8_t			*board;
@@ -96,17 +93,13 @@ int			main(int argc, char *argv[])
 	board = create_board();
 	env = create_env(board);
 	parse_flags(env, argc, argv);
-	//handle_args(env, argc, argv);
-	//load_programs(env, ++argv);
-	ft_printf("main 1\n");
+	// ft_printf("main 1\n");
 	run_game(env);
-	ft_printf("main 2\n");
-
+	// ft_printf("main 2\n");
 	declare_winner(env);
-	ft_printf("main 3\n");
-
+	// ft_printf("main 3\n");
 	ft_printf("cycle_to_die %d\n", env->cycle_to_die);
 	ft_printf("total cycles %d\n", env->total_cycles);
-	SAFE_DELETE(board);
+	freer(env);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_flags.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 14:49:06 by byoung-w          #+#    #+#             */
-/*   Updated: 2017/10/18 09:59:59 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/23 11:42:56 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,19 @@ t_bool	get_dump_number(t_env *e, char *nbr, int *i, int argc) /// -d
 
 t_bool	get_cycle_number(t_env *e, char *nbr, int *i, int argc) /// -s
 {
-	ft_printf("get_cycle_number 1\n");
+	// ft_printf("get_cycle_number 1\n");
 	e->options[s] = true;
-	ft_printf("get_cycle_number 2\n");
+	// ft_printf("get_cycle_number 2\n");
 
 	if ((*i + 2) > argc)
 		error_exit(e, 11);
-	ft_printf("get_cycle_number 3\n");
+	// ft_printf("get_cycle_number 3\n");
 
 	*i += 1;
-	ft_printf("get_cycle_number 4\n");
+	// ft_printf("get_cycle_number 4\n");
 
 	e->cycle_value = verify_number(e, nbr);
-	ft_printf("get_cycle_number 5\n");
+	// ft_printf("get_cycle_number 5\n");
 
 	return (true);
 }
@@ -57,17 +57,17 @@ t_bool	get_cycle_number(t_env *e, char *nbr, int *i, int argc) /// -s
 t_bool	get_verbose_level(t_env *e, char *nbr, int *i, int argc)
 {
 	e->options[v] = true;
-	ft_printf("get_verbose_level 1\n");
+	// ft_printf("get_verbose_level 1\n");
 	if ((*i + 2) > argc)
 		error_exit(e, 11);
-	ft_printf("get_verbose_level 2\n");
-	ft_printf("get_verbose_level 3 %s %i\n", nbr, !ft_strcmp(nbr, "0"));
+	// ft_printf("get_verbose_level 2\n");
+	// ft_printf("get_verbose_level 3 %s %i\n", nbr, !ft_strcmp(nbr, "0"));
 	if (!ft_strcmp(nbr, "0") || !ft_strcmp(nbr, "1") || !ft_strcmp(nbr, "2") ||
 	 !ft_strcmp(nbr, "4") || !ft_strcmp(nbr, "8") || !ft_strcmp(nbr, "16"))
 		e->verbose_value = verify_number(e, nbr);
 	else
 		error_exit(e, 13);
 	*i += 1;
-	ft_printf("get_verbose_level 4\n");
+	// ft_printf("get_verbose_level 4\n");
 	return (true);
 }

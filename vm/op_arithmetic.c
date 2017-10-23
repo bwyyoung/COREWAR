@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   op_arithmetic.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:13:26 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/19 15:26:11 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/23 12:07:54 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+static void	print_verbosity_four(t_env *env, t_process *process, int op)
+{
+	if (!env->options[v] || env->verbose_value != 4)
+		return ;
+	ft_printf("P    %u | %s ", process->process_num,
+								get_op_name(op));
+	print_verbosity_four_vals(process);
+	ft_putchar('\n');
+}
 
 /*
 ** Takes three registers and adds or subs the two first registers values, and then stores it in the third registry.
@@ -26,7 +36,6 @@ void		op_arithmetic(t_env *env, t_process *process, int op)
 	int			reg_num1;
 	int			reg_num2;
 
-	(void)env;
 	reg_num1 = process->params[0].val;
 	reg_num2 = process->params[1].val;
 	if (valid_reg_num(reg_num1) && valid_reg_num(reg_num2)) // test what happens when reg_num is invalid
@@ -41,6 +50,7 @@ void		op_arithmetic(t_env *env, t_process *process, int op)
 		set_reg_val(process, process->params[2].val, result);
 		modify_carry(process, result);
 	}
+	print_verbosity_four(env, process, op);
 }
 
 /*

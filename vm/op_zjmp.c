@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_zjmp.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:21:37 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/18 17:54:07 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/23 12:06:57 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,11 @@
 ** else it will do nothing but inc its pc to skip the jmp instruction and its parameter.
 */
 
-void	op_zjmp(t_env *env, t_process *process, uint32_t pc)
+void	op_zjmp(t_env *env, t_process *process)
 {
-	int index;
-
-	index = get_board_val(env->board, pc + 1, IND_SIZE);
+	(void)env;
 	if (process->carry == 1)
-		inc_pc(process->regs, get_idx_val(index));
+		inc_pc(process->regs, get_idx_val(process->params[0].val));
 	else
 		inc_pc(process->regs, 1 + IND_SIZE);
 }

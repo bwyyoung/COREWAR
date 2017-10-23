@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   param_vals.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:27:07 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/19 11:09:29 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/23 11:01:59 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,20 @@
 **						val		3
 */
 
+void			get_no_type_val(t_env *env, t_process *process,
+								uint8_t op, uint32_t pc)
+{
+	uint32_t val;
+
+	if (op == e_fork || op == lfork)
+		val = get_board_val(env->board, pc + 1, IND_SIZE);
+	else if (op == live)
+		val = get_board_val(env->board, pc + 1, 4);
+	else
+		val = get_board_val(env->board, pc + 1, IND_SIZE);
+	process->params[0].val = val;
+}
+
 void			get_params(t_env *env, t_process *process, uint8_t op)
 {
 	uint8_t		types;
@@ -37,9 +51,9 @@ void			get_params(t_env *env, t_process *process, uint8_t op)
 	int			param_size;
 
 	types = process->types;
-	if (!op_has_type(op))
-		return ;
 	pc = process->regs[0];
+	if (!op_has_type(op))
+		return (get_no_type_val(env, process, op, pc));
 	i = 0;
 	param_size = 0;
 	pc = pc + 2;

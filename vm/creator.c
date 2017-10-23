@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   creator.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 17:12:50 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/19 11:06:56 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/23 11:43:37 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_player	*create_player(uint32_t prog_num)
 {
 	t_player	*player;
 
-	ft_printf("Creating Player\n");
+	// ft_printf("Creating Player\n");
 	if (!(player = (t_player*)malloc(sizeof(t_player))))
 		ft_error_errno(NULL);
 	player->lives = 0;
@@ -72,7 +72,8 @@ t_player	*create_player(uint32_t prog_num)
 
 t_process	*create_process(int offset, uint32_t prog_num, char *player_name)
 {
-	t_process *process;
+	static uint32_t	process_num = 1;
+	t_process		*process;
 
 	if (!(process = (t_process*)malloc(sizeof(t_process))))
 		ft_error_errno(NULL);
@@ -84,5 +85,6 @@ t_process	*create_process(int offset, uint32_t prog_num, char *player_name)
 	process->regs[0] = offset;
 	process->regs[1] = prog_num;
 	process->op = 0;
+	process->process_num = process_num++;
 	return (process);
 }

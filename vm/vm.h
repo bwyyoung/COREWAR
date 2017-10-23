@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 15:37:30 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/19 15:33:33 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/23 12:04:37 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ typedef struct		s_env
 // 	uint8_t			num[REG_SIZE];
 // }					t_reg;
 
-typedef struct		s_params
+typedef struct		s_param
 {
 	uint8_t			type;
 	uint32_t		val;
@@ -115,18 +115,21 @@ typedef struct		s_process
 	uint32_t		prog_num;
 	int				lives;
 	int				op;
+	uint32_t		process_num;
 }					t_process;
 
+void				print_verbosity_four_vals(t_process *process);
 uint32_t			get_ind_val(uint8_t *board, t_process *process,
 							uint32_t param_val, uint32_t read_size);
 void				ft_error_errno(char *msg);
 void				ft_error(char *msg);
-char				*get_op_name_test(uint8_t op);
+char				*get_op_name(uint8_t op);
 int					op_uses_idx(uint8_t op);
 int					op_has_type(uint8_t op);
 uint32_t			get_label_size(uint8_t op);
 uint32_t			get_cycles(uint8_t op);
-uint32_t			get_op_size(uint8_t op, uint8_t types);
+int					get_num_params(uint8_t op);
+uint32_t			get_op_size(t_process *process);
 int					is_types_invalid(uint8_t op, uint8_t types);
 int					valid_reg_num(uint8_t reg_num);
 int					get_idx_val(int val);
@@ -155,14 +158,14 @@ void				set_board_val(uint8_t *board, uint32_t index,
 uint32_t			get_param_size(uint8_t type, int label_size);
 void				add_process(t_env *env, t_process *process);
 t_list				*kill_processes(t_env *env);
-void				op_live(t_env *env, t_process *process, uint32_t pc);
+void				op_live(t_env *env, t_process *process);
 void				op_load(t_env *env, t_process *process, int op);
 void				op_store(t_env *env, t_process *process, uint32_t pc, uint8_t op);
 void				op_arithmetic(t_env *env, t_process *process, int op);
 void				op_bitwise(t_env *env, t_process *process, int op);
-void				op_zjmp(t_env *env, t_process *process, uint32_t pc);
+void				op_zjmp(t_env *env, t_process *process);
 void				op_index_load(t_env *env, t_process *process, int op);
-void				op_forker(t_env *env, t_process *process, uint32_t pc, int op);
+void				op_forker(t_env *env, t_process *process, int op);
 void				op_aff(t_env *env, t_process *process, uint32_t pc);
 
 void				print_instructions(void);

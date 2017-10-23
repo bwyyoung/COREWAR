@@ -3,48 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   kill_processes.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/28 21:47:27 by douglas           #+#    #+#             */
-/*   Updated: 2017/10/20 10:35:02 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/23 11:11:28 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void			free_node(t_list *node)
+void			del_node(t_env *env, t_list *processes, t_list *prev)
 {
-	SAFE_DELETE(node->content);
-	SAFE_DELETE(node);
+	if (!prev)
+		env->processes = processes->next;
+	else
+		prev->next = processes->next;
+	env->num_processes--;
+	SAFE_DELETE(processes->content);
+	SAFE_DELETE(processes);
 }
 
-/*
-** Linus Torvalds double pointer
-*/
 t_list			*kill_processes(t_env *env)
 {
 	t_list		*processes;
 	t_list		*tmp;
-	t_list		**pointer_mover;
 	t_process	*process;
+	t_list		*prev;
 
-	pointer_mover = &env->processes;
 	processes = env->processes;
+	prev = NULL;
 	while (processes)
 	{
 		process = (t_process*)processes->content;
 		if (process->lives == 0)
 		{
-			tmp = processes;
-			*pointer_mover = processes->next;
-			free_node(tmp);
+			tmp = processes->next;
+			del_node(env, processes, prev);
+			processes = tmp;
 		}
 		else
 		{
 			process->lives = 0;
-			pointer_mover = &processes->next;
+			prev = processes;
+			processes = processes->next;
 		}
-		processes = processes->next;
 	}
 	return (env->processes);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_live.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:22:29 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/20 10:36:15 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/23 10:59:41 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,9 @@ void			add_live(t_env *env, char *name)
 **
 */
 
-void			op_live(t_env *env, t_process *process, uint32_t pc)
+void			op_live(t_env *env, t_process *process)
 {
-	uint32_t	prog_num;
-	uint8_t		*board;
-
-	board = env->board;
-	prog_num = get_board_val(board, pc + 1, 4);
-	if (prog_num == process->prog_num)
+	if (process->params[0].val == process->prog_num)
 	{
 		add_live(env, process->name);
 		// ft_printf("A process shows that player %d (%s) is alive\n", process->prog_num, process->name);

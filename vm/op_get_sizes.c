@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_get_sizes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:16:05 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/20 10:36:04 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/21 12:57:04 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,19 @@ int		get_op_size_no_type(uint8_t op)
 **		returns size	3
 **
 */
-uint32_t	get_op_size(uint8_t op, uint8_t types)
+uint32_t	get_op_size(t_process *process)
 {
 	uint32_t	size;
+	uint8_t		op;
+	int			num_params;
 
+	op = process->op;
 	if (!op_has_type(op))
 		return (get_op_size_no_type(op));
 	size = 2;
-	while (types)
-	{
-		size += get_param_size(types & 0b00000011, get_label_size(op));
-		types = types >> 2;
-	}
+	num_params = get_num_params(op);
+	while (num_params--)
+		size += get_param_size(process->params[num_params].type,
+									get_label_size(op));
 	return (size);
 }

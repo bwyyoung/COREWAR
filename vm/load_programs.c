@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_programs.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:18:29 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/20 10:32:37 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/23 11:09:27 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,28 +57,28 @@ void	reader(t_env *e, int offset, char *arg)
 	uint32_t	magic;
 
 	magic = 0;
-	ft_printf("opening %s\n", arg);
+	// ft_printf("opening %s\n", arg);
 	if (-1 == (fd = open(arg, O_RDONLY)))
 		error_exit(e, 1);
 	if (-1 == read(fd, &magic, 4))
 		error_exit(e, 4);
 	magic = rev_endian(magic);
-	ft_printf("reader 1\n");
+	// ft_printf("reader 1\n");
 	if (magic != COREWAR_EXEC_MAGIC)
 		error_exit(e, 4);
 	if (-1 == lseek(fd, sizeof(uint32_t), 0))
 		error_exit(e, 4);
-	ft_printf("reader 2\n");
+	// ft_printf("reader 2\n");
 	if (-1 == read(fd, e->new_player->name, PROG_NAME_LENGTH))
 		ft_error_errno(NULL);
-	ft_printf("reader 3\n");
+	// ft_printf("reader 3\n");
 	if (-1 == lseek(fd, sizeof(t_header), 0))
 		ft_error_errno(NULL);
-	ft_printf("reader 4\n");
+	// ft_printf("reader 4\n");
 	write_program_to_board(&e->board[offset], fd);
 	if (-1 == close(fd))
 		ft_error_errno(NULL);
-	ft_printf("reader 5\n");
+	// ft_printf("reader 5\n");
 }
 
 /*
