@@ -6,7 +6,7 @@
 /*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 15:28:47 by ppatel            #+#    #+#             */
-/*   Updated: 2017/10/20 13:01:14 by ppatel           ###   ########.fr       */
+/*   Updated: 2017/10/23 17:03:19 by ppatel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,18 +85,18 @@ int			main(int argc, char **argv)
 		{
 			len = ft_strlen(argv[i]);
 			if (len < 3 || (argv[i][len - 2] != '.' && argv[i][len - 1] != 's'))
-				ft_exit("Usage: ./asm <filename>.s");
+				ft_exit("Usage: ./asm <filename.s>");
 			if ((fd = open(argv[i], O_RDONLY)) < 0)
 				ft_exit(strerror(errno));
 			init_env(&env);
 			lexical_analyser(fd, &env);
 			close(fd);
 			syntax_analyser(&env);
-			get_filename(&env, argv[i]);
+			get_filename(&env, argv[i++]);
 			ft_write_hex(&env);
-			ft_printf("Writing output program to %s\n", env.filename);
 			free_env(&env);
-			i++;
 		}
+	else
+		ft_exit("Usage: ./asm <filename.s>");
 	return (0);
 }
