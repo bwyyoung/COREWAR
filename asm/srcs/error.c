@@ -6,7 +6,7 @@
 /*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/18 17:06:10 by ppatel            #+#    #+#             */
-/*   Updated: 2017/10/19 15:38:54 by ppatel           ###   ########.fr       */
+/*   Updated: 2017/10/23 16:13:49 by ppatel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void		ft_error(t_token *token, t_env *env, char *str)
 void		syntax_error(t_token *token, t_env *env)
 {
 	if (token)
-		ft_printf("Syntax error at token [%d:%d] %d '%s'",
-		token->pos->line, token->pos->col, token->type, token->value);
+		ft_printf("Syntax error at token [%d:%d] '%s'",
+		token->pos->line, token->pos->col, token->value);
 	else
 		ft_printf("Syntax error at END '(NULL)'");
 	free_env(env);

@@ -6,7 +6,7 @@
 /*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/18 19:22:16 by ppatel            #+#    #+#             */
-/*   Updated: 2017/10/20 12:29:11 by ppatel           ###   ########.fr       */
+/*   Updated: 2017/10/23 16:53:01 by ppatel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,4 +136,5 @@ void		ft_write_hex(t_env *env)
 	write(fd, env->header, sizeof(t_header));
 	write(fd, str, env->pc);
 	close(fd);
+	ft_printf("Writing output program to %s\n", env->filename);
 }
