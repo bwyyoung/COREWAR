@@ -65,7 +65,7 @@ void	declare_winner(t_env *env)
 		env->last_live_name);
 }
 
-void		free_node(void *content, size_t size)
+void		free_player(void *content, size_t size)
 {
 	(void)size;
 
@@ -73,9 +73,17 @@ void		free_node(void *content, size_t size)
 	SAFE_DELETE(content);
 }
 
-void		freer(t_env *env)
+void		free_process(void *content, size_t size)
 {
-	ft_lstdel(&env->players, free_node);
+	SAFE_DELETE(((t_process*)content)->name);
+	SAFE_DELETE(content);
+}
+
+void		delete_env(t_env *env)
+{
+	ft_lstdel(&env->players, free_player);
+	ft_lstdel(&env->processes, free_process);
+	SAFE_DELETE(env->new_player);
 	SAFE_DELETE(env->board);
 	SAFE_DELETE(env);
 }
@@ -100,6 +108,6 @@ int			main(int argc, char *argv[])
 	// ft_printf("main 3\n");
 	ft_printf("cycle_to_die %d\n", env->cycle_to_die);
 	ft_printf("total cycles %d\n", env->total_cycles);
-	freer(env);
+	delete_env(env);
 	return (0);
 }

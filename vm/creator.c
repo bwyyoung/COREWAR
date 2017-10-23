@@ -70,21 +70,25 @@ t_player	*create_player(uint32_t prog_num)
 	return (player);
 }
 
-t_process	*create_process(int offset, uint32_t prog_num, char *player_name)
+t_process	*create_process(t_env *e)
 {
-	static uint32_t	process_num = 1;
 	t_process		*process;
 
-	if (!(process = (t_process*)malloc(sizeof(t_process))))
+	process = (t_process*)malloc(sizeof(t_process));
+	if (process == NULL)
 		ft_error_errno(NULL);
 	process->carry = 0;
 	process->cycles_left = 0;
-	process->name = player_name;
-	process->prog_num = prog_num;
+	process->name =  e->new_player->name;
+	process->prog_num = e->new_player->prog_num;
 	process->lives = 0;
-	process->regs[0] = offset;
-	process->regs[1] = prog_num;
+	//ft_printf("create_process %i %i\n",e->offset, e->prog_num);
+	process->regs[0] = e->offset;
+	process->regs[1] = e->prog_num;
+	e->i = 1;
+	while (e->i++ < REG_NUMBER)
+		process->regs[e->i] = 0;
 	process->op = 0;
-	process->process_num = process_num++;
+	process->process_num = e->num_processes + 1;
 	return (process);
 }

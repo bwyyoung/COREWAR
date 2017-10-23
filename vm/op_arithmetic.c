@@ -30,11 +30,11 @@ static void	print_verbosity_four(t_env *env, t_process *process, int op)
 
 void		op_arithmetic(t_env *env, t_process *process, int op)
 {
-	int			reg_val1;
-	int			reg_val2;
-	int			result;
-	int			reg_num1;
-	int			reg_num2;
+	uint32_t	reg_val1;
+	uint32_t	reg_val2;
+	uint32_t	result;
+	uint32_t	reg_num1;
+	uint32_t	reg_num2;
 
 	reg_num1 = process->params[0].val;
 	reg_num2 = process->params[1].val;
@@ -48,6 +48,7 @@ void		op_arithmetic(t_env *env, t_process *process, int op)
 		else if (op == sub)
 			result = reg_val1 - reg_val2; // Does not handle overflow!!!
 		set_reg_val(process, process->params[2].val, result);
+	//	ft_printf("op_arithmetic %i|%i\n", reg_val1, reg_val2);
 		modify_carry(process, result);
 	}
 	print_verbosity_four(env, process, op);

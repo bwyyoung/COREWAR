@@ -31,7 +31,9 @@ void		op_load(t_env *env, t_process *process, int op)
 	else
 		new_reg_val = get_param_val(board, process->params[0], process, REG_SIZE);
 	set_reg_val(process, process->params[1].val, new_reg_val);
+	//ft_printf("op_load %i \n", new_reg_val);
 	modify_carry(process, new_reg_val);
+	//exit(1);
 }
 
 /*
@@ -82,6 +84,7 @@ void		op_index_load(t_env *env, t_process *process, int op)
 	else
 		new_reg_val = get_ind_val(env->board, process, index_sum, REG_SIZE);
 	set_reg_val(process, process->params[2].val, new_reg_val);
+	ft_printf("op_index_load\n");
 	modify_carry(process, new_reg_val);
 }
 

@@ -20,8 +20,23 @@
 ** T_DIR
 */
 
+void			fork_variables(t_process *cpy, t_process *original, t_env *e)
+{
+	cpy->carry = original->carry;
+	cpy->name = original->name;
+	cpy->prog_num = original->prog_num;
+	cpy->lives = original->lives;
+	cpy->op = original->op;
+	cpy->process_num = e->num_processes + 1;
+	cpy->cycles_left = 0;
+	e->j = -1;
+	while (e->j++ < REG_NUMBER)
+		cpy->regs[e->j] = original->regs[e->j];
+}
+
 void			op_forker(t_env *env, t_process *process, int op)
 {
+	//ft_printf("Forking Process\n");
 	t_process	*process_cpy;
 	int			index;
 
@@ -29,11 +44,16 @@ void			op_forker(t_env *env, t_process *process, int op)
 		ft_error_errno(NULL);
 	ft_memcpy(process_cpy, process, sizeof(t_process));
 	index = process->params[0].val;
+	if (!process_cpy)
+	{
+		ft_error_errno(NULL);
+		return ;
+	}
+	fork_variables(process_cpy, process, env);
 	if (op == lfork)
 		inc_pc(process_cpy->regs, index);
 	else
 		inc_pc(process_cpy->regs, get_idx_val(index));
-	process_cpy->cycles_left = 0;
 	add_process(env, process_cpy);
 }
 

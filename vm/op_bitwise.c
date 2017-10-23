@@ -48,6 +48,7 @@ void		op_bitwise(t_env *env, t_process *process, int op)
 	else
 		result = val1 ^ val2;
 	set_reg_val(process, process->params[2].val, result);
+	//ft_printf("op_bitwise\n");
 	modify_carry(process, result);
 	print_verbosity_four(env, process, val1, val2);
 }

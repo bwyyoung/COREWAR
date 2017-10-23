@@ -21,6 +21,9 @@
 void	op_zjmp(t_env *env, t_process *process)
 {
 	(void)env;
+	//ft_printf("op_zjmp |%i | %i|  ---------!!!!! \n", process->process_num, process->carry);
+
+	//ft_printf("-----------------\n");
 	if (process->carry == 1)
 		inc_pc(process->regs, get_idx_val(process->params[0].val));
 	else

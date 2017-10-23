@@ -57,7 +57,7 @@ typedef struct		s_player
 {
 	int				lives;
 	char			*name;
-	long			prog_num;
+	uint32_t		prog_num;
 	int				file_pos;
 }					t_player;
 
@@ -67,7 +67,7 @@ typedef struct		s_env
 	int				cycles_since_check;
 	long			total_cycles;
 	int				lives_since_check;
-	int				num_processes;
+	uint32_t		num_processes;
 	uint8_t			*board;
 	t_list			*processes;
 	t_list			*players;
@@ -82,8 +82,7 @@ typedef struct		s_env
 	long			verbose_value;
 	t_player		*new_player;
 	uint32_t		prog_num;
-	int				offset;
-	//dump_value == options_num (OLD)
+	uint32_t		offset;
 	t_player		player[MAX_PLAYERS + 1];
 	int				i;
 	int				j;
@@ -114,7 +113,7 @@ typedef struct		s_process
 	char			*name;
 	uint32_t		prog_num;
 	int				lives;
-	int				op;
+	uint8_t			op;
 	uint32_t		process_num;
 }					t_process;
 
@@ -131,24 +130,23 @@ uint32_t			get_cycles(uint8_t op);
 int					get_num_params(uint8_t op);
 uint32_t			get_op_size(t_process *process);
 int					is_types_invalid(uint8_t op, uint8_t types);
-int					valid_reg_num(uint8_t reg_num);
+int					valid_reg_num(uint32_t reg_num);
 int					get_idx_val(int val);
 void				load_programs(t_env *env, char *argv[]);
 void				dump_memory(t_env *env);
 void				run_game(t_env *env);
 void				execute_cycle(t_env *env);
-int					get_param_val(uint8_t *board, t_param param,
-									t_process *process, uint8_t ind_size);
+uint32_t get_param_val(uint8_t *board, t_param param,
+	t_process *process, uint8_t ind_size);
 void				get_params(t_env *env, t_process *process, uint8_t op);
 t_env				*create_env(uint8_t *board);
 uint8_t				*create_board(void);
 t_player			*create_player(uint32_t prog_num);
-t_process			*create_process(int offset, uint32_t prog_num,
-										char *player_name);
-int					is_reg_num_invalid(uint8_t reg_num);
-uint32_t			get_reg_val(t_process *process, uint8_t reg_num);
-void				set_reg_val(t_process *process, uint8_t reg_num,
-								uint32_t new_val);
+t_process			*create_process(t_env *e);
+int					is_reg_num_invalid(uint32_t reg_num);
+uint32_t			get_reg_val(t_process *process, uint32_t reg_num);
+void				set_reg_val(t_process *process, uint32_t reg_num,
+	uint32_t new_val);
 void				inc_pc(uint32_t *regs, int inc);
 void				modify_carry(t_process *process, uint32_t val);
 uint32_t			get_board_val(uint8_t *board, uint32_t index,
@@ -181,4 +179,5 @@ t_bool				get_cycle_number(t_env *e, char *nbr, int *i, int args);
 void				reader(t_env *e, int offset, char *arg);
 void				add_player_list(t_env *env, t_player *new_player);
 void add_player(t_env *e, char **argv, int *i);
+void				delete_env(t_env *env);
 #endif

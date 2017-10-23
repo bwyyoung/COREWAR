@@ -27,7 +27,10 @@ void		inc_pc(uint32_t *regs, int inc)
 */
 void		modify_carry(t_process *process, uint32_t val)
 {
+	//ft_printf("Modify Carry1 |%i |%i |\n", process->process_num, process->carry);
+	//ft_printf("Carry Val Mod %i %i\n", val, !val);
 	process->carry = !val;
+	//ft_printf("Modify Carry2 |%i |%i |\n", process->process_num, process->carry);
 }
 
 /*

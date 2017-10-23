@@ -102,10 +102,10 @@ uint32_t		get_ind_val(uint8_t *board, t_process *process,
 ** If the param_val is an indirect val(IND_VAL), get the value from the board.
 ** If the param_val is a direct val(DIR_VAL), return the param_val.
 */
-int				get_param_val(uint8_t *board, t_param param_struct,
-								t_process *process, uint8_t read_size)
+uint32_t		get_param_val(uint8_t *board, t_param param_struct,
+	t_process *process, uint8_t read_size)
 {
-	int			val;
+	uint32_t	val;
 	uint8_t		type;
 	uint32_t	param_val;
 

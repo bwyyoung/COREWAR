@@ -107,12 +107,12 @@ void		error_msg(int i)
 
 void		error_exit(t_env *e, int i)
 {
-	SAFE_DELETE(e);
 	if (i > 0 && i < 11)
 		error_msg(i);
 	else if (i >= 11 && i <= 21)
 		error_msg_2(i);
 	ft_putstr_fd("\x1b[31m[Unknown Error Message: ]\x1b[0m ", 2);
 	ft_printf("Code %i\n", i);
+	delete_env(e);
 	exit(1);
 }

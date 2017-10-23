@@ -35,8 +35,7 @@ void add_player(t_env *e, char **argv, int *i)
 	e->new_player = create_player(e->prog_num);
 	reader(e, e->offset, argv[*i]);
 	// ft_printf("add_player 1\n");
-	add_process(e, create_process(e->offset, e->prog_num,
-	e->new_player->name));
+	add_process(e, create_process(e));
 	// ft_printf("add_player 2\n");
 	add_player_list(e, e->new_player);
 	// ft_printf("add_player 5\n");
