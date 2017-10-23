@@ -60,7 +60,7 @@ t_player	*create_player(uint32_t prog_num)
 {
 	t_player	*player;
 
-	// ft_printf("Creating Player\n");
+	ft_printf("Creating Player %i\n", prog_num);
 	if (!(player = (t_player*)malloc(sizeof(t_player))))
 		ft_error_errno(NULL);
 	player->lives = 0;

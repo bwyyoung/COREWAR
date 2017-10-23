@@ -61,42 +61,6 @@ typedef struct		s_player
 	int				file_pos;
 }					t_player;
 
-typedef struct		s_env
-{
-	int				cycle_to_die;
-	int				cycles_since_check;
-	long			total_cycles;
-	int				lives_since_check;
-	uint32_t		num_processes;
-	uint8_t			*board;
-	t_list			*processes;
-	t_list			*players;
-	int				last_live_num;
-	char			*last_live_name;
-	int				checks;
-	int				options[6];
-	int				num_players;
-	int				to_die;
-	long			dump_value;
-	long			cycle_value;
-	long			verbose_value;
-	t_player		*new_player;
-	uint32_t		prog_num;
-	uint32_t		offset;
-	t_player		player[MAX_PLAYERS + 1];
-	int				i;
-	int				j;
-	int				k;
-	int				x;
-	int				y;
-	int				z;
-}					t_env;
-
-// typedef struct		s_reg
-// {
-// 	uint8_t			num[REG_SIZE];
-// }					t_reg;
-
 typedef struct		s_param
 {
 	uint8_t			type;
@@ -116,6 +80,46 @@ typedef struct		s_process
 	uint8_t			op;
 	uint32_t		process_num;
 }					t_process;
+
+typedef struct		s_env
+{
+	int				cycle_to_die;
+	int				cycles_since_check;
+	long			total_cycles;
+	int				lives_since_check;
+	uint32_t		num_processes;
+	uint8_t			*board;
+	t_list			*processes;
+	t_list			*players;
+	t_list			*element;
+	int				last_live_num;
+	char			*last_live_name;
+	int				checks;
+	int				options[6];
+	int				num_players;
+	int				to_die;
+	long			dump_value;
+	long			cycle_value;
+	long			verbose_value;
+	t_player		*new_player;
+	t_process		*new_process;
+	t_process		*new_fork;
+	uint32_t		prog_num;
+	uint32_t		offset;
+	t_player		player[MAX_PLAYERS + 1];
+	int				i;
+	int				j;
+	int				k;
+	int				x;
+	int				y;
+	int				z;
+}					t_env;
+
+// typedef struct		s_reg
+// {
+// 	uint8_t			num[REG_SIZE];
+// }					t_reg;
+
 
 void				print_verbosity_four_vals(t_process *process);
 uint32_t			get_ind_val(uint8_t *board, t_process *process,

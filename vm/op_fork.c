@@ -29,6 +29,10 @@ void			fork_variables(t_process *cpy, t_process *original, t_env *e)
 	cpy->op = original->op;
 	cpy->process_num = e->num_processes + 1;
 	cpy->cycles_left = 0;
+	cpy->params[0] = original->params[0];
+	cpy->params[1] = original->params[1];
+	cpy->params[2] = original->params[2];
+	cpy->types = original->types;
 	e->j = -1;
 	while (e->j++ < REG_NUMBER)
 		cpy->regs[e->j] = original->regs[e->j];
@@ -36,25 +40,19 @@ void			fork_variables(t_process *cpy, t_process *original, t_env *e)
 
 void			op_forker(t_env *env, t_process *process, int op)
 {
-	//ft_printf("Forking Process\n");
-	t_process	*process_cpy;
+	ft_printf("Forking Process\n");
 	int			index;
 
-	if (!(process_cpy = (t_process*)malloc(sizeof(t_process))))
+	if (!(env->new_fork = (t_process*)malloc(sizeof(t_process))))
 		ft_error_errno(NULL);
-	ft_memcpy(process_cpy, process, sizeof(t_process));
 	index = process->params[0].val;
-	if (!process_cpy)
-	{
-		ft_error_errno(NULL);
-		return ;
-	}
-	fork_variables(process_cpy, process, env);
+	fork_variables(env->new_fork, process, env);
 	if (op == lfork)
-		inc_pc(process_cpy->regs, index);
+		inc_pc(env->new_fork->regs, index);
 	else
-		inc_pc(process_cpy->regs, get_idx_val(index));
-	add_process(env, process_cpy);
+		inc_pc(env->new_fork->regs, get_idx_val(index));
+	add_process(env, env->new_fork);
+	SAFE_DELETE(env->new_fork);
 }
 
 /*

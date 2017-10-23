@@ -74,7 +74,6 @@ void		error_msg_2(int i)
 	else if (i == 21)
 		ft_putstr_fd("\x1b[31m[Unknown Argument]\x1b[0m ", 2);
 	ft_putstr_fd("\n", 2);
-	exit(1);
 }
 
 void		error_msg(int i)
@@ -102,7 +101,6 @@ void		error_msg(int i)
 	else
 		ft_putstr_fd("\x1b[31m[ERROR]\x1b[0m ", 2);
 	ft_putstr_fd("\n", 2);
-	exit(1);
 }
 
 void		error_exit(t_env *e, int i)
@@ -111,8 +109,11 @@ void		error_exit(t_env *e, int i)
 		error_msg(i);
 	else if (i >= 11 && i <= 21)
 		error_msg_2(i);
-	ft_putstr_fd("\x1b[31m[Unknown Error Message: ]\x1b[0m ", 2);
-	ft_printf("Code %i\n", i);
+	else
+	{
+		ft_putstr_fd("\x1b[31m[Unknown Error Message: ]\x1b[0m ", 2);
+		ft_printf("Code %i\n", i);
+	}
 	delete_env(e);
 	exit(1);
 }

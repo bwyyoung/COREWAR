@@ -113,7 +113,8 @@ SRC = ft_atoi.c	\
 	  ft_printf/printnbr.c	\
 	  ft_printf/printstr.c	\
 	  ft_printf/putwstr.c	\
-	  ft_atoli.c
+	  ft_atoli.c			\
+	  ft_lstlen.c
 
 SRCO = $(SRC:.c=.o)
 

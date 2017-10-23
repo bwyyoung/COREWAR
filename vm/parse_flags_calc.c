@@ -35,7 +35,8 @@ void add_player(t_env *e, char **argv, int *i)
 	e->new_player = create_player(e->prog_num);
 	reader(e, e->offset, argv[*i]);
 	// ft_printf("add_player 1\n");
-	add_process(e, create_process(e));
+	e->new_process = create_process(e);
+	add_process(e, e->new_process);
 	// ft_printf("add_player 2\n");
 	add_player_list(e, e->new_player);
 	// ft_printf("add_player 5\n");
@@ -44,6 +45,8 @@ void add_player(t_env *e, char **argv, int *i)
 	e->offset += MEM_SIZE / (e->num_players);
 	// ft_printf("add_player 4\n");
 	e->prog_num--;
+	SAFE_DELETE(e->new_process);
+	SAFE_DELETE(e->new_player);
 	// ft_printf("add_player 6\n");
 }
 

@@ -90,7 +90,17 @@ void	add_player_list(t_env *env, t_player *new_player)
 
 	if (!(new_node = ft_lstnew(new_player, sizeof(t_player))))
 		ft_error_errno(NULL);
-	ft_lstadd(&env->players, new_node);
+	if (!env->players)
+		env->players = new_node;
+	else
+	{
+		env->element = env->players;
+	//	while (env->element->next != NULL)
+	//		env->element = env->element->next;
+		ft_lstadd(&env->players, new_node);
+		ft_printf("add_player_list %i \n", ft_lstlen(env->players));
+
+	}
 }
 
 /*

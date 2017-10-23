@@ -14,6 +14,7 @@
 
 void		perform_check(t_env *env)
 {
+	ft_printf("perform_check\n");
 	if (env->lives_since_check >= NBR_LIVE || env->checks == MAX_CHECKS - 1)
 	{
 		env->cycle_to_die -= CYCLE_DELTA;
