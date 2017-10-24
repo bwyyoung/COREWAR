@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:10:13 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/24 13:40:14 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/24 18:27:23 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	execute_op(t_env *env, t_process *process)
 	if (op == live)
 		op_live(env, process);
 	else if (op == ld || op == lld)
-		op_load(env, process, op);
+		op_load(env, process);
 	else if (op == st || op == sti)
 		op_store(env, process, pc, op);
 	else if (op == add || op == sub)
@@ -51,8 +51,6 @@ void	execute_op(t_env *env, t_process *process)
 		op_aff(env, process, pc);
 	if (op != zjmp)
 		inc_pc(process->regs, get_op_size(process));
-	// ft_printf("cycle %d\n", env->total_cycles);
-	// ft_printf("num_processes %d\n", env->num_processes);
 }
 
 /*

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_utility.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:12:02 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/24 12:08:00 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/24 18:23:51 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@ void		inc_pc(uint32_t *regs, int inc)
 */
 void		modify_carry(t_process *process, uint32_t val)
 {
-	//ft_printf("Modify Carry1 |%i |%i |\n", process->process_num, process->carry);
-	//ft_printf("Carry Val Mod %i %i\n", val, !val);
 	process->carry = !val;
-	//ft_printf("Modify Carry2 |%i |%i |\n", process->process_num, process->carry);
 }
 
 /*
@@ -58,11 +55,12 @@ void		print_verbosity_four_vals(t_process *process)
 	i = 0;
 	while (num_params--)
 	{
-		// if (process->params[i].type == REG_CODE)
 		if (process->param_type[i] == REG_CODE)
 			ft_putchar('r');
-		// ft_printf("%d", process->params[i].val);
-		ft_printf("%d", process->param_val[i]);
+		if (process->param_type[i] == IND_CODE)
+			ft_printf("%d", get_idx_val(process->param_val[i]));
+		else
+			ft_printf("%d", process->param_val[i]);
 		if (num_params > 0)
 			ft_putchar(' ');
 		i++;

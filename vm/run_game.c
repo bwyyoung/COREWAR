@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_game.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:13:32 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/24 13:41:04 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/24 18:26:54 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void		perform_check(t_env *env)
 {
-	// ft_printf("perform_check\n");
 	if (env->lives_since_check >= NBR_LIVE || env->checks == MAX_CHECKS - 1)
 	{
 		env->cycle_to_die -= CYCLE_DELTA;

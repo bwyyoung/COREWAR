@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   op_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 20:31:02 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/24 13:29:14 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/24 18:10:46 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+static void	print_verbosity_four(t_env *env, t_process *process)
+{
+	if (!env->options[v] || env->verbose_value != 4)
+		return ;
+	if (process->op == lfork)
+		ft_printf("P    %u | lfork %d (%d)\n", process->process_num,
+										process->param_val[0],
+										process->param_val[0] + process->regs[0]);
+	else
+		ft_printf("P    %u | fork %d (%d)\n", process->process_num,
+										process->param_val[0],
+										process->regs[0] + get_idx_val(process->param_val[0]));
+}
 
 /*
 ** Creates a new process. The new process will be the same except for the pc and cycles_left.
@@ -37,7 +51,7 @@ void			fork_variables(t_process *cpy, t_process *original, t_env *e)
 	cpy->param_val[1] = 0;
 	cpy->param_val[2] = 0;
 	e->j = -1;
-	while (++e->j < REG_NUMBER)
+	while (e->j++ < REG_NUMBER)
 		cpy->regs[e->j] = original->regs[e->j];
 }
 
@@ -55,7 +69,7 @@ void			op_forker(t_env *env, t_process *process, int op)
 		inc_pc(env->new_fork->regs, get_idx_val(index));
 	add_process(env, env->new_fork);
 	SAFE_DELETE(env->new_fork);
-	env->new_fork = NULL;
+	print_verbosity_four(env, process);
 }
 
 /*

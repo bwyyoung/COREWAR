@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_arithmetic.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:13:26 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/24 12:56:02 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/24 18:26:09 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,20 @@ void		op_arithmetic(t_env *env, t_process *process, int op)
 	uint32_t	reg_val1;
 	uint32_t	reg_val2;
 	uint32_t	result;
-	uint32_t	reg_num1;
-	uint32_t	reg_num2;
 
+	if (process->param_type[0] != REG_CODE || process->param_type[1] != REG_CODE || process->param_type[2] != REG_CODE)
+		return ;
 	if (check_param_reg_nums(process, 1, 1, 1))
 		return ;
-	reg_num1 = process->param_val[0];
-	reg_num2 = process->param_val[1];
-	if (valid_reg_num(reg_num1) && valid_reg_num(reg_num2)) // test what happens when reg_num is invalid
-	{
-		reg_val1 = get_reg_val(process, reg_num1);
-		reg_val2 = get_reg_val(process, reg_num2);
-		result = 0;
-		if (op == add)
-			result = reg_val1 + reg_val2; // Does not handle overflow!!!
-		else if (op == sub)
-			result = reg_val1 - reg_val2; // Does not handle overflow!!!
-		set_reg_val(process, process->param_val[2], result);
-		modify_carry(process, result);
-	}
+	reg_val1 = get_reg_val(process, process->param_val[0]);
+	reg_val2 = get_reg_val(process, process->param_val[1]);
+	result = 0;
+	if (op == add)
+		result = reg_val1 + reg_val2;
+	else if (op == sub)
+		result = reg_val1 - reg_val2;
+	set_reg_val(process, process->param_val[2], result);
+	modify_carry(process, result);
 	print_verbosity_four(env, process, op);
 }
 

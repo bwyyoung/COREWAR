@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2017/10/24 10:30:20 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/24 16:21:16 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_op	g_op_tab[17] =
 
 char		*get_op_name(int op)
 {
-	return (ft_strdup(g_op_tab[op].name));
+	return (g_op_tab[op].name);
 }
 
 int			op_uses_idx(int op)

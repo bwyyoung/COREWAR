@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 15:37:30 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/24 12:57:02 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/24 15:31:57 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ typedef struct		s_player
 typedef struct		s_process
 {
 	uint8_t			types;
-	uint32_t		regs[REG_NUMBER];	// should be REG_SIZE datatype
+	uint32_t		regs[REG_NUMBER + 1];	// should be REG_SIZE datatype
 	uint8_t			param_type[3];
 	uint32_t		param_val[3];
 	int				carry;
@@ -110,12 +110,14 @@ typedef struct		s_env
 	int				z;
 }					t_env;
 
-// typedef struct		s_reg
-// {
-// 	uint8_t			num[REG_SIZE];
-// }					t_reg;
+typedef struct		s_index_info
+{
+	int				index1;
+	int				index2;
+	int				index_sum;
+}					t_index_info;
 
-
+t_index_info		*create_index_info(int index1, int index2, int index_sum);
 int					check_param_reg_nums(t_process *process, int p0, int p1, int p2);
 void				print_verbosity_four_vals(t_process *process);
 uint32_t			get_ind_val(uint8_t *board, t_process *process,
@@ -157,7 +159,7 @@ uint32_t			get_param_size(uint8_t type, int label_size);
 void				add_process(t_env *env, t_process *process);
 t_list				*kill_processes(t_env *env);
 void				op_live(t_env *env, t_process *process);
-void				op_load(t_env *env, t_process *process, int op);
+void				op_load(t_env *env, t_process *process);
 void				op_store(t_env *env, t_process *process, uint32_t pc, int op);
 void				op_arithmetic(t_env *env, t_process *process, int op);
 void				op_bitwise(t_env *env, t_process *process, int op);

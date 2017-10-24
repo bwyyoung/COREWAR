@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_programs.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:18:29 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/24 10:47:10 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/24 18:30:43 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	write_program_to_board(uint8_t *board, int offset, int fd)
 		if (read_return == -1)
 			ft_error_errno(NULL);
 		board[offset++ % MEM_SIZE] = c;
-		// *board++ = c;
 	}
 }
 
@@ -59,29 +58,22 @@ void	reader(t_env *e, int offset, char *arg)
 	uint32_t	magic;
 
 	magic = 0;
-	// ft_printf("opening %s\n", arg);
 	if (-1 == (fd = open(arg, O_RDONLY)))
 		error_exit(e, 1);
 	if (-1 == read(fd, &magic, 4))
 		error_exit(e, 4);
 	magic = rev_endian(magic);
-	// ft_printf("reader 1\n");
 	if (magic != COREWAR_EXEC_MAGIC)
 		error_exit(e, 4);
 	if (-1 == lseek(fd, sizeof(uint32_t), 0))
 		error_exit(e, 4);
-	// ft_printf("reader 2\n");
 	if (-1 == read(fd, e->new_player->name, PROG_NAME_LENGTH))
 		ft_error_errno(NULL);
-	// ft_printf("reader 3\n");
 	if (-1 == lseek(fd, sizeof(t_header), 0))
 		ft_error_errno(NULL);
-	// ft_printf("reader 4\n");
-	// write_program_to_board(&e->board[offset], fd);
 	write_program_to_board(e->board, offset, fd);
 	if (-1 == close(fd))
 		ft_error_errno(NULL);
-	// ft_printf("reader 5\n");
 }
 
 /*
@@ -98,39 +90,6 @@ void	add_player_list(t_env *env, t_player *new_player)
 	else
 	{
 		env->element = env->players;
-	//	while (env->element->next != NULL)
-	//		env->element = env->element->next;
 		ft_lstadd(&env->players, new_node);
-		ft_printf("add_player_list %i \n", ft_lstlen(env->players));
-
 	}
 }
-
-/*
-** Creates the players and processes.
-** Writes the programs to the board.
-
-void		load_programs(t_env *env, char *argv[])
-{
-	uint8_t			*board;
-	int				offset;
-	t_player		*new_player;
-	uint32_t		prog_num;
-
-	board = env->board;
-	offset = 0;
-	prog_num = 0xffffffff;
-	if (env->options[d] == 1)
-		argv += 2;
-	while (*argv)
-	{
-		new_player = create_player(prog_num);
-		reader(board, new_player, offset, *argv);
-		add_process(env, create_process(offset, prog_num, new_player->name));
-		add_player_list(env, new_player);
-		offset += MEM_SIZE / (env->num_players);
-		argv++;
-		prog_num--;
-	}
-}
-*/

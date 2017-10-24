@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   op_live.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:22:29 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/24 13:21:38 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/24 15:21:09 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+static void	print_verbosity_four(t_env *env, t_process *process)
+{
+	if (!env->options[v] || env->verbose_value != 4)
+		return ;
+	ft_printf("P    %u | live %d\n", process->process_num,
+									process->param_val[0]);
+}
 
 void			add_live(t_env *env, char *name)
 {
@@ -45,6 +53,7 @@ void			op_live(t_env *env, t_process *process)
 	}
 	process->lives++;
 	env->lives_since_check++;
+	print_verbosity_four(env, process);
 }
 
 /*

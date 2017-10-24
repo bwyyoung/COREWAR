@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   creator.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 17:12:50 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/24 11:45:37 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/24 18:24:40 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ t_player	*create_player(uint32_t prog_num)
 {
 	t_player	*player;
 
-	// ft_printf("Creating Player %i\n", prog_num);
 	if (!(player = (t_player*)malloc(sizeof(t_player))))
 		ft_error_errno(NULL);
 	player->lives = 0;
@@ -94,8 +93,19 @@ t_process	*create_process(t_env *e)
 	process->name =  e->new_player->name;
 	process->prog_num = e->new_player->prog_num;
 	process->lives = 0;
-	//ft_printf("create_process %i %i\n",e->offset, e->prog_num);
 	process->op = 0;
 	process->process_num = e->num_processes + 1;
 	return (process);
+}
+
+t_index_info	*create_index_info(int index1, int index2, int index_sum)
+{
+	t_index_info *index_info;
+
+	if (!(index_info = (t_index_info*)malloc(sizeof(t_index_info))))
+		ft_error_errno(NULL);
+	index_info->index1 = index1;
+	index_info->index2 = index2;
+	index_info->index_sum = index_sum;
+	return (index_info);
 }

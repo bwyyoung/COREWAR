@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   param_vals.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:27:07 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/24 13:20:11 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/24 17:05:17 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void			get_params(t_env *env, t_process *process, int op)
 	i = 0;
 	param_size = 0;
 	pc = pc + 2;
-	while (types)
+	while (i < 3)
 	{
 		type = (types & 0b11000000) >> 6;
 		process->param_type[i] = type;

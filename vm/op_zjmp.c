@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   op_zjmp.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:21:37 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/24 12:38:35 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/24 16:20:32 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+static void	print_verbosity_four(t_env *env, t_process *process)
+{
+	if (!env->options[v] || env->verbose_value != 4)
+		return ;
+	ft_printf("P    %u | zjmp %d ", process->process_num,
+									get_idx_val(process->param_val[0]));
+	if (process->carry == 1)
+		ft_putendl("OK");
+	else
+		ft_putendl("FAILED");
+}
 
 /*
 ** If the carry == 1 zjmp will increase the pc of the process by the idx_val of its
@@ -25,6 +37,7 @@ void	op_zjmp(t_env *env, t_process *process)
 		inc_pc(process->regs, get_idx_val(process->param_val[0]));
 	else
 		inc_pc(process->regs, 1 + IND_SIZE);
+	print_verbosity_four(env, process);
 }
 
 /*
