@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_load.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:18:48 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/20 10:12:08 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/24 12:54:31 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,20 @@
 
 void		op_load(t_env *env, t_process *process, int op)
 {
-	uint8_t			*board;
 	uint32_t		new_reg_val;
-	uint8_t			type;
 
-	board = env->board;
-	type = process->params[0].type;
+	// if (env->total_cycles >= 25327)
+		// return ;
+	if (check_param_reg_nums(process, 0, 1, 0))
+		return ;
 	if (op == lld)
-		new_reg_val = get_param_val(board, process->params[0], process, IND_SIZE);
+		new_reg_val = get_param_val(env->board, 0,
+										process, REG_SIZE);
 	else
-		new_reg_val = get_param_val(board, process->params[0], process, REG_SIZE);
-	set_reg_val(process, process->params[1].val, new_reg_val);
-	//ft_printf("op_load %i \n", new_reg_val);
+		new_reg_val = get_param_val(env->board, 0,
+										process, REG_SIZE);
+	set_reg_val(process, process->param_val[1], new_reg_val);
 	modify_carry(process, new_reg_val);
-	//exit(1);
 }
 
 /*
@@ -74,17 +74,18 @@ void		op_index_load(t_env *env, t_process *process, int op)
 	int			index_sum;
 	int			new_reg_val;
 
-	index1 = get_param_val(env->board, process->params[0],
+	if (check_param_reg_nums(process, 1, 1, 1))
+		return ;
+	index1 = get_param_val(env->board, 0,
 							process, IND_SIZE);
-	index2 = get_param_val(env->board, process->params[1],
+	index2 = get_param_val(env->board, 1,
 							process, IND_SIZE);
 	index_sum = index1 + index2;
 	if (op == ldi)
 		new_reg_val = get_ind_val(env->board, process, get_idx_val(index_sum), REG_SIZE);
 	else
 		new_reg_val = get_ind_val(env->board, process, index_sum, REG_SIZE);
-	set_reg_val(process, process->params[2].val, new_reg_val);
-	ft_printf("op_index_load\n");
+	set_reg_val(process, process->param_val[2], new_reg_val);
 	modify_carry(process, new_reg_val);
 }
 

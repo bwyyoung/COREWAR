@@ -6,7 +6,7 @@
 /*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:22:29 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/23 10:59:41 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/24 13:21:38 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void			add_live(t_env *env, char *name)
 
 void			op_live(t_env *env, t_process *process)
 {
-	if (process->params[0].val == process->prog_num)
+	if (process->param_val[0] == process->prog_num)
 	{
 		add_live(env, process->name);
 		// ft_printf("A process shows that player %d (%s) is alive\n", process->prog_num, process->name);

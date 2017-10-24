@@ -6,7 +6,7 @@
 /*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2017/10/22 14:22:14 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/24 10:30:20 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,32 +49,32 @@ t_op	g_op_tab[17] =
 	{"aff", 1, {T_REG}, 2, 1, 0, 0},
 };
 
-char		*get_op_name(uint8_t op)
+char		*get_op_name(int op)
 {
 	return (ft_strdup(g_op_tab[op].name));
 }
 
-int			op_uses_idx(uint8_t op)
+int			op_uses_idx(int op)
 {
 	return (g_op_tab[op].use_idx);
 }
 
-int			op_has_type(uint8_t op)
+int			op_has_type(int op)
 {
 	return (g_op_tab[op].has_type);
 }
 
-uint32_t	get_cycles(uint8_t op)
+uint32_t	get_cycles(int op)
 {
 	return (g_op_tab[op].cycles);
 }
 
-uint32_t	get_label_size(uint8_t op)
+uint32_t	get_label_size(int op)
 {
 	return (g_op_tab[op].label_size);
 }
 
-int			get_num_params(uint8_t op)
+int			get_num_params(int op)
 {
 	return (g_op_tab[op].num_params);
 }

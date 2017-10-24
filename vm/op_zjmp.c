@@ -6,7 +6,7 @@
 /*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:21:37 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/23 12:06:57 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/24 12:38:35 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,8 @@
 void	op_zjmp(t_env *env, t_process *process)
 {
 	(void)env;
-	//ft_printf("op_zjmp |%i | %i|  ---------!!!!! \n", process->process_num, process->carry);
-
-	//ft_printf("-----------------\n");
 	if (process->carry == 1)
-		inc_pc(process->regs, get_idx_val(process->params[0].val));
+		inc_pc(process->regs, get_idx_val(process->param_val[0]));
 	else
 		inc_pc(process->regs, 1 + IND_SIZE);
 }

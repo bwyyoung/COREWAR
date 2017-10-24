@@ -6,7 +6,7 @@
 /*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 11:11:11 by dengstra          #+#    #+#             */
-/*   Updated: 2017/07/09 15:37:59 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/24 11:07:43 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_lstdelone(t_list **alst, void (*del)(void *, size_t))
 {
-	ft_printf("ft_lstdelone 1\n");
 	if (alst == NULL || *alst == NULL || del == NULL)
 		return ;
 	(*del)((*alst)->content, (*alst)->content_size);

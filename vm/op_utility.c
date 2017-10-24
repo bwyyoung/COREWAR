@@ -6,7 +6,7 @@
 /*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:12:02 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/23 12:08:46 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/24 12:08:00 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,11 @@ void		print_verbosity_four_vals(t_process *process)
 	i = 0;
 	while (num_params--)
 	{
-		if (process->params[i].type == REG_CODE)
+		// if (process->params[i].type == REG_CODE)
+		if (process->param_type[i] == REG_CODE)
 			ft_putchar('r');
-		ft_printf("%d", process->params[i].val);
+		// ft_printf("%d", process->params[i].val);
+		ft_printf("%d", process->param_val[i]);
 		if (num_params > 0)
 			ft_putchar(' ');
 		i++;

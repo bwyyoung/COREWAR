@@ -6,7 +6,7 @@
 /*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 15:37:30 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/23 12:04:37 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/24 12:57:02 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,23 +61,18 @@ typedef struct		s_player
 	int				file_pos;
 }					t_player;
 
-typedef struct		s_param
-{
-	uint8_t			type;
-	uint32_t		val;
-}					t_param;
-
 typedef struct		s_process
 {
 	uint8_t			types;
 	uint32_t		regs[REG_NUMBER];	// should be REG_SIZE datatype
-	t_param			params[3];
+	uint8_t			param_type[3];
+	uint32_t		param_val[3];
 	int				carry;
 	int				cycles_left;
 	char			*name;
 	uint32_t		prog_num;
 	int				lives;
-	uint8_t			op;
+	int				op;
 	uint32_t		process_num;
 }					t_process;
 
@@ -121,28 +116,29 @@ typedef struct		s_env
 // }					t_reg;
 
 
+int					check_param_reg_nums(t_process *process, int p0, int p1, int p2);
 void				print_verbosity_four_vals(t_process *process);
 uint32_t			get_ind_val(uint8_t *board, t_process *process,
 							uint32_t param_val, uint32_t read_size);
 void				ft_error_errno(char *msg);
 void				ft_error(char *msg);
-char				*get_op_name(uint8_t op);
-int					op_uses_idx(uint8_t op);
-int					op_has_type(uint8_t op);
-uint32_t			get_label_size(uint8_t op);
-uint32_t			get_cycles(uint8_t op);
-int					get_num_params(uint8_t op);
+char				*get_op_name(int op);
+int					op_uses_idx(int op);
+int					op_has_type(int op);
+uint32_t			get_label_size(int op);
+uint32_t			get_cycles(int op);
+int					get_num_params(int op);
 uint32_t			get_op_size(t_process *process);
-int					is_types_invalid(uint8_t op, uint8_t types);
+int					is_types_invalid(int op, uint8_t types);
 int					valid_reg_num(uint32_t reg_num);
 int					get_idx_val(int val);
 void				load_programs(t_env *env, char *argv[]);
 void				dump_memory(t_env *env);
 void				run_game(t_env *env);
 void				execute_cycle(t_env *env);
-uint32_t get_param_val(uint8_t *board, t_param param,
+uint32_t get_param_val(uint8_t *board, int which_param,
 	t_process *process, uint8_t ind_size);
-void				get_params(t_env *env, t_process *process, uint8_t op);
+void				get_params(t_env *env, t_process *process, int op);
 t_env				*create_env(uint8_t *board);
 uint8_t				*create_board(void);
 t_player			*create_player(uint32_t prog_num);
@@ -162,7 +158,7 @@ void				add_process(t_env *env, t_process *process);
 t_list				*kill_processes(t_env *env);
 void				op_live(t_env *env, t_process *process);
 void				op_load(t_env *env, t_process *process, int op);
-void				op_store(t_env *env, t_process *process, uint32_t pc, uint8_t op);
+void				op_store(t_env *env, t_process *process, uint32_t pc, int op);
 void				op_arithmetic(t_env *env, t_process *process, int op);
 void				op_bitwise(t_env *env, t_process *process, int op);
 void				op_zjmp(t_env *env, t_process *process);

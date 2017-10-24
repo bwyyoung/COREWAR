@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_store.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:16:50 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/20 10:43:27 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/24 12:55:34 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,14 @@ void		op_st(t_env *env, t_process *process, uint32_t pc)
 	int			reg_val;
 	int			param_val;
 
-	reg_num = process->params[0].val;
+	if (check_param_reg_nums(process, 1, 1, 0))
+		return ;
+	reg_num = process->param_val[0];
 	if (valid_reg_num(reg_num))
 	{
 		reg_val = get_reg_val(process, reg_num);
-		param_val = process->params[1].val;
-		if (process->params[1].type == REG_CODE)
+		param_val = process->param_val[1];
+		if (process->param_type[1] == REG_CODE)
 			set_reg_val(process, param_val, reg_val);
 		else
 			set_board_val(env->board, pc + get_idx_val(param_val), REG_SIZE, reg_val);
@@ -66,12 +68,14 @@ void	op_sti(t_env *env, t_process *process, uint32_t pc)
 	int			index2;
 	int			index_sum;
 
-	reg_num = process->params[0].val;
+	if (check_param_reg_nums(process, 1, 1, 1))
+		return ;
+	reg_num = process->param_val[0];
 	if (valid_reg_num(reg_num))
 	{
 		reg_val = get_reg_val(process, reg_num);
-		index1 = get_param_val(env->board, process->params[1], process, REG_SIZE);
-		index2 = get_param_val(env->board, process->params[2], process, REG_SIZE);
+		index1 = get_param_val(env->board, 1, process, REG_SIZE);
+		index2 = get_param_val(env->board, 2, process, REG_SIZE);
 		index_sum = index1 + index2;
 		set_board_val(env->board, pc + get_idx_val(index_sum), REG_SIZE, reg_val);
 	}
@@ -90,7 +94,7 @@ where the value of the first parameter
 will be copied.
 */
 
-void	op_store(t_env *env, t_process *process, uint32_t pc, uint8_t op)
+void	op_store(t_env *env, t_process *process, uint32_t pc, int op)
 {
 	if (op == sti)
 		op_sti(env, process, pc);

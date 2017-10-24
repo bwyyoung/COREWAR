@@ -68,7 +68,7 @@ void	declare_winner(t_env *env)
 void		free_player(void *content, size_t size)
 {
 	(void)size;
-	ft_printf("Freeing player %s\n", ((t_player*)content)->name);
+	// ft_printf("Freeing player %s\n", ((t_player*)content)->name);
 	SAFE_DELETE(((t_player*)content)->name);
 	SAFE_DELETE(content);
 }
@@ -76,13 +76,13 @@ void		free_player(void *content, size_t size)
 void		free_process(void *content, size_t size)
 {
 	(void)size;
-	ft_printf("Freeing process %s\n", ((t_process*)content)->name);
+	// ft_printf("Freeing process %s\n", ((t_process*)content)->name);
 	SAFE_DELETE(content);
 }
 
 void		delete_env(t_env *env)
 {
-	ft_printf("delete_env %i %i\n", env->num_processes, ft_lstlen(env->processes));
+	// ft_printf("delete_env %i %i\n", env->num_processes, ft_lstlen(env->processes));
 	ft_lstdel(&env->processes, free_process);
 	ft_lstdel(&env->players, free_player);
 	SAFE_DELETE(env->new_player);
@@ -104,12 +104,12 @@ int			main(int argc, char *argv[])
 	board = create_board();
 	env = create_env(board);
 	parse_flags(env, argc, argv);
-	ft_printf("main1 %i %i\n", env->num_processes, ft_lstlen(env->processes));
+	// ft_printf("main1 %i %i\n", env->num_processes, ft_lstlen(env->processes));
 
 	run_game(env);
-	ft_printf("main2 %i %i\n", env->num_processes, ft_lstlen(env->processes));
+	// ft_printf("main2 %i %i\n", env->num_processes, ft_lstlen(env->processes));
 	declare_winner(env);
-	ft_printf("main3 %i %i\n", env->num_processes, ft_lstlen(env->processes));
+	// ft_printf("main3 %i %i\n", env->num_processes, ft_lstlen(env->processes));
 	// ft_printf("main 3\n");
 	ft_printf("cycle_to_die %d\n", env->cycle_to_die);
 	ft_printf("total cycles %d\n", env->total_cycles);

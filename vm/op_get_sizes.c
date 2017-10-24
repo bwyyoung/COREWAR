@@ -6,7 +6,7 @@
 /*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:16:05 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/21 12:57:04 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/24 12:36:29 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		get_op_size_no_type(uint8_t op)
 	if (op == live)
 		size += DIR_SIZE;
 	else if (op == aff)
-		size += IND_SIZE;
+		size += IND_SIZE + 1;
 	else if (op == lfork)
 		size += IND_SIZE;
 	else
@@ -71,7 +71,7 @@ uint32_t	get_op_size(t_process *process)
 	size = 2;
 	num_params = get_num_params(op);
 	while (num_params--)
-		size += get_param_size(process->params[num_params].type,
+		size += get_param_size(process->param_type[num_params],
 									get_label_size(op));
 	return (size);
 }

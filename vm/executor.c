@@ -6,7 +6,7 @@
 /*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:10:13 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/23 12:06:39 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/24 13:40:14 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@
 */
 void	execute_op(t_env *env, t_process *process)
 {
-	uint8_t			op;
+	int				op;
 	int				pc;
 
 	pc = process->regs[0];
 	op = process->op;
-	process->types = env->board[(pc + 1) % MEM_SIZE];
+	process->types = get_board_val(env->board, pc + 1, 1);
 	get_params(env, process, op);
 	if (op == live)
 		op_live(env, process);
@@ -51,6 +51,8 @@ void	execute_op(t_env *env, t_process *process)
 		op_aff(env, process, pc);
 	if (op != zjmp)
 		inc_pc(process->regs, get_op_size(process));
+	// ft_printf("cycle %d\n", env->total_cycles);
+	// ft_printf("num_processes %d\n", env->num_processes);
 }
 
 /*
@@ -68,7 +70,7 @@ void	execute_op(t_env *env, t_process *process)
 */
 void	execute_process(t_process *process, t_env *env)
 {
-	uint8_t op;
+	int op;
 
 	if (process->cycles_left == 1)
 	{
@@ -77,7 +79,7 @@ void	execute_process(t_process *process, t_env *env)
 	}
 	else if (process->cycles_left <= 0)
 	{
-		op = env->board[process->regs[0]];
+		op = get_board_val(env->board, process->regs[0], 1);
 		if (op > 0 && op <= aff)
 		{
 			process->cycles_left = get_cycles(op) - 1;

@@ -6,7 +6,7 @@
 /*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 17:12:50 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/23 11:43:37 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/24 11:45:37 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_player	*create_player(uint32_t prog_num)
 {
 	t_player	*player;
 
-	ft_printf("Creating Player %i\n", prog_num);
+	// ft_printf("Creating Player %i\n", prog_num);
 	if (!(player = (t_player*)malloc(sizeof(t_player))))
 		ft_error_errno(NULL);
 	player->lives = 0;
@@ -77,17 +77,24 @@ t_process	*create_process(t_env *e)
 	process = (t_process*)malloc(sizeof(t_process));
 	if (process == NULL)
 		ft_error_errno(NULL);
+	process->types = 0;
+	process->regs[0] = e->offset;
+	process->regs[1] = e->prog_num;
+	e->i = 1;
+	while (e->i++ < REG_NUMBER)
+		process->regs[e->i] = 0;
+	process->param_type[0] = 0;
+	process->param_type[1] = 0;
+	process->param_type[2] = 0;
+	process->param_val[0] = 0;
+	process->param_val[1] = 0;
+	process->param_val[2] = 0;
 	process->carry = 0;
 	process->cycles_left = 0;
 	process->name =  e->new_player->name;
 	process->prog_num = e->new_player->prog_num;
 	process->lives = 0;
 	//ft_printf("create_process %i %i\n",e->offset, e->prog_num);
-	process->regs[0] = e->offset;
-	process->regs[1] = e->prog_num;
-	e->i = 1;
-	while (e->i++ < REG_NUMBER)
-		process->regs[e->i] = 0;
 	process->op = 0;
 	process->process_num = e->num_processes + 1;
 	return (process);

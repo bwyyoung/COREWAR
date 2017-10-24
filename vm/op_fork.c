@@ -6,7 +6,7 @@
 /*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 20:31:02 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/23 11:12:14 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/24 13:29:14 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 
 void			fork_variables(t_process *cpy, t_process *original, t_env *e)
 {
+	cpy->types = original->types;
 	cpy->carry = original->carry;
 	cpy->name = original->name;
 	cpy->prog_num = original->prog_num;
@@ -29,23 +30,24 @@ void			fork_variables(t_process *cpy, t_process *original, t_env *e)
 	cpy->op = original->op;
 	cpy->process_num = e->num_processes + 1;
 	cpy->cycles_left = 0;
-	cpy->params[0] = original->params[0];
-	cpy->params[1] = original->params[1];
-	cpy->params[2] = original->params[2];
-	cpy->types = original->types;
+	cpy->param_type[0] = 0;
+	cpy->param_type[1] = 0;
+	cpy->param_type[2] = 0;
+	cpy->param_val[0] = 0;
+	cpy->param_val[1] = 0;
+	cpy->param_val[2] = 0;
 	e->j = -1;
-	while (e->j++ < REG_NUMBER)
+	while (++e->j < REG_NUMBER)
 		cpy->regs[e->j] = original->regs[e->j];
 }
 
 void			op_forker(t_env *env, t_process *process, int op)
 {
-	ft_printf("Forking Process\n");
 	int			index;
 
 	if (!(env->new_fork = (t_process*)malloc(sizeof(t_process))))
 		ft_error_errno(NULL);
-	index = process->params[0].val;
+	index = process->param_val[0];
 	fork_variables(env->new_fork, process, env);
 	if (op == lfork)
 		inc_pc(env->new_fork->regs, index);
@@ -53,6 +55,7 @@ void			op_forker(t_env *env, t_process *process, int op)
 		inc_pc(env->new_fork->regs, get_idx_val(index));
 	add_process(env, env->new_fork);
 	SAFE_DELETE(env->new_fork);
+	env->new_fork = NULL;
 }
 
 /*
