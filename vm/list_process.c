@@ -40,7 +40,6 @@ void		lst_process_del(t_env *e, t_process *p)
 	{
 		if (e->new_process == p)
 		{
-
 			if (e->new_process->prev)
 				e->new_process->prev->next = e->new_process->next;
 			if (e->new_process->next)

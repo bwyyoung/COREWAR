@@ -20,6 +20,7 @@
 # include <errno.h>
 # include <limits.h>
 # include <stdio.h>
+# include <ncurses.h>
 # define LABEL_NUMBERS "-0123456789"
 
 enum
