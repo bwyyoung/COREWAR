@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:12:02 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/24 18:23:51 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/25 12:35:55 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void		modify_carry(t_process *process, uint32_t val)
 */
 int			get_idx_val(int val)
 {
-	if (val >= MEM_SIZE)
+	if (val >= 0xffff - MEM_SIZE)
 		val -= 0x10000;
 	return (val % IDX_MOD);
 }

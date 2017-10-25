@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:22:29 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/24 15:21:09 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/25 16:06:44 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	print_verbosity_four(t_env *env, t_process *process)
 {
 	if (!env->options[v] || env->verbose_value != 4)
 		return ;
-	ft_printf("P    %u | live %d\n", process->process_num,
+	ft_printf("P%5u | live %d\n", process->process_num,
 									process->param_val[0]);
 }
 

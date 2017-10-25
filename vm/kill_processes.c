@@ -6,20 +6,11 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/28 21:47:27 by douglas           #+#    #+#             */
-/*   Updated: 2017/10/24 18:25:01 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/25 16:11:31 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-
-void			del_node(t_env *env, t_list *processes)
-{
-	env->num_processes--;
-	// ft_printf("del_node %s %i\n", ((t_process*)processes->content)->name, env->num_processes);
-	SAFE_DELETE(processes->content);
-	//SAFE_DELETE(((t_process*)processes->content)->name);
-	SAFE_DELETE(processes);
-}
 
 void			kill_processes(t_env *env)
 {

@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 20:31:02 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/24 18:10:46 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/25 16:18:36 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ static void	print_verbosity_four(t_env *env, t_process *process)
 	if (!env->options[v] || env->verbose_value != 4)
 		return ;
 	if (process->op == lfork)
-		ft_printf("P    %u | lfork %d (%d)\n", process->process_num,
+		ft_printf("P%5u | lfork %d (%d)\n", process->process_num,
 										process->param_val[0],
 										process->param_val[0] + process->regs[0]);
 	else
-		ft_printf("P    %u | fork %d (%d)\n", process->process_num,
-										process->param_val[0],
+		ft_printf("P%5u | fork %d (%d)\n", process->process_num,
+										get_idx_val(process->param_val[0]),
 										process->regs[0] + get_idx_val(process->param_val[0]));
 }
 
@@ -57,16 +57,13 @@ void			fork_variables(t_process *cpy, t_process *original, t_env *e)
 
 void			op_forker(t_env *env, t_process *process, int op)
 {
-	int			index;
-
 	if (!(env->new_fork = create_process(env)))
 		ft_error_errno(NULL);
-	index = process->param_val[0];
 	fork_variables(env->new_fork, process, env);
 	if (op == lfork)
-		inc_pc(env->new_fork->regs, index);
+		inc_pc(env->new_fork->regs, process->param_val[0]);
 	else
-		inc_pc(env->new_fork->regs, get_idx_val(index));
+		inc_pc(env->new_fork->regs, get_idx_val(process->param_val[0]));
 	lst_process_add(env, env->new_fork);
 	print_verbosity_four(env, process);
 }
