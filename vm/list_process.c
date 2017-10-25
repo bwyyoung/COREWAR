@@ -62,7 +62,6 @@ void		lst_process_clr(t_env *e)
 	{
 		current = e->lst_process;
 		e->lst_process = e->lst_process->next;
-		SAFE_DELETE(current->name);
 		SAFE_DELETE(current);
 	}
 }
