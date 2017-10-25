@@ -59,7 +59,7 @@ void			op_forker(t_env *env, t_process *process, int op)
 {
 	int			index;
 
-	if (!(env->new_fork = (t_process*)malloc(sizeof(t_process))))
+	if (!(env->new_fork = create_process(env)))
 		ft_error_errno(NULL);
 	index = process->param_val[0];
 	fork_variables(env->new_fork, process, env);
@@ -67,8 +67,7 @@ void			op_forker(t_env *env, t_process *process, int op)
 		inc_pc(env->new_fork->regs, index);
 	else
 		inc_pc(env->new_fork->regs, get_idx_val(index));
-	add_process(env, env->new_fork);
-	SAFE_DELETE(env->new_fork);
+	lst_process_add(env, env->new_fork);
 	print_verbosity_four(env, process);
 }
 

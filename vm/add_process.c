@@ -12,6 +12,7 @@
 
 #include "vm.h"
 
+/*
 void	add_process(t_env *env, t_process *new_process)
 {
 	t_list *new_node;
@@ -28,3 +29,4 @@ void	add_process(t_env *env, t_process *new_process)
 	}
 	env->num_processes++;
 }
+*/

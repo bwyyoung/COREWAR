@@ -22,10 +22,10 @@
 **	If the op is zjmp, don't modify the pc because it has already been
 **	changed by the zjmp function.
 */
-void	execute_op(t_env *env, t_process *process)
+void				execute_op(t_env *env, t_process *process)
 {
 	int				op;
-	int				pc;
+	uint32_t		pc;
 
 	pc = process->regs[0];
 	op = process->op;
@@ -66,9 +66,9 @@ void	execute_op(t_env *env, t_process *process)
 ** it can try and execute the new byte that the pc is pointing towards.
 **
 */
-void	execute_process(t_process *process, t_env *env)
+void				execute_process(t_process *process, t_env *env)
 {
-	int op;
+	int				op;
 
 	if (process->cycles_left == 1)
 	{
@@ -93,14 +93,14 @@ void	execute_process(t_process *process, t_env *env)
 /*
 ** Goes through the whole list of processes and executes them.
 */
-void		execute_cycle(t_env *env)
+void				execute_cycle(t_env *env)
 {
-	t_list		*processes;
+	t_process		*cur_process;
 
-	processes = env->processes;
-	while (processes)
+	cur_process = env->lst_process;
+	while (cur_process)
 	{
-		execute_process(processes->content, env);
-		processes = processes->next;
+		execute_process(cur_process, env);
+		cur_process = cur_process->next;
 	}
 }

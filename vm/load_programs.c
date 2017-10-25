@@ -78,7 +78,7 @@ void	reader(t_env *e, int offset, char *arg)
 
 /*
 ** Adds a player to the list of players.
-*/
+
 void	add_player_list(t_env *env, t_player *new_player)
 {
 	t_list *new_node;
@@ -92,4 +92,4 @@ void	add_player_list(t_env *env, t_player *new_player)
 		env->element = env->players;
 		ft_lstadd(&env->players, new_node);
 	}
-}
+}*/

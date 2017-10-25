@@ -54,33 +54,18 @@ void	declare_winner(t_env *env)
 {
 	if (!env->last_live_name)
 		ft_printf("Contestant %d, \"%s\", has won !\n",
-		((t_player*)env->players->content)->prog_num * -1,
-		((t_player*)env->players->content)->name);
+		env->lst_players->prog_num * -1, env->lst_players->name);
 	else
 		ft_printf("Contestant %d, \"%s\", has won !\n",
 		env->last_live_num * -1,
 		env->last_live_name);
 }
 
-void		free_player(void *content, size_t size)
-{
-	(void)size;
-	SAFE_DELETE(((t_player*)content)->name);
-	SAFE_DELETE(content);
-}
-
-void		free_process(void *content, size_t size)
-{
-	(void)size;
-	SAFE_DELETE(content);
-}
 
 void		delete_env(t_env *env)
 {
-	ft_lstdel(&env->processes, free_process);
-	ft_lstdel(&env->players, free_player);
-	SAFE_DELETE(env->new_player);
-	SAFE_DELETE(env->new_process);
+	lst_process_clr(env);
+	lst_players_clr(env);
 	SAFE_DELETE(env->board);
 	SAFE_DELETE(env);
 }

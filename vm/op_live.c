@@ -22,14 +22,14 @@ static void	print_verbosity_four(t_env *env, t_process *process)
 
 void			add_live(t_env *env, char *name)
 {
-	t_list *players;
+	t_player *cur_player;
 
-	players = env->players;
-	while (players)
+	cur_player = env->lst_players;
+	while (cur_player)
 	{
-		if (ft_strequ(((t_player*)players->content)->name, name))
-			((t_player*)players->content)->lives++;
-		players = players->next;
+		if (ft_strequ(cur_player->name, name))
+			cur_player->lives++;
+		cur_player = cur_player->next;
 	}
 }
 

@@ -1,3 +1,17 @@
+
+void		free_player(void *content, size_t size)
+{
+	(void)size;
+	SAFE_DELETE(((t_player*)content)->name);
+	SAFE_DELETE(content);
+}
+
+void		free_process(void *content, size_t size)
+{
+	(void)size;
+	SAFE_DELETE(content);
+}
+
  make;valgrind --leak-check=full -v ./vm ../champions/bee_gees.cor
 make: Nothing to be done for `all'.
 ==13123== Memcheck, a memory error detector

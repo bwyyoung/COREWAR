@@ -24,16 +24,14 @@ t_env		*create_env(uint8_t *board)
 	env->lives_since_check = 0;
 	env->num_processes = 0;
 	env->board = board;
-	env->processes = NULL;
-	env->players = NULL;
+	env->lst_process = NULL;
+	env->lst_players = NULL;
 	env->last_live_num = 0;
 	env->last_live_name = NULL;
 	env->checks = 0;
-	env->options[0] = 0;
-	env->options[1] = 0;
-	env->options[2] = 0;
-	env->options[3] = 0;
-	env->options[4] = 0;
+	env->i = -1;
+	while (++env->i < 7)
+		env->options[env->i] = false;
 	env->dump_value = 0;
 	env->num_players = 0;
 	env->prog_num = 0xffffffff;
@@ -60,12 +58,15 @@ t_player	*create_player(uint32_t prog_num)
 {
 	t_player	*player;
 
-	if (!(player = (t_player*)malloc(sizeof(t_player))))
+	player = (t_player*)malloc(sizeof(t_player));
+	if (!player)
 		ft_error_errno(NULL);
 	player->lives = 0;
 	if (!(player->name = ft_strnew(PROG_NAME_LENGTH)))
 		ft_error_errno(NULL);	
 	player->prog_num = prog_num;
+	player->prev = NULL;
+	player->next = NULL;
 	return (player);
 }
 
@@ -76,6 +77,8 @@ t_process	*create_process(t_env *e)
 	process = (t_process*)malloc(sizeof(t_process));
 	if (process == NULL)
 		ft_error_errno(NULL);
+	process->prev = NULL;
+	process->next = NULL;
 	process->types = 0;
 	process->regs[0] = e->offset;
 	process->regs[1] = e->prog_num;

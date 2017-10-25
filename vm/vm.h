@@ -50,7 +50,8 @@ enum
 	visual,
 	v,
 	b,
-	stealth
+	stealth,
+	debug
 }					e_options;
 
 typedef struct			s_player
@@ -65,7 +66,7 @@ typedef struct			s_player
 
 typedef struct			s_process
 {
-	uint8_t				types;
+	uint32_t			types;
 	uint32_t			regs[REG_NUMBER + 1];	// should be REG_SIZE datatype
 	uint8_t				param_type[3];
 	uint32_t			param_val[3];
@@ -88,9 +89,11 @@ typedef struct			s_env
 	int					lives_since_check;
 	uint32_t			num_processes;
 	uint8_t				*board;
-	t_list				*processes;
-	t_list				*players;
+	//t_list				*processes;
+	//t_list				*players;
 	t_list				*element;
+	t_player			*lst_players;
+	t_process			*lst_process;
 	int					last_live_num;
 	char				*last_live_name;
 	int					checks;
@@ -105,7 +108,6 @@ typedef struct			s_env
 	t_process			*new_fork;
 	uint32_t			prog_num;
 	uint32_t			offset;
-	t_player			player[MAX_PLAYERS + 1];
 	int					i;
 	int					j;
 	int					k;
@@ -160,8 +162,8 @@ uint32_t				get_board_val(uint8_t *board, uint32_t index,
 void					set_board_val(uint8_t *board, uint32_t index,
 						uint32_t size, uint32_t val);
 uint32_t				get_param_size(uint8_t type, int label_size);
-void					add_process(t_env *env, t_process *process);
-t_list					*kill_processes(t_env *env);
+//void					add_process(t_env *env, t_process *process);
+void					kill_processes(t_env *env);
 void					op_live(t_env *env, t_process *process);
 void					op_load(t_env *env, t_process *process);
 void					op_store(t_env *env, t_process *process, uint32_t pc, int op);
@@ -183,7 +185,16 @@ t_bool					get_dump_number(t_env *e, char *nbr, int *i, int args);
 t_bool					get_verbose_level(t_env *e, char *nbr, int *i, int args);
 t_bool					get_cycle_number(t_env *e, char *nbr, int *i, int args);
 void					reader(t_env *e, int offset, char *arg);
-void					add_player_list(t_env *env, t_player *new_player);
+//void					add_player_list(t_env *env, t_player *new_player);
 void					add_player(t_env *e, char **argv, int *i);
 void					delete_env(t_env *env);
+t_player				*lst_players_add(t_env *e, t_player *p);
+void					lst_players_del(t_env *e, t_player *p);
+void					lst_process_add(t_env *e, t_process *p);
+void					lst_process_del(t_env *e, t_process *p);
+void					lst_process_clr(t_env *e);
+void					lst_players_clr(t_env *e);
+
+int						lst_process_len(t_process *lst);
+int						lst_players_len(t_player *lst);
 #endif
