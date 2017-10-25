@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:18:48 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/24 18:05:18 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/25 11:57:58 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	print_verbosity_four(t_env *env, t_process *process, int op)
 {
 	if (!env->options[v] || env->verbose_value != 4)
 		return ;
-	ft_printf("P    %u | %s ", process->process_num,
+	ft_printf("P%5u | %s ", process->process_num,
 								get_op_name(op));
 	print_verbosity_four_vals(process);
 	ft_putchar('\n');
@@ -64,7 +64,7 @@ static void	print_index_verbosity_four(t_env *env, t_process *process, int pc, t
 {
 	if (!env->options[v] || env->verbose_value != 4)
 		return ;
-	ft_printf("P    %u | %s ", process->process_num,
+	ft_printf("P%5u | %s ", process->process_num,
 								get_op_name(process->op));
 	ft_printf("%d ", index_info->index1);
 	ft_printf("%d ", index_info->index2);
@@ -101,8 +101,8 @@ void		op_index_load(t_env *env, t_process *process, int op)
 		return ;
 	if (check_param_reg_nums(process, 1, 1, 1))
 		return ;
-	index1 = get_param_val(env->board, 0, process, IND_SIZE);
-	index2 = get_param_val(env->board, 1, process, IND_SIZE);
+	index1 = get_idx_val(get_param_val(env->board, 0, process, IND_SIZE));
+	index2 = get_idx_val(get_param_val(env->board, 1, process, IND_SIZE));
 	index_sum = index1 + index2;
 	if (op == ldi)
 		new_reg_val = get_ind_val(env->board, process, get_idx_val(index_sum), REG_SIZE);

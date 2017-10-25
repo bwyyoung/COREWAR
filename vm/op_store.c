@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:16:50 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/24 18:08:00 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/25 16:08:04 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ static void	print_verbosity_four(t_env *env, t_process *process, int op)
 {
 	if (!env->options[v] || env->verbose_value != 4)
 		return ;
-	ft_printf("P    %u | %s ", process->process_num,
-								get_op_name(op));
-	print_verbosity_four_vals(process);
-	ft_putchar('\n');
+	ft_printf("P%5u | %s r%d %d\n", process->process_num,
+								get_op_name(op),
+								process->param_val[0],
+								get_idx_val(process->param_val[1]));
 }
 
 /*
@@ -65,7 +65,7 @@ static void	print_index_verbosity_four(t_env *env, t_process *process, int pc, t
 
 	if (!env->options[v] || env->verbose_value != 4)
 		return ; 
-	ft_printf("P    %u | %s ", process->process_num,
+	ft_printf("P%5u | %s ", process->process_num,
 								get_op_name(process->op));
 	if (process->param_type[0] == REG_CODE)
 		ft_putchar('r');
@@ -73,9 +73,9 @@ static void	print_index_verbosity_four(t_env *env, t_process *process, int pc, t
 	ft_printf("%d ", index_info->index1);
 	ft_printf("%d\n", index_info->index2);
 	ft_printf("       | -> store to %d + %d = %d (with pc and mod %d)\n",
-				index_info->index1,
-				index_info->index2,
-				index_info->index_sum,
+				(index_info->index1),
+				(index_info->index2),
+				(index_info->index_sum),
 				pc + get_idx_val(index_info->index_sum));
 }
 
@@ -100,8 +100,8 @@ void	op_sti(t_env *env, t_process *process, uint32_t pc)
 	if (check_param_reg_nums(process, 1, 1, 1))
 		return ;
 	reg_val = get_reg_val(process, process->param_val[0]);
-	index1 = get_param_val(env->board, 1, process, REG_SIZE);
-	index2 = get_param_val(env->board, 2, process, REG_SIZE);
+	index1 = get_idx_val(get_param_val(env->board, 1, process, REG_SIZE));
+	index2 = (get_param_val(env->board, 2, process, REG_SIZE));
 	index_sum = index1 + index2;
 	set_board_val(env->board, pc + get_idx_val(index_sum), REG_SIZE, reg_val);
 	index_info = create_index_info(index1, index2, index_sum);

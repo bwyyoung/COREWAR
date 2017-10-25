@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_bitwise.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 19:03:47 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/24 12:55:50 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/25 11:58:26 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	print_verbosity_four(t_env *env, t_process *process,
 {
 	if (!env->options[v] || env->verbose_value != 4)
 		return ;
-	ft_printf("P    %u | %s ", process->process_num,
+	ft_printf("P%5u | %s ", process->process_num,
 								get_op_name(process->op));
 	ft_printf("%d", val1);
 	ft_printf(" %d", val2);
@@ -39,6 +39,8 @@ void		op_bitwise(t_env *env, t_process *process, int op)
 	uint32_t val2;
 	uint32_t result;
 
+	if (process->param_type[2] != REG_CODE)
+		return ;
 	if (check_param_reg_nums(process, 1, 1, 1))
 		return ;
 	val1 = get_param_val(env->board, 0, process, DIR_SIZE);

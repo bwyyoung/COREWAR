@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byoung-w <byoung-w@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 14:49:06 by byoung-w          #+#    #+#             */
-/*   Updated: 2017/10/21 12:49:30 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/25 16:34:36 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,9 @@ void		lst_process_add(t_env *e, t_process *p)
 		e->num_processes++;
 		return ;
 	}
-	while (e->new_process->next != NULL)
-		e->new_process = e->new_process->next;
-	e->new_process->next = p;
-	p->prev = e->new_process;
-	p->next = NULL;
+	p->next = e->lst_process;
+	e->lst_process->prev = p;
+	e->lst_process = p;
 	e->num_processes++;
 }
 
