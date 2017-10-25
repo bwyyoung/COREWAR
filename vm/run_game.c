@@ -38,6 +38,7 @@ void		run_game(t_env *env)
 {
 	while (1)
 	{
+		ft_printf("RUN GAME\n");
 		if (env->cycles_since_check >= env->cycle_to_die)
 			perform_check(env);
 		if (env->processes == NULL)
@@ -53,7 +54,7 @@ void		run_game(t_env *env)
 			ft_printf("total %d\n", env->total_cycles);
 		}
 		execute_cycle(env);
-		// ft_printf("IT IS NOW CYCLE %d\n", env->total_cycle);
+		ft_printf("IT IS NOW CYCLE %d\n", env->total_cycles);
 		env->total_cycles++;
 		env->cycles_since_check++;
 	}
