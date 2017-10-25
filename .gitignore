@@ -2,3 +2,5 @@
 .DS_Store
 libft.a
 ft_printf.a
+vm/vm
+vm/vm.dSYM
