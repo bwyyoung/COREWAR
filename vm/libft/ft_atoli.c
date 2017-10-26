@@ -20,7 +20,7 @@ long	ft_atoli(const char *str)
 
 	i = 0;
 	nb = 0;
-	is_neg = false;
+	is_neg = t_false;
 	while (str[i] == ' ' || str[i] == '\n' || str[i] == '\t' ||
 		str[i] == '\v' || str[i] == '\f' || str[i] == '\r')
 		i++;

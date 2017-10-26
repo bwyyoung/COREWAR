@@ -14,7 +14,7 @@ NAME = vm
 FLAGS = -g -Wextra -Wall -Werror
 #FLAGS =
 LIBFT = ./libft
-LIB = libft/libft.a
+LIB = libft/libft.a -lcurses
 
 SRC = main.c run_game.c \
 		load_programs.c \
@@ -27,7 +27,10 @@ SRC = main.c run_game.c \
 		error.c			\
 		parse_flags_calc.c \
 		list_players.c		\
-		list_process.c
+		list_process.c		\
+		mgr_graphics.c		\
+		mgr_input.c			\
+		mgr_time.c
 
 SRCO = ${SRC:%.c=%.o}
 

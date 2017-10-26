@@ -31,7 +31,7 @@ t_env		*create_env(uint8_t *board)
 	env->checks = 0;
 	env->i = -1;
 	while (++env->i < 7)
-		env->options[env->i] = false;
+		env->options[env->i] = t_false;
 	env->dump_value = 0;
 	env->num_players = 0;
 	env->prog_num = 0xffffffff;

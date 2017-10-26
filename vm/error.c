@@ -109,6 +109,8 @@ void		error_exit(t_env *e, int i)
 		error_msg(i);
 	else if (i >= 11 && i <= 21)
 		error_msg_2(i);
+	else if (i == 22)
+		ft_putstr_fd("\x1b[31m[Unable to init graphics]\x1b[0m ", 2);
 	else
 	{
 		ft_putstr_fd("\x1b[31m[Unknown Error Message: ]\x1b[0m ", 2);

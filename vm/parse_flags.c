@@ -27,18 +27,18 @@ long	verify_number(t_env *e, char *nbr)
 
 t_bool	get_dump_number(t_env *e, char *nbr, int *i, int argc) /// -d
 {
-	e->options[d] = true;
+	e->options[d] = t_true;
 	if ((*i + 2) > argc)
 		error_exit(e, 11);
 	*i += 1;
 	e->dump_value = verify_number(e, nbr);
-	return (true);
+	return (t_true);
 }
 
 t_bool	get_cycle_number(t_env *e, char *nbr, int *i, int argc) /// -s
 {
 	// ft_printf("get_cycle_number 1\n");
-	e->options[s] = true;
+	e->options[s] = t_true;
 	// ft_printf("get_cycle_number 2\n");
 
 	if ((*i + 2) > argc)
@@ -51,12 +51,12 @@ t_bool	get_cycle_number(t_env *e, char *nbr, int *i, int argc) /// -s
 	e->cycle_value = verify_number(e, nbr);
 	// ft_printf("get_cycle_number 5\n");
 
-	return (true);
+	return (t_true);
 }
 
 t_bool	get_verbose_level(t_env *e, char *nbr, int *i, int argc)
 {
-	e->options[v] = true;
+	e->options[v] = t_true;
 	// ft_printf("get_verbose_level 1\n");
 	if ((*i + 2) > argc)
 		error_exit(e, 11);
@@ -69,5 +69,5 @@ t_bool	get_verbose_level(t_env *e, char *nbr, int *i, int argc)
 		error_exit(e, 13);
 	*i += 1;
 	// ft_printf("get_verbose_level 4\n");
-	return (true);
+	return (t_true);
 }

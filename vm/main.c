@@ -1,6 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */ /*   main.c                                             :+:      :+:    :+:   */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "vm.h"
+#include "mgr_graphics.h"
 
 t_bool		add_option(t_env *e, char **argv, int *i, int argc)
 {
@@ -25,7 +27,7 @@ t_bool		add_option(t_env *e, char **argv, int *i, int argc)
 		return (add_binary(e));
 	else if (ft_strequ(argv[*i], "--stealth"))
 		return (add_stealth(e));
-	return (false);
+	return (t_false);
 }
 
 void			parse_flags(t_env *e, int argc, char **argv)
@@ -83,10 +85,16 @@ int			main(int argc, char *argv[])
 	board = create_board();
 	env = create_env(board);
 	parse_flags(env, argc, argv);
-	run_game(env);
-	declare_winner(env);
-	ft_printf("cycle_to_die %d\n", env->cycle_to_die);
-	ft_printf("total cycles %d\n", env->total_cycles);
+	//env->options[visual] = t_true;
+	if (env->options[visual])
+		graphics_loop(env);
+	else
+	{
+		run_game(env);
+		declare_winner(env);
+		ft_printf("cycle_to_die %d\n", env->cycle_to_die);
+		ft_printf("total cycles %d\n", env->total_cycles);
+	}
 	delete_env(env);
 	return (0);
 }

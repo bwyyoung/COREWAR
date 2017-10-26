@@ -12,7 +12,6 @@
 
 #ifndef VM_H
 # define VM_H
-
 # include "libft/libft.h"
 # include "op.h"
 # include <unistd.h>
@@ -20,7 +19,6 @@
 # include <errno.h>
 # include <limits.h>
 # include <stdio.h>
-# include <ncurses.h>
 # define LABEL_NUMBERS "-0123456789"
 
 enum

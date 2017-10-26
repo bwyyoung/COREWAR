@@ -14,20 +14,20 @@
 
 t_bool add_visual(t_env *e)
 {
-	e->options[visual] = true;
-	return (true);
+	e->options[visual] = t_true;
+	return (t_true);
 }
 
 t_bool add_binary(t_env *e)
 {
-	e->options[b] = true;
-	return (true);
+	e->options[b] = t_true;
+	return (t_true);
 }
 
 t_bool add_stealth(t_env *e)
 {
-	e->options[stealth] = true;
-	return (true);
+	e->options[stealth] = t_true;
+	return (t_true);
 }
 
 void add_player(t_env *e, char **argv, int *i)
