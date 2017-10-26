@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 15:37:30 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/24 15:31:57 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/26 18:36:29 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ typedef struct			s_env
 	int					x;
 	int					y;
 	int					z;
+	int					program_size;
 }						t_env;
 
 typedef struct			s_index_info
@@ -122,6 +123,7 @@ typedef struct			s_index_info
 	int					index_sum;
 }						t_index_info;
 
+void					print_verbosity_sixteen(t_env *env, t_process *process, int inc);
 t_index_info			*create_index_info(int index1, int index2, int index_sum);
 int						check_param_reg_nums(t_process *process, int p0, int p1, int p2);
 void					print_verbosity_four_vals(t_process *process);
@@ -154,7 +156,7 @@ int						is_reg_num_invalid(uint32_t reg_num);
 uint32_t				get_reg_val(t_process *process, uint32_t reg_num);
 void					set_reg_val(t_process *process, uint32_t reg_num,
 						uint32_t new_val);
-void					inc_pc(uint32_t *regs, int inc);
+void					inc_pc(t_process *process, int inc);
 void					modify_carry(t_process *process, uint32_t val);
 uint32_t				get_board_val(uint8_t *board, uint32_t index,
 						uint32_t size);

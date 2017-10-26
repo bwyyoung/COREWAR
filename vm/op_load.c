@@ -6,20 +6,22 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:18:48 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/25 11:57:58 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/26 12:30:16 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static void	print_verbosity_four(t_env *env, t_process *process, int op)
+static void	print_verbosity_four(t_env *env, t_process *process, int op, uint32_t new_reg_val)
 {
 	if (!env->options[v] || env->verbose_value != 4)
 		return ;
-	ft_printf("P%5u | %s ", process->process_num,
-								get_op_name(op));
-	print_verbosity_four_vals(process);
-	ft_putchar('\n');
+	ft_printf("P%5u | %s %d r%d\n", process->process_num,
+								get_op_name(op),
+								new_reg_val,
+								process->param_val[1]);
+	// print_verbosity_four_vals(process);
+	// ft_putchar('\n');
 }
 
 /*
@@ -39,7 +41,7 @@ void		op_load(t_env *env, t_process *process)
 	new_reg_val = get_param_val(env->board, 0, process, REG_SIZE);
 	set_reg_val(process, process->param_val[1], new_reg_val);
 	modify_carry(process, new_reg_val);
-	print_verbosity_four(env, process, process->op);
+	print_verbosity_four(env, process, process->op, new_reg_val);
 }
 
 /*

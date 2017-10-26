@@ -6,20 +6,29 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:16:50 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/25 16:08:04 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/26 14:32:47 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static void	print_verbosity_four(t_env *env, t_process *process, int op)
+static void	print_verbosity_four(t_env *env, t_process *process,
+									uint32_t reg_val, uint32_t param_val)
 {
 	if (!env->options[v] || env->verbose_value != 4)
 		return ;
+	// ft_printf("param_val %d    , %d   ", param_val, 0xffff - IDX_MOD);
+	if (process->param_type[1] == IND_CODE)
+		param_val = (param_val > MEM_SIZE) ?
+					get_idx_val(param_val) : param_val;
+	// else if (process->param_type[1] == IND_CODE)
+		// param_val = param_val - 0x10000;
+	// if ((int)param_val == -1)
+		// ft_printf("(%d)", process->param_val[1]);
 	ft_printf("P%5u | %s r%d %d\n", process->process_num,
-								get_op_name(op),
-								process->param_val[0],
-								get_idx_val(process->param_val[1]));
+				get_op_name(process->op),
+				process->param_val[0],
+				process->param_type[1] == IND_CODE ? param_val : reg_val);
 }
 
 /*
@@ -31,8 +40,8 @@ static void	print_verbosity_four(t_env *env, t_process *process, int op)
 
 void		op_st(t_env *env, t_process *process, uint32_t pc)
 {
-	int			reg_val;
-	int			param_val;
+	uint32_t	reg_val;
+	uint32_t	param_val;
 
 	if (process->param_type[0] != REG_CODE || process->param_type[1] == DIR_CODE)
 		return ;
@@ -44,7 +53,7 @@ void		op_st(t_env *env, t_process *process, uint32_t pc)
 		set_reg_val(process, param_val, reg_val);
 	else
 		set_board_val(env->board, pc + get_idx_val(param_val), REG_SIZE, reg_val);
-	print_verbosity_four(env, process, process->op);
+	print_verbosity_four(env, process, reg_val, param_val);
 }
 /*
 //42
@@ -100,8 +109,15 @@ void	op_sti(t_env *env, t_process *process, uint32_t pc)
 	if (check_param_reg_nums(process, 1, 1, 1))
 		return ;
 	reg_val = get_reg_val(process, process->param_val[0]);
-	index1 = get_idx_val(get_param_val(env->board, 1, process, REG_SIZE));
-	index2 = (get_param_val(env->board, 2, process, REG_SIZE));
+	if (process->param_type[1] == IND_CODE)
+		index1 = (get_param_val(env->board, 1, process, REG_SIZE));
+	else
+		index1 = get_idx_val(get_param_val(env->board, 1, process, REG_SIZE));
+	if (process->param_type[2] == DIR_CODE)
+		index2 = get_idx_val(get_param_val(env->board, 2, process, REG_SIZE));
+	else
+		index2 = (get_param_val(env->board, 2, process, REG_SIZE));
+
 	index_sum = index1 + index2;
 	set_board_val(env->board, pc + get_idx_val(index_sum), REG_SIZE, reg_val);
 	index_info = create_index_info(index1, index2, index_sum);

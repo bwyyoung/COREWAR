@@ -6,7 +6,7 @@
 #    By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/06 18:30:14 by douglas           #+#    #+#              #
-#    Updated: 2017/10/12 17:16:01 by dengstra         ###   ########.fr        #
+#    Updated: 2017/10/26 16:22:26 by dengstra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,9 @@ SRC = main.c run_game.c \
 		list_process.c		\
 		mgr_graphics.c		\
 		mgr_input.c			\
-		mgr_time.c
+		mgr_time.c			\
+		print_verbosity_sixteen.c
+
 
 SRCO = ${SRC:%.c=%.o}
 

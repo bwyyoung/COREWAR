@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:10:13 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/24 18:27:23 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/26 18:37:25 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,9 @@ void				execute_op(t_env *env, t_process *process)
 		op_forker(env, process, op);
 	else if (op == aff)
 		op_aff(env, process, pc);
+	print_verbosity_sixteen(env, process, get_op_size(process));
 	if (op != zjmp)
-		inc_pc(process->regs, get_op_size(process));
+		inc_pc(process, get_op_size(process));
 }
 
 /*
@@ -66,7 +67,7 @@ void				execute_op(t_env *env, t_process *process)
 ** it can try and execute the new byte that the pc is pointing towards.
 **
 */
-void				execute_process(t_process *process, t_env *env)
+void				execute_process(t_env *env, t_process *process)
 {
 	int				op;
 
@@ -84,7 +85,7 @@ void				execute_process(t_process *process, t_env *env)
 			process->op = op;
 		}
 		else
-			inc_pc(process->regs, 1);
+			inc_pc(process, 1);
 	}
 	else
 		process->cycles_left--;
@@ -100,7 +101,7 @@ void				execute_cycle(t_env *env)
 	cur_process = env->lst_process;
 	while (cur_process)
 	{
-		execute_process(cur_process, env);
+		execute_process(env, cur_process);
 		cur_process = cur_process->next;
 	}
 }

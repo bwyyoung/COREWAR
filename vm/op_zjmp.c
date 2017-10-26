@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:21:37 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/25 11:58:11 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/26 18:36:54 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ static void	print_verbosity_four(t_env *env, t_process *process)
 	if (!env->options[v] || env->verbose_value != 4)
 		return ;
 	ft_printf("P%5u | zjmp %d ", process->process_num,
-									get_idx_val(process->param_val[0]));
+		(process->param_val[0] > MEM_SIZE) ?
+			get_idx_val(process->param_val[0]) : process->param_val[0]);
 	if (process->carry == 1)
 		ft_putendl("OK");
 	else
@@ -34,9 +35,9 @@ void	op_zjmp(t_env *env, t_process *process)
 {
 	(void)env;
 	if (process->carry == 1)
-		inc_pc(process->regs, get_idx_val(process->param_val[0]));
+		inc_pc(process, get_idx_val(process->param_val[0]));
 	else
-		inc_pc(process->regs, 1 + IND_SIZE);
+		inc_pc(process, 1 + IND_SIZE);
 	print_verbosity_four(env, process);
 }
 

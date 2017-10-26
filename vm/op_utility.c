@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:12:02 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/25 12:35:55 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/26 18:36:15 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 ** Use % MEM_SIZE because memory is circular
 ** MEM_SIZE == 4096 == 4 * 1024
 */
-void		inc_pc(uint32_t *regs, int inc)
+void		inc_pc(t_process *process, int inc)
 {
-	regs[0] = (regs[0] + inc) % MEM_SIZE;
+	process->regs[0] = (process->regs[0] + inc) % MEM_SIZE;
 }
 
 /*
