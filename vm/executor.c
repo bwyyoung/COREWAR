@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:10:13 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/26 18:37:25 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/27 12:45:46 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void				execute_op(t_env *env, t_process *process)
 	op = process->op;
 	process->types = get_board_val(env->board, pc + 1, 1);
 	get_params(env, process, op);
+	print_verbosity_sixteen(env, process, get_op_size(process));
 	if (op == live)
 		op_live(env, process);
 	else if (op == ld || op == lld)
@@ -49,7 +50,6 @@ void				execute_op(t_env *env, t_process *process)
 		op_forker(env, process, op);
 	else if (op == aff)
 		op_aff(env, process, pc);
-	print_verbosity_sixteen(env, process, get_op_size(process));
 	if (op != zjmp)
 		inc_pc(process, get_op_size(process));
 }

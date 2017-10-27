@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 20:31:02 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/26 18:36:41 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/27 15:58:28 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,19 @@
 
 static void	print_verbosity_four(t_env *env, t_process *process)
 {
+	int16_t		index;
+	uint32_t	pc;
+
+	index = process->param_val[0];
+	pc = process->regs[0];
 	if (!env->options[v] || env->verbose_value != 4)
 		return ;
+	ft_printf("P %4u | %s %d ", process->process_num,
+								get_op_name(process->op), index);
 	if (process->op == lfork)
-		ft_printf("P%5u | lfork %d (%d)\n", process->process_num,
-			process->param_val[0],
-			process->param_val[0] + process->regs[0]);
+		ft_printf("(%d)\n", pc + index);
 	else
-		ft_printf("P%5u | fork %d (%d)\n", process->process_num,
-			(process->param_val[0] > MEM_SIZE) ?
-				get_idx_val(process->param_val[0]) : process->param_val[0],
-			process->regs[0] + get_idx_val(process->param_val[0]));
+		ft_printf("(%d)\n", pc + get_idx_val(index));
 }
 
 /*
@@ -64,7 +66,7 @@ void			op_forker(t_env *env, t_process *process, int op)
 	if (op == lfork)
 		inc_pc(env->new_fork, process->param_val[0]);
 	else
-		inc_pc(env->new_fork, get_idx_val(process->param_val[0]));
+		inc_pc(env->new_fork, get_idx_val((int16_t)process->param_val[0]));
 	lst_process_add(env, env->new_fork);
 	print_verbosity_four(env, process);
 }

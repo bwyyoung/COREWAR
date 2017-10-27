@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:12:02 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/26 18:36:15 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/27 13:58:22 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,10 @@ void		modify_carry(t_process *process, uint32_t val)
 }
 
 /*
-** If the val is more than MEM_SIZE it means that the val is behind the pc,
-** so the val needs to be negative which is done by taking the val minus 0x10000.
-** Example:
-** if zjmp has the param 0xfffb (like in zork)
-** we will take 0xfffb - 0x10000 which is -5
-** then return -5 % IDX_MOD (IDX_MOD == 512 == MEM_SIZE / 8)
-** which means we will return -5
+** Convert value to int16_t and then mod it with IDX_MOD
 */
-int			get_idx_val(int val)
+int16_t		get_idx_val(int16_t val)
 {
-	if (val >= 0xffff - MEM_SIZE)
-		val -= 0x10000;
 	return (val % IDX_MOD);
 }
 
@@ -58,7 +50,7 @@ void		print_verbosity_four_vals(t_process *process)
 		if (process->param_type[i] == REG_CODE)
 			ft_putchar('r');
 		if (process->param_type[i] == IND_CODE)
-			ft_printf("%d", get_idx_val(process->param_val[i]));
+			ft_printf("%hd", get_idx_val((int16_t)process->param_val[i]));
 		else
 			ft_printf("%d", process->param_val[i]);
 		if (num_params > 0)

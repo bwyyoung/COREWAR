@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:18:48 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/26 12:30:16 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/27 15:58:14 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,10 @@ static void	print_verbosity_four(t_env *env, t_process *process, int op, uint32_
 {
 	if (!env->options[v] || env->verbose_value != 4)
 		return ;
-	ft_printf("P%5u | %s %d r%d\n", process->process_num,
+	ft_printf("P %4u | %s %d r%d\n", process->process_num,
 								get_op_name(op),
 								new_reg_val,
 								process->param_val[1]);
-	// print_verbosity_four_vals(process);
-	// ft_putchar('\n');
 }
 
 /*
@@ -66,7 +64,7 @@ static void	print_index_verbosity_four(t_env *env, t_process *process, int pc, t
 {
 	if (!env->options[v] || env->verbose_value != 4)
 		return ;
-	ft_printf("P%5u | %s ", process->process_num,
+	ft_printf("P %4u | %s ", process->process_num,
 								get_op_name(process->op));
 	ft_printf("%d ", index_info->index1);
 	ft_printf("%d ", index_info->index2);
@@ -78,7 +76,17 @@ static void	print_index_verbosity_four(t_env *env, t_process *process, int pc, t
 	if (process->op == lldi)
 		ft_printf(" (with pc %d)\n", pc + index_info->index_sum);
 	else
-		ft_printf(" (with pc and mod %d)\n", pc + get_idx_val(index_info->index_sum));
+		ft_printf(" (with pc and mod %d)\n", (pc + (index_info->index_sum % IDX_MOD)) % MEM_SIZE);
+}
+
+static uint32_t	get_new_reg_val(t_env *env, t_process *process, int index_sum)
+{
+	if (process->op == ldi)
+		return (get_board_val(env->board, (process->regs[0]
+			+ (index_sum % IDX_MOD)) % MEM_SIZE, REG_SIZE));
+	else
+		return (get_board_val(env->board, (process->regs[0]
+			+ index_sum) % MEM_SIZE, REG_SIZE));
 }
 
 /*
@@ -90,26 +98,23 @@ static void	print_index_verbosity_four(t_env *env, t_process *process, int pc, t
 **
 ** (T_REG | T_DIR | T_IND) , (T_DIR | T_REG), T_REG
 */
-
 void		op_index_load(t_env *env, t_process *process, int op)
 {
 	int				index1;
 	int				index2;
 	int				index_sum;
-	int				new_reg_val;
+	uint32_t		new_reg_val;
 	t_index_info	*index_info;
+	(void)op;
 
 	if (process->param_type[1] == IND_CODE || process->param_type[2] != REG_CODE)
 		return ;
 	if (check_param_reg_nums(process, 1, 1, 1))
 		return ;
-	index1 = get_idx_val(get_param_val(env->board, 0, process, IND_SIZE));
-	index2 = get_idx_val(get_param_val(env->board, 1, process, IND_SIZE));
+	index1 = get_param_val(env->board, 0, process, REG_SIZE);
+	index2 = get_param_val(env->board, 1, process, REG_SIZE);
 	index_sum = index1 + index2;
-	if (op == ldi)
-		new_reg_val = get_ind_val(env->board, process, get_idx_val(index_sum), REG_SIZE);
-	else
-		new_reg_val = get_ind_val(env->board, process, index_sum, REG_SIZE);
+	new_reg_val = get_new_reg_val(env, process, index_sum);
 	set_reg_val(process, process->param_val[2], new_reg_val);
 	modify_carry(process, new_reg_val);
 	index_info = create_index_info(index1, index2, index_sum);

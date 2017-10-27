@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:27:07 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/24 17:05:17 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/27 15:18:21 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,11 @@ void			get_params(t_env *env, t_process *process, int op)
 ** for example one op will want a REG_VAL of size 4 and another
 ** will want a IND_VAL of size 2.
 */
-uint32_t		get_ind_val(uint8_t *board, t_process *process,
-							uint32_t param_val, uint32_t read_size)
+uint32_t			get_ind_val(uint8_t *board, t_process *process,
+							int16_t param_val, uint32_t read_size)
 {
-	uint32_t pc;
-	uint32_t val;
+	uint32_t	pc;
+	uint32_t	val;
 
 	pc = process->regs[0];
 	if (op_uses_idx(process->op))
@@ -114,9 +114,9 @@ uint32_t		get_param_val(uint8_t *board, int which_param,
 	if (param_type == REG_CODE)
 		val = get_reg_val(process, param_val);
 	else if (param_type == IND_CODE)
-		val = get_ind_val(board, process, param_val, read_size);
+		val = get_ind_val(board, process, (int16_t)param_val, read_size);
 	else
-		val = param_val;
+		val = (get_label_size(process->op) == 4) ? param_val : (int16_t) param_val;
 	return (val);
 }
 

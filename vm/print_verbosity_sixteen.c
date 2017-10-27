@@ -6,12 +6,12 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 16:21:37 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/26 18:28:24 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/27 13:44:03 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-// ADV 5 (0x000f -> 0x0014) 01 ff ff ff ff
+
 void		print_verbosity_sixteen(t_env *env, t_process *process, int inc)
 {
 	uint32_t i;
@@ -21,7 +21,7 @@ void		print_verbosity_sixteen(t_env *env, t_process *process, int inc)
 		|| (process->carry && process->op == zjmp))
 		return ;
 	ft_printf("ADV %d (0x%04x -> 0x%04x) %02x %02x ", inc, process->regs[0],
-				(process->regs[0] + inc) % MEM_SIZE, process->op, process->types);
+			(process->regs[0] + inc) % MEM_SIZE, process->op, process->types);
 	i = 2;
 	op_size = get_op_size(process);
 	while (i < op_size)

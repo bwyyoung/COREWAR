@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 15:37:30 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/26 18:36:29 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/27 15:18:58 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,6 @@ void					print_verbosity_sixteen(t_env *env, t_process *process, int inc);
 t_index_info			*create_index_info(int index1, int index2, int index_sum);
 int						check_param_reg_nums(t_process *process, int p0, int p1, int p2);
 void					print_verbosity_four_vals(t_process *process);
-uint32_t				get_ind_val(uint8_t *board, t_process *process,
-								uint32_t param_val, uint32_t read_size);
 void					ft_error_errno(char *msg);
 void					ft_error(char *msg);
 char					*get_op_name(int op);
@@ -140,7 +138,7 @@ int						get_num_params(int op);
 uint32_t				get_op_size(t_process *process);
 int						is_types_invalid(int op, uint8_t types);
 int						valid_reg_num(uint32_t reg_num);
-int						get_idx_val(int val);
+int16_t					get_idx_val(int16_t val);
 void					load_programs(t_env *env, char *argv[]);
 void					dump_memory(t_env *env);
 void					run_game(t_env *env);
