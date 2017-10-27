@@ -20,6 +20,11 @@
 # include <limits.h>
 # include <stdio.h>
 # define LABEL_NUMBERS "-0123456789"
+# define VISUAL 0
+# ifdef __llvm__
+#  pragma GCC diagnostic ignored "-Wdangling-else"
+# endif
+# define P(x, y, ...) ((x) ? vp(y, ##__VA_ARGS__) : ft_printf(y, ##__VA_ARGS__))
 
 enum
 {
@@ -61,6 +66,7 @@ typedef struct			s_player
 	int					file_pos;
 	struct s_player		*prev;
 	struct s_player		*next;
+	int					vis;
 }						t_player;
 
 typedef struct			s_process
@@ -78,6 +84,7 @@ typedef struct			s_process
 	uint32_t			process_num;
 	struct s_process	*prev;
 	struct s_process	*next;
+	int					vis;
 }						t_process;
 
 typedef struct			s_env
@@ -88,8 +95,6 @@ typedef struct			s_env
 	int					lives_since_check;
 	uint32_t			num_processes;
 	uint8_t				*board;
-	//t_list				*processes;
-	//t_list				*players;
 	t_list				*element;
 	t_player			*lst_players;
 	t_process			*lst_process;
@@ -198,4 +203,6 @@ void					lst_players_clr(t_env *e);
 
 int						lst_process_len(t_process *lst);
 int						lst_players_len(t_player *lst);
+int						vp(char *str, ...);
+void					perform_check(t_env *env);
 #endif

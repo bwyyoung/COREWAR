@@ -16,10 +16,10 @@ static void	print_verbosity_four(t_env *env, t_process *process, int op)
 {
 	if (!env->options[v] || env->verbose_value != 4)
 		return ;
-	ft_printf("P%5u | %s ", process->process_num,
+	P(env->options[visual], "P%5u | %s ", process->process_num,
 								get_op_name(op));
 	print_verbosity_four_vals(process);
-	ft_putchar('\n');
+	P(env->options[visual], "\n");
 }
 
 /*

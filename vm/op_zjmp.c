@@ -16,7 +16,7 @@ static void	print_verbosity_four(t_env *env, t_process *process)
 {
 	if (!env->options[v] || env->verbose_value != 4)
 		return ;
-	ft_printf("P%5u | zjmp %d ", process->process_num,
+	P(env->options[visual], "P%5u | zjmp %d ", process->process_num,
 		(process->param_val[0] > MEM_SIZE) ?
 			get_idx_val(process->param_val[0]) : process->param_val[0]);
 	if (process->carry == 1)

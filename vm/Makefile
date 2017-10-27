@@ -31,29 +31,38 @@ SRC = main.c run_game.c \
 		mgr_graphics.c		\
 		mgr_input.c			\
 		mgr_time.c			\
-		print_verbosity_sixteen.c
+		print_verbosity_sixteen.c \
+		vprint.c				\
+		mgr_graphics_board.c	\
+		mgr_graphics_log.c		\
+		mgr_graphics_player.c	\
+		mgr_graphics_process.c	\
+		mgr_graphics_stats.c	\
 
 
 SRCO = ${SRC:%.c=%.o}
 
-all: $(NAME)
+all: MAKE_LIBS $(NAME)
 
-$(NAME): $(LIB) $(SRCO)
-	gcc -o $(NAME) $(FLAGS) $(SRC) $(LIB)
+MAKE_LIBS		:
+	@make -C libft/
+
+$(NAME): $(SRCO)
+	@gcc -o $(NAME) $(FLAGS) $(SRC) $(LIB)
 
 %.o: %.c
-	gcc -c $(FLAGS) $< -o $@
+	@gcc -c $(FLAGS) $< -o $@
 
 $(LIB):
-	make -C $(LIBFT)
+	@make -C $(LIBFT)
 
 clean:
-	/bin/rm -f $(SRCO)
-	make clean -C $(LIBFT)
+	@/bin/rm -f $(SRCO)
+	@make clean -C $(LIBFT)
 
 fclean: clean
-	/bin/rm -f $(NAME)
-	make fclean -C $(LIBFT)
+	@/bin/rm -f $(NAME)
+	@make fclean -C $(LIBFT)
 
 re: fclean all
 

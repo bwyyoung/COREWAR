@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "mgr_graphics.h"
+#include "vm.h"
 
 DWORD			GetTickCount()
 {
@@ -36,15 +37,27 @@ void					graphics_print_message(t_graphics *g, char *str)
 		mvwprintw(g->game_window, 0,0 , str);
 }
 
-void					update_app(t_graphics *g, t_env *e)
+void					update_app(t_graphics *g, t_env *env)
 {
-	(void)g;
-	(void)e;
+	if (env->cycles_since_check >= env->cycle_to_die)
+		perform_check(env);
+	if (env->lst_process == NULL)
+		g->app_is_running = false;
+	if (env->options[d] == 1 && env->dump_value == env->total_cycles)
+	{
+		dump_memory(env);
+		g->app_is_running = false;
+	}
+	if (env->options[s] == 1 && (env->total_cycles % env->cycle_value) == 0)
+		dump_memory(env);
+	execute_cycle(env);
+	env->total_cycles++;
+	env->cycles_since_check++;
 }
 
 void					display_app(t_graphics *g, t_env *e)
 {
-	(void)e;
 	Render_Start(g);
+	Render_Board(g, e);
 	Render_End(g);
 }

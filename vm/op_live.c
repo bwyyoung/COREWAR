@@ -16,7 +16,7 @@ static void	print_verbosity_four(t_env *env, t_process *process)
 {
 	if (!env->options[v] || env->verbose_value != 4)
 		return ;
-	ft_printf("P%5u | live %d\n", process->process_num,
+	P(env->options[visual], "P%5u | live %d\n", process->process_num,
 									process->param_val[0]);
 }
 

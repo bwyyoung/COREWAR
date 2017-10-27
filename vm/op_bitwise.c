@@ -17,12 +17,12 @@ static void	print_verbosity_four(t_env *env, t_process *process,
 {
 	if (!env->options[v] || env->verbose_value != 4)
 		return ;
-	ft_printf("P%5u | %s ", process->process_num,
+	P(env->options[visual], "P%5u | %s ", process->process_num,
 								get_op_name(process->op));
-	ft_printf("%d", val1);
-	ft_printf(" %d", val2);
-	ft_printf(" r%d", process->param_val[2]);
-	ft_putchar('\n');
+	P(env->options[visual], "%d", val1);
+	P(env->options[visual], " %d", val2);
+	P(env->options[visual], " r%d", process->param_val[2]);
+	P(env->options[visual], "\n");
 }
 
 /*

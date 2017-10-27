@@ -35,6 +35,10 @@
 # define APP_KEY_SPECIAL 91
 # define APP_KEY_ESC 27
 # define APP_KEY_INVALID -1
+# define BOARD_WIDTH 64
+# define BOARD_SPACING 1
+# define BOARD_HEIGHT 64
+# define BOARD_CELL_LENGTH 2
 
 #ifdef WIN32
 #else
@@ -59,6 +63,9 @@ typedef struct			s_graphics
 	bool				graphics_end;
 	int					i;
 	int					j;
+	int					window_x;
+	int					window_y;
+	int					window_index;
 	bool				app_is_running;
 	int					key_pressed;
 	DWORD				start_time;
@@ -72,7 +79,6 @@ typedef struct			s_graphics
 void					Graphics_Start(t_graphics *g);
 void					Graphics_End(t_graphics *g);
 void					Render_Start(t_graphics *g);
-void					Render_Player(t_graphics *g);
 void					Render_End(t_graphics *g);
 void					graphics_print_message(t_graphics *g, char *str);
 
@@ -83,4 +89,9 @@ void					display_app(t_graphics *g, t_env *e);
 void					graphics_loop(t_env *e);
 
 DWORD					GetTickCount();
+void					Render_Board(t_graphics *g, t_env *e);
+void					Render_Log(t_graphics *g, t_env *e);
+void					Render_Player(t_graphics *g, t_env *e);
+void					Render_Process(t_graphics *g, t_env *e);
+void					Render_Stats(t_graphics *g, t_env *e);
 #endif

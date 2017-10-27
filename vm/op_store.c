@@ -25,7 +25,7 @@ static void	print_verbosity_four(t_env *env, t_process *process,
 		// param_val = param_val - 0x10000;
 	// if ((int)param_val == -1)
 		// ft_printf("(%d)", process->param_val[1]);
-	ft_printf("P%5u | %s r%d %d\n", process->process_num,
+	P(env->options[visual], "P%5u | %s r%d %d\n", process->process_num,
 				get_op_name(process->op),
 				process->param_val[0],
 				process->param_type[1] == IND_CODE ? param_val : reg_val);
@@ -73,19 +73,20 @@ static void	print_index_verbosity_four(t_env *env, t_process *process, int pc, t
 {
 
 	if (!env->options[v] || env->verbose_value != 4)
-		return ; 
-	ft_printf("P%5u | %s ", process->process_num,
+		return ;
+	P(env->options[visual], "P%5u | %s ", process->process_num,
 								get_op_name(process->op));
 	if (process->param_type[0] == REG_CODE)
 		ft_putchar('r');
-	ft_printf("%d ", process->param_val[0]);
-	ft_printf("%d ", index_info->index1);
-	ft_printf("%d\n", index_info->index2);
-	ft_printf("       | -> store to %d + %d = %d (with pc and mod %d)\n",
-				(index_info->index1),
-				(index_info->index2),
-				(index_info->index_sum),
-				pc + get_idx_val(index_info->index_sum));
+	P(env->options[visual], "%d ", process->param_val[0]);
+	P(env->options[visual], "%d ", index_info->index1);
+	P(env->options[visual], "%d\n", index_info->index2);
+	P(env->options[visual],
+	"       | -> store to %d + %d = %d (with pc and mod %d)\n",
+	(index_info->index1),
+	(index_info->index2),
+	(index_info->index_sum),
+	pc + get_idx_val(index_info->index_sum));
 }
 
 /*

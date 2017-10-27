@@ -17,11 +17,11 @@ static void	print_verbosity_four(t_env *env, t_process *process)
 	if (!env->options[v] || env->verbose_value != 4)
 		return ;
 	if (process->op == lfork)
-		ft_printf("P%5u | lfork %d (%d)\n", process->process_num,
+		P(env->options[visual], "P%5u | lfork %d (%d)\n", process->process_num,
 			process->param_val[0],
 			process->param_val[0] + process->regs[0]);
 	else
-		ft_printf("P%5u | fork %d (%d)\n", process->process_num,
+		P(env->options[visual], "P%5u | fork %d (%d)\n", process->process_num,
 			(process->param_val[0] > MEM_SIZE) ?
 				get_idx_val(process->param_val[0]) : process->param_val[0],
 			process->regs[0] + get_idx_val(process->param_val[0]));
