@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 20:31:02 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/27 15:58:28 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/27 17:37:16 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ static void	print_verbosity_four(t_env *env, t_process *process)
 	ft_printf("P %4u | %s %d ", process->process_num,
 								get_op_name(process->op), index);
 	if (process->op == lfork)
-		ft_printf("(%d)\n", pc + index);
+		P(env->options[visual], "(%d)\n", pc + index);
 	else
-		ft_printf("(%d)\n", pc + get_idx_val(index));
+		P(env->options[visual], "(%d)\n", pc + get_idx_val(index));
 }
 
 /*

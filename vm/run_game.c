@@ -48,9 +48,7 @@ void		run_game(t_env *env)
 			break;
 		}
 		if (env->options[s] == 1 && (env->total_cycles % env->cycle_value) == 0)
-		{
 			dump_memory(env);
-		}
 		execute_cycle(env);
 		env->total_cycles++;
 		env->cycles_since_check++;

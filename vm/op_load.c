@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:18:48 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/27 15:58:14 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/27 17:37:16 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	print_verbosity_four(t_env *env, t_process *process, int op, uint32_
 {
 	if (!env->options[v] || env->verbose_value != 4)
 		return ;
-	ft_printf("P %4u | %s %d r%d\n", process->process_num,
+	P(env->options[visual], "P %4u | %s %d r%d\n", process->process_num,
 								get_op_name(op),
 								new_reg_val,
 								process->param_val[1]);
@@ -64,19 +64,19 @@ static void	print_index_verbosity_four(t_env *env, t_process *process, int pc, t
 {
 	if (!env->options[v] || env->verbose_value != 4)
 		return ;
-	ft_printf("P %4u | %s ", process->process_num,
+	P(env->options[visual], "P %4u | %s ", process->process_num,
 								get_op_name(process->op));
-	ft_printf("%d ", index_info->index1);
-	ft_printf("%d ", index_info->index2);
-	ft_printf("r%d\n", process->param_val[2]);
-	ft_printf("       | -> load from %d + %d = %d",
+	P(env->options[visual], "%d ", index_info->index1);
+	P(env->options[visual], "%d ", index_info->index2);
+	P(env->options[visual], "r%d\n", process->param_val[2]);
+	P(env->options[visual], "       | -> load from %d + %d = %d",
 				index_info->index1,
 				index_info->index2,
 				index_info->index_sum);
 	if (process->op == lldi)
-		ft_printf(" (with pc %d)\n", pc + index_info->index_sum);
+		P(env->options[visual], " (with pc %d)\n", pc + index_info->index_sum);
 	else
-		ft_printf(" (with pc and mod %d)\n", (pc + (index_info->index_sum % IDX_MOD)) % MEM_SIZE);
+		P(env->options[visual], " (with pc and mod %d)\n", (pc + (index_info->index_sum % IDX_MOD)) % MEM_SIZE);
 }
 
 static uint32_t	get_new_reg_val(t_env *env, t_process *process, int index_sum)

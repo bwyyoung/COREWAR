@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mgr_input.c                                        :+:      :+:    :+:   */
+/*   mgr_graphics_board.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: byoung-w <byoung-w@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,42 +11,24 @@
 /* ************************************************************************** */
 
 #include "mgr_graphics.h"
+#include "vm.h"
 
-bool					keyboard_event()
+void					Render_Board(t_graphics *g, t_env *e)
 {
-	int		ch;
-
-	ch = getch();
-	if (ch == ERR)
-		return t_false;
-	ungetch(ch);
-	return t_true;
-}
-
-void 					quit_graphics(t_graphics *g)
-{
-	g->app_is_running = t_false;
-}
-
-void					get_keyboard_event(t_graphics *g)
-{
-	g->key_pressed = -1;
-	if (!keyboard_event())
-		return ;
-	g->key_pressed = getch();
-	if (g->key_pressed == APP_KEY_SPACE)
-		return ;
-	else if (g->key_pressed != APP_KEY_ESC)
-		return ;
-	if (getch() != APP_KEY_SPECIAL)
-		quit_graphics(g);
-	g->key_pressed = getch();
-	if (g->key_pressed == APP_KEY_UP)
-		return ;
-	else if (g->key_pressed == APP_KEY_DOWN)
-		return ;
-	else if (g->key_pressed == APP_KEY_LEFT)
-		return ;
-	else if (g->key_pressed == APP_KEY_RIGHT)
-		return ;
+	(void)e;
+	g->window_x = 0;
+	g->window_y = 0;
+	g->window_index = -1;
+	while (g->window_index++ < MEM_SIZE)
+	{
+		if (g->window_x >= BOARD_WIDTH)
+		{
+			g->window_x = 0;
+			g->window_y++;
+		}
+		//mvwprintw(g->game_window, g->window_y,
+		//	g->window_x * 2 + g->window_x, ft_itoa_base(
+		//		e->board[g->window_index], 16));
+		g->window_x++;
+	}
 }

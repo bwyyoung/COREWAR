@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:12:02 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/27 13:58:22 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/27 17:37:16 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ void		print_verbosity_four_vals(t_process *process)
 	while (num_params--)
 	{
 		if (process->param_type[i] == REG_CODE)
-			ft_putchar('r');
+			P(process->vis, "r");
 		if (process->param_type[i] == IND_CODE)
-			ft_printf("%hd", get_idx_val((int16_t)process->param_val[i]));
+			P(process->vis, "%d", get_idx_val((int16_t)process->param_val[i]));
 		else
-			ft_printf("%d", process->param_val[i]);
+			P(process->vis, "%d", process->param_val[i]);
 		if (num_params > 0)
-			ft_putchar(' ');
+			P(process->vis, " ");
 		i++;
 	}
 }

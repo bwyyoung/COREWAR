@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:21:37 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/27 15:58:42 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/27 17:37:43 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ static void	print_verbosity_four(t_env *env, t_process *process)
 {
 	if (!env->options[v] || env->verbose_value != 4)
 		return ;
-	ft_printf("P %4u | zjmp %hd ", process->process_num,
+	P(env->options[visual], "P %4u | zjmp %hd ", process->process_num,
 									process->param_val[0]);
 	if (process->carry == 1)
-		ft_putendl("OK");
+		P(env->options[visual], "OK\n");
 	else
-		ft_putendl("FAILED");
+		P(env->options[visual], "FAILED\n");
 }
 
 /*
