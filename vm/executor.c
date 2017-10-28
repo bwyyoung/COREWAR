@@ -6,12 +6,31 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:10:13 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/27 12:45:46 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/28 18:17:25 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
+int					is_valid_type(uint8_t type)
+{
+	return (type != DIR_CODE && type != IND_CODE && type != REG_CODE);
+}
+
+int					check_types(t_process *process)
+{
+	int i;
+
+	if (!op_has_type(process->op))
+		return (0);
+	i = 0;
+	while (i < get_num_params(process->op))
+	{
+		if (is_valid_type(process->param_type[i++]))
+			return (1);
+	}
+	return (0);
+}
 /*
 ** Execute the current process op.
 ** First check the type, if it is invalid return ;
@@ -31,7 +50,9 @@ void				execute_op(t_env *env, t_process *process)
 	op = process->op;
 	process->types = get_board_val(env->board, pc + 1, 1);
 	get_params(env, process, op);
-	print_verbosity_sixteen(env, process, get_op_size(process));
+	print_verbosity_sixteen(env, process, get_op_size(process), process->regs[0]);
+	if (check_types(process))
+		return (inc_pc(process, get_op_size(process)));
 	if (op == live)
 		op_live(env, process);
 	else if (op == ld || op == lld)
@@ -71,6 +92,7 @@ void				execute_process(t_env *env, t_process *process)
 {
 	int				op;
 
+	process->last_live++;
 	if (process->cycles_left == 1)
 	{
 		execute_op(env, process);
@@ -99,9 +121,18 @@ void				execute_cycle(t_env *env)
 	t_process		*cur_process;
 
 	cur_process = env->lst_process;
+	// env->first = env->lst_process;
 	while (cur_process)
 	{
 		execute_process(env, cur_process);
 		cur_process = cur_process->next;
 	}
+	// cur_process = env->first;
+	// while (cur_process)
+	// {
+	// 	if (cur_process->op)
+	// 		print_verbosity_sixteen(env, cur_process, get_op_size(cur_process), cur_process->regs[0]);
+	// 	cur_process->op = 0;
+	// 	cur_process = cur_process->next;
+	// }
 }

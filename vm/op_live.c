@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:22:29 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/27 17:37:16 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/28 14:09:00 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,17 @@ void			op_live(t_env *env, t_process *process)
 	if (process->param_val[0] == process->prog_num)
 	{
 		add_live(env, process->name);
-		// ft_printf("A process shows that player %d (%s) is alive\n", process->prog_num, process->name);
+		if (env->options[v] && env->verbose_value == 1)
+			P(env->options[visual],
+				"Player %d (%s) is said to be alive\n",
+					process->prog_num * -1, process->name);
 		env->last_live_num = process->prog_num;
 		env->last_live_name = process->name;
 	}
 	process->lives++;
 	env->lives_since_check++;
 	print_verbosity_four(env, process);
+	process->last_live = 0;
 }
 
 /*

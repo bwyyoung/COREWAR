@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 15:01:59 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/19 16:12:35 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/28 18:43:42 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,17 @@ uint32_t	get_board_val(uint8_t *board, uint32_t index, uint32_t size)
 **		The number ff fb is stored as ff fb in C but
 **		on the board it is stored as fb ff.
 */
-void		set_board_val(uint8_t *board, uint32_t index, uint32_t size,
-							uint32_t val)
+void		set_board_val(t_env *env, t_process *process, uint32_t index, uint32_t val)
 {
 	uint8_t		*pval;
+	int			size;
 
+	size = REG_SIZE;
 	pval = (uint8_t*)&val;
 	while (size--)
 	{
-		board[index % MEM_SIZE] = pval[size];
+		env->board[index % MEM_SIZE] = pval[size];
+		env->prog_num_board[index % MEM_SIZE] = process->prog_num;
 		index++;
 	}
 }

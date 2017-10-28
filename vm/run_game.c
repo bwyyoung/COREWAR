@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:13:32 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/24 18:26:54 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/28 18:11:20 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,18 @@
 
 void		perform_check(t_env *env)
 {
+	kill_processes(env);
 	if (env->lives_since_check >= NBR_LIVE || env->checks == MAX_CHECKS - 1)
 	{
 		env->cycle_to_die -= CYCLE_DELTA;
+		if (env->options[v] && env->verbose_value == 2)
+			P(env->options[visual], "Cycle to die is now %d\n", env->cycle_to_die);
 		env->checks = 0;
 	}
 	else
 		env->checks++;
 	env->cycles_since_check = 0;
 	env->lives_since_check = 0;
-	kill_processes(env);
 }
 
 /*
@@ -52,6 +54,8 @@ void		run_game(t_env *env)
 		execute_cycle(env);
 		env->total_cycles++;
 		env->cycles_since_check++;
+		if (env->options[v] && env->verbose_value == 2)
+			P(env->options[visual], "It is now cycle %d\n", env->total_cycles);
 	}
 }
 
