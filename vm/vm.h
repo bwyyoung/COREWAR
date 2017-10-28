@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 15:37:30 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/27 15:18:58 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/28 18:04:08 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,9 @@ typedef struct			s_process
 	struct s_process	*prev;
 	struct s_process	*next;
 	int					vis;
+	int					last_live;
+	int					num_types;
+	char				*file_name;
 }						t_process;
 
 typedef struct			s_env
@@ -110,6 +113,7 @@ typedef struct			s_env
 	t_player			*new_player;
 	t_process			*new_process;
 	t_process			*new_fork;
+	uint32_t			prog_num_board[MEM_SIZE];
 	uint32_t			prog_num;
 	uint32_t			offset;
 	int					i;
@@ -119,6 +123,7 @@ typedef struct			s_env
 	int					y;
 	int					z;
 	int					program_size;
+	// t_process			*first;
 }						t_env;
 
 typedef struct			s_index_info
@@ -128,7 +133,7 @@ typedef struct			s_index_info
 	int					index_sum;
 }						t_index_info;
 
-void					print_verbosity_sixteen(t_env *env, t_process *process, int inc);
+void					print_verbosity_sixteen(t_env *env, t_process *process, int inc, int pc);
 t_index_info			*create_index_info(int index1, int index2, int index_sum);
 int						check_param_reg_nums(t_process *process, int p0, int p1, int p2);
 void					print_verbosity_four_vals(t_process *process);
@@ -163,8 +168,10 @@ void					inc_pc(t_process *process, int inc);
 void					modify_carry(t_process *process, uint32_t val);
 uint32_t				get_board_val(uint8_t *board, uint32_t index,
 						uint32_t size);
-void					set_board_val(uint8_t *board, uint32_t index,
-						uint32_t size, uint32_t val);
+// void					set_board_val(uint8_t *board, uint32_t index,
+						// uint32_t size, uint32_t val);
+void					set_board_val(t_env *env, t_process *process, uint32_t index,
+							uint32_t val);
 uint32_t				get_param_size(uint8_t type, int label_size);
 //void					add_process(t_env *env, t_process *process);
 void					kill_processes(t_env *env);

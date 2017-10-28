@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:16:50 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/27 17:38:30 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/28 18:14:23 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void		op_st(t_env *env, t_process *process, uint32_t pc)
 	if (process->param_type[1] == REG_CODE)
 		set_reg_val(process, param_val, reg_val);
 	else
-		set_board_val(env->board, pc + get_idx_val((int16_t)param_val), REG_SIZE, reg_val);
+		set_board_val(env, process, pc + get_idx_val((int16_t)param_val), reg_val);
+		// set_board_val(env->board, pc + get_idx_val((int16_t)param_val), REG_SIZE, reg_val);
 	print_verbosity_four(env, process, param_val);
 }
 /*
@@ -79,17 +80,9 @@ static void	print_index_verbosity_four(t_env *env, t_process *process, int pc, t
 	(index_info->index1),
 	(index_info->index2),
 	(index_info->index_sum),
-	pc + get_idx_val(index_info->index_sum));
+	pc + get_idx_val((int16_t)index_info->index_sum));
 }
-// static uint32_t	get_new_reg_val(t_env *env, t_process *process, int index_sum)
-// {
-// 	if (process->op == ldi)
-// 		return (get_board_val(env->board, (process->regs[0]
-// 			+ (index_sum % IDX_MOD)) % MEM_SIZE, REG_SIZE));
-// 	else
-// 		return (get_board_val(env->board, (process->regs[0]
-// 			+ index_sum) % MEM_SIZE, REG_SIZE));
-// }
+
 /*
 ** sti adds its params P2 and P3 and converts that sum to an idx_val.
 ** It then uses that idx_val as an index to decide where on the board
@@ -114,13 +107,8 @@ void	op_sti(t_env *env, t_process *process, uint32_t pc)
 	index2 = get_param_val(env->board, 2, process, REG_SIZE);
 	index_sum = index1 + index2;
 	new_reg_val = get_reg_val(process, process->param_val[0]);
-	if (new_reg_val == 4292608511)
-	{
-		ft_printf("param_val %d\n", process->param_val[0]);
-		ft_printf("index1 %d\n", index1);
-		ft_printf("index2 %d\n", index2);
-	}
-	set_board_val(env->board, pc + get_idx_val((int16_t)index_sum), REG_SIZE, new_reg_val);
+	// set_board_val(env->board, pc + get_idx_val((int16_t)index_sum), REG_SIZE, new_reg_val);
+	set_board_val(env, process, pc + get_idx_val((int16_t)index_sum), new_reg_val);
 	index_info = create_index_info(index1, index2, index_sum);
 	print_index_verbosity_four(env, process, pc, index_info);
 	SAFE_DELETE(index_info);

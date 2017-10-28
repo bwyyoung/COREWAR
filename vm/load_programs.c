@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:18:29 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/24 18:30:43 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/28 18:40:14 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** The board is already incremented by offset so that all the programs are
 ** evenly spaced on the board.
 */
-void	write_program_to_board(uint8_t *board, int offset, int fd)
+void	write_program_to_board(t_env *env, int offset, int fd)
 {
 	uint8_t	c;
 	int		read_return;
@@ -27,7 +27,9 @@ void	write_program_to_board(uint8_t *board, int offset, int fd)
 	{
 		if (read_return == -1)
 			ft_error_errno(NULL);
-		board[offset++ % MEM_SIZE] = c;
+		env->board[offset % MEM_SIZE] = c;
+		env->prog_num_board[offset % MEM_SIZE] = env->prog_num;
+		offset++;
 	}
 }
 
@@ -71,25 +73,7 @@ void	reader(t_env *e, int offset, char *arg)
 		ft_error_errno(NULL);
 	if (-1 == lseek(fd, sizeof(t_header), 0))
 		ft_error_errno(NULL);
-	write_program_to_board(e->board, offset, fd);
+	write_program_to_board(e, offset, fd);
 	if (-1 == close(fd))
 		ft_error_errno(NULL);
 }
-
-/*
-** Adds a player to the list of players.
-
-void	add_player_list(t_env *env, t_player *new_player)
-{
-	t_list *new_node;
-
-	if (!(new_node = ft_lstnew(new_player, sizeof(t_player))))
-		ft_error_errno(NULL);
-	if (!env->players)
-		env->players = new_node;
-	else
-	{
-		env->element = env->players;
-		ft_lstadd(&env->players, new_node);
-	}
-}*/

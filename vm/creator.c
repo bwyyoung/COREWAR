@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 17:12:50 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/26 15:17:03 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/28 18:03:05 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,13 @@ t_env		*create_env(uint8_t *board)
 	while (++env->i < 7)
 		env->options[env->i] = t_false;
 	env->dump_value = 0;
-	env->num_players = 0;
+	env->num_players = 1;
 	env->prog_num = 0xffffffff;
 	env->offset = 0;
 	env->to_die = CYCLE_TO_DIE;
 	env->program_size = 0;
+	ft_bzero(env->prog_num_board, MEM_SIZE);
+	// env->first = NULL;
 	return (env);
 }
 
@@ -99,6 +101,8 @@ t_process	*create_process(t_env *e)
 	process->lives = 0;
 	process->op = 0;
 	process->process_num = e->num_processes + 1;
+	process->last_live = 0;
+	// process->old_pc = 0;
 	return (process);
 }
 

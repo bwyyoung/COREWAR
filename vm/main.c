@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 13:26:46 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/19 15:32:45 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/28 18:19:01 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ t_bool		add_option(t_env *e, char **argv, int *i, int argc)
 
 void			parse_flags(t_env *e, int argc, char **argv)
 {
-	int	i;
+	int			i;
+	// t_process	*process;
 
 	i = 0;
 	e->num_players = 0;
@@ -43,6 +44,15 @@ void			parse_flags(t_env *e, int argc, char **argv)
 		if (e->num_players > MAX_PLAYERS)
 			error_exit(e, 8);
 	}
+	// process = e->lst_process;
+	// e->offset = (MEM_SIZE / e->num_players) * e->num_players - 1;
+	// while (process)
+	// {
+	// 	process->regs[0] = e->offset;
+	// 	e->offset -= MEM_SIZE / e->num_players;
+	// 	reader(e, e->offset, process->file_name);
+	// 	process = process->next;
+	// }
 }
 
 
@@ -91,8 +101,8 @@ int			main(int argc, char *argv[])
 	{
 		run_game(env);
 		declare_winner(env);
-		ft_printf("cycle_to_die %d\n", env->cycle_to_die);
-		ft_printf("total cycles %d\n", env->total_cycles);
+		// ft_printf("cycle_to_die %d\n", env->cycle_to_die);
+		// ft_printf("total cycles %d\n", env->total_cycles);
 	}
 	delete_env(env);
 	return (0);
