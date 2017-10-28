@@ -62,6 +62,12 @@ void					update_app(t_graphics *g, t_env *env)
 void					display_app(t_graphics *g, t_env *e)
 {
 	render_start(g);
+	if (g->seconds2 > MAT_REFRESH_RATE)
+	{
+		werase(g->background_window);
+		g->seconds2 = 0;
+		loop_matrix(g->mat, g->background_window, g->flag, g->col);
+	}
 	render_board(g, e);
 	render_stats(g, e);
 	render_log(g, e);

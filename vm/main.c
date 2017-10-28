@@ -92,6 +92,7 @@ int			main(int argc, char *argv[])
 		print_instructions();
 		return (0);
 	}
+	srand(time(NULL));
 	board = create_board();
 	env = create_env(board);
 	parse_flags(env, argc, argv);

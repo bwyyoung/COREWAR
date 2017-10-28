@@ -15,8 +15,8 @@
 # include "matrix.h"
 # include "libft/libft.h"
 # include "vm.h"
-#include <time.h>
-#include <stdlib.h>
+# include <time.h>
+# include <stdlib.h>
 # include <ncurses.h>
 # ifdef __MACH__
 #  include <mach/clock.h>
@@ -28,6 +28,7 @@
 # define WORLD_WIDTH 254
 # define WORLD_HEIGHT 68
 # define APP_REFRESH_RATE 10
+# define MAT_REFRESH_RATE 50
 # define FRAMES_PER_SECOND 60
 # define SKIP_TICKS 1000 / FRAMES_PER_SECOND
 # define APP_KEY_UP 65
@@ -68,7 +69,7 @@ typedef struct			s_graphics
 	int					i;
 	int					j;
 	int					flag;
-	struct s_column		*cols;
+	t_matrix			*mat;
 	struct s_column		*col;
 	int					window_x;
 	int					window_y;
@@ -80,8 +81,10 @@ typedef struct			s_graphics
 	DWORD				current;
 	DWORD				elapsed;
 	DWORD				seconds;
+	DWORD				seconds2;
 	DWORD				sleep_time;
 	char				hex[3];
+	char				*buffer;
 }						t_graphics;
 
 void					graphics_start(t_graphics *g);

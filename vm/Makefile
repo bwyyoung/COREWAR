@@ -14,7 +14,7 @@ NAME = vm
 FLAGS = -g -Wextra -Wall -Werror
 #FLAGS =
 LIBFT = ./libft
-LIB = libft/libft.a -lcurses
+LIB = libft/libft.a -lncursesw
 
 SRC = main.c run_game.c \
 		load_programs.c \

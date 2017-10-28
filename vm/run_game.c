@@ -12,6 +12,7 @@
 
 #include "vm.h"
 #include "mgr_graphics.h"
+#include <locale.h>
 
 void		perform_check(t_env *env)
 {
@@ -84,21 +85,21 @@ void		graphics_loop(t_env *e)
 {
 	t_graphics		*g;
 
+	setlocale(LC_ALL, "");
 	g = init_graphics(e);
 	graphics_start(g);
-	srand(time(NULL));   // should only be called once
 	while (g->app_is_running)
 	{
 		g->current = GetTickCount();
 		g->elapsed = g->current - g->start_time;
 		g->seconds += g->elapsed;
+		g->seconds2 += g->elapsed;
 		get_keyboard_event(g);
 		if (g->seconds > APP_REFRESH_RATE)
 		{
 			g->seconds = 0;
 			update_app(g, e);
 			display_app(g, e);
-			//loop_matrix(g->cols, g->background_window, g->flag, g->col);
 		}
 		g->next_app_tick += SKIP_TICKS;
 		g->sleep_time = (g->next_app_tick - GetTickCount());

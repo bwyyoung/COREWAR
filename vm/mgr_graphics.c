@@ -23,7 +23,7 @@ void					graphics_start(t_graphics *g)
 	curs_set(FALSE);
 	g->offsetx = (COLS - WORLD_WIDTH) / 2;
 	g->offsety = (LINES - WORLD_HEIGHT) / 2;
-	init_matrix(&g->background_window, &g->cols);
+	init_matrix(&g->background_window, &g->mat);
 	g->border_window = newwin(WORLD_HEIGHT + 2, WORLD_WIDTH + 2,
 	g->offsety - 1, g->offsetx - 1);
 	g->game_window = newwin(WORLD_HEIGHT, WORLD_WIDTH, g->offsety, g->offsetx);
@@ -31,8 +31,6 @@ void					graphics_start(t_graphics *g)
 	cbreak();
 	nodelay(stdscr, TRUE);
 	start_color();
-	box(g->border_window, 0 , 0);
-	wrefresh(g->border_window);
 	init_pair(g->title_colors[2], g->title_colors[0], g->title_colors[1]);
 	init_pair(g->line_colors[2], g->line_colors[0], g->line_colors[1]);
 	init_pair(10, 7, 0);
@@ -46,7 +44,13 @@ void					graphics_end(t_graphics *g)
 	delwin(g->border_window);
 	delwin(g->background_window);
 	endwin();
-	SAFE_DELETE(g->cols);
+	g->mat->i = -1;
+	while (++(g->mat->i) < g->mat->c / 2)
+	{
+		SAFE_DELETE(g->mat->cols[g->mat->i].rows);
+	}
+	SAFE_DELETE(g->mat->cols);
+	SAFE_DELETE(g->mat);
 	SAFE_DELETE(g);
 }
 
@@ -54,16 +58,16 @@ void					render_start(t_graphics *g)
 {
 	g->i = -1;
 	g->j = -1;
-	loop_matrix(g->cols, g->background_window, g->flag, g->col);
-	while (++g->i < WORLD_WIDTH)
-		while (++g->j < WORLD_HEIGHT)
-			mvwprintw(g->game_window, g->j, g->i, " ");
+	werase(g->game_window);
 	wattron(g->game_window, COLOR_PAIR(10));
+	box(g->border_window, 0 , 0);
 }
 
 void					render_end(t_graphics *g)
 {
-	//wrefresh(g->background_window);
+	wnoutrefresh(g->background_window);
+	wnoutrefresh(g->border_window);
+	wnoutrefresh(g->game_window);
+	doupdate();
 	wattron(g->game_window, COLOR_PAIR(10));
-	wrefresh(g->game_window);
 }
