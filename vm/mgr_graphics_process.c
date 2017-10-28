@@ -13,7 +13,7 @@
 #include "mgr_graphics.h"
 #include "vm.h"
 
-void					Render_Process(t_graphics *g, t_env *e)
+void					render_process(t_graphics *g, t_env *e)
 {
 	(void)g;
 	(void)e;

@@ -13,7 +13,7 @@
 #include "mgr_graphics.h"
 #include "vm.h"
 
-void					Render_Log(t_graphics *g, t_env *e)
+void					render_log(t_graphics *g, t_env *e)
 {
 	(void)g;
 	(void)e;

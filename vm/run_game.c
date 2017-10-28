@@ -81,7 +81,8 @@ void		graphics_loop(t_env *e)
 	t_graphics		*g;
 
 	g = init_graphics(e);
-	Graphics_Start(g);
+	graphics_start(g);
+	srand(time(NULL));   // should only be called once
 	while (g->app_is_running)
 	{
 		g->current = GetTickCount();
@@ -93,6 +94,7 @@ void		graphics_loop(t_env *e)
 			g->seconds = 0;
 			update_app(g, e);
 			display_app(g, e);
+			//loop_matrix(g->cols, g->background_window, g->flag, g->col);
 		}
 		g->next_app_tick += SKIP_TICKS;
 		g->sleep_time = (g->next_app_tick - GetTickCount());
@@ -100,5 +102,5 @@ void		graphics_loop(t_env *e)
 			usleep((useconds_t)g->sleep_time);
 		g->start_time = g->current;
 	}
-	Graphics_End(g);
+	graphics_end(g);
 }

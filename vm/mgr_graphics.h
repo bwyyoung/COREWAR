@@ -12,8 +12,11 @@
 
 #ifndef MGR_GRAPHICS_H
 # define MGR_GRAPHICS_H
+# include "matrix.h"
 # include "libft/libft.h"
 # include "vm.h"
+#include <time.h>
+#include <stdlib.h>
 # include <ncurses.h>
 # ifdef __MACH__
 #  include <mach/clock.h>
@@ -24,7 +27,7 @@
 # define YELLOW__PAIR 2
 # define WORLD_WIDTH 254
 # define WORLD_HEIGHT 68
-# define APP_REFRESH_RATE 500
+# define APP_REFRESH_RATE 10
 # define FRAMES_PER_SECOND 60
 # define SKIP_TICKS 1000 / FRAMES_PER_SECOND
 # define APP_KEY_UP 65
@@ -52,6 +55,7 @@ typedef struct			s_graphics
 {
 	WINDOW				*game_window;
 	WINDOW				*border_window;
+	WINDOW				*background_window;
 	int					offsetx;
 	int					offsety ;
 	int					max_y;
@@ -63,6 +67,9 @@ typedef struct			s_graphics
 	bool				graphics_end;
 	int					i;
 	int					j;
+	int					flag;
+	struct s_column		*cols;
+	struct s_column		*col;
 	int					window_x;
 	int					window_y;
 	int					window_index;
@@ -74,12 +81,13 @@ typedef struct			s_graphics
 	DWORD				elapsed;
 	DWORD				seconds;
 	DWORD				sleep_time;
+	char				hex[3];
 }						t_graphics;
 
-void					Graphics_Start(t_graphics *g);
-void					Graphics_End(t_graphics *g);
-void					Render_Start(t_graphics *g);
-void					Render_End(t_graphics *g);
+void					graphics_start(t_graphics *g);
+void					graphics_end(t_graphics *g);
+void					render_start(t_graphics *g);
+void					render_end(t_graphics *g);
 void					graphics_print_message(t_graphics *g, char *str);
 
 bool					keyboard_event();
@@ -89,9 +97,9 @@ void					display_app(t_graphics *g, t_env *e);
 void					graphics_loop(t_env *e);
 
 DWORD					GetTickCount();
-void					Render_Board(t_graphics *g, t_env *e);
-void					Render_Log(t_graphics *g, t_env *e);
-void					Render_Player(t_graphics *g, t_env *e);
-void					Render_Process(t_graphics *g, t_env *e);
-void					Render_Stats(t_graphics *g, t_env *e);
+void					render_board(t_graphics *g, t_env *e);
+void					render_log(t_graphics *g, t_env *e);
+void					render_player(t_graphics *g, t_env *e);
+void					render_process(t_graphics *g, t_env *e);
+void					render_stats(t_graphics *g, t_env *e);
 #endif

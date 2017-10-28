@@ -13,9 +13,35 @@
 #include "mgr_graphics.h"
 #include "vm.h"
 
-void					Render_Board(t_graphics *g, t_env *e)
+void		ft_hex(int dec, char *buffer)
 {
-	(void)e;
+	int		quotient;
+	int		rest;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	quotient = dec;
+	ft_memset((void *)buffer, 48, sizeof(char) * 2);
+	if (dec > 255 || dec < 0 || !buffer)
+		return ;
+	if (dec == 0)
+		buffer[0] = '0';
+	while (quotient != 0)
+	{
+		rest = quotient % 16;
+		if (rest < 10)
+			buffer[j++] = 48 + rest;
+		else
+			buffer[j++] = 55 + 32 + rest;
+		quotient = quotient / 16;
+	}
+	buffer = ft_strrev(buffer);
+}
+
+void					render_board(t_graphics *g, t_env *e)
+{
 	g->window_x = 0;
 	g->window_y = 0;
 	g->window_index = -1;
@@ -26,9 +52,13 @@ void					Render_Board(t_graphics *g, t_env *e)
 			g->window_x = 0;
 			g->window_y++;
 		}
-		//mvwprintw(g->game_window, g->window_y,
-		//	g->window_x * 2 + g->window_x, ft_itoa_base(
-		//		e->board[g->window_index], 16));
+		if (g->window_y < BOARD_HEIGHT)
+		{
+			ft_bzero((void *)g->hex, sizeof(char) * 3);
+			ft_hex(e->board[g->window_index], g->hex);
+			mvwprintw(g->game_window, g->window_y,
+				g->window_x * 2 + g->window_x, g->hex);
+		}
 		g->window_x++;
 	}
 }

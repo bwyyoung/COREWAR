@@ -12,7 +12,7 @@
 
 #include "mgr_graphics.h"
 
-void					Graphics_Start(t_graphics *g)
+void					graphics_start(t_graphics *g)
 {
 	g->margin_x = 2;
 	g->margin_y = 2;
@@ -23,6 +23,7 @@ void					Graphics_Start(t_graphics *g)
 	curs_set(FALSE);
 	g->offsetx = (COLS - WORLD_WIDTH) / 2;
 	g->offsety = (LINES - WORLD_HEIGHT) / 2;
+	init_matrix(&g->background_window, &g->cols);
 	g->border_window = newwin(WORLD_HEIGHT + 2, WORLD_WIDTH + 2,
 	g->offsety - 1, g->offsetx - 1);
 	g->game_window = newwin(WORLD_HEIGHT, WORLD_WIDTH, g->offsety, g->offsetx);
@@ -38,26 +39,31 @@ void					Graphics_Start(t_graphics *g)
 	wattron(g->game_window, COLOR_PAIR(10));
 }
 
-void					Graphics_End(t_graphics *g)
+void					graphics_end(t_graphics *g)
 {
 	g->graphics_end = t_true;
 	delwin(g->game_window);
 	delwin(g->border_window);
+	delwin(g->background_window);
 	endwin();
+	SAFE_DELETE(g->cols);
 	SAFE_DELETE(g);
 }
 
-void					Render_Start(t_graphics *g)
+void					render_start(t_graphics *g)
 {
 	g->i = -1;
 	g->j = -1;
+	loop_matrix(g->cols, g->background_window, g->flag, g->col);
 	while (++g->i < WORLD_WIDTH)
 		while (++g->j < WORLD_HEIGHT)
 			mvwprintw(g->game_window, g->j, g->i, " ");
+	wattron(g->game_window, COLOR_PAIR(10));
 }
 
-void					Render_End(t_graphics *g)
+void					render_end(t_graphics *g)
 {
+	//wrefresh(g->background_window);
 	wattron(g->game_window, COLOR_PAIR(10));
 	wrefresh(g->game_window);
 }

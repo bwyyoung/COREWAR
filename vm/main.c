@@ -85,7 +85,6 @@ int			main(int argc, char *argv[])
 	board = create_board();
 	env = create_env(board);
 	parse_flags(env, argc, argv);
-	//env->options[visual] = t_true;
 	if (env->options[visual])
 		graphics_loop(env);
 	else

@@ -38,6 +38,7 @@ SRC = main.c run_game.c \
 		mgr_graphics_player.c	\
 		mgr_graphics_process.c	\
 		mgr_graphics_stats.c	\
+		matrix.c
 
 
 SRCO = ${SRC:%.c=%.o}
