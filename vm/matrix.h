@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mgr_graphics_log.c                                 :+:      :+:    :+:   */
+/*   matrix.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: byoung-w <byoung-w@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,11 +10,39 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mgr_graphics.h"
-#include "vm.h"
+#ifndef MATRIX_H
+# define MATRIX_H
+# include "libft/libft.h"
+# include <wchar.h>
+# include <string.h>
+# include <ctype.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <ncursesw/curses.h>
+# include <sys/ioctl.h>
+# define RANDOM_NUM(X) ((rand() % (X)))
+# define PROB(x) (((rand() % 100) < (x)) ? 1 : 0)
 
-void					render_log(t_graphics *g, t_env *e)
+typedef struct s_graphics t_graphics;
+
+struct				s_column
 {
-	(void)g;
-	(void)e;
-}
+	char			*rows;
+};
+
+typedef struct		s_matrix
+{
+	int					r;
+	int					c;
+	int					i;
+	int					j;
+	struct s_column		*cols;
+}					t_matrix;
+
+
+
+void		init_matrix(WINDOW **mainwin, struct s_matrix **mat);
+void		loop_matrix(t_graphics *g, WINDOW *mainwin, int flag,
+			struct s_column *col);
+
+#endif

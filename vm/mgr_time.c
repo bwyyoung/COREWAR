@@ -42,11 +42,15 @@ void					update_app(t_graphics *g, t_env *env)
 	if (env->cycles_since_check >= env->cycle_to_die)
 		perform_check(env);
 	if (env->lst_process == NULL)
+	{
 		g->app_is_running = false;
+		return ;
+	}
 	if (env->options[d] == 1 && env->dump_value == env->total_cycles)
 	{
 		dump_memory(env);
 		g->app_is_running = false;
+		return ;
 	}
 	if (env->options[s] == 1 && (env->total_cycles % env->cycle_value) == 0)
 		dump_memory(env);
@@ -57,7 +61,16 @@ void					update_app(t_graphics *g, t_env *env)
 
 void					display_app(t_graphics *g, t_env *e)
 {
-	Render_Start(g);
-	Render_Board(g, e);
-	Render_End(g);
+	render_start(g);
+	if (g->seconds2 > MAT_REFRESH_RATE)
+	{
+		werase(g->background_window);
+		g->seconds2 = 0;
+		loop_matrix(g, g->background_window, g->flag, g->col);
+	}
+	render_board(g, e);
+	render_process(g, e);
+	render_stats(g, e);
+	render_log(g, e);
+	render_end(g);
 }

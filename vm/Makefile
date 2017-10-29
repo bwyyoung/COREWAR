@@ -11,10 +11,10 @@
 # **************************************************************************** #
 
 NAME = vm
-FLAGS = -g -Wextra -Wall -Werror
+FLAGS = -g -Wextra -Wall -Werror -D_XOPEN_SOURCE_EXTENDED
 #FLAGS =
 LIBFT = ./libft
-LIB = libft/libft.a -lcurses
+LIB = libft/libft.a -lncursesw
 
 SRC = main.c run_game.c \
 		load_programs.c \
@@ -38,6 +38,7 @@ SRC = main.c run_game.c \
 		mgr_graphics_player.c	\
 		mgr_graphics_process.c	\
 		mgr_graphics_stats.c	\
+		matrix.c
 
 
 SRCO = ${SRC:%.c=%.o}
