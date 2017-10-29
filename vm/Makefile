@@ -14,7 +14,7 @@ NAME = vm
 FLAGS = -g -Wextra -Wall -Werror -D_XOPEN_SOURCE_EXTENDED
 #FLAGS =
 LIBFT = ./libft
-LIB = libft/libft.a -lncursesw
+LIB = libft/libft.a -lncurses
 
 SRC = main.c run_game.c \
 		load_programs.c \
