@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 13:26:46 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/28 18:19:01 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/29 16:37:42 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,31 +30,57 @@ t_bool		add_option(t_env *e, char **argv, int *i, int argc)
 	return (t_false);
 }
 
+int				count_players(t_env *env, t_player *player)
+{
+	int num_players;
+
+	num_players = 0;
+	while (player)
+	{
+		num_players++;
+		player = player->next;
+	}
+	if (num_players == 0)
+	{
+		print_instructions();
+		exit(1);
+	}
+	else if (num_players > MAX_PLAYERS)
+		error_exit(env, 8);
+	return (num_players);
+}
+
+void			load_players(t_env *env)
+{
+	t_player	*player;
+
+	player = env->lst_players;
+	P(env->options[visual], "Introducing contestants...\n");
+	while (player)
+	{
+		player->prog_num = env->prog_num--;
+		reader(env, player, player->file_name);
+		P(env->options[visual], "* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
+								player->prog_num * -1, player->size,
+								player->name, player->comment);
+		lst_process_add(env, create_process(env));
+		env->offset += MEM_SIZE / env->num_players;
+		player = player->next;
+	}
+}
+
 void			parse_flags(t_env *e, int argc, char **argv)
 {
 	int			i;
-	// t_process	*process;
 
 	i = 0;
-	e->num_players = 0;
 	while (++i < argc)
 	{
 		if (!add_option(e, argv, &i, argc) && (i < argc))
 			add_player(e, argv, &i);
-		if (e->num_players > MAX_PLAYERS)
-			error_exit(e, 8);
 	}
-	// process = e->lst_process;
-	// e->offset = (MEM_SIZE / e->num_players) * e->num_players - 1;
-	// while (process)
-	// {
-	// 	process->regs[0] = e->offset;
-	// 	e->offset -= MEM_SIZE / e->num_players;
-	// 	reader(e, e->offset, process->file_name);
-	// 	process = process->next;
-	// }
-}
 
+}
 
 /*
 ** Declare the winner of the game.
@@ -102,8 +128,6 @@ int			main(int argc, char *argv[])
 	{
 		run_game(env);
 		declare_winner(env);
-		// ft_printf("cycle_to_die %d\n", env->cycle_to_die);
-		// ft_printf("total cycles %d\n", env->total_cycles);
 	}
 	delete_env(env);
 	return (0);

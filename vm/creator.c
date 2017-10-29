@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 17:12:50 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/28 18:03:05 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/29 16:11:51 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_env		*create_env(uint8_t *board)
 	while (++env->i < 7)
 		env->options[env->i] = t_false;
 	env->dump_value = 0;
-	env->num_players = 1;
+	env->num_players = 0;
 	env->prog_num = 0xffffffff;
 	env->offset = 0;
 	env->to_die = CYCLE_TO_DIE;
@@ -57,7 +57,7 @@ uint8_t		*create_board(void)
 	return (board);
 }
 
-t_player	*create_player(uint32_t prog_num)
+t_player	*create_player(char *file_name)
 {
 	t_player	*player;
 
@@ -65,11 +65,19 @@ t_player	*create_player(uint32_t prog_num)
 	if (!player)
 		ft_error_errno(NULL);
 	player->lives = 0;
+	// if (!(player->header = (t_header*)malloc(sizeof(t_header))))
+		// ft_error_errno(NULL);
+	// player->header->magic = 0;
+	// player->header->prog_size = 0;
+	player->size = 0;
+	if (!(player->comment = ft_strnew(COMMENT_LENGTH)))
+		ft_error_errno(NULL);
 	if (!(player->name = ft_strnew(PROG_NAME_LENGTH)))
-		ft_error_errno(NULL);	
-	player->prog_num = prog_num;
+		ft_error_errno(NULL);
+	player->prog_num = 0;
 	player->prev = NULL;
 	player->next = NULL;
+	player->file_name = file_name;
 	return (player);
 }
 
@@ -96,7 +104,7 @@ t_process	*create_process(t_env *e)
 	process->param_val[2] = 0;
 	process->carry = 0;
 	process->cycles_left = 0;
-	process->name =  e->new_player->name;
+	process->name = e->new_player->name;
 	process->prog_num = e->new_player->prog_num;
 	process->lives = 0;
 	process->op = 0;

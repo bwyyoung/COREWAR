@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 15:37:30 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/28 18:04:08 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/29 16:15:13 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,14 @@ typedef struct			s_player
 {
 	int					lives;
 	char				*name;
+	char				*comment;
+	uint32_t			size;
 	uint32_t			prog_num;
 	int					file_pos;
 	struct s_player		*prev;
 	struct s_player		*next;
 	int					vis;
+	char				*file_name;
 }						t_player;
 
 typedef struct			s_process
@@ -158,7 +161,7 @@ uint32_t				get_param_val(uint8_t *board, int which_param,
 void					get_params(t_env *env, t_process *process, int op);
 t_env					*create_env(uint8_t *board);
 uint8_t					*create_board(void);
-t_player				*create_player(uint32_t prog_num);
+t_player				*create_player(char *file_name);
 t_process				*create_process(t_env *e);
 int						is_reg_num_invalid(uint32_t reg_num);
 uint32_t				get_reg_val(t_process *process, uint32_t reg_num);
@@ -195,7 +198,7 @@ void					check_flag_number_valid(t_env *e, char *nbr);
 t_bool					get_dump_number(t_env *e, char *nbr, int *i, int args);
 t_bool					get_verbose_level(t_env *e, char *nbr, int *i, int args);
 t_bool					get_cycle_number(t_env *e, char *nbr, int *i, int args);
-void					reader(t_env *e, int offset, char *arg);
+void					reader(t_env *e, t_player *player, char *arg);
 //void					add_player_list(t_env *env, t_player *new_player);
 void					add_player(t_env *e, char **argv, int *i);
 void					delete_env(t_env *env);

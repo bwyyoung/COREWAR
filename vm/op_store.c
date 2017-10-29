@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:16:50 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/28 18:14:23 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/28 18:51:48 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void		op_st(t_env *env, t_process *process, uint32_t pc)
 		set_reg_val(process, param_val, reg_val);
 	else
 		set_board_val(env, process, pc + get_idx_val((int16_t)param_val), reg_val);
-		// set_board_val(env->board, pc + get_idx_val((int16_t)param_val), REG_SIZE, reg_val);
 	print_verbosity_four(env, process, param_val);
 }
 /*
@@ -107,7 +106,6 @@ void	op_sti(t_env *env, t_process *process, uint32_t pc)
 	index2 = get_param_val(env->board, 2, process, REG_SIZE);
 	index_sum = index1 + index2;
 	new_reg_val = get_reg_val(process, process->param_val[0]);
-	// set_board_val(env->board, pc + get_idx_val((int16_t)index_sum), REG_SIZE, new_reg_val);
 	set_board_val(env, process, pc + get_idx_val((int16_t)index_sum), new_reg_val);
 	index_info = create_index_info(index1, index2, index_sum);
 	print_index_verbosity_four(env, process, pc, index_info);
