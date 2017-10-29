@@ -66,9 +66,10 @@ void					display_app(t_graphics *g, t_env *e)
 	{
 		werase(g->background_window);
 		g->seconds2 = 0;
-		loop_matrix(g->mat, g->background_window, g->flag, g->col);
+		loop_matrix(g, g->background_window, g->flag, g->col);
 	}
 	render_board(g, e);
+	render_process(g, e);
 	render_stats(g, e);
 	render_log(g, e);
 	render_end(g);

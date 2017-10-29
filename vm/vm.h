@@ -78,7 +78,7 @@ typedef struct			s_process
 	int					carry;
 	int					cycles_left;
 	char				*name;
-	uint32_t			prog_num;
+	uint32_t			prog_num; //player id
 	int					lives;
 	int					op;
 	uint32_t			process_num;
@@ -123,7 +123,6 @@ typedef struct			s_env
 	int					y;
 	int					z;
 	int					program_size;
-	// t_process			*first;
 }						t_env;
 
 typedef struct			s_index_info

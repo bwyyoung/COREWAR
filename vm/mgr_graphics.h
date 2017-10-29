@@ -23,8 +23,12 @@
 #  include <mach/mach.h>
 # endif
 # define _POSIX_C_SOURCE >= 199309L
-# define GREEN_PAIR 1
-# define YELLOW__PAIR 2
+# define WHITE_PAIR 1
+# define GREEN_PAIR 2
+# define YELLOW_PAIR 3
+# define RED_PAIR 4
+# define MAGENTA_PAIR 5
+# define MA_PAIR 5
 # define WORLD_WIDTH 254
 # define WORLD_HEIGHT 68
 # define APP_REFRESH_RATE 10
@@ -61,8 +65,6 @@ typedef struct			s_graphics
 	int					offsety ;
 	int					max_y;
 	int					max_x;
-	short				line_colors[3];
-	short				title_colors[3];
 	int					margin_x;
 	int					margin_y;
 	bool				graphics_end;

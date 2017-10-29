@@ -23,6 +23,8 @@
 # define RANDOM_NUM(X) ((rand() % (X)))
 # define PROB(x) (((rand() % 100) < (x)) ? 1 : 0)
 
+typedef struct s_graphics t_graphics;
+
 struct				s_column
 {
 	char			*rows;
@@ -40,7 +42,7 @@ typedef struct		s_matrix
 
 
 void		init_matrix(WINDOW **mainwin, struct s_matrix **mat);
-void		loop_matrix(t_matrix *mat, WINDOW *mainwin, int flag,
+void		loop_matrix(t_graphics *g, WINDOW *mainwin, int flag,
 			struct s_column *col);
 
 #endif

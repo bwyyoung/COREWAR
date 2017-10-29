@@ -17,10 +17,6 @@ void					graphics_start(t_graphics *g)
 	g->margin_x = 2;
 	g->margin_y = 2;
 	g->graphics_end = t_false;
-	initscr();
-	noecho();
-	refresh();
-	curs_set(FALSE);
 	g->offsetx = (COLS - WORLD_WIDTH) / 2;
 	g->offsety = (LINES - WORLD_HEIGHT) / 2;
 	init_matrix(&g->background_window, &g->mat);
@@ -31,10 +27,6 @@ void					graphics_start(t_graphics *g)
 	cbreak();
 	nodelay(stdscr, TRUE);
 	start_color();
-	init_pair(g->title_colors[2], g->title_colors[0], g->title_colors[1]);
-	init_pair(g->line_colors[2], g->line_colors[0], g->line_colors[1]);
-	init_pair(10, 7, 0);
-	wattron(g->game_window, COLOR_PAIR(10));
 }
 
 void					graphics_end(t_graphics *g)
@@ -59,7 +51,6 @@ void					render_start(t_graphics *g)
 	g->i = -1;
 	g->j = -1;
 	werase(g->game_window);
-	wattron(g->game_window, COLOR_PAIR(10));
 	box(g->border_window, 0 , 0);
 }
 
@@ -69,5 +60,4 @@ void					render_end(t_graphics *g)
 	wnoutrefresh(g->border_window);
 	wnoutrefresh(g->game_window);
 	doupdate();
-	wattron(g->game_window, COLOR_PAIR(10));
 }

@@ -12,6 +12,7 @@
 
 #include <curses.h>
 #include "matrix.h"
+#include "mgr_graphics.h"
 
 void		init_matrix(WINDOW **mainwin, struct s_matrix **mat)
 {
@@ -21,8 +22,11 @@ void		init_matrix(WINDOW **mainwin, struct s_matrix **mat)
 	(*mat)->c = COLS;
 	(*mat)->r = LINES;
 	start_color();
-	init_pair(1, COLOR_WHITE, COLOR_BLACK);
-	init_pair(2, COLOR_GREEN, COLOR_BLACK);
+	init_pair(WHITE_PAIR, COLOR_WHITE, COLOR_BLACK);
+	init_pair(GREEN_PAIR, COLOR_GREEN, COLOR_BLACK);
+	init_pair(YELLOW_PAIR, COLOR_YELLOW, COLOR_BLACK);
+	init_pair(RED_PAIR, COLOR_RED, COLOR_BLACK);
+	init_pair(MAGENTA_PAIR, COLOR_MAGENTA, COLOR_BLACK);
 	wbkgd(*mainwin, COLOR_PAIR(1));
 	ft_memset((*mat)->cols, 0, sizeof(struct s_column) * (*mat)->c / 2);
 	(*mat)->i = -1;
@@ -44,44 +48,48 @@ char		matrix_char(void)
 	return (mat[RANDOM_NUM(ft_strlen(mat))]);
 }
 
-void		loop_matrix_sub(struct s_matrix *mat, struct s_column *col,
+void		loop_matrix_sub(t_graphics *g, struct s_column *col,
 WINDOW *mainwin, int *flag)
 {
-	mat->j = mat->r;
-	while (--mat->j  >= 0)
+	g->mat->j = g->mat->r;
+	while (--g->mat->j  >= 0)
 	{
-		if (col->rows[mat->j] != '\0')
+		if (g->mat->j > g->offsety && g->mat->j < (g->offsety + WORLD_HEIGHT))
+			if ((g->mat->i * 2) > g->offsetx && (g->mat->i * 2) <
+			(g->offsetx + WORLD_WIDTH))
+				continue ;
+		if (col->rows[g->mat->j] != '\0')
 		{
 			if (PROB(10))
-				col->rows[mat->j] = matrix_char();
+				col->rows[g->mat->j] = matrix_char();
 			if (*flag && PROB(40))
-				col->rows[mat->j] = matrix_char();
-			mvwaddch(mainwin, mat->j, mat->i * 2, col->rows[mat->j]);
+				col->rows[g->mat->j] = matrix_char();
+			mvwaddch(mainwin, g->mat->j, g->mat->i * 2, col->rows[g->mat->j]);
 			if (*flag == 0)
 				continue ;
 			*flag = 0;
-			wattroff(mainwin, COLOR_PAIR(2));
-			wattron(mainwin, COLOR_PAIR(1));
+			wattroff(mainwin, COLOR_PAIR(WHITE_PAIR));
+			wattron(mainwin, COLOR_PAIR(GREEN_PAIR));
 			continue ;
 		}
 		*flag = 1;
-		wattroff(mainwin, COLOR_PAIR(1));
-		wattron(mainwin, COLOR_PAIR(2));
+		wattroff(mainwin, COLOR_PAIR(GREEN_PAIR));
+		wattron(mainwin, COLOR_PAIR(WHITE_PAIR));
 	}
 }
 
-void		loop_matrix(t_matrix *mat, WINDOW *mainwin, int flag,
+void		loop_matrix(t_graphics *g, WINDOW *mainwin, int flag,
 struct s_column *col)
 {
-	mat->i = -1;
-	while (++mat->i < mat->c / 2)
+	g->mat->i = -1;
+	while (++g->mat->i < g->mat->c / 2)
 	{
-		col = &mat->cols[mat->i];
-		ft_memmove(col->rows + 1, col->rows, mat->r - 1);
-		mat->j = mat->r;
+		col = &g->mat->cols[g->mat->i];
+		ft_memmove(col->rows + 1, col->rows, g->mat->r - 1);
+		g->mat->j = g->mat->r;
 		if(!(col->rows[1]))
 		{
-			if (PROB(7))
+			if (PROB(5))
 				col->rows[0] = matrix_char();
 		}
 		else if (PROB(20))
@@ -89,7 +97,7 @@ struct s_column *col)
 		else
 			col->rows[0] = matrix_char();
 		flag = 0;
-		wattron(mainwin, COLOR_PAIR(1));
-		loop_matrix_sub(mat, col, mainwin, &flag);
+		wattron(mainwin, COLOR_PAIR(GREEN_PAIR));
+		loop_matrix_sub(g, col, mainwin, &flag);
 	}
 };

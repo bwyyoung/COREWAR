@@ -72,12 +72,15 @@ t_graphics	*init_graphics(t_env *e)
 	g->sleep_time = 0;
 	g->seconds = 0;
 	g->app_is_running = t_true;
-	g->line_colors[0] = COLOR_GREEN;
-	g->line_colors[1] = 0;
-	g->line_colors[2] = GREEN_PAIR;
-	g->title_colors[0] = COLOR_YELLOW;
-	g->title_colors[1] = 0;
-	g->title_colors[2] = YELLOW__PAIR;
+	g->margin_x = 2;
+	g->margin_y = 2;
+	g->graphics_end = t_false;
+	g->offsetx = (COLS - WORLD_WIDTH) / 2;
+	g->offsety = (LINES - WORLD_HEIGHT) / 2;
+	initscr();
+	noecho();
+	refresh();
+	curs_set(FALSE);
 	return (g);
 }
 
