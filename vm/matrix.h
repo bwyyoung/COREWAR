@@ -18,7 +18,7 @@
 # include <ctype.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <ncursesw/curses.h>
+# include <curses.h>
 # include <sys/ioctl.h>
 # define RANDOM_NUM(X) ((rand() % (X)))
 # define PROB(x) (((rand() % 100) < (x)) ? 1 : 0)
