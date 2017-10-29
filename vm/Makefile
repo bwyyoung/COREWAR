@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME = vm
-FLAGS = -g -Wextra -Wall -Werror
+FLAGS = -g -Wextra -Wall -Werror -D_XOPEN_SOURCE_EXTENDED
 #FLAGS =
 LIBFT = ./libft
 LIB = libft/libft.a -lncursesw

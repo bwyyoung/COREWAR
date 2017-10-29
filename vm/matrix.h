@@ -13,19 +13,19 @@
 #ifndef MATRIX_H
 # define MATRIX_H
 # include "libft/libft.h"
+# include <wchar.h>
 # include <string.h>
 # include <ctype.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <curses.h>
+# include <ncursesw/curses.h>
 # include <sys/ioctl.h>
-
-# define RANDOM_NUM ((char)('1' + (rand() % 9)))
+# define RANDOM_NUM(X) ((rand() % (X)))
 # define PROB(x) (((rand() % 100) < (x)) ? 1 : 0)
 
-struct			s_column
+struct				s_column
 {
-	char	*rows;
+	char			*rows;
 };
 
 typedef struct		s_matrix

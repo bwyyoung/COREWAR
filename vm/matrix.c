@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <curses.h>
 #include "matrix.h"
 
 void		init_matrix(WINDOW **mainwin, struct s_matrix **mat)
@@ -17,7 +18,6 @@ void		init_matrix(WINDOW **mainwin, struct s_matrix **mat)
 	*mat = malloc(sizeof(struct s_matrix));
 	*mainwin = newwin(0, 0, 0, 0);
 	(*mat)->cols = malloc(sizeof(struct s_column) * COLS/ 2);
-
 	(*mat)->c = COLS;
 	(*mat)->r = LINES;
 	start_color();
@@ -35,20 +35,27 @@ void		init_matrix(WINDOW **mainwin, struct s_matrix **mat)
 	}
 }
 
+char		matrix_char(void)
+{
+	char		*mat;
+
+	mat = "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`"
+		"abcdefghijklmnopqrstuvwxyz{|}~";
+	return (mat[RANDOM_NUM(ft_strlen(mat))]);
+}
+
 void		loop_matrix_sub(struct s_matrix *mat, struct s_column *col,
 WINDOW *mainwin, int *flag)
 {
-	(void)mainwin;
 	mat->j = mat->r;
-
 	while (--mat->j  >= 0)
 	{
 		if (col->rows[mat->j] != '\0')
 		{
 			if (PROB(10))
-				col->rows[mat->j]++;
+				col->rows[mat->j] = matrix_char();
 			if (*flag && PROB(40))
-				col->rows[mat->j]++;
+				col->rows[mat->j] = matrix_char();
 			mvwaddch(mainwin, mat->j, mat->i * 2, col->rows[mat->j]);
 			if (*flag == 0)
 				continue ;
@@ -70,20 +77,19 @@ struct s_column *col)
 	while (++mat->i < mat->c / 2)
 	{
 		col = &mat->cols[mat->i];
-
 		ft_memmove(col->rows + 1, col->rows, mat->r - 1);
 		mat->j = mat->r;
 		if(!(col->rows[1]))
 		{
 			if (PROB(7))
-				col->rows[0] = RANDOM_NUM;
+				col->rows[0] = matrix_char();
 		}
 		else if (PROB(20))
-				col->rows[0] = '\0';
+				col->rows[0] = 0;
 		else
-			col->rows[0] = RANDOM_NUM;
+			col->rows[0] = matrix_char();
 		flag = 0;
-		attron(COLOR_PAIR(2));
+		wattron(mainwin, COLOR_PAIR(1));
 		loop_matrix_sub(mat, col, mainwin, &flag);
 	}
 };
