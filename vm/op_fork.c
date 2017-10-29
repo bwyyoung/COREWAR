@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 20:31:02 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/28 17:42:51 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/29 17:03:36 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void			fork_variables(t_process *cpy, t_process *original, t_env *e)
 
 void			op_forker(t_env *env, t_process *process, int op)
 {
-	if (!(env->new_fork = create_process(env)))
+	if (!(env->new_fork = create_process(env, NULL)))
 		ft_error_errno(NULL);
 	fork_variables(env->new_fork, process, env);
 	if (op == lfork)

@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:18:29 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/29 16:29:59 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/29 17:34:27 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** The board is already incremented by offset so that all the programs are
 ** evenly spaced on the board.
 */
-void	write_program_to_board(t_env *env, int offset, int fd)
+void	write_program_to_board(t_env *env, t_player *player, int offset, int fd)
 {
 	uint8_t	c;
 	int		read_return;
@@ -28,7 +28,7 @@ void	write_program_to_board(t_env *env, int offset, int fd)
 		if (read_return == -1)
 			ft_error_errno(NULL);
 		env->board[offset % MEM_SIZE] = c;
-		env->prog_num_board[offset % MEM_SIZE] = env->prog_num;
+		env->prog_num_board[offset % MEM_SIZE] = player->prog_num;
 		offset++;
 	}
 }
@@ -76,7 +76,7 @@ void	reader(t_env *e, t_player *player, char *arg)
 	player->size = rev_endian(player->size);
 	if (-1 == read(fd, player->comment, COMMENT_LENGTH))
 		ft_error_errno(NULL);
-	write_program_to_board(e, e->offset, fd);
+	write_program_to_board(e, player, e->offset, fd);
 	if (-1 == close(fd))
 		ft_error_errno(NULL);
 }

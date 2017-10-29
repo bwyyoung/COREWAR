@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 14:49:06 by byoung-w          #+#    #+#             */
-/*   Updated: 2017/10/29 16:12:46 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/29 17:27:27 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ void		lst_players_clr(t_env *e)
 	{
 		current = e->lst_players;
 		e->lst_players = e->lst_players->next;
-		SAFE_DELETE(e->new_player->name);
-		SAFE_DELETE(e->new_player->comment);
+		SAFE_DELETE(current->name);
+		SAFE_DELETE(current->comment);
 		SAFE_DELETE(current);
 	}
 }

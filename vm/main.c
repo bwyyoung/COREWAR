@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 13:26:46 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/29 16:37:42 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/29 17:35:10 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,25 +50,6 @@ int				count_players(t_env *env, t_player *player)
 	return (num_players);
 }
 
-void			load_players(t_env *env)
-{
-	t_player	*player;
-
-	player = env->lst_players;
-	P(env->options[visual], "Introducing contestants...\n");
-	while (player)
-	{
-		player->prog_num = env->prog_num--;
-		reader(env, player, player->file_name);
-		P(env->options[visual], "* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
-								player->prog_num * -1, player->size,
-								player->name, player->comment);
-		lst_process_add(env, create_process(env));
-		env->offset += MEM_SIZE / env->num_players;
-		player = player->next;
-	}
-}
-
 void			parse_flags(t_env *e, int argc, char **argv)
 {
 	int			i;
@@ -79,7 +60,8 @@ void			parse_flags(t_env *e, int argc, char **argv)
 		if (!add_option(e, argv, &i, argc) && (i < argc))
 			add_player(e, argv, &i);
 	}
-
+	e->num_players = count_players(e, e->lst_players);
+	load_players(e);
 }
 
 /*
@@ -98,7 +80,6 @@ void	declare_winner(t_env *env)
 		env->last_live_num * -1,
 		env->last_live_name);
 }
-
 
 void		delete_env(t_env *env)
 {
