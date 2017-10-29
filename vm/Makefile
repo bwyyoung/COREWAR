@@ -6,7 +6,7 @@
 #    By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/06 18:30:14 by douglas           #+#    #+#              #
-#    Updated: 2017/10/29 17:36:43 by dengstra         ###   ########.fr        #
+#    Updated: 2017/10/29 17:52:41 by dengstra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ SRC = main.c run_game.c \
 		mgr_graphics_process.c	\
 		mgr_graphics_stats.c	\
 		load_players.c			\
+		printer.c				\
 		matrix.c
 
 

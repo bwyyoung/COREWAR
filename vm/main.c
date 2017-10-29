@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 13:26:46 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/29 17:35:10 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/29 17:50:46 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,25 +60,6 @@ void			parse_flags(t_env *e, int argc, char **argv)
 		if (!add_option(e, argv, &i, argc) && (i < argc))
 			add_player(e, argv, &i);
 	}
-	e->num_players = count_players(e, e->lst_players);
-	load_players(e);
-}
-
-/*
-** Declare the winner of the game.
-** If no player has gotten a live then the player who was added last wins.
-** So if there are four player player 4 will win.
-** Else the player who has gotten the last live wins
-*/
-void	declare_winner(t_env *env)
-{
-	if (!env->last_live_name)
-		ft_printf("Contestant %d, \"%s\", has won !\n",
-		env->lst_players->prog_num * -1, env->lst_players->name);
-	else
-		ft_printf("Contestant %d, \"%s\", has won !\n",
-		env->last_live_num * -1,
-		env->last_live_name);
 }
 
 void		delete_env(t_env *env)
@@ -103,6 +84,9 @@ int			main(int argc, char *argv[])
 	board = create_board();
 	env = create_env(board);
 	parse_flags(env, argc, argv);
+	env->num_players = count_players(env, env->lst_players);
+	load_players(env);
+	introduce_players(env);
 	if (env->options[visual])
 		graphics_loop(env);
 	else

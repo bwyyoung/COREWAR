@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 15:37:30 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/29 17:34:26 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/29 17:52:09 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,8 @@ typedef struct			s_index_info
 	int					index_sum;
 }						t_index_info;
 
+void					declare_winner(t_env *env);
+void					introduce_players(t_env *env);
 void					load_players(t_env *env);
 void					print_verbosity_sixteen(t_env *env, t_process *process, int inc, int pc);
 t_index_info			*create_index_info(int index1, int index2, int index_sum);
