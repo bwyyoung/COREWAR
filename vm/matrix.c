@@ -26,7 +26,9 @@ void		init_matrix(WINDOW **mainwin, struct s_matrix **mat)
 	init_pair(YELLOW_PAIR, COLOR_YELLOW, COLOR_BLACK);
 	init_pair(RED_PAIR, COLOR_RED, COLOR_BLACK);
 	init_pair(MAGENTA_PAIR, COLOR_MAGENTA, COLOR_BLACK);
-	wbkgd(*mainwin, COLOR_PAIR(1));
+	init_pair(CYAN_PAIR, COLOR_CYAN, COLOR_BLACK);
+	use_default_colors();
+	wbkgd(*mainwin, COLOR_PAIR(WHITE_PAIR));
 	ft_memset((*mat)->cols, 0, sizeof(struct s_column) * (*mat)->c / 2);
 	(*mat)->i = -1;
 	while (++(*mat)->i < (*mat)->c / 2)
@@ -59,21 +61,21 @@ WINDOW *mainwin, int *flag)
 				continue ;
 		if (col->rows[g->mat->j] != '\0')
 		{
-			if (PROB(10))
+			if ((PROB(10)) || (*flag && PROB(40)))
+			{
 				col->rows[g->mat->j] = matrix_char();
-			if (*flag && PROB(40))
-				col->rows[g->mat->j] = matrix_char();
+			}
 			mvwaddch(mainwin, g->mat->j, g->mat->i * 2, col->rows[g->mat->j]);
 			if (*flag == 0)
 				continue ;
 			*flag = 0;
-			wattroff(mainwin, COLOR_PAIR(WHITE_PAIR));
+			wattroff(mainwin, COLOR_PAIR(YELLOW_PAIR));
 			wattron(mainwin, COLOR_PAIR(GREEN_PAIR));
 			continue ;
 		}
 		*flag = 1;
 		wattroff(mainwin, COLOR_PAIR(GREEN_PAIR));
-		wattron(mainwin, COLOR_PAIR(WHITE_PAIR));
+		wattron(mainwin, COLOR_PAIR(YELLOW_PAIR));
 	}
 }
 

@@ -43,8 +43,6 @@ void		ft_hex(int dec, char *buffer)
 void 					render_cell(t_graphics *g, t_env *e)
 {
 	render_player(g, e);
-	//mvwprintw(g->game_window, g->window_y,
-	//	g->window_x * 2 + g->window_x, g->hex);
 	mvwprintw(g->game_window, g->window_y,
 		g->window_x * 2 + g->window_x, "%02X", e->board[g->window_index]);
 }
@@ -62,11 +60,7 @@ void					render_board(t_graphics *g, t_env *e)
 			g->window_y++;
 		}
 		if (g->window_y < BOARD_HEIGHT)
-		{
-			//ft_bzero((void *)g->hex, sizeof(char) * 3);
-			//ft_hex(e->board[g->window_index], g->hex);
 			render_cell(g, e);
-		}
 		g->window_x++;
 	}
 }

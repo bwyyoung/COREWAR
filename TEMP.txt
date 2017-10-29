@@ -1,3 +1,7 @@
+
+			//ft_bzero((void *)g->hex, sizeof(char) * 3);
+			//ft_hex(e->board[g->window_index], g->hex);
+
 	//cchar_t		c;
 	//wchar_t		m;
 

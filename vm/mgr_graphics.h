@@ -28,11 +28,11 @@
 # define YELLOW_PAIR 3
 # define RED_PAIR 4
 # define MAGENTA_PAIR 5
-# define MA_PAIR 5
+# define CYAN_PAIR 6
 # define WORLD_WIDTH 254
 # define WORLD_HEIGHT 68
 # define APP_REFRESH_RATE 10
-# define MAT_REFRESH_RATE 50
+# define MAT_REFRESH_RATE 500
 # define FRAMES_PER_SECOND 60
 # define SKIP_TICKS 1000 / FRAMES_PER_SECOND
 # define APP_KEY_UP 65

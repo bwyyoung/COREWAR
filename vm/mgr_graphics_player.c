@@ -15,10 +15,7 @@
 
 void					render_player(t_graphics *g, t_env *e)
 {
-	wattroff(g->game_window, COLOR_PAIR(GREEN_PAIR));
-	wattroff(g->game_window, COLOR_PAIR(RED_PAIR));
-	wattroff(g->game_window, COLOR_PAIR(YELLOW_PAIR));
-	wattroff(g->game_window, COLOR_PAIR(MAGENTA_PAIR));
+
 	if (e->prog_num_board[g->window_index] == 0xFFFFFFFF)
 		wattron(g->game_window, COLOR_PAIR(GREEN_PAIR));
 	else if (e->prog_num_board[g->window_index] == 0xFFFFFFFE)
@@ -27,4 +24,11 @@ void					render_player(t_graphics *g, t_env *e)
 		wattron(g->game_window, COLOR_PAIR(YELLOW_PAIR));
 	else if (e->prog_num_board[g->window_index] == 0xFFFFFFFC)
 		wattron(g->game_window, COLOR_PAIR(MAGENTA_PAIR));
+	else
+	{
+		wattroff(g->game_window, COLOR_PAIR(GREEN_PAIR));
+		wattroff(g->game_window, COLOR_PAIR(RED_PAIR));
+		wattroff(g->game_window, COLOR_PAIR(YELLOW_PAIR));
+		wattroff(g->game_window, COLOR_PAIR(MAGENTA_PAIR));
+	}
 }

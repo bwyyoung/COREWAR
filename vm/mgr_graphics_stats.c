@@ -38,6 +38,7 @@ void					render_logo(t_graphics *g)
 void					render_stats(t_graphics *g, t_env *e)
 {
 	render_logo(g);
+	wattron(g->game_window, COLOR_PAIR(CYAN_PAIR));
 	mvwprintw(g->game_window, 8, 199, "Cycle       : ");
 	mvwprintw(g->game_window, 8, 215, "%ld", e->total_cycles);
 	mvwprintw(g->game_window, 10, 199, "Processes   : ");
@@ -52,4 +53,5 @@ void					render_stats(t_graphics *g, t_env *e)
 	mvwprintw(g->game_window, 18, 215, "Unknown");
 	mvwprintw(g->game_window, 20, 199, "Max_Checks  : ");
 	mvwprintw(g->game_window, 20, 215, "%i", MAX_CHECKS);
+	wattroff(g->game_window, COLOR_PAIR(CYAN_PAIR));
 }

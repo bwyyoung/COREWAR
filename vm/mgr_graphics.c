@@ -26,7 +26,7 @@ void					graphics_start(t_graphics *g)
 	getmaxyx(stdscr, g->max_y, g->max_x);
 	cbreak();
 	nodelay(stdscr, TRUE);
-	start_color();
+	//wattron(g->game_window, COLOR_PAIR(WHITE_PAIR));
 }
 
 void					graphics_end(t_graphics *g)
