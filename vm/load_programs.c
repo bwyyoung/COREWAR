@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:18:29 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/29 17:34:27 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/30 11:22:20 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ void	reader(t_env *e, t_player *player, char *arg)
 		ft_error_errno(NULL);
 	player->size = rev_endian(player->size);
 	if (-1 == read(fd, player->comment, COMMENT_LENGTH))
+		ft_error_errno(NULL);
+	if (-1 == lseek(fd, 4, SEEK_CUR)) // check with Palash what this is
 		ft_error_errno(NULL);
 	write_program_to_board(e, player, e->offset, fd);
 	if (-1 == close(fd))

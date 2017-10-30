@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:10:13 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/28 18:17:25 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/30 11:23:04 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void				execute_op(t_env *env, t_process *process)
 	op = process->op;
 	process->types = get_board_val(env->board, pc + 1, 1);
 	get_params(env, process, op);
-	print_verbosity_sixteen(env, process, get_op_size(process), process->regs[0]);
 	if (check_types(process))
 		return (inc_pc(process, get_op_size(process)));
 	if (op == live)
@@ -73,6 +72,7 @@ void				execute_op(t_env *env, t_process *process)
 		op_aff(env, process, pc);
 	if (op != zjmp)
 		inc_pc(process, get_op_size(process));
+	print_verbosity_sixteen(env, process, get_op_size(process), pc);
 }
 
 /*
@@ -121,18 +121,9 @@ void				execute_cycle(t_env *env)
 	t_process		*cur_process;
 
 	cur_process = env->lst_process;
-	// env->first = env->lst_process;
 	while (cur_process)
 	{
 		execute_process(env, cur_process);
 		cur_process = cur_process->next;
 	}
-	// cur_process = env->first;
-	// while (cur_process)
-	// {
-	// 	if (cur_process->op)
-	// 		print_verbosity_sixteen(env, cur_process, get_op_size(cur_process), cur_process->regs[0]);
-	// 	cur_process->op = 0;
-	// 	cur_process = cur_process->next;
-	// }
 }
