@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:10:13 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/30 11:23:04 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/30 19:56:22 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,18 @@ int					check_types(t_process *process)
 */
 void				execute_op(t_env *env, t_process *process)
 {
-	int				op;
-	uint32_t		pc;
+	int	op;
+	int	pc;
 
 	pc = process->regs[0];
 	op = process->op;
 	process->types = get_board_val(env->board, pc + 1, 1);
 	get_params(env, process, op);
 	if (check_types(process))
+	{
+		print_verbosity_sixteen(env, process, get_op_size(process), pc);
 		return (inc_pc(process, get_op_size(process)));
+	}
 	if (op == live)
 		op_live(env, process);
 	else if (op == ld || op == lld)
@@ -59,13 +62,13 @@ void				execute_op(t_env *env, t_process *process)
 	else if (op == st || op == sti)
 		op_store(env, process, pc, op);
 	else if (op == add || op == sub)
-		op_arithmetic(env, process, op);
+		op_arithmetic(env, process);
 	else if (op == and || op == or || op == xor)
 		op_bitwise(env, process, op);
 	else if (op == zjmp)
 		op_zjmp(env, process);
 	else if (op == ldi || op == lldi)
-		op_index_load(env, process, op);
+		op_index_load(env, process);
 	else if (op == e_fork || op == lfork)
 		op_forker(env, process, op);
 	else if (op == aff)

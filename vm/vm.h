@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 15:37:30 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/29 17:52:09 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/30 19:56:32 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,10 @@ typedef struct			s_player
 
 typedef struct			s_process
 {
-	uint32_t			types;
-	uint32_t			regs[REG_NUMBER + 1];	// should be REG_SIZE datatype
+	uint8_t				types;
+	int					regs[REG_NUMBER + 1];	// should be REG_SIZE datatype
 	uint8_t				param_type[3];
-	uint32_t			param_val[3];
+	int					param_val[3];
 	int					carry;
 	int					cycles_left;
 	char				*name;
@@ -118,6 +118,7 @@ typedef struct			s_env
 	t_process			*new_fork;
 	uint32_t			prog_num_board[MEM_SIZE];
 	uint32_t			offset;
+
 	int					i;
 	int					j;
 	int					k;
@@ -146,48 +147,45 @@ void					ft_error(char *msg);
 char					*get_op_name(int op);
 int						op_uses_idx(int op);
 int						op_has_type(int op);
-uint32_t				get_label_size(int op);
-uint32_t				get_cycles(int op);
+int						get_label_size(int op);
+int						get_cycles(int op);
 int						get_num_params(int op);
-uint32_t				get_op_size(t_process *process);
+int						get_op_size(t_process *process);
 int						is_types_invalid(int op, uint8_t types);
-int						valid_reg_num(uint32_t reg_num);
+int						valid_reg_num(int reg_num);
 int16_t					get_idx_val(int16_t val);
 void					load_programs(t_env *env, char *argv[]);
 void					dump_memory(t_env *env);
 void					run_game(t_env *env);
 void					execute_cycle(t_env *env);
-uint32_t				get_param_val(uint8_t *board, int which_param,
-						t_process *process, uint8_t ind_size);
+int						get_param_val(uint8_t *board, int which_param,
+						t_process *process);
 void					get_params(t_env *env, t_process *process, int op);
 t_env					*create_env(uint8_t *board);
 uint8_t					*create_board(void);
 t_player				*create_player(char *file_name);
 t_process				*create_process(t_env *e, t_player *player);
-int						is_reg_num_invalid(uint32_t reg_num);
-uint32_t				get_reg_val(t_process *process, uint32_t reg_num);
-void					set_reg_val(t_process *process, uint32_t reg_num,
-						uint32_t new_val);
+int						is_reg_num_invalid(int reg_num);
+int						get_reg_val(t_process *process, int reg_num);
+void					set_reg_val(t_process *process, int reg_num,
+						int new_val);
 void					inc_pc(t_process *process, int inc);
-void					modify_carry(t_process *process, uint32_t val);
-uint32_t				get_board_val(uint8_t *board, uint32_t index,
-						uint32_t size);
-// void					set_board_val(uint8_t *board, uint32_t index,
-						// uint32_t size, uint32_t val);
-void					set_board_val(t_env *env, t_process *process, uint32_t index,
-							uint32_t val);
-uint32_t				get_param_size(uint8_t type, int label_size);
-//void					add_process(t_env *env, t_process *process);
+void					modify_carry(t_process *process, int val);
+int						get_board_val(uint8_t *board, int index,
+						int size);
+void					set_board_val(t_env *env, t_process *process, int index,
+							int val);
+int						get_param_size(uint8_t type, int label_size);
 void					kill_processes(t_env *env);
 void					op_live(t_env *env, t_process *process);
 void					op_load(t_env *env, t_process *process);
-void					op_store(t_env *env, t_process *process, uint32_t pc, int op);
-void					op_arithmetic(t_env *env, t_process *process, int op);
+void					op_store(t_env *env, t_process *process, int pc, int op);
+void					op_arithmetic(t_env *env, t_process *process);
 void					op_bitwise(t_env *env, t_process *process, int op);
 void					op_zjmp(t_env *env, t_process *process);
-void					op_index_load(t_env *env, t_process *process, int op);
+void					op_index_load(t_env *env, t_process *process);
 void					op_forker(t_env *env, t_process *process, int op);
-void					op_aff(t_env *env, t_process *process, uint32_t pc);
+void					op_aff(t_env *env, t_process *process, int pc);
 
 void					print_instructions(void);
 void					error_exit(t_env *e, int i);
@@ -200,7 +198,6 @@ t_bool					get_dump_number(t_env *e, char *nbr, int *i, int args);
 t_bool					get_verbose_level(t_env *e, char *nbr, int *i, int args);
 t_bool					get_cycle_number(t_env *e, char *nbr, int *i, int args);
 void					reader(t_env *e, t_player *player, char *arg);
-//void					add_player_list(t_env *env, t_player *new_player);
 void					add_player(t_env *e, char **argv, int *i);
 void					delete_env(t_env *env);
 t_player				*lst_players_add(t_env *e, t_player *p);

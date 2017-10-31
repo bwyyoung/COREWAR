@@ -6,7 +6,7 @@
 /*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:16:05 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/24 12:36:29 by douglas          ###   ########.fr       */
+/*   Updated: 2017/10/30 22:20:05 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 ** Note: a direct value is sometimes 4 bytes big and sometimes when
 ** representing an index it's 2 bytes big;
 */
-uint32_t	get_param_size(uint8_t type, int label_size)
+int		get_param_size(uint8_t type, int label_size)
 {
-	uint32_t size;
+	int size;
 
 	size = 0;
 	if (type == REG_CODE)
@@ -44,8 +44,6 @@ int		get_op_size_no_type(uint8_t op)
 		size += DIR_SIZE;
 	else if (op == aff)
 		size += IND_SIZE + 1;
-	else if (op == lfork)
-		size += IND_SIZE;
 	else
 		size += IND_SIZE;
 	return (size);
@@ -59,11 +57,11 @@ int		get_op_size_no_type(uint8_t op)
 **		returns size	3
 **
 */
-uint32_t	get_op_size(t_process *process)
+int		get_op_size(t_process *process)
 {
-	uint32_t	size;
-	uint8_t		op;
-	int			num_params;
+	int size;
+	int op;
+	int num_params;
 
 	op = process->op;
 	if (!op_has_type(op))

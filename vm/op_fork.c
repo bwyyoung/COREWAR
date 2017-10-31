@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 20:31:02 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/29 17:03:36 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/30 17:58:27 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static void	print_verbosity_four(t_env *env, t_process *process)
 {
-	int16_t		index;
-	uint32_t	pc;
+	int16_t	index;
+	int		pc;
 
-	index = process->param_val[0];
+	index = (int16_t)process->param_val[0];
 	pc = process->regs[0];
 	if (!env->options[v] || env->verbose_value != 4)
 		return ;
