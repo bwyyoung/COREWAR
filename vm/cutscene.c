@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vprint.c                                           :+:      :+:    :+:   */
+/*   cutscene.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/12 15:37:30 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/26 18:36:29 by dengstra         ###   ########.fr       */
+/*   Created: 2017/10/12 14:16:45 by dengstra          #+#    #+#             */
+/*   Updated: 2017/10/23 21:48:45 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
 #include "mgr_graphics.h"
 
-int			vp(t_graphics *g,char *str, ...)
+
+void						snd_init_audio(void)
 {
-	(void)str;
-	(void)g;
-	return (0);
+
 }

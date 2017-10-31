@@ -16,7 +16,7 @@ static void	print_verbosity_four(t_env *env, t_process *process)
 {
 	if (!env->options[v] || env->verbose_value != 4)
 		return ;
-	P(env->options[visual], "P %4u | live %d\n", process->process_num,
+	P(env->g_ref, env->options[visual], "P %4u | live %d\n", process->process_num,
 									process->param_val[0]);
 }
 
@@ -48,7 +48,7 @@ void			op_live(t_env *env, t_process *process)
 	{
 		add_live(env, process->name);
 		if (env->options[v] && env->verbose_value == 1)
-			P(env->options[visual],
+			P(env->g_ref, env->options[visual],
 				"Player %d (%s) is said to be alive\n",
 					process->prog_num * -1, process->name);
 		env->last_live_num = process->prog_num;

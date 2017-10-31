@@ -15,7 +15,7 @@
 void		print_verbosity_eight(t_env *env, t_process *process)
 {
 	if (env->options[v] && env->verbose_value == 8)
-		P(env->options[visual],
+		P(env->g_ref, env->options[visual],
 			"Process %d hasn't lived for %d cycles (CTD %d)\n",
 				process->process_num, process->last_live, env->cycle_to_die);
 }

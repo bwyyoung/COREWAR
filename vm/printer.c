@@ -16,11 +16,11 @@ void			introduce_players(t_env *env)
 {
 	t_player	*player;
 
-	P(env->options[visual], "Introducing contestants...\n");
+	P(env->g_ref, env->options[visual], "Introducing contestants...\n");
 	player = env->lst_players;
 	while (player)
 	{
-		P(env->options[visual], "* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
+		P(env->g_ref, env->options[visual], "* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
 								player->prog_num * -1, player->size,
 								player->name, player->comment);
 		player = player->next;

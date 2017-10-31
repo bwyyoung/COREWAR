@@ -1,3 +1,7 @@
+./configure --enable-werror
+
+https://github.com/andystanton/sound-example.git
+https://github.com/erikd/libsndfile.git
 
 			//ft_bzero((void *)g->hex, sizeof(char) * 3);
 			//ft_hex(e->board[g->window_index], g->hex);

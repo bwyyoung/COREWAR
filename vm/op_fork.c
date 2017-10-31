@@ -21,12 +21,12 @@ static void	print_verbosity_four(t_env *env, t_process *process)
 	pc = process->regs[0];
 	if (!env->options[v] || env->verbose_value != 4)
 		return ;
-	P(env->options[visual], "P %4u | %s %d ", process->process_num,
+	P(env->g_ref, env->options[visual], "P %4u | %s %d ", process->process_num,
 								get_op_name(process->op), index);
 	if (process->op == lfork)
-		P(env->options[visual], "(%d)\n", pc + index);
+		P(env->g_ref, env->options[visual], "(%d)\n", pc + index);
 	else
-		P(env->options[visual], "(%d)\n", pc + get_idx_val(index));
+		P(env->g_ref, env->options[visual], "(%d)\n", pc + get_idx_val(index));
 }
 
 /*

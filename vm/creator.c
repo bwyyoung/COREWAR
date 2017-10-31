@@ -97,6 +97,8 @@ t_process	*create_process(t_env *e, t_player *player)
 	process->param_val[2] = 0;
 	process->carry = 0;
 	process->cycles_left = 0;
+	process->vis = e->options[visual];
+	process->g_ref = e->g_ref;
 	if (player)
 	{
 		process->name = player->name;

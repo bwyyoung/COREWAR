@@ -16,12 +16,12 @@ static void	print_verbosity_four(t_env *env, t_process *process)
 {
 	if (!env->options[v] || env->verbose_value != 4)
 		return ;
-	P(env->options[visual], "P %4u | zjmp %hd ", process->process_num,
+	P(env->g_ref, env->options[visual], "P %4u | zjmp %hd ", process->process_num,
 									process->param_val[0]);
 	if (process->carry == 1)
-		P(env->options[visual], "OK\n");
+		P(env->g_ref, env->options[visual], "OK\n");
 	else
-		P(env->options[visual], "FAILED\n");
+		P(env->g_ref, env->options[visual], "FAILED\n");
 }
 
 /*

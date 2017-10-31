@@ -13,8 +13,9 @@
 NAME = vm
 FLAGS = -g -Wextra -Wall -Werror -D_XOPEN_SOURCE_EXTENDED
 #FLAGS =
+INC		=	-I sound/
 LIBFT = ./libft
-LIB = libft/libft.a -lncurses
+LIB = libft/libft.a -lncurses sound/libcommon.a  sound/libsndfile.a
 
 SRC = main.c run_game.c \
 		load_programs.c \
@@ -40,7 +41,8 @@ SRC = main.c run_game.c \
 		mgr_graphics_stats.c	\
 		load_players.c			\
 		printer.c				\
-		matrix.c
+		matrix.c				\
+		cutscene.c
 
 
 SRCO = ${SRC:%.c=%.o}
@@ -51,7 +53,7 @@ MAKE_LIBS		:
 	@make -C libft/
 
 $(NAME): $(SRCO)
-	@gcc -o $(NAME) $(FLAGS) $(SRC) $(LIB)
+	@gcc -o $(NAME) $(FLAGS) $(SRC) $(LIB) $(INC)
 
 %.o: %.c
 	@gcc -c $(FLAGS) $< -o $@

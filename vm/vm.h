@@ -24,7 +24,9 @@
 # ifdef __llvm__
 #  pragma GCC diagnostic ignored "-Wdangling-else"
 # endif
-# define P(x, y, ...) ((x) ? vp(y, ##__VA_ARGS__) : ft_printf(y, ##__VA_ARGS__))
+# define PV(g, y, ...) vp(g, y, ##__VA_ARGS__)
+# define PF(y, ...) ft_printf(y,  ##__VA_ARGS__)
+# define P(g, x, y, ...) ((x) ? PV(g, y, ##__VA_ARGS__) : PF(y, ##__VA_ARGS__))
 
 enum
 {
@@ -72,6 +74,8 @@ typedef struct			s_player
 	char				*file_name;
 }						t_player;
 
+typedef struct s_graphics t_graphics;
+
 typedef struct			s_process
 {
 	uint32_t			types;
@@ -89,6 +93,7 @@ typedef struct			s_process
 	struct s_process	*next;
 	int					vis;
 	int					last_live;
+	t_graphics			*g_ref;
 	int					num_types;
 	char				*file_name;
 }						t_process;
@@ -113,6 +118,7 @@ typedef struct			s_env
 	long				dump_value;
 	long				cycle_value;
 	long				verbose_value;
+	t_graphics			*g_ref;
 	t_player			*new_player;
 	t_process			*new_process;
 	t_process			*new_fork;
@@ -212,6 +218,6 @@ void					lst_players_clr(t_env *e);
 
 int						lst_process_len(t_process *lst);
 int						lst_players_len(t_player *lst);
-int						vp(char *str, ...);
+int						vp(t_graphics *g, char *str, ...);
 void					perform_check(t_env *env);
 #endif

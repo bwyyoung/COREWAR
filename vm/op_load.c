@@ -16,7 +16,7 @@ static void	print_verbosity_four(t_env *env, t_process *process, int op, uint32_
 {
 	if (!env->options[v] || env->verbose_value != 4)
 		return ;
-	P(env->options[visual], "P %4u | %s %d r%d\n", process->process_num,
+	P(env->g_ref, env->options[visual], "P %4u | %s %d r%d\n", process->process_num,
 								get_op_name(op),
 								new_reg_val,
 								process->param_val[1]);
@@ -64,19 +64,20 @@ static void	print_index_verbosity_four(t_env *env, t_process *process, int pc, t
 {
 	if (!env->options[v] || env->verbose_value != 4)
 		return ;
-	P(env->options[visual], "P %4u | %s ", process->process_num,
+	P(env->g_ref, env->options[visual], "P %4u | %s ", process->process_num,
 								get_op_name(process->op));
-	P(env->options[visual], "%d ", index_info->index1);
-	P(env->options[visual], "%d ", index_info->index2);
-	P(env->options[visual], "r%d\n", process->param_val[2]);
-	P(env->options[visual], "       | -> load from %d + %d = %d",
+	P(env->g_ref, env->options[visual], "%d ", index_info->index1);
+	P(env->g_ref, env->options[visual], "%d ", index_info->index2);
+	P(env->g_ref, env->options[visual], "r%d\n", process->param_val[2]);
+	P(env->g_ref, env->options[visual], "       | -> load from %d + %d = %d",
 				index_info->index1,
 				index_info->index2,
 				index_info->index_sum);
 	if (process->op == lldi)
-		P(env->options[visual], " (with pc %d)\n", pc + index_info->index_sum);
+		P(env->g_ref, env->options[visual], " (with pc %d)\n", pc + index_info->index_sum);
 	else
-		P(env->options[visual], " (with pc and mod %d)\n", (pc + (index_info->index_sum % IDX_MOD)) % MEM_SIZE);
+		P(env->g_ref, env->options[visual], " (with pc and mod %d)\n",
+		(pc + (index_info->index_sum % IDX_MOD)) % MEM_SIZE);
 }
 
 static uint32_t	get_new_reg_val(t_env *env, t_process *process, int index_sum)

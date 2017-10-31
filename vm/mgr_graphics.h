@@ -14,6 +14,7 @@
 # define MGR_GRAPHICS_H
 # include "matrix.h"
 # include "libft/libft.h"
+# include "cutscene.h"
 # include "vm.h"
 # include <time.h>
 # include <stdlib.h>
@@ -32,7 +33,7 @@
 # define WORLD_WIDTH 254
 # define WORLD_HEIGHT 68
 # define APP_REFRESH_RATE 10
-# define MAT_REFRESH_RATE 500
+# define MAT_REFRESH_RATE 400
 # define FRAMES_PER_SECOND 60
 # define SKIP_TICKS 1000 / FRAMES_PER_SECOND
 # define APP_KEY_UP 65
@@ -107,4 +108,6 @@ void					render_log(t_graphics *g, t_env *e);
 void					render_player(t_graphics *g, t_env *e);
 void					render_process(t_graphics *g, t_env *e);
 void					render_stats(t_graphics *g, t_env *e);
+
+void					play_cutscene(t_graphics g, t_cutscene *thescene);
 #endif

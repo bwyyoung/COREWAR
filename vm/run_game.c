@@ -21,7 +21,7 @@ void		perform_check(t_env *env)
 	{
 		env->cycle_to_die -= CYCLE_DELTA;
 		if (env->options[v] && env->verbose_value == 2)
-			P(env->options[visual], "Cycle to die is now %d\n", env->cycle_to_die);
+			P(env->g_ref, env->options[visual], "Cycle to die is now %d\n", env->cycle_to_die);
 		env->checks = 0;
 	}
 	else
@@ -56,7 +56,7 @@ void		run_game(t_env *env)
 		env->total_cycles++;
 		env->cycles_since_check++;
 		if (env->options[v] && env->verbose_value == 2)
-			P(env->options[visual], "It is now cycle %d\n", env->total_cycles);
+			P(env->g_ref, env->options[visual], "It is now cycle %d\n", env->total_cycles);
 	}
 }
 

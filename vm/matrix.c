@@ -62,9 +62,7 @@ WINDOW *mainwin, int *flag)
 		if (col->rows[g->mat->j] != '\0')
 		{
 			if ((PROB(10)) || (*flag && PROB(40)))
-			{
 				col->rows[g->mat->j] = matrix_char();
-			}
 			mvwaddch(mainwin, g->mat->j, g->mat->i * 2, col->rows[g->mat->j]);
 			if (*flag == 0)
 				continue ;

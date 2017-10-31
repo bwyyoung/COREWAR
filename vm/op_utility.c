@@ -50,13 +50,13 @@ void		print_verbosity_four_vals(t_process *process)
 	while (num_params--)
 	{
 		if (process->param_type[i] == REG_CODE)
-			P(process->vis, "r");
+			P(process->g_ref, process->vis, "r");
 		if (process->param_type[i] == IND_CODE)
-			P(process->vis, "%d", get_idx_val((int16_t)process->param_val[i]));
+			P(process->g_ref, process->vis, "%d", get_idx_val((int16_t)process->param_val[i]));
 		else
-			P(process->vis, "%d", process->param_val[i]);
+			P(process->g_ref, process->vis, "%d", process->param_val[i]);
 		if (num_params > 0)
-			P(process->vis, " ");
+			P(process->g_ref, process->vis, " ");
 		i++;
 	}
 }

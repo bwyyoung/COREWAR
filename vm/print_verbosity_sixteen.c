@@ -19,12 +19,12 @@ void		print_verbosity_sixteen(t_env *env, t_process *process, int inc, int pc)
 	if (!env->options[v] || env->verbose_value != 16 || inc < 2
 		|| (process->carry && process->op == zjmp))
 		return ;
-	P(env->options[visual], "ADV %d (0x%04x -> 0x%04x) %02x %02x ", inc, pc,
+	P(env->g_ref, env->options[visual], "ADV %d (0x%04x -> 0x%04x) %02x %02x ", inc, pc,
 			pc + inc, process->op, process->types);
 	i = 2;
 	while (i < inc)
 	{
-		P(env->options[visual], "%02x ", get_board_val(env->board, pc + i, 1));
+		P(env->g_ref, env->options[visual], "%02x ", get_board_val(env->board, pc + i, 1));
 		i++;
 	}
 	ft_putchar('\n');
