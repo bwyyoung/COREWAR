@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printer.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/29 17:49:15 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/29 17:49:44 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/30 16:57:53 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void			introduce_players(t_env *env)
 */
 void	declare_winner(t_env *env)
 {
+	if (env->options[d])
+		return ;
 	if (!env->last_live_name)
 		ft_printf("Contestant %d, \"%s\", has won !\n",
 		env->lst_players->prog_num * -1, env->lst_players->name);

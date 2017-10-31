@@ -3,23 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   op_arithmetic.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:13:26 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/28 11:23:22 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/30 21:12:39 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static void	print_verbosity_four(t_env *env, t_process *process, int op)
+static void	print_verbosity_four(t_env *env, t_process *process)
 {
 	if (!env->options[v] || env->verbose_value != 4)
 		return ;
-	P(env->g_ref, env->options[visual], "P %4u | %s ", process->process_num,
-								get_op_name(op));
-	print_verbosity_four_vals(process);
-	P(env->g_ref, env->options[visual], "\n");
+	P(env->g_ref, env->options[visual], "P %4u | %s r%d r%d r%d\n",
+		process->process_num,
+		get_op_name(process->op),
+		process->param_val[0],
+		process->param_val[1],
+		process->param_val[2]);
 }
 
 /*
@@ -28,26 +30,27 @@ static void	print_verbosity_four(t_env *env, t_process *process, int op)
 ** PARAM TYPES: T_REG, T_REG, T_REG
 */
 
-void		op_arithmetic(t_env *env, t_process *process, int op)
+void		op_arithmetic(t_env *env, t_process *process)
 {
-	uint32_t	reg_val1;
-	uint32_t	reg_val2;
-	uint32_t	result;
+	int	reg_val1;
+	int	reg_val2;
+	int	result;
 
-	if (process->param_type[0] != REG_CODE || process->param_type[1] != REG_CODE || process->param_type[2] != REG_CODE)
+	if (process->param_type[0] != REG_CODE
+		|| process->param_type[1] != REG_CODE
+		|| process->param_type[2] != REG_CODE)
 		return ;
 	if (check_param_reg_nums(process, 1, 1, 1))
 		return ;
 	reg_val1 = get_reg_val(process, process->param_val[0]);
 	reg_val2 = get_reg_val(process, process->param_val[1]);
-	result = 0;
-	if (op == add)
+	if (process->op == add)
 		result = reg_val1 + reg_val2;
-	else if (op == sub)
+	else
 		result = reg_val1 - reg_val2;
 	set_reg_val(process, process->param_val[2], result);
 	modify_carry(process, result);
-	print_verbosity_four(env, process, op);
+	print_verbosity_four(env, process);
 }
 
 /*

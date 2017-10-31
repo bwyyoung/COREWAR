@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_utility.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:12:02 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/30 11:16:27 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/30 18:04:28 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,13 @@
 */
 void		inc_pc(t_process *process, int inc)
 {
-	// if (process->regs[0] < 10)
-		// ft_printf("pc %d\n", process->regs[0]);
 	process->regs[0] = (process->regs[0] + inc) % MEM_SIZE;
 }
 
 /*
 ** Modify the carry of a process
 */
-void		modify_carry(t_process *process, uint32_t val)
+void		modify_carry(t_process *process, int val)
 {
 	process->carry = !val;
 }

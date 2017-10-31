@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   op_load.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:18:48 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/28 15:34:03 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/30 18:04:28 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static void	print_verbosity_four(t_env *env, t_process *process, int op, uint32_t new_reg_val)
+static void	print_verbosity_four(t_env *env, t_process *process, int op, int new_reg_val)
 {
 	if (!env->options[v] || env->verbose_value != 4)
 		return ;
@@ -30,13 +30,13 @@ static void	print_verbosity_four(t_env *env, t_process *process, int op, uint32_
 
 void		op_load(t_env *env, t_process *process)
 {
-	uint32_t		new_reg_val;
+	int		new_reg_val;
 
 	if (process->param_type[0] == REG_CODE || process->param_type[1] != REG_CODE)
 		return ;
 	if (check_param_reg_nums(process, 0, 1, 0))
 		return ;
-	new_reg_val = get_param_val(env->board, 0, process, REG_SIZE);
+	new_reg_val = get_param_val(env->board, 0, process);
 	set_reg_val(process, process->param_val[1], new_reg_val);
 	modify_carry(process, new_reg_val);
 	print_verbosity_four(env, process, process->op, new_reg_val);
@@ -80,7 +80,7 @@ static void	print_index_verbosity_four(t_env *env, t_process *process, int pc, t
 		(pc + (index_info->index_sum % IDX_MOD)) % MEM_SIZE);
 }
 
-static uint32_t	get_new_reg_val(t_env *env, t_process *process, int index_sum)
+static int	get_new_reg_val(t_env *env, t_process *process, int index_sum)
 {
 	if (process->op == ldi)
 		return (get_board_val(env->board, (process->regs[0]
@@ -99,21 +99,20 @@ static uint32_t	get_new_reg_val(t_env *env, t_process *process, int index_sum)
 **
 ** (T_REG | T_DIR | T_IND) , (T_DIR | T_REG), T_REG
 */
-void		op_index_load(t_env *env, t_process *process, int op)
+void		op_index_load(t_env *env, t_process *process)
 {
 	int				index1;
 	int				index2;
 	int				index_sum;
-	uint32_t		new_reg_val;
+	int				new_reg_val;
 	t_index_info	*index_info;
-	(void)op;
 
 	if (process->param_type[1] == IND_CODE || process->param_type[2] != REG_CODE)
 		return ;
 	if (check_param_reg_nums(process, 1, 1, 1))
 		return ;
-	index1 = get_param_val(env->board, 0, process, REG_SIZE);
-	index2 = get_param_val(env->board, 1, process, REG_SIZE);
+	index1 = get_param_val(env->board, 0, process);
+	index2 = get_param_val(env->board, 1, process);
 	index_sum = index1 + index2;
 	new_reg_val = get_new_reg_val(env, process, index_sum);
 	set_reg_val(process, process->param_val[2], new_reg_val);
