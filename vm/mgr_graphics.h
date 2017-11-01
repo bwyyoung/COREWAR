@@ -55,6 +55,7 @@ typedef struct			s_graphics
 {
 	WINDOW				*game_window;
 	WINDOW				*border_window;
+	WINDOW				*log_window;
 	WINDOW				*background_window;
 	int					offsetx;
 	int					offsety ;

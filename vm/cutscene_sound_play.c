@@ -62,6 +62,7 @@ t_audio						*ended_audio(t_audio *s, t_mgr_scene *g)
 {
 	t_audio			*new_s;
 	UNUSED(g);
+	SAFE_DELETE(s->outputbuffer);
 	new_s = s->next;
 	if (s->playbackended)
 	{
@@ -71,7 +72,6 @@ t_audio						*ended_audio(t_audio *s, t_mgr_scene *g)
 			s->next->prev = s->prev;
 		if (s == g->sounds)
 			g->sounds = g->sounds->next;
-		SAFE_DELETE(s->outputbuffer);
 		SAFE_DELETE(s->pb);
 		SAFE_DELETE(s);
 	}

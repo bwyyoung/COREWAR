@@ -17,6 +17,7 @@
 # define CHANNEL_COUNT 2
 # include "sound/sndfile.h"
 # include "sound/portaudio.h"
+# define ENABLE_SOUND false
 # define SOUND_BACKGROUND "/sound/burly_brawl.ogg"
 # define SOUND_BEEP "/sound/Powerup14.wav"
 

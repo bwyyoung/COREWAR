@@ -14,10 +14,12 @@
 
 void					snd_play_background_music(t_mgr_scene *snd)
 {
-	play_audio(snd, start, SOUND_BACKGROUND, false);
+	if (ENABLE_SOUND)
+		play_audio(snd, start, SOUND_BACKGROUND, true);
 }
 
 void					snd_play_beep(t_mgr_scene *snd)
 {
-	play_audio(snd, start, SOUND_BEEP, false);
+	if (ENABLE_SOUND)
+		play_audio(snd, start, SOUND_BEEP, true);
 }

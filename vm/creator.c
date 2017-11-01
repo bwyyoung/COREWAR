@@ -30,6 +30,7 @@ t_env		*create_env(uint8_t *board)
 	env->last_live_name = NULL;
 	env->checks = 0;
 	env->i = -1;
+	env->g_ref = NULL;
 	while (++env->i < 7)
 		env->options[env->i] = t_false;
 	env->dump_value = 0;
@@ -98,6 +99,7 @@ t_process	*create_process(t_env *e, t_player *player)
 	process->carry = 0;
 	process->cycles_left = 0;
 	process->vis = e->options[visual];
+	process->g_ref = e->g_ref;
 	process->g_ref = e->g_ref;
 	if (player)
 	{

@@ -15,7 +15,13 @@
 
 int			vp(t_graphics *g,char *str, ...)
 {
-	(void)str;
-	(void)g;
+	va_list		argptr;
+	if (!g)
+		return (0);
+	if (!g->log_window)
+		return (0);
+	va_start(argptr, str);
+	wprintw(g->log_window, str, argptr);
+	va_end(argptr);
 	return (0);
 }

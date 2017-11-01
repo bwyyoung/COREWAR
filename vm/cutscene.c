@@ -15,14 +15,18 @@
 void				init_cutscenes(t_mgr_scene *scene)
 {
 	scene->binary_path = getcwd(NULL, 4096);
-	snd_init_audio(scene);
+	if (ENABLE_SOUND)
+		snd_init_audio(scene);
 }
 
 void				destroy_cutscenes(t_mgr_scene *scene)
 {
-	if (!Pa_IsStreamStopped(scene->stream))
-		Pa_StopStream(scene->stream);
-	snd_delete_playing_audio(scene);
-	snd_destroy_audio(scene);
+	if (ENABLE_SOUND)
+	{
+		if (!Pa_IsStreamStopped(scene->stream))
+			Pa_StopStream(scene->stream);
+		snd_delete_playing_audio(scene);
+		snd_destroy_audio(scene);
+	}
 	SAFE_DELETE(scene->binary_path);
 }

@@ -12,6 +12,8 @@
 
 #include "mgr_graphics.h"
 
+# define ACTUAL_BOARD (BOARD_WIDTH * 2 + BOARD_WIDTH)
+
 void					graphics_start(t_graphics *g)
 {
 	initscr();
@@ -28,6 +30,9 @@ void					graphics_start(t_graphics *g)
 	g->offsety - 1, g->offsetx - 1);
 	g->game_window = newwin(WORLD_HEIGHT, WORLD_WIDTH, g->offsety, g->offsetx);
 	getmaxyx(stdscr, g->max_y, g->max_x);
+	g->log_window = newwin(WORLD_HEIGHT / 2, WORLD_WIDTH - ACTUAL_BOARD,
+	g->offsety + WORLD_HEIGHT / 2, g->offsetx + ACTUAL_BOARD);
+	scrollok(g->log_window, TRUE);
 	cbreak();
 	nodelay(stdscr, TRUE);
 }
@@ -35,7 +40,6 @@ void					graphics_start(t_graphics *g)
 void					graphics_end(t_graphics *g)
 {
 	g->graphics_end = t_true;
-	destroy_cutscenes(&g->mgr_cutscene);
 	delwin(g->game_window);
 	delwin(g->border_window);
 	delwin(g->background_window);
@@ -56,6 +60,7 @@ void					render_start(t_graphics *g)
 	g->j = -1;
 	werase(g->game_window);
 	box(g->border_window, 0 , 0);
+	box(g->log_window, 0 , 0);
 }
 
 void					render_end(t_graphics *g)
@@ -63,5 +68,6 @@ void					render_end(t_graphics *g)
 	wnoutrefresh(g->background_window);
 	wnoutrefresh(g->border_window);
 	wnoutrefresh(g->game_window);
+	wnoutrefresh(g->log_window);
 	doupdate();
 }

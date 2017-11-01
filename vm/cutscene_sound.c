@@ -12,8 +12,6 @@
 
 #include "mgr_graphics.h"
 
-#define PA_LOG_API_CALLS 1
-
 void						snd_init_audio(t_mgr_scene *snd)
 {
 	snd->errorcode = Pa_Initialize();
@@ -44,6 +42,7 @@ void						snd_delete_playing_audio(t_mgr_scene *snd)
 	snd->new_s = snd->sounds;
 	while (snd->new_s)
 	{
+		SAFE_DELETE(snd->new_s->outputbuffer);
 		SAFE_DELETE(snd->new_s->pb);
 		snd->s = snd->new_s->next;
 		SAFE_DELETE(snd->new_s);

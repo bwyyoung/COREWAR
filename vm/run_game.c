@@ -78,8 +78,6 @@ t_graphics	*init_graphics(t_env *e)
 	g->graphics_end = t_false;
 	g->offsetx = (COLS - WORLD_WIDTH) / 2;
 	g->offsety = (LINES - WORLD_HEIGHT) / 2;
-	init_cutscenes(&g->mgr_cutscene);
 	e->g_ref = g;
-	graphics_start(g);
 	return (g);
 }

@@ -18,13 +18,9 @@ t_audiofile					*audio_exists(t_mgr_scene *snd, char *thefile)
 	while (snd->current_audiofile)
 	{
 		if (!ft_strcmp(snd->current_audiofile->file_name, thefile))
-		{
-			ft_printf("Audio Exist\n");
 			return (snd->current_audiofile);
-		}
 		snd->current_audiofile = snd->current_audiofile->next;
 	}
-	ft_printf("Audio Does not Exist\n");
 	return (NULL);
 }
 

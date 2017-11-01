@@ -85,12 +85,17 @@ int			main(int argc, char *argv[])
 	env = create_env(board);
 	parse_flags(env, argc, argv);
 	env->num_players = count_players(env, env->lst_players);
-	load_players(env);
-	introduce_players(env);
 	if (env->options[visual])
+	{
+		//Pa_Initialize();
+		//sleep(2);
+		//Pa_Terminate();
 		graphics_loop(env);
+	}
 	else
 	{
+		load_players(env);
+		introduce_players(env);
 		run_game(env);
 		declare_winner(env);
 	}

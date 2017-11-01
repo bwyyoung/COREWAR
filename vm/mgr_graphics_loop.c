@@ -42,11 +42,16 @@ void		graphics_loop(t_env *e)
 	t_graphics		*g;
 
 	g = init_graphics(e);
+	load_players(e);
+	introduce_players(e);
+	graphics_start(g);
+	init_cutscenes(&g->mgr_cutscene);
 	snd_play_background_music(&g->mgr_cutscene);
 	while (g->app_is_running)
 	{
 		graphics_loop_start(g, e);
 		graphics_loop_end(g);
 	}
+	destroy_cutscenes(&g->mgr_cutscene);
 	graphics_end(g);
 }
