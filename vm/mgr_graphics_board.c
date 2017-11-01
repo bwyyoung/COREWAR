@@ -23,11 +23,9 @@ void		ft_hex(int dec, char *buffer)
 	i = 0;
 	j = 0;
 	quotient = dec;
-	ft_memset((void *)buffer, 48, sizeof(char) * 2);
 	if (dec > 255 || dec < 0 || !buffer)
 		return ;
-	if (dec == 0)
-		buffer[0] = '0';
+	ft_memset((void *)buffer, 48, sizeof(char) * 2);
 	while (quotient != 0)
 	{
 		rest = quotient % 16;

@@ -64,6 +64,7 @@ t_graphics	*init_graphics(t_env *e)
 {
 	t_graphics		*g;
 
+	setlocale(LC_ALL, "");
 	g = (t_graphics *)malloc(sizeof(t_graphics));
 	if (!g)
 		error_exit(e, 22);
@@ -77,38 +78,8 @@ t_graphics	*init_graphics(t_env *e)
 	g->graphics_end = t_false;
 	g->offsetx = (COLS - WORLD_WIDTH) / 2;
 	g->offsety = (LINES - WORLD_HEIGHT) / 2;
-	initscr();
-	noecho();
-	refresh();
-	curs_set(FALSE);
-	return (g);
-}
-
-void		graphics_loop(t_env *e)
-{
-	t_graphics		*g;
-
-	setlocale(LC_ALL, "");
-	g = init_graphics(e);
+	init_cutscenes(&g->mgr_cutscene);
+	e->g_ref = g;
 	graphics_start(g);
-	while (g->app_is_running)
-	{
-		g->current = GetTickCount();
-		g->elapsed = g->current - g->start_time;
-		g->seconds += g->elapsed;
-		g->seconds2 += g->elapsed;
-		get_keyboard_event(g);
-		if (g->seconds > APP_REFRESH_RATE)
-		{
-			g->seconds = 0;
-			update_app(g, e);
-			display_app(g, e);
-		}
-		g->next_app_tick += SKIP_TICKS;
-		g->sleep_time = (g->next_app_tick - GetTickCount());
-		if (g->sleep_time >= 0)
-			usleep((useconds_t)g->sleep_time);
-		g->start_time = g->current;
-	}
-	graphics_end(g);
+	return (g);
 }

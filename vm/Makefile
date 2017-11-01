@@ -13,9 +13,12 @@
 NAME = vm
 FLAGS = -g -Wextra -Wall -Werror -D_XOPEN_SOURCE_EXTENDED
 #FLAGS =
-INC		=	-I sound/
+INC		=-I sound/
 LIBFT = ./libft
-LIB = libft/libft.a -lncurses sound/libcommon.a  sound/libsndfile.a
+LIB = libft/libft.a -lncurses sound/libsndfile.1.dylib
+LINK = -L sound/ -lcommon  -L sound/ -lportaudio -L sound/ -lsndfile
+FRAMEWORK = -framework CoreServices -framework CoreFoundation \
+			-framework AudioUnit -framework AudioToolbox -framework CoreAudio
 
 SRC = main.c run_game.c \
 		load_programs.c \
@@ -42,7 +45,12 @@ SRC = main.c run_game.c \
 		load_players.c			\
 		printer.c				\
 		matrix.c				\
-		cutscene.c
+		cutscene.c				\
+		cutscene_sound.c		\
+		cutscene_sound_load.c	\
+		cutscene_sound_play.c	\
+		mgr_graphics_loop.c		\
+		cutscene_sound_music.c
 
 
 SRCO = ${SRC:%.c=%.o}
@@ -53,7 +61,7 @@ MAKE_LIBS		:
 	@make -C libft/
 
 $(NAME): $(SRCO)
-	@gcc -o $(NAME) $(FLAGS) $(SRC) $(LIB) $(INC)
+	@gcc -o $(NAME) $(FLAGS) $(SRC) $(LIB) $(INC) $(LINK) $(FRAMEWORK)
 
 %.o: %.c
 	@gcc -c $(FLAGS) $< -o $@

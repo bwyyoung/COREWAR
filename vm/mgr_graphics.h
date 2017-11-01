@@ -32,6 +32,8 @@
 # define CYAN_PAIR 6
 # define WORLD_WIDTH 254
 # define WORLD_HEIGHT 68
+# define LOG_WIDTH 60
+# define LOG_HEIGHT 70
 # define APP_REFRESH_RATE 10
 # define MAT_REFRESH_RATE 400
 # define FRAMES_PER_SECOND 60
@@ -48,14 +50,6 @@
 # define BOARD_SPACING 1
 # define BOARD_HEIGHT 64
 # define BOARD_CELL_LENGTH 2
-
-#ifdef WIN32
-#else
-typedef long					DWORD;
-typedef unsigned long			UWORD;
-typedef unsigned short			WORD;
-typedef unsigned int			UNINT32;
-#endif
 
 typedef struct			s_graphics
 {
@@ -79,6 +73,7 @@ typedef struct			s_graphics
 	int					window_index;
 	bool				app_is_running;
 	int					key_pressed;
+	t_mgr_scene				mgr_cutscene;
 	DWORD				start_time;
 	DWORD				next_app_tick;
 	DWORD				current;
@@ -110,4 +105,5 @@ void					render_process(t_graphics *g, t_env *e);
 void					render_stats(t_graphics *g, t_env *e);
 
 void					play_cutscene(t_graphics g, t_cutscene *thescene);
+t_graphics				*init_graphics(t_env *e);
 #endif

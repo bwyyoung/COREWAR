@@ -14,6 +14,10 @@
 
 void					graphics_start(t_graphics *g)
 {
+	initscr();
+	noecho();
+	refresh();
+	curs_set(FALSE);
 	g->margin_x = 2;
 	g->margin_y = 2;
 	g->graphics_end = t_false;
@@ -26,12 +30,12 @@ void					graphics_start(t_graphics *g)
 	getmaxyx(stdscr, g->max_y, g->max_x);
 	cbreak();
 	nodelay(stdscr, TRUE);
-	//wattron(g->game_window, COLOR_PAIR(WHITE_PAIR));
 }
 
 void					graphics_end(t_graphics *g)
 {
 	g->graphics_end = t_true;
+	destroy_cutscenes(&g->mgr_cutscene);
 	delwin(g->game_window);
 	delwin(g->border_window);
 	delwin(g->background_window);

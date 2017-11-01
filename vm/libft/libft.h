@@ -30,7 +30,17 @@
 # define MAGENTA_COLOR "\x1B[35m"
 # define CYAN_COLOR "\x1B[36m"
 # define WHITE_COLOR "\x1B[37m"
+# ifndef UNUSED
+#  define UNUSED(x) ((void)x)
+# endif
 
+# ifndef MAX
+#  define MAX(x, y) (((x) > (y)) ? (x) : (y))
+# endif
+
+# ifndef MIN
+#  define MIN(x, y) (((x) < (y)) ? (x) : (y))
+# endif
 # define SAFE_DELETE(a) if((a) != NULL) free(a); (a) = NULL;
 # ifndef T_BOOL
 #  define T_BOOL
