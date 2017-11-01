@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 20:31:02 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/25 16:18:36 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/30 17:58:27 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,19 @@
 
 static void	print_verbosity_four(t_env *env, t_process *process)
 {
+	int16_t	index;
+	int		pc;
+
+	index = (int16_t)process->param_val[0];
+	pc = process->regs[0];
 	if (!env->options[v] || env->verbose_value != 4)
 		return ;
+	P(env->g_ref, env->options[visual], "P %4u | %s %d ", process->process_num,
+								get_op_name(process->op), index);
 	if (process->op == lfork)
-		ft_printf("P%5u | lfork %d (%d)\n", process->process_num,
-										process->param_val[0],
-										process->param_val[0] + process->regs[0]);
+		P(env->g_ref, env->options[visual], "(%d)\n", pc + index);
 	else
-		ft_printf("P%5u | fork %d (%d)\n", process->process_num,
-										get_idx_val(process->param_val[0]),
-										process->regs[0] + get_idx_val(process->param_val[0]));
+		P(env->g_ref, env->options[visual], "(%d)\n", pc + get_idx_val(index));
 }
 
 /*
@@ -50,6 +53,7 @@ void			fork_variables(t_process *cpy, t_process *original, t_env *e)
 	cpy->param_val[0] = 0;
 	cpy->param_val[1] = 0;
 	cpy->param_val[2] = 0;
+	cpy->last_live = original->last_live;
 	e->j = -1;
 	while (e->j++ < REG_NUMBER)
 		cpy->regs[e->j] = original->regs[e->j];
@@ -57,13 +61,13 @@ void			fork_variables(t_process *cpy, t_process *original, t_env *e)
 
 void			op_forker(t_env *env, t_process *process, int op)
 {
-	if (!(env->new_fork = create_process(env)))
+	if (!(env->new_fork = create_process(env, NULL)))
 		ft_error_errno(NULL);
 	fork_variables(env->new_fork, process, env);
 	if (op == lfork)
-		inc_pc(env->new_fork->regs, process->param_val[0]);
+		inc_pc(env->new_fork, process->param_val[0]);
 	else
-		inc_pc(env->new_fork->regs, get_idx_val(process->param_val[0]));
+		inc_pc(env->new_fork, get_idx_val((int16_t)process->param_val[0]));
 	lst_process_add(env, env->new_fork);
 	print_verbosity_four(env, process);
 }

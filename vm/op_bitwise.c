@@ -3,26 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   op_bitwise.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 19:03:47 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/25 11:58:26 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/31 09:58:47 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
 static void	print_verbosity_four(t_env *env, t_process *process,
-									uint32_t val1, uint32_t val2)
+									int val1, int val2)
 {
 	if (!env->options[v] || env->verbose_value != 4)
 		return ;
-	ft_printf("P%5u | %s ", process->process_num,
+	P(env->g_ref, env->options[visual], "P %4u | %s ", process->process_num,
 								get_op_name(process->op));
-	ft_printf("%d", val1);
-	ft_printf(" %d", val2);
-	ft_printf(" r%d", process->param_val[2]);
-	ft_putchar('\n');
+	P(env->g_ref, env->options[visual], "%d", val1);
+	P(env->g_ref, env->options[visual], " %d", val2);
+	P(env->g_ref, env->options[visual], " r%d", process->param_val[2]);
+	P(env->g_ref, env->options[visual], "\n");
 }
 
 /*
@@ -35,16 +35,16 @@ static void	print_verbosity_four(t_env *env, t_process *process,
 
 void		op_bitwise(t_env *env, t_process *process, int op)
 {
-	uint32_t val1;
-	uint32_t val2;
-	uint32_t result;
+	int val1;
+	int val2;
+	int result;
 
 	if (process->param_type[2] != REG_CODE)
 		return ;
 	if (check_param_reg_nums(process, 1, 1, 1))
 		return ;
-	val1 = get_param_val(env->board, 0, process, DIR_SIZE);
-	val2 = get_param_val(env->board, 1, process, DIR_SIZE);
+	val1 = get_param_val(env->board, 0, process);
+	val2 = get_param_val(env->board, 1, process);
 	if (op == and)
 		result = val1 & val2;
 	else if (op == or)

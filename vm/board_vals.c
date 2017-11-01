@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   board_vals.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 15:01:59 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/19 16:12:35 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/30 22:12:48 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@
 **		The number ff fb is stored as ff fb in C but
 **		on the board it is stored as fb ff.
 */
-uint32_t	get_board_val(uint8_t *board, uint32_t index, uint32_t size)
+int		get_board_val(uint8_t *board, int index, int size)
 {
-	uint8_t			*pval;
-	uint32_t		val;
-	int				i;
+	uint8_t	*pval;
+	int		val;
+	int		i;
 
 	val = 0;
 	i = 0;
@@ -36,18 +36,22 @@ uint32_t	get_board_val(uint8_t *board, uint32_t index, uint32_t size)
 ** Set a value on the board. Though before writing it we have to reverse its endian.
 ** This is because the endian is different between C and the board.
 ** Example:
-**		The number ff fb is stored as ff fb in C but
+**		The number fb ff is stored as ff fb in C but
 **		on the board it is stored as fb ff.
 */
-void		set_board_val(uint8_t *board, uint32_t index, uint32_t size,
-							uint32_t val)
+void		set_board_val(t_env *env, t_process *process, int index, int val)
 {
 	uint8_t		*pval;
+	int			size;
 
+	while (index < 0)
+		index += MEM_SIZE;
+	size = REG_SIZE;
 	pval = (uint8_t*)&val;
 	while (size--)
 	{
-		board[index % MEM_SIZE] = pval[size];
+		env->board[index % MEM_SIZE] = pval[size];
+		env->prog_num_board[index % MEM_SIZE] = process->prog_num;
 		index++;
 	}
 }

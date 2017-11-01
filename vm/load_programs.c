@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:18:29 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/24 18:30:43 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/30 11:22:20 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** The board is already incremented by offset so that all the programs are
 ** evenly spaced on the board.
 */
-void	write_program_to_board(uint8_t *board, int offset, int fd)
+void	write_program_to_board(t_env *env, t_player *player, int offset, int fd)
 {
 	uint8_t	c;
 	int		read_return;
@@ -27,7 +27,9 @@ void	write_program_to_board(uint8_t *board, int offset, int fd)
 	{
 		if (read_return == -1)
 			ft_error_errno(NULL);
-		board[offset++ % MEM_SIZE] = c;
+		env->board[offset % MEM_SIZE] = c;
+		env->prog_num_board[offset % MEM_SIZE] = player->prog_num;
+		offset++;
 	}
 }
 
@@ -52,44 +54,31 @@ uint32_t	rev_endian(uint32_t num)
 ** The file is invalid if it doesn't have the COREWAR_EXEC_MAGIC
 ** at the start of it.
 */
-void	reader(t_env *e, int offset, char *arg)
+void	reader(t_env *e, t_player *player, char *arg)
 {
 	int			fd;
 	uint32_t	magic;
 
-	magic = 0;
 	if (-1 == (fd = open(arg, O_RDONLY)))
-		error_exit(e, 1);
-	if (-1 == read(fd, &magic, 4))
-		error_exit(e, 4);
-	magic = rev_endian(magic);
-	if (magic != COREWAR_EXEC_MAGIC)
-		error_exit(e, 4);
-	if (-1 == lseek(fd, sizeof(uint32_t), 0))
-		error_exit(e, 4);
-	if (-1 == read(fd, e->new_player->name, PROG_NAME_LENGTH))
 		ft_error_errno(NULL);
-	if (-1 == lseek(fd, sizeof(t_header), 0))
+
+	magic = 0;
+	if (-1 == read(fd, &magic, sizeof(magic)))
 		ft_error_errno(NULL);
-	write_program_to_board(e->board, offset, fd);
+	if (rev_endian(magic) != COREWAR_EXEC_MAGIC)
+		error_exit(e, 4);
+	if (-1 == read(fd, player->name, PROG_NAME_LENGTH))
+		ft_error_errno(NULL);
+	if (-1 == lseek(fd, 4, SEEK_CUR)) // check with Palash what this is
+		ft_error_errno(NULL);
+	if (-1 == read(fd, &player->size, sizeof(player->size)))
+		ft_error_errno(NULL);
+	player->size = rev_endian(player->size);
+	if (-1 == read(fd, player->comment, COMMENT_LENGTH))
+		ft_error_errno(NULL);
+	if (-1 == lseek(fd, 4, SEEK_CUR)) // check with Palash what this is
+		ft_error_errno(NULL);
+	write_program_to_board(e, player, e->offset, fd);
 	if (-1 == close(fd))
 		ft_error_errno(NULL);
 }
-
-/*
-** Adds a player to the list of players.
-
-void	add_player_list(t_env *env, t_player *new_player)
-{
-	t_list *new_node;
-
-	if (!(new_node = ft_lstnew(new_player, sizeof(t_player))))
-		ft_error_errno(NULL);
-	if (!env->players)
-		env->players = new_node;
-	else
-	{
-		env->element = env->players;
-		ft_lstadd(&env->players, new_node);
-	}
-}*/

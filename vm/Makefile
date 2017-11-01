@@ -6,15 +6,16 @@
 #    By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/06 18:30:14 by douglas           #+#    #+#              #
-#    Updated: 2017/10/12 17:16:01 by dengstra         ###   ########.fr        #
+#    Updated: 2017/10/29 17:52:41 by dengstra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = vm
-FLAGS = -g -Wextra -Wall -Werror
+FLAGS = -g -Wextra -Wall -Werror -D_XOPEN_SOURCE_EXTENDED
 #FLAGS =
+INC		=	-I sound/
 LIBFT = ./libft
-LIB = libft/libft.a
+LIB = libft/libft.a -lncurses sound/libcommon.a  sound/libsndfile.a
 
 SRC = main.c run_game.c \
 		load_programs.c \
@@ -27,28 +28,46 @@ SRC = main.c run_game.c \
 		error.c			\
 		parse_flags_calc.c \
 		list_players.c		\
-		list_process.c
+		list_process.c		\
+		mgr_graphics.c		\
+		mgr_input.c			\
+		mgr_time.c			\
+		print_verbosity_sixteen.c \
+		vprint.c				\
+		mgr_graphics_board.c	\
+		mgr_graphics_log.c		\
+		mgr_graphics_player.c	\
+		mgr_graphics_process.c	\
+		mgr_graphics_stats.c	\
+		load_players.c			\
+		printer.c				\
+		matrix.c				\
+		cutscene.c
+
 
 SRCO = ${SRC:%.c=%.o}
 
-all: $(NAME)
+all: MAKE_LIBS $(NAME)
 
-$(NAME): $(LIB) $(SRCO)
-	gcc -o $(NAME) $(FLAGS) $(SRC) $(LIB)
+MAKE_LIBS		:
+	@make -C libft/
+
+$(NAME): $(SRCO)
+	@gcc -o $(NAME) $(FLAGS) $(SRC) $(LIB) $(INC)
 
 %.o: %.c
-	gcc -c $(FLAGS) $< -o $@
+	@gcc -c $(FLAGS) $< -o $@
 
 $(LIB):
-	make -C $(LIBFT)
+	@make -C $(LIBFT)
 
 clean:
-	/bin/rm -f $(SRCO)
-	make clean -C $(LIBFT)
+	@/bin/rm -f $(SRCO)
+	@make clean -C $(LIBFT)
 
 fclean: clean
-	/bin/rm -f $(NAME)
-	make fclean -C $(LIBFT)
+	@/bin/rm -f $(NAME)
+	@make fclean -C $(LIBFT)
 
 re: fclean all
 

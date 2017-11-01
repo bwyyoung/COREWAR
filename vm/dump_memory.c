@@ -23,17 +23,17 @@ void	dump_memory(t_env *env)
 	mem_size = MEM_SIZE;
 	i = 0;
 	hex = 0;
-	ft_printf("0x0000 : ");
+	P(env->g_ref, env->options[visual], "0x0000 : ");
 	while (mem_size)
 	{
 		if (mem_size % 0x40 == 0 && i >= 0x40)
 		{
 			hex += 0x40;
-			ft_printf("\n0x%04x : ", hex);
+			P(env->g_ref, env->options[visual], "\n0x%04x : ", hex);
 		}
-		ft_printf("%02x ", board[i]);
+		P(env->g_ref, env->options[visual], "%02x ", board[i]);
 		i++;
 		mem_size--;
 	}
-	ft_printf("\n");
+	P(env->g_ref, env->options[visual], "\n");
 }

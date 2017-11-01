@@ -1,3 +1,24 @@
+./configure --enable-werror
+
+https://github.com/andystanton/sound-example.git
+https://github.com/erikd/libsndfile.git
+
+			//ft_bzero((void *)g->hex, sizeof(char) * 3);
+			//ft_hex(e->board[g->window_index], g->hex);
+
+	//cchar_t		c;
+	//wchar_t		m;
+
+			//c.attr = 0;
+			//m = col->rows[mat->j];
+			//c.chars[0] =  9474;
+			//c.chars[1] = L'\0';			//mvwadd_wch(mainwin, mat->j, mat->i * 2, &c);
+
+export LANG=$LANG.UTF-8
+アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン
+
+"アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
 
 void		free_player(void *content, size_t size)
 {

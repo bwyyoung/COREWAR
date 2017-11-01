@@ -3,15 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:10:13 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/24 18:27:23 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/30 19:56:22 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
+int					is_valid_type(uint8_t type)
+{
+	return (type != DIR_CODE && type != IND_CODE && type != REG_CODE);
+}
+
+int					check_types(t_process *process)
+{
+	int i;
+
+	if (!op_has_type(process->op))
+		return (0);
+	i = 0;
+	while (i < get_num_params(process->op))
+	{
+		if (is_valid_type(process->param_type[i++]))
+			return (1);
+	}
+	return (0);
+}
 /*
 ** Execute the current process op.
 ** First check the type, if it is invalid return ;
@@ -24,13 +43,18 @@
 */
 void				execute_op(t_env *env, t_process *process)
 {
-	int				op;
-	uint32_t		pc;
+	int	op;
+	int	pc;
 
 	pc = process->regs[0];
 	op = process->op;
 	process->types = get_board_val(env->board, pc + 1, 1);
 	get_params(env, process, op);
+	if (check_types(process))
+	{
+		print_verbosity_sixteen(env, process, get_op_size(process), pc);
+		return (inc_pc(process, get_op_size(process)));
+	}
 	if (op == live)
 		op_live(env, process);
 	else if (op == ld || op == lld)
@@ -38,19 +62,20 @@ void				execute_op(t_env *env, t_process *process)
 	else if (op == st || op == sti)
 		op_store(env, process, pc, op);
 	else if (op == add || op == sub)
-		op_arithmetic(env, process, op);
+		op_arithmetic(env, process);
 	else if (op == and || op == or || op == xor)
 		op_bitwise(env, process, op);
 	else if (op == zjmp)
 		op_zjmp(env, process);
 	else if (op == ldi || op == lldi)
-		op_index_load(env, process, op);
+		op_index_load(env, process);
 	else if (op == e_fork || op == lfork)
 		op_forker(env, process, op);
 	else if (op == aff)
 		op_aff(env, process, pc);
 	if (op != zjmp)
-		inc_pc(process->regs, get_op_size(process));
+		inc_pc(process, get_op_size(process));
+	print_verbosity_sixteen(env, process, get_op_size(process), pc);
 }
 
 /*
@@ -66,10 +91,11 @@ void				execute_op(t_env *env, t_process *process)
 ** it can try and execute the new byte that the pc is pointing towards.
 **
 */
-void				execute_process(t_process *process, t_env *env)
+void				execute_process(t_env *env, t_process *process)
 {
 	int				op;
 
+	process->last_live++;
 	if (process->cycles_left == 1)
 	{
 		execute_op(env, process);
@@ -84,7 +110,7 @@ void				execute_process(t_process *process, t_env *env)
 			process->op = op;
 		}
 		else
-			inc_pc(process->regs, 1);
+			inc_pc(process, 1);
 	}
 	else
 		process->cycles_left--;
@@ -100,7 +126,7 @@ void				execute_cycle(t_env *env)
 	cur_process = env->lst_process;
 	while (cur_process)
 	{
-		execute_process(cur_process, env);
+		execute_process(env, cur_process);
 		cur_process = cur_process->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 17:12:50 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/24 18:24:40 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/30 11:19:19 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,13 @@ t_env		*create_env(uint8_t *board)
 	env->checks = 0;
 	env->i = -1;
 	while (++env->i < 7)
-		env->options[env->i] = false;
+		env->options[env->i] = t_false;
 	env->dump_value = 0;
 	env->num_players = 0;
-	env->prog_num = 0xffffffff;
 	env->offset = 0;
 	env->to_die = CYCLE_TO_DIE;
+	env->program_size = 0;
+	ft_bzero(env->prog_num_board, MEM_SIZE);
 	return (env);
 }
 
@@ -54,7 +55,7 @@ uint8_t		*create_board(void)
 	return (board);
 }
 
-t_player	*create_player(uint32_t prog_num)
+t_player	*create_player(char *file_name)
 {
 	t_player	*player;
 
@@ -62,15 +63,19 @@ t_player	*create_player(uint32_t prog_num)
 	if (!player)
 		ft_error_errno(NULL);
 	player->lives = 0;
+	player->size = 0;
+	if (!(player->comment = ft_strnew(COMMENT_LENGTH)))
+		ft_error_errno(NULL);
 	if (!(player->name = ft_strnew(PROG_NAME_LENGTH)))
-		ft_error_errno(NULL);	
-	player->prog_num = prog_num;
+		ft_error_errno(NULL);
+	player->prog_num = 0;
 	player->prev = NULL;
 	player->next = NULL;
+	player->file_name = file_name;
 	return (player);
 }
 
-t_process	*create_process(t_env *e)
+t_process	*create_process(t_env *e, t_player *player)
 {
 	t_process		*process;
 
@@ -81,7 +86,6 @@ t_process	*create_process(t_env *e)
 	process->next = NULL;
 	process->types = 0;
 	process->regs[0] = e->offset;
-	process->regs[1] = e->prog_num;
 	e->i = 1;
 	while (e->i++ < REG_NUMBER)
 		process->regs[e->i] = 0;
@@ -93,11 +97,18 @@ t_process	*create_process(t_env *e)
 	process->param_val[2] = 0;
 	process->carry = 0;
 	process->cycles_left = 0;
-	process->name =  e->new_player->name;
-	process->prog_num = e->new_player->prog_num;
+	process->vis = e->options[visual];
+	process->g_ref = e->g_ref;
+	if (player)
+	{
+		process->name = player->name;
+		process->prog_num = player->prog_num;
+		process->regs[1] = player->prog_num;
+	}
 	process->lives = 0;
 	process->op = 0;
 	process->process_num = e->num_processes + 1;
+	process->last_live = 0;
 	return (process);
 }
 

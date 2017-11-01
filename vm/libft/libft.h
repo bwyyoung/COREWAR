@@ -36,8 +36,8 @@
 #  define T_BOOL
 typedef enum
 {
-	false,
-	true
+	t_false,
+	t_true
 }	t_bool;
 # endif
 # define ABS(value)  (value > 0 ? value : -value)

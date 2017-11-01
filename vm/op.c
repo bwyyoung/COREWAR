@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2017/10/24 16:21:16 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/31 10:38:34 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ t_op	g_op_tab[17] =
 	{"add", 3, {T_REG, T_REG, T_REG}, 10, 1, 0, 0},
 	{"sub", 3, {T_REG, T_REG, T_REG}, 10, 1, 0, 0},
 	{"and", 3, {T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG},
-					6, 1, 4, 0},
+					6, 1, 4, 1},
 	{"or", 3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG},
-					6, 1, 4, 0},
+					6, 1, 4, 1},
 	{"xor", 3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG},
-					6, 1, 4, 0}, 
+					6, 1, 4, 1}, 
 	{"zjmp", 1, {T_DIR}, 20, 0, 2, 1},
 	{"ldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 25, 1, 2, 1},
 	{"sti", 3, {T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG}, 25, 1, 2, 1},
@@ -64,12 +64,12 @@ int			op_has_type(int op)
 	return (g_op_tab[op].has_type);
 }
 
-uint32_t	get_cycles(int op)
+int			get_cycles(int op)
 {
 	return (g_op_tab[op].cycles);
 }
 
-uint32_t	get_label_size(int op)
+int			get_label_size(int op)
 {
 	return (g_op_tab[op].label_size);
 }

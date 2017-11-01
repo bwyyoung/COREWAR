@@ -1,15 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */ /*   main.c                                             :+:      :+:    :+:   */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 13:26:46 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/19 15:32:45 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/10/29 17:50:46 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+#include "mgr_graphics.h"
 
 t_bool		add_option(t_env *e, char **argv, int *i, int argc)
 {
@@ -25,42 +27,40 @@ t_bool		add_option(t_env *e, char **argv, int *i, int argc)
 		return (add_binary(e));
 	else if (ft_strequ(argv[*i], "--stealth"))
 		return (add_stealth(e));
-	return (false);
+	return (t_false);
+}
+
+int				count_players(t_env *env, t_player *player)
+{
+	int num_players;
+
+	num_players = 0;
+	while (player)
+	{
+		num_players++;
+		player = player->next;
+	}
+	if (num_players == 0)
+	{
+		print_instructions();
+		exit(1);
+	}
+	else if (num_players > MAX_PLAYERS)
+		error_exit(env, 8);
+	return (num_players);
 }
 
 void			parse_flags(t_env *e, int argc, char **argv)
 {
-	int	i;
+	int			i;
 
 	i = 0;
-	e->num_players = 0;
 	while (++i < argc)
 	{
 		if (!add_option(e, argv, &i, argc) && (i < argc))
 			add_player(e, argv, &i);
-		if (e->num_players > MAX_PLAYERS)
-			error_exit(e, 8);
 	}
 }
-
-
-/*
-** Declare the winner of the game.
-** If no player has gotten a live then the player who was added last wins.
-** So if there are four player player 4 will win.
-** Else the player who has gotten the last live wins
-*/
-void	declare_winner(t_env *env)
-{
-	if (!env->last_live_name)
-		ft_printf("Contestant %d, \"%s\", has won !\n",
-		env->lst_players->prog_num * -1, env->lst_players->name);
-	else
-		ft_printf("Contestant %d, \"%s\", has won !\n",
-		env->last_live_num * -1,
-		env->last_live_name);
-}
-
 
 void		delete_env(t_env *env)
 {
@@ -80,13 +80,20 @@ int			main(int argc, char *argv[])
 		print_instructions();
 		return (0);
 	}
+	srand(time(NULL));
 	board = create_board();
 	env = create_env(board);
 	parse_flags(env, argc, argv);
-	run_game(env);
-	declare_winner(env);
-	ft_printf("cycle_to_die %d\n", env->cycle_to_die);
-	ft_printf("total cycles %d\n", env->total_cycles);
+	env->num_players = count_players(env, env->lst_players);
+	load_players(env);
+	introduce_players(env);
+	if (env->options[visual])
+		graphics_loop(env);
+	else
+	{
+		run_game(env);
+		declare_winner(env);
+	}
 	delete_env(env);
 	return (0);
 }
