@@ -6,7 +6,7 @@
 /*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/18 17:53:46 by ppatel            #+#    #+#             */
-/*   Updated: 2017/10/20 12:58:15 by ppatel           ###   ########.fr       */
+/*   Updated: 2017/10/26 16:27:05 by ppatel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,10 @@ void		lexical_analyser(int fd, t_env *env)
 	char	*line;
 	int		i;
 	int		quotation;
+	int		ret;
 
 	quotation = 0;
-	while (get_next_line(fd, &line) > 0)
+	while ((ret = get_next_line(fd, &line)) > 0)
 	{
 		i = 0;
 		env->line = env->line + 1;
@@ -116,4 +117,6 @@ void		lexical_analyser(int fd, t_env *env)
 		}
 		free(line);
 	}
+	if (ret == 0 && line && line[0])
+		ft_exit("Error: File not ended with Newline");
 }
