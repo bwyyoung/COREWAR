@@ -48,9 +48,9 @@ void		graphics_loop(t_env *e)
 	introduce_players(e);
 	graphics_start(g);
 	init_cutscenes(&g->mgr_cutscene);
-	//play_cutscene(g, VIDEO_THE_ONE);
+	play_cutscene(g, VIDEO_THE_ONE);
 	//snd_play_background_music(&g->mgr_cutscene);
-	play_cutscene(g, VIDEO_BULLET_TIME);
+	//play_cutscene(g, VIDEO_BULLET_TIME);
 	while (g->app_is_running)
 	{
 		graphics_loop_start(g, e);

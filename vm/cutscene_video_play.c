@@ -37,7 +37,6 @@ void					forward_cutscene(t_graphics *g, t_cutscene *thescene)
 
 void					render_cutscene(t_graphics *g)
 {
-	werase(g->video_window);
 	wattron(g->video_window, COLOR_PAIR(GREEN_PAIR));
 	box(g->video_window, 0 , 0);
 	forward_cutscene(g, g->mgr_cutscene.current_cutscene);

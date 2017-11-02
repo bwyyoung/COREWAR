@@ -19,7 +19,7 @@
 # include "sound/sndfile.h"
 # include "sound/portaudio.h"
 # define ENABLE_SOUND true
-# define SOUND_BACKGROUND "/sound/burly_brawl.ogg"
+# define SOUND_BACKGROUND "/sound/burly_brawl2.ogg"
 # define SOUND_BULLET_TIME "/sound/bullet_time.ogg"
 # define SOUND_THE_ONE "/sound/the_one.ogg"
 

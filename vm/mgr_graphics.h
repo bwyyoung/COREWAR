@@ -15,7 +15,7 @@
 # include "matrix.h"
 # include "libft/libft.h"
 # include "cutscene.h"
-# include "vm.h"
+# include <fcntl.h>
 # include <time.h>
 # include <stdlib.h>
 # include <ncurses.h>
@@ -23,7 +23,6 @@
 #  include <mach/clock.h>
 #  include <mach/mach.h>
 # endif
-# define _POSIX_C_SOURCE >= 199309L
 # define WHITE_PAIR 1
 # define GREEN_PAIR 2
 # define YELLOW_PAIR 3
@@ -31,7 +30,7 @@
 # define MAGENTA_PAIR 5
 # define CYAN_PAIR 6
 # define WORLD_WIDTH 254
-# define WORLD_HEIGHT 68
+# define WORLD_HEIGHT 72
 # define LOG_WIDTH 60
 # define LOG_HEIGHT 70
 # define APP_REFRESH_RATE 10
@@ -50,6 +49,8 @@
 # define BOARD_SPACING 1
 # define BOARD_HEIGHT 64
 # define BOARD_CELL_LENGTH 2
+
+typedef struct s_env	t_env;
 
 typedef struct			s_graphics
 {
@@ -87,6 +88,8 @@ typedef struct			s_graphics
 	char				hex[3];
 	char				*buffer;
 }						t_graphics;
+
+void					ft_error_errno(char *msg);
 
 void					graphics_start(t_graphics *g);
 void					graphics_end(t_graphics *g);
