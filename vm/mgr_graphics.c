@@ -23,7 +23,7 @@ void					graphics_start(t_graphics *g)
 	g->margin_x = 2;
 	g->margin_y = 2;
 	g->graphics_end = t_false;
-	g->offsetx = (COLS - WORLD_WIDTH) / 2;
+	g->offsetx = (COLS - WORLD_WIDTH) / 2 + 7;
 	g->offsety = (LINES - WORLD_HEIGHT) / 2;
 	init_matrix(&g->background_window, &g->mat);
 	g->border_window = newwin(WORLD_HEIGHT + 2, WORLD_WIDTH + 2,

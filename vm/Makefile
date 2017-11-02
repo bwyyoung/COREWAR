@@ -16,7 +16,7 @@ FLAGS = -g -Wextra -Wall -Werror -D_XOPEN_SOURCE_EXTENDED
 INC		=-I sound/
 LIBFT = ./libft
 LIB = libft/libft.a -lncurses sound/libsndfile.1.dylib
-LINK = -L sound/ -lcommon  -L sound/ -lportaudio -L sound/ -lsndfile
+LINK = -L sound/ -lcommon  -L sound/ -lportaudio -Lsound/ -lsndfile
 FRAMEWORK = -framework CoreServices -framework CoreFoundation \
 			-framework AudioUnit -framework AudioToolbox -framework CoreAudio
 
