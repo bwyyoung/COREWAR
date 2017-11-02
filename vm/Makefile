@@ -12,13 +12,20 @@
 
 NAME = vm
 FLAGS = -g -Wextra -Wall -Werror -D_XOPEN_SOURCE_EXTENDED
-#FLAGS =
+### You need to cp sound/libsndfile.1.dylib /usr/local/lib/libsndfile.1.dylib
 INC		=-I sound/
 LIBFT = ./libft
+mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
+current_dir := $(notdir $(patsubst %/,%,$(dir $(mkfile_path))))
 LIB = libft/libft.a -lncurses sound/libsndfile.1.dylib
-LINK = -L sound/ -lcommon  -L sound/ -lportaudio -Lsound/ -lsndfile
+SOUND = $(PWD)/sound
+LINK = -L sound/ -lcommon  -L sound/ -lportaudio -L$(PWD)/sound -lsndfile
 FRAMEWORK = -framework CoreServices -framework CoreFoundation \
 			-framework AudioUnit -framework AudioToolbox -framework CoreAudio
+SHELL=/bin/bash
+SOUND = $(PWD)/sound
+
+#export LD_LIBRARY_PATH := $(shell /bin/pwd)/sound:$(LD_LIBRARY_PATH)
 
 SRC = main.c run_game.c \
 		load_programs.c \
@@ -63,8 +70,7 @@ MAKE_LIBS		:
 	@make -C libft/
 
 $(NAME): $(SRCO)
-	@gcc -o $(NAME) $(FLAGS) $(SRC) $(LIB) $(INC) $(LINK) $(FRAMEWORK)
-	@cp sound/libsndfile.1.dylib /usr/local/lib/libsndfile.1.dylib
+	gcc -o $(NAME) $(FLAGS) $(SRC) $(LIB) $(INC) $(LINK) $(FRAMEWORK)
 
 %.o: %.c
 	@gcc -c $(FLAGS) $< -o $@
