@@ -12,15 +12,20 @@
 
 #ifndef CUTSCENE_H
 # define CUTSCENE_H
-# define SCENE_FRAME_HEIGHT 58
+# define CUTSCENE_WIDTH 200
+# define CUTSCENE_HEIGHT 60
 # define SAMPLE_RATE 44100
 # define CHANNEL_COUNT 2
 # include "sound/sndfile.h"
 # include "sound/portaudio.h"
-# define ENABLE_SOUND false
+# define ENABLE_SOUND true
 # define SOUND_BACKGROUND "/sound/burly_brawl.ogg"
-# define SOUND_BEEP "/sound/Powerup14.wav"
+# define SOUND_BULLET_TIME "/sound/bullet_time.ogg"
+# define SOUND_THE_ONE "/sound/the_one.ogg"
 
+# define SOUND_BEEP "/sound/Powerup14.wav"
+# define VIDEO_BULLET_TIME "/animation/bullet_time.txt"
+# define VIDEO_THE_ONE "/animation/the_one.txt"
 # ifdef WIN32
 #  else
 typedef long					DWORD;
@@ -71,20 +76,29 @@ typedef struct				s_audio
 typedef struct				s_scene_frame
 {
 	char					**frame;
-	struct s_scene_frame	*prev;
 	struct s_scene_frame	*next;
 }							t_scene_frame;
 
 typedef struct				s_cutscene
 {
 	t_scene_frame			*animation;
+	t_scene_frame			*current;
+	t_scene_frame			*prev;
 	char					*video_file;
-	PaError					errorcode;
+	char					*full_path;
+	struct s_cutscene		*next;
+	int						pfd;
+	int						index;
+	int						status;
+	int						refresh_rate;
+	char					*line;
 }							t_cutscene;
 
 typedef struct 				s_mgr_scene
 {
 	t_cutscene				*cutscenes;
+	t_cutscene				*new_cutscene;
+	t_cutscene				*current_cutscene;
 	t_audio					*sounds;
 	t_audiofile				*audiofiles;
 	t_audiofile				*current_audiofile;
@@ -98,9 +112,10 @@ typedef struct 				s_mgr_scene
 	PaStreamParameters		*no_input;
 	PaStreamCallback		*streamcallback;
 	UWORD					stereoframecount;
+	bool					is_scene_playing;
 }							t_mgr_scene;
 
-t_scene_frame				*load_cutscene_video(char *file);
+void						load_cutscene_video(t_cutscene *s);
 void						load_cutscene_audio(t_cutscene *scene, char *file);
 void 						snd_processevent(enum audioeventtype t,
 							t_audiofile *af,
@@ -138,4 +153,7 @@ int							portaudiocallback(const void *input,
 								PaStreamCallbackFlags statusFlags,
 								void *userData);
 void						snd_delete_playing_audio(t_mgr_scene *snd);
+void 						snd_play_bullet_time(t_mgr_scene *snd);
+void 						snd_play_the_one(t_mgr_scene *snd);
+
 #endif

@@ -1,3 +1,123 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: byoung-w <byoung-w@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2014/09/10 11:29:24 by byoung-w          #+#    #+#             */
+/*   Updated: 2014/09/10 11:29:28 by byoung-w         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "get_next_line.h"
+#include "libft.h"
+# include <string.h>
+# include <unistd.h>
+# include <fcntl.h>
+#include <stdio.h>
+#include <errno.h>
+
+int		errorcheck(char *thefile)
+{
+	if (errno == EISDIR)
+	{
+		ft_putstr("cat: ");
+		ft_putstr(thefile);
+		ft_putstr("Is a directory\n");
+		return (0);
+	}
+	return (1);
+}
+
+void	readfile(char *thefile)
+{
+	int		pfd;
+	int		pfd2;
+	char	*line;
+	char	*line2;
+	int		status;
+	int		i;
+
+	(void)line;
+	(void)line2;
+	printf("\nOPENING FILE\n");
+	pfd = open("get_next_line.c", O_RDONLY);
+	pfd2 = open("lorem.txt", O_RDONLY);
+	printf("\nOPENED FILE\n");
+	if (pfd < 0)
+	{
+		ft_putstr("Cannot open ");
+		ft_putstr(thefile);
+		ft_putstr("\n");
+		return ;
+	}
+	i = 0;
+	if (errorcheck(thefile))
+	{
+		line = NULL;
+		line2 = NULL;
+		printf("\nWHILE LOOP\n");
+		while ((status = get_next_line(pfd, &line)))
+		{
+			printf("\nLOREM %i _%i %i: %s", pfd, i, status, line);
+			status = get_next_line(pfd2, &line2);
+			printf("\nLOREM %i _%i %i: %s\n", pfd2, i, status, line2);
+			i++;
+		}
+		printf("\nCLOSING FILE %i\n", pfd);
+		if (close(pfd) == -1)
+			ft_putstr("close() error\n");
+		if (close(pfd2) == -1)
+			ft_putstr("close() error\n");
+	}
+}
+
+void	catwrite(void)
+{
+	char buff;
+
+	while (read(0, &buff, 1) != 0)
+		write (1, &buff, 1);
+}
+
+void	readallfiles(int argc, char **argv)
+{
+	int		i;
+
+	i = 0;
+	while (argc > 0)
+	{
+		if (argv[i][0] == '-')
+			catwrite();
+		readfile(*argv);
+		argv++;
+		argc--;
+		i++;
+	}
+}
+
+int		main(int argc, char **argv)
+{
+	int numargs;
+
+	numargs = argc - 1;
+	argc--;
+	printf("\nPROGRAM START\n");
+	if (numargs < 1)
+	{
+		catwrite();
+		return (0);
+	}
+	else
+	{
+		argv++;
+		readallfiles(argc, argv);
+	}
+	return (0);
+}
+
+
 if (audio_exists(snd, thefile))
 		{
 			audio_exists(snd, thefile)->pb->position = 0;

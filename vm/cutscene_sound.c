@@ -39,6 +39,10 @@ void						snd_init_audio(t_mgr_scene *snd)
 
 void						snd_delete_playing_audio(t_mgr_scene *snd)
 {
+	if (!snd)
+		return ;
+	if (!Pa_IsStreamStopped(snd->stream))
+		Pa_StopStream(snd->stream);
 	snd->new_s = snd->sounds;
 	while (snd->new_s)
 	{
@@ -55,6 +59,8 @@ void						snd_destroy_audio(t_mgr_scene *snd)
 {
 	if (!snd)
 		return ;
+	if (!Pa_IsStreamStopped(snd->stream))
+		Pa_StopStream(snd->stream);
 	snd->current_audiofile = snd->audiofiles;
 	while (snd->current_audiofile)
 	{

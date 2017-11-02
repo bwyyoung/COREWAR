@@ -35,7 +35,7 @@
 # define LOG_WIDTH 60
 # define LOG_HEIGHT 70
 # define APP_REFRESH_RATE 10
-# define MAT_REFRESH_RATE 400
+# define MAT_REFRESH_RATE 500
 # define FRAMES_PER_SECOND 60
 # define SKIP_TICKS 1000 / FRAMES_PER_SECOND
 # define APP_KEY_UP 65
@@ -57,6 +57,7 @@ typedef struct			s_graphics
 	WINDOW				*border_window;
 	WINDOW				*log_window;
 	WINDOW				*background_window;
+	WINDOW				*video_window;
 	int					offsetx;
 	int					offsety ;
 	int					max_y;
@@ -81,6 +82,7 @@ typedef struct			s_graphics
 	DWORD				elapsed;
 	DWORD				seconds;
 	DWORD				seconds2;
+	DWORD				seconds3;
 	DWORD				sleep_time;
 	char				hex[3];
 	char				*buffer;
@@ -104,7 +106,7 @@ void					render_log(t_graphics *g, t_env *e);
 void					render_player(t_graphics *g, t_env *e);
 void					render_process(t_graphics *g, t_env *e);
 void					render_stats(t_graphics *g, t_env *e);
-
-void					play_cutscene(t_graphics g, t_cutscene *thescene);
+void					render_cutscene(t_graphics *g);
+void 					play_cutscene(t_graphics *g, char *name);
 t_graphics				*init_graphics(t_env *e);
 #endif

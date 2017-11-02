@@ -23,3 +23,15 @@ void					snd_play_beep(t_mgr_scene *snd)
 	if (ENABLE_SOUND)
 		play_audio(snd, start, SOUND_BEEP, true);
 }
+
+void 					snd_play_bullet_time(t_mgr_scene *snd)
+{
+	if (ENABLE_SOUND)
+		play_audio(snd, start, SOUND_BULLET_TIME, false);
+}
+
+void 						snd_play_the_one(t_mgr_scene *snd)
+{
+	if (ENABLE_SOUND)
+		play_audio(snd, start, SOUND_THE_ONE, false);
+}

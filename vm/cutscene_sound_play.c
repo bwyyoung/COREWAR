@@ -105,6 +105,8 @@ int							portaudiocallback(const void * input,
 		cursor_audio(G->s, G);
 		G->s = ended_audio(G->s, G);
 	}
+	if (!G->sounds)
+		return (paComplete);
 	return (paContinue);
 }
 

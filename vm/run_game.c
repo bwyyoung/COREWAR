@@ -68,6 +68,7 @@ t_graphics	*init_graphics(t_env *e)
 	g = (t_graphics *)malloc(sizeof(t_graphics));
 	if (!g)
 		error_exit(e, 22);
+	g->log_window = NULL;
 	g->start_time = GetTickCount();
 	g->next_app_tick = g->start_time;
 	g->sleep_time = 0;

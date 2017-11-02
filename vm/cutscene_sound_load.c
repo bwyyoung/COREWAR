@@ -91,7 +91,6 @@ int							play_audio(t_mgr_scene *snd,
 	}
 	else if (type == stop)
 	{
-		Pa_StopStream(snd->stream);
 		snd_delete_playing_audio(snd);
 	}
 	return (0);
