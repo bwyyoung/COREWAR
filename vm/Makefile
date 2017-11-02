@@ -64,7 +64,7 @@ MAKE_LIBS		:
 
 $(NAME): $(SRCO)
 	@gcc -o $(NAME) $(FLAGS) $(SRC) $(LIB) $(INC) $(LINK) $(FRAMEWORK)
-	cp sound/libsndfile.1.dylib /usr/local/lib/libsndfile.1.dylib
+	@cp sound/libsndfile.1.dylib /usr/local/lib/libsndfile.1.dylib
 
 %.o: %.c
 	@gcc -c $(FLAGS) $< -o $@
