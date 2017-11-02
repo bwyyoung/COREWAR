@@ -26,8 +26,8 @@
 #  pragma GCC diagnostic ignored "-Wdangling-else"
 # endif
 # define WP2(g, y, ...) wprintw(g->log_window, y,  ##__VA_ARGS__)
-# define WP(g, y, ...) ((g->log_window != 0) ? WP2((g), (y), ##__VA_ARGS__) : 0)
-# define PV(g, y, ...) ((g != 0) ? WP((g), (y), ##__VA_ARGS__) : 0)
+# define WP(g, y, ...) ((g->log_window != 0) ? WP2(g, y, ##__VA_ARGS__) : 0)
+# define PV(g, y, ...) ((g != 0) ? WP(g, y, ##__VA_ARGS__) : 0)
 # define PF(y, ...) ft_printf(y,  ##__VA_ARGS__)
 # define P(g, x, y, ...) ((x) ? PV(g, y, ##__VA_ARGS__) : PF(y, ##__VA_ARGS__))
 
