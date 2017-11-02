@@ -32,8 +32,8 @@ void					graphics_start(t_graphics *g)
 	getmaxyx(stdscr, g->max_y, g->max_x);
 	g->video_window = newwin(WORLD_HEIGHT + 2, CUTSCENE_WIDTH + 2,
 		g->offsety - 1, g->offsetx - 11);
-	g->log_window = newwin(WORLD_HEIGHT / 2, WORLD_WIDTH - ACTUAL_BOARD,
-	g->offsety + WORLD_HEIGHT / 2, g->offsetx + ACTUAL_BOARD);
+	g->log_window = newwin(WORLD_HEIGHT / 2, WORLD_WIDTH - ACTUAL_BOARD + 2,
+	g->offsety + WORLD_HEIGHT / 2 + 1, g->offsetx + ACTUAL_BOARD - 1);
 	scrollok(g->log_window, TRUE);
 	cbreak();
 	nodelay(stdscr, TRUE);
@@ -63,6 +63,7 @@ void					render_start(t_graphics *g)
 	g->i = -1;
 	g->j = -1;
 	werase(g->game_window);
+	werase(g->video_window);
 	box(g->border_window, 0 , 0);
 	box(g->log_window, 0 , 0);
 }
@@ -73,7 +74,7 @@ void					render_end(t_graphics *g)
 	wnoutrefresh(g->border_window);
 	wnoutrefresh(g->game_window);
 	wnoutrefresh(g->log_window);
-	//if (g->mgr_cutscene.is_scene_playing)
+	if (g->mgr_cutscene.is_scene_playing)
 		wnoutrefresh(g->video_window);
 	doupdate();
 }

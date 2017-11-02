@@ -70,7 +70,7 @@ MAKE_LIBS		:
 	@make -C libft/
 
 $(NAME): $(SRCO)
-	gcc -o $(NAME) $(FLAGS) $(SRC) $(LIB) $(INC) $(LINK) $(FRAMEWORK)
+	@gcc -o $(NAME) $(FLAGS) $(SRC) $(LIB) $(INC) $(LINK) $(FRAMEWORK)
 
 %.o: %.c
 	@gcc -c $(FLAGS) $< -o $@
