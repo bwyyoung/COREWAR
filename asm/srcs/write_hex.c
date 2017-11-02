@@ -6,7 +6,7 @@
 /*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/18 19:22:16 by ppatel            #+#    #+#             */
-/*   Updated: 2017/10/23 16:53:01 by ppatel           ###   ########.fr       */
+/*   Updated: 2017/11/02 17:02:46 by ppatel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void		fill_header(t_env *env)
 
 	if (!(header = (t_header *)malloc(sizeof(t_header))))
 		ft_exit("Malloc Error.");
+	ft_bzero(header, sizeof(t_header));
 	header->magic = COREWAR_EXEC_MAGIC;
 	header->prog_size = env->pc;
 	str = env->token->next;
