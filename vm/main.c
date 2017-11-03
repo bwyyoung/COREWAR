@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 13:26:46 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/29 17:50:46 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/03 20:51:32 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ t_bool		add_option(t_env *e, char **argv, int *i, int argc)
 		return (add_binary(e));
 	else if (ft_strequ(argv[*i], "--stealth"))
 		return (add_stealth(e));
+	else if (ft_strequ(argv[*i], "-a"))
+		return (e->options[a] = t_true);
 	return (t_false);
 }
 
@@ -66,36 +68,29 @@ void		delete_env(t_env *env)
 {
 	lst_process_clr(env);
 	lst_players_clr(env);
-	SAFE_DELETE(env->board);
 	SAFE_DELETE(env);
 }
 
 int			main(int argc, char *argv[])
 {
-	uint8_t			*board;
 	t_env			*env;
 
+	// ft_printf("hello\n");
 	if (argc < 2)
 	{
 		print_instructions();
 		return (0);
 	}
 	srand(time(NULL));
-	board = create_board();
-	env = create_env(board);
+	env = create_env();
 	parse_flags(env, argc, argv);
 	env->num_players = count_players(env, env->lst_players);
+	load_players(env);
+	introduce_players(env);
 	if (env->options[visual])
-	{
-		//Pa_Initialize();
-		//sleep(2);
-		//Pa_Terminate();
 		graphics_loop(env);
-	}
 	else
 	{
-		load_players(env);
-		introduce_players(env);
 		run_game(env);
 		declare_winner(env);
 	}

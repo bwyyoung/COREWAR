@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   op_live.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:22:29 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/30 18:15:54 by douglas          ###   ########.fr       */
+/*   Updated: 2017/11/02 20:33:37 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static void	print_verbosity_four(t_env *env, t_process *process)
+static void		print_verbosity_four(t_env *env, t_process *process)
 {
 	if (!env->options[v] || env->verbose_value != 4)
 		return ;
-	P(env->g_ref, env->options[visual], "P %4u | live %d\n", process->process_num,
-									process->param_val[0]);
+	P(env->g_ref, env->options[visual], "P %4u | live %d\n",
+						process->process_num, process->param_val[0]);
 }
 
 t_player		*add_live(t_env *env, int prog_num)
@@ -39,8 +39,10 @@ t_player		*add_live(t_env *env, int prog_num)
 
 /*
 ** A processes needs to call the live op once before a check or it will die.
-** It does not matter for the process what the param is, but the param matters to the player.
-** If the param matches the player's number the player is now the last player to have gotten a live.
+** It does not matter for the process what the param is,
+** but the param matters to the player.
+** If the param matches the player's number the player is now the last
+** player to have gotten a live.
 ** The last player at the end of the game that has gotten a live wins.
 */
 
@@ -62,15 +64,3 @@ void			op_live(t_env *env, t_process *process)
 	print_verbosity_four(env, process);
 	process->last_live = 0;
 }
-
-/*
-// 42
-live: The instruction that allows a process to stay alive. It can also record that
-the player whose number is the argument is indeed alive. No argument’s coding
-byte, opcode 0x01. Oh and its only argument is on 4 bytes.
-
-// epitech
-Followed by 4 bytes representing the player name.
-This instruction indicates that the player is alive.
-(No parameter encoding byte).
-*/

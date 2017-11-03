@@ -6,7 +6,7 @@
 /*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 17:36:41 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/30 18:04:27 by douglas          ###   ########.fr       */
+/*   Updated: 2017/11/02 10:16:38 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,5 @@ int		get_reg_val(t_process *process, int reg_num)
 
 void	set_reg_val(t_process *process, int reg_num, int new_val)
 {
-	if (is_reg_num_invalid(reg_num))
-		return ;
 	process->regs[reg_num] = new_val;
 }

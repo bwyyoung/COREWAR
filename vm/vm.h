@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 15:37:30 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/30 19:56:32 by douglas          ###   ########.fr       */
+/*   Updated: 2017/11/03 20:35:18 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,9 @@ enum
 	v,
 	b,
 	stealth,
-	debug
+	debug,
+	n,
+	a
 }					e_options;
 
 typedef struct			s_player
@@ -108,14 +110,14 @@ typedef struct			s_env
 	long				total_cycles;
 	int					lives_since_check;
 	uint32_t			num_processes;
-	uint8_t				*board;
+	uint8_t				board[MEM_SIZE];
 	t_list				*element;
 	t_player			*lst_players;
 	t_process			*lst_process;
 	int					last_live_num;
 	char				*last_live_name;
 	int					checks;
-	int					options[6];
+	int					options[10];
 	int					num_players;
 	int					to_die;
 	long				dump_value;
@@ -127,6 +129,7 @@ typedef struct			s_env
 	t_process			*new_fork;
 	uint32_t			prog_num_board[MEM_SIZE];
 	uint32_t			offset;
+	t_op				*op_tab;
 
 	int					i;
 	int					j;
@@ -144,22 +147,17 @@ typedef struct			s_index_info
 	int					index_sum;
 }						t_index_info;
 
+t_op					*get_op_tab(void);
+int						get_board_pos(int val);
 void					declare_winner(t_env *env);
 void					introduce_players(t_env *env);
 void					load_players(t_env *env);
 void					print_verbosity_sixteen(t_env *env, t_process *process, int inc, int pc);
 t_index_info			*create_index_info(int index1, int index2, int index_sum);
-int						check_param_reg_nums(t_process *process, int p0, int p1, int p2);
-void					print_verbosity_four_vals(t_process *process);
+int						check_param_reg_nums(t_process *process);
 void					ft_error_errno(char *msg);
 void					ft_error(char *msg);
-char					*get_op_name(int op);
-int						op_uses_idx(int op);
-int						op_has_type(int op);
-int						get_label_size(int op);
-int						get_cycles(int op);
-int						get_num_params(int op);
-int						get_op_size(t_process *process);
+int						get_op_size(t_env *env, t_process *process);
 int						is_types_invalid(int op, uint8_t types);
 int						valid_reg_num(int reg_num);
 int16_t					get_idx_val(int16_t val);
@@ -167,10 +165,10 @@ void					load_programs(t_env *env, char *argv[]);
 void					dump_memory(t_env *env);
 void					run_game(t_env *env);
 void					execute_cycle(t_env *env);
-int						get_param_val(uint8_t *board, int which_param,
-						t_process *process);
+int						get_param_val(t_env *env, int which_param,
+						t_process *process, int read_size);
 void					get_params(t_env *env, t_process *process, int op);
-t_env					*create_env(uint8_t *board);
+t_env					*create_env(void);
 uint8_t					*create_board(void);
 t_player				*create_player(char *file_name);
 t_process				*create_process(t_env *e, t_player *player);

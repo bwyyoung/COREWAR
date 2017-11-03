@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/28 21:47:27 by douglas           #+#    #+#             */
-/*   Updated: 2017/10/28 14:01:29 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/03 14:50:00 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,14 @@ void		print_verbosity_eight(t_env *env, t_process *process)
 				process->process_num, process->last_live, env->cycle_to_die);
 }
 
+void		print_and_delete(t_env *env, t_process *curr, t_process *prev)
+{
+	if (prev == NULL)
+		env->lst_process = curr->next;
+	print_verbosity_eight(env, curr);
+	SAFE_DELETE(curr);
+}
+
 void		kill_processes(t_env *env)
 {
 	t_process *curr;
@@ -31,16 +39,13 @@ void		kill_processes(t_env *env)
 	{
 		if (curr->lives == 0 && prev == NULL)
 		{
-			print_verbosity_eight(env, curr);
-			env->lst_process = curr->next;
-			SAFE_DELETE(curr);
+			print_and_delete(env, curr, prev);
 			curr = env->lst_process;
 		}
 		else if (curr->lives == 0)
 		{
-			print_verbosity_eight(env, curr);
 			prev->next = curr->next;
-			SAFE_DELETE(curr);
+			print_and_delete(env, curr, prev);
 			curr = prev->next;
 		}
 		else

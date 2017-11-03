@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:18:29 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/30 11:22:20 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/03 20:55:32 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,16 @@
 ** The board is already incremented by offset so that all the programs are
 ** evenly spaced on the board.
 */
-void	write_program_to_board(t_env *env, t_player *player, int offset, int fd)
+
+void		write_program_to_board(t_env *env, t_player *player,
+										int offset, int fd)
 {
-	uint8_t	c;
-	int		read_return;
+	uint8_t		c;
+	int			read_return;
+	uint32_t	champ_size;
 
 	c = 0;
+	champ_size = 0;
 	while (0 < (read_return = read(fd, &c, 1)))
 	{
 		if (read_return == -1)
@@ -30,7 +34,11 @@ void	write_program_to_board(t_env *env, t_player *player, int offset, int fd)
 		env->board[offset % MEM_SIZE] = c;
 		env->prog_num_board[offset % MEM_SIZE] = player->prog_num;
 		offset++;
+		champ_size++;
 	}
+	if (champ_size != player->size)
+		ft_error("The player's size is different from"
+					" the size defined in the header");
 }
 
 /*
@@ -41,6 +49,7 @@ void	write_program_to_board(t_env *env, t_player *player, int offset, int fd)
 **		ea83f3. Therefore we need to reverse the board value
 **		before comparing it to the header value.
 */
+
 uint32_t	rev_endian(uint32_t num)
 {
 	return (((num << 24))
@@ -54,14 +63,14 @@ uint32_t	rev_endian(uint32_t num)
 ** The file is invalid if it doesn't have the COREWAR_EXEC_MAGIC
 ** at the start of it.
 */
-void	reader(t_env *e, t_player *player, char *arg)
+
+void		reader(t_env *e, t_player *player, char *arg)
 {
 	int			fd;
 	uint32_t	magic;
 
 	if (-1 == (fd = open(arg, O_RDONLY)))
 		ft_error_errno(NULL);
-
 	magic = 0;
 	if (-1 == read(fd, &magic, sizeof(magic)))
 		ft_error_errno(NULL);
@@ -69,14 +78,15 @@ void	reader(t_env *e, t_player *player, char *arg)
 		error_exit(e, 4);
 	if (-1 == read(fd, player->name, PROG_NAME_LENGTH))
 		ft_error_errno(NULL);
-	if (-1 == lseek(fd, 4, SEEK_CUR)) // check with Palash what this is
+	if (-1 == lseek(fd, 4, SEEK_CUR))
 		ft_error_errno(NULL);
 	if (-1 == read(fd, &player->size, sizeof(player->size)))
 		ft_error_errno(NULL);
-	player->size = rev_endian(player->size);
+	if ((player->size = rev_endian(player->size)) > CHAMP_MAX_SIZE)
+		ft_error("Champ is too large"); // use varargs?
 	if (-1 == read(fd, player->comment, COMMENT_LENGTH))
 		ft_error_errno(NULL);
-	if (-1 == lseek(fd, 4, SEEK_CUR)) // check with Palash what this is
+	if (-1 == lseek(fd, 4, SEEK_CUR))
 		ft_error_errno(NULL);
 	write_program_to_board(e, player, e->offset, fd);
 	if (-1 == close(fd))

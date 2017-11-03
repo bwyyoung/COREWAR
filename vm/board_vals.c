@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   board_vals.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 15:01:59 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/30 22:12:48 by douglas          ###   ########.fr       */
+/*   Updated: 2017/11/02 20:32:05 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,15 @@
 **		The number ff fb is stored as ff fb in C but
 **		on the board it is stored as fb ff.
 */
-int		get_board_val(uint8_t *board, int index, int size)
-{
-	uint8_t	*pval;
-	int		val;
-	int		i;
 
+int			get_board_val(uint8_t *board, int index, int size)
+{
+	uint8_t		*pval;
+	int			val;
+	int			i;
+
+	while (index < 0)
+		index += MEM_SIZE;
 	val = 0;
 	i = 0;
 	pval = (uint8_t*)&val;
@@ -33,12 +36,10 @@ int		get_board_val(uint8_t *board, int index, int size)
 }
 
 /*
-** Set a value on the board. Though before writing it we have to reverse its endian.
-** This is because the endian is different between C and the board.
-** Example:
-**		The number fb ff is stored as ff fb in C but
-**		on the board it is stored as fb ff.
+** Set a value on the board. Though before writing it we
+** have to reverse its endian.
 */
+
 void		set_board_val(t_env *env, t_process *process, int index, int val)
 {
 	uint8_t		*pval;

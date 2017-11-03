@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printer.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/29 17:49:15 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/30 16:57:53 by douglas          ###   ########.fr       */
+/*   Updated: 2017/11/03 14:29:23 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void			introduce_players(t_env *env)
 	player = env->lst_players;
 	while (player)
 	{
-		P(env->g_ref, env->options[visual], "* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
+		P(env->g_ref, env->options[visual],
+			"* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
 								player->prog_num * -1, player->size,
 								player->name, player->comment);
 		player = player->next;
@@ -33,7 +34,8 @@ void			introduce_players(t_env *env)
 ** So if there are four player player 4 will win.
 ** Else the player who has gotten the last live wins
 */
-void	declare_winner(t_env *env)
+
+void			declare_winner(t_env *env)
 {
 	if (env->options[d])
 		return ;
