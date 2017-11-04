@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:18:48 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/03 18:07:09 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/04 20:23:03 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void		op_load(t_env *env, t_process *process)
 		return ;
 	if (process->param_type[0] == IND_CODE && process->op == lld)
 		new_reg_val = get_param_val(env, 0, process, IND_SIZE);
-		// new_reg_val = (int16_t)get_param_val(env, 0, process, IND_SIZE);
 	else
 		new_reg_val = get_param_val(env, 0, process, REG_SIZE);
 	set_reg_val(process, process->param_val[1], new_reg_val);

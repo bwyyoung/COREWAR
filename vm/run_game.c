@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:13:32 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/04 19:54:19 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/04 20:09:10 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ void		run_game(t_env *env)
 		if (env->cycles_since_check >= env->cycle_to_die)
 			perform_check(env);
 		if (env->lst_process == NULL)
-			break;
+			break ;
 		if (env->options[d] == 1 && env->dump_value == env->total_cycles)
 		{
 			dump_memory(env);
-			break;
+			break ;
 		}
 		execute_cycle(env);
 		if (env->options[s] == 1 && (env->total_cycles % env->cycle_value) == 0)

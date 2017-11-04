@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 14:49:06 by byoung-w          #+#    #+#             */
-/*   Updated: 2017/11/04 14:48:09 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/04 20:11:21 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,21 +69,3 @@ void		lst_players_clr(t_env *e)
 		SAFE_DELETE(current);
 	}
 }
-
-// int			lst_players_len(t_player *lst)
-// {
-// 	int			i;
-// 	t_player	*tmp;
-
-// 	i = 0;
-// 	tmp = lst;
-// 	if (tmp)
-// 	{
-// 		while (tmp)
-// 		{
-// 			tmp = tmp->next;
-// 			i++;
-// 		}
-// 	}
-// 	return (i);
-// }

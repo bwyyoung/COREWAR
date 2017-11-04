@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byoung-w <byoung-w@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 14:49:06 by byoung-w          #+#    #+#             */
-/*   Updated: 2017/09/08 14:49:10 by byoung-w         ###   ########.fr       */
+/*   Updated: 2017/11/04 20:11:05 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 **	Change Player Number: -n -1 filename.cor
 **	Dump: ./corewar -dump 300 [Players](prints the memory after 300 cycles)
 */
+
 void		print_instructions(void)
 {
 	ft_printf("Usage: ./corewar [-d N -s N -v N | -b --stealth "
@@ -48,7 +49,6 @@ void		print_instructions(void)
 		"################\n");
 }
 
-
 void		error_msg_2(int i)
 {
 	if (i == 11)
@@ -66,7 +66,8 @@ void		error_msg_2(int i)
 	else if (i == 17)
 		ft_putstr_fd("\x1b[31m[The file size is too large.]\x1b[0m ", 2);
 	else if (i == 18)
-		ft_putstr_fd("\x1b[31m[Too few arguments for --visual flag]\x1b[0m ", 2);
+		ft_putstr_fd(
+			"\x1b[31m[Too few arguments for --visual flag]\x1b[0m ", 2);
 	else if (i == 19)
 		ft_putstr_fd("\x1b[31m[Wrong int value for -d flag]\x1b[0m ", 2);
 	else if (i == 20)

@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:10:13 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/04 19:58:25 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/04 20:14:41 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,8 @@ int					check_types(t_env *env, t_process *process)
 **	changed by the zjmp function.
 */
 
-void				execute_op(t_env *env, t_process *process)
+void				execute_op(t_env *env, t_process *process, int op, int pc)
 {
-	int	op;
-	int	pc;
-
-	pc = process->regs[0];
-	op = process->op;
 	process->types = get_board_val(env->board, pc + 1, 1);
 	get_params(env, process, op);
 	if (check_types(env, process))
@@ -102,7 +97,7 @@ void				execute_process(t_env *env, t_process *process)
 	if (process->cycles_left == 1)
 	{
 		old_pc = process->regs[0];
-		execute_op(env, process);
+		execute_op(env, process, process->op, process->regs[0]);
 		process->cycles_left = 0;
 		print_verbosity_sixteen(env, process,
 								get_op_size(env, process), old_pc);

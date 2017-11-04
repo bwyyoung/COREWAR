@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:27:07 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/03 18:50:03 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/04 20:09:20 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ int				get_ind_val(t_env *env, t_process *process,
 	if (env->op_tab[process->op].use_idx)
 		val = get_board_val(env->board, pc + ((int16_t)param_val % IDX_MOD),
 							read_size);
-			// pc + get_idx_val(param_val), read_size);
 	else
 		val = get_board_val(env->board, pc + param_val, read_size);
 	return (val);
