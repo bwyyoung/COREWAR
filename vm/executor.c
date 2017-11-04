@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:10:13 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/02 20:40:34 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/04 19:58:25 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 int					is_valid_type(uint8_t type)
 {
-	return (type != DIR_CODE && type != IND_CODE && type != REG_CODE);
+	return (type != DIR_CODE
+			&& type != IND_CODE
+			&& type != REG_CODE);
 }
 
 int					check_types(t_env *env, t_process *process)
@@ -97,7 +99,6 @@ void				execute_process(t_env *env, t_process *process)
 	int	op;
 	int	old_pc;
 
-	process->last_live++;
 	if (process->cycles_left == 1)
 	{
 		old_pc = process->regs[0];
@@ -132,6 +133,7 @@ void				execute_cycle(t_env *env)
 	cur_process = env->lst_process;
 	while (cur_process)
 	{
+		cur_process->last_live++;
 		execute_process(env, cur_process);
 		cur_process = cur_process->next;
 	}

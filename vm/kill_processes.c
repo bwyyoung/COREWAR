@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/28 21:47:27 by douglas           #+#    #+#             */
-/*   Updated: 2017/11/03 14:50:00 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/04 19:55:08 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,19 @@ void		print_and_delete(t_env *env, t_process *curr, t_process *prev)
 
 void		kill_processes(t_env *env)
 {
-	t_process *curr;
-	t_process *prev;
+	t_process	*curr;
+	t_process	*prev;
 
 	curr = env->lst_process;
 	prev = NULL;
 	while (curr)
 	{
-		if (curr->lives == 0 && prev == NULL)
+		if ((curr->lives == 0 || env->cycle_to_die < 0) && prev == NULL)
 		{
 			print_and_delete(env, curr, prev);
 			curr = env->lst_process;
 		}
-		else if (curr->lives == 0)
+		else if (curr->lives == 0 || env->cycle_to_die < 0)
 		{
 			prev->next = curr->next;
 			print_and_delete(env, curr, prev);
