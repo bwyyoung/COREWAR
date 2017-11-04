@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:18:29 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/03 20:55:32 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/04 15:27:38 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void		reader(t_env *e, t_player *player, char *arg)
 {
 	int			fd;
 	uint32_t	magic;
+	int			read_return;
 
 	if (-1 == (fd = open(arg, O_RDONLY)))
 		ft_error_errno(NULL);
@@ -86,8 +87,10 @@ void		reader(t_env *e, t_player *player, char *arg)
 		ft_error("Champ is too large"); // use varargs?
 	if (-1 == read(fd, player->comment, COMMENT_LENGTH))
 		ft_error_errno(NULL);
-	if (-1 == lseek(fd, 4, SEEK_CUR))
+	if (-1 == (read_return = read(fd, &magic, 4)))
 		ft_error_errno(NULL);
+	if (read_return < 4)
+		ft_error("File is too small to be a champ");
 	write_program_to_board(e, player, e->offset, fd);
 	if (-1 == close(fd))
 		ft_error_errno(NULL);

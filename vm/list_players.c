@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 14:49:06 by byoung-w          #+#    #+#             */
-/*   Updated: 2017/11/01 14:39:25 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/04 14:48:09 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_player	*lst_players_add(t_env *e, t_player *p)
 	e->new_player->next = p;
 	p->prev = e->new_player;
 	p->next = NULL;
-	return (e->new_player);
+	return (p);
 }
 
 void		lst_players_del(t_env *e, t_player *p)
