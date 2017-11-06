@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_store.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:16:50 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/05 14:27:01 by douglas          ###   ########.fr       */
+/*   Updated: 2017/11/06 13:04:42 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ static void	print_verbosity_four(t_env *env, t_process *process)
 	if (!env->options[v] || env->verbose_value != 4)
 		return ;
 	P(env->g_ref, env->options[visual], "P %4u | %s r%d %d\n",
-				process->process_num,
-				env->op_tab[process->op].name,
-				process->param_val[0],
-				(int16_t)process->param_val[1]);
+								process->process_num,
+								env->op_tab[process->op].name,
+								process->param_val[0],
+								(int16_t)process->param_val[1]);
 }
 
 /*

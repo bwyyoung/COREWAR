@@ -1,16 +1,16 @@
 #!/bin/bash
 
-make
+make > /dev/null
 rm -rf diff.txt
 rm -rf ft.txt
 rm -rf cp.txt
 
 path=~/corewar/champions/
 
-./asm $path$2.s
-./asm $path$3.s
-./asm $path$4.s
-./asm $path$5.s
+./asm $path$2.s > /dev/null
+./asm $path$3.s > /dev/null
+./asm $path$4.s > /dev/null
+./asm $path$5.s > /dev/null
 
 if [ $5 ]
 then
@@ -26,7 +26,10 @@ then
 	champs="$path$2.cor"
 fi
 
+echo "---------------------------------------"
+echo $champs | tr ' ' '\n'
 diff <(./vm -v $1 $champs) <(~/corewar/software/corewar -v $1 $champs )
+echo "---------------------------------------"
 #./vm -v $1 $champs > ft.txt
 #~/corewar/software/corewar -v $1 $champs > cp.txt 
 

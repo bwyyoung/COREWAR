@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_index_store.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/05 14:22:00 by douglas           #+#    #+#             */
-/*   Updated: 2017/11/05 14:44:43 by douglas          ###   ########.fr       */
+/*   Updated: 2017/11/06 12:53:15 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,23 @@ static void	print_index_verbosity_four(t_env *env, t_process *process,
 
 	if (!env->options[v] || env->verbose_value != 4)
 		return ;
-	P(env->g_ref, env->options[visual], "P %4u | %s ", process->process_num,
-								env->op_tab[process->op].name);
-	if (process->param_type[0] == REG_CODE)
-		ft_putchar('r');
-	P(env->g_ref, env->options[visual], "%d %d %d\n", process->param_val[0],
-											index_info->index1,
-											index_info->index2);
+	P(env->g_ref, env->options[visual], "P %4u | %s ",
+							process->process_num,
+							env->op_tab[process->op].name);
+	P(env->g_ref, env->options[visual], "%s%d %d %d\n",
+							(process->param_type[0] == REG_CODE) ? "r" : "",
+							process->param_val[0],
+							index_info->index1,
+							index_info->index2);
 	pc_and_mod = (pc + (index_info->index_sum % IDX_MOD));
 	if (pc_and_mod < 0 && pc_and_mod < index_info->index_sum)
 		pc_and_mod += MEM_SIZE;
 	P(env->g_ref, env->options[visual],
-	"       | -> store to %d + %d = %d (with pc and mod %d)\n",
-	(index_info->index1),
-	(index_info->index2),
-	(index_info->index_sum),
-	pc_and_mod);
+		"       | -> store to %d + %d = %d (with pc and mod %d)\n",
+							index_info->index1,
+							index_info->index2,
+							index_info->index_sum,
+							pc_and_mod);
 }
 
 /*

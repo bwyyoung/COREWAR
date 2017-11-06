@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:10:13 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/05 14:24:58 by douglas          ###   ########.fr       */
+/*   Updated: 2017/11/06 13:00:41 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void				execute_op(t_env *env, t_process *process, int op, int pc)
 	else if (op == zjmp)
 		op_zjmp(env, process);
 	else if (op == ldi || op == lldi)
-		op_index_load(env, process);
+		op_index_load(env, process, pc);
 	else if (op == e_fork || op == lfork)
 		op_forker(env, process, op);
 	else if (op == aff)

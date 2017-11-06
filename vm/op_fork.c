@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 20:31:02 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/04 16:59:30 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/06 13:02:44 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,13 @@
 static void		print_verbosity_four(t_env *env, t_process *process,
 										t_process *cpy, int op)
 {
-	if (env->options[v] && env->verbose_value == 4)
-		P(env->g_ref, env->options[visual],
-			"P %4u | %s %hd (%d)\n", process->process_num,
-				env->op_tab[op].name, process->param_val[0], cpy->regs[0]);
+	if (!env->options[v] || env->verbose_value != 4)
+		return ;
+	P(env->g_ref, env->options[visual], "P %4u | %s %hd (%d)\n",
+								process->process_num,
+								env->op_tab[op].name,
+								process->param_val[0],
+								cpy->regs[0]);
 }
 
 /*
