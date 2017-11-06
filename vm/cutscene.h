@@ -28,10 +28,10 @@
 # define VIDEO_THE_ONE "/animation/the_one.txt"
 # ifdef WIN32
 #  else
-typedef long					DWORD;
-typedef unsigned long			UWORD;
-typedef unsigned short			WORD;
-typedef unsigned int			UNINT32;
+typedef long					dword;
+typedef unsigned long			uword;
+typedef unsigned short			word;
+typedef unsigned int			unint32;
 # endif
 
 typedef struct				s_audiofile
@@ -62,14 +62,14 @@ typedef struct				s_audio
 	struct s_audio			*next;
 	t_playback				*pb;
 	SF_INFO					info;
-	UWORD					i;
-	UNINT32					framesleft;
-	UNINT32					framesread;
+	uword					i;
+	unint32					framesleft;
+	unint32					framesread;
 	int						*buffercursor;
 	int						*outputcursor;
 	int 					*outputbuffer;
 	bool					playbackended;
-	UWORD					stereoframecount;
+	uword					stereoframecount;
 }
 							t_audio;
 
@@ -111,7 +111,7 @@ typedef struct 				s_mgr_scene
 	PaError 				errorcode;
 	PaStreamParameters		*no_input;
 	PaStreamCallback		*streamcallback;
-	UWORD					stereoframecount;
+	uword					stereoframecount;
 	bool					is_scene_playing;
 }							t_mgr_scene;
 

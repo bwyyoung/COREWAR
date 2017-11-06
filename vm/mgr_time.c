@@ -13,10 +13,10 @@
 #include "mgr_graphics.h"
 #include "vm.h"
 
-DWORD			GetTickCount()
+dword			GetTickCount()
 {
 	struct timespec		ts;
-	DWORD				theTick;
+	dword				theTick;
 
 	theTick= 0U;
 	clock_serv_t cclock;

@@ -25,11 +25,12 @@
 # ifdef __llvm__
 #  pragma GCC diagnostic ignored "-Wdangling-else"
 # endif
-# define WP2(g, y, ...) wprintw(g->log_window, y,  ##__VA_ARGS__)
-# define WP(g, y, ...) ((g->log_window != 0) ? WP2(g, y, ##__VA_ARGS__) : 0)
-# define PV(g, y, ...) ((g != 0) ? WP(g, y, ##__VA_ARGS__) : 0)
-# define PF(y, ...) ft_printf(y,  ##__VA_ARGS__)
-# define P(g, x, y, ...) ((x) ? PV(g, y, ##__VA_ARGS__) : PF(y, ##__VA_ARGS__))
+# define WP2(g, s, ...) wprintw(g->log_window, s,  ##__VA_ARGS__)
+# define WP(g, s, ...) ((g->log_window != 0) ? WP2(g, s, ##__VA_ARGS__) : 0)
+# define PV(g, s, ...) ((g != 0) ? WP(g, s, ##__VA_ARGS__) : 0)
+# define VP(g, s, ...) vp(g, s,  ##__VA_ARGS__)
+# define PF(s, ...) ft_printf(s,  ##__VA_ARGS__)
+# define P(g, b, s, ...) ((b) ? VP(g, s, ##__VA_ARGS__) : PF(s, ##__VA_ARGS__))
 
 enum
 {

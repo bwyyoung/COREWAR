@@ -28,7 +28,6 @@ void				load_cutscene(t_mgr_scene *g, char *s, int framerate)
 	if (!g->cutscenes)
 	{
 		g->cutscenes = g->new_cutscene;
-
 		return ;
 	}
 	while (g->current_cutscene->next)

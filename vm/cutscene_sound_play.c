@@ -20,7 +20,7 @@ void						frame_audio(t_audio *s)
 		sf_seek(s->pb->af->data, s->pb->pos, SEEK_SET);
 		if (s->framesleft > (s->pb->af->info.frames - s->pb->pos))
 		{
-			s->framesread = (UNINT32)(s->pb->af->info.frames - s->pb->pos);
+			s->framesread = (unint32)(s->pb->af->info.frames - s->pb->pos);
 			if (s->pb->loop)
 				s->pb->pos = 0;
 			else
@@ -99,7 +99,7 @@ int							portaudiocallback(const void * input,
 		G->s->outputbuffer = (int *)malloc(sizeof(int) * G->stereoframecount);
 		G->s->buffercursor = G->s->outputbuffer;
 		G->s->outputcursor = (int *)output;
-		G->s->framesleft = (UNINT32)framecount;
+		G->s->framesleft = (unint32)framecount;
 		G->s->framesread = G->s->framesleft;
 		frame_audio(G->s);
 		cursor_audio(G->s, G);
