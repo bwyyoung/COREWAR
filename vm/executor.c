@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:10:13 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/04 20:14:41 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/05 14:24:58 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,10 @@ void				execute_op(t_env *env, t_process *process, int op, int pc)
 		op_live(env, process);
 	else if (op == ld || op == lld)
 		op_load(env, process);
-	else if (op == st || op == sti)
-		op_store(env, process, pc, op);
+	else if (op == st)
+		op_store(env, process, pc);
+	else if (op == sti)
+		op_index_store(env, process, pc);
 	else if (op == add || op == sub)
 		op_arithmetic(env, process);
 	else if (op == and || op == or || op == xor)

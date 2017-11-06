@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+         #
+#    By: douglas <douglas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/06 18:30:14 by douglas           #+#    #+#              #
-#    Updated: 2017/11/03 20:25:23 by dengstra         ###   ########.fr        #
+#    Updated: 2017/11/05 14:49:31 by douglas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,8 @@ SRC = main.c run_game.c \
 		param_vals.c board_vals.c \
 		op_utility.c op_get_sizes.c op_arithmetic.c op_store.c op_load.c \
 		op_zjmp.c op_live.c op_bitwise.c op_fork.c op.c op_aff.c \
+		op_index_store.c \
+		op_index_load.c \
 		parse_flags.c	\
 		error.c			\
 		parse_flags_calc.c \
