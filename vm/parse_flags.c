@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_flags.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 14:49:06 by byoung-w          #+#    #+#             */
-/*   Updated: 2017/11/03 13:24:14 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/06 16:30:13 by ppatel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,14 @@ long	verify_number(t_env *e, char *nbr)
 	if (temp > INT_MAX || temp < INT_MIN)
 		error_exit(e, 15);
 	return (temp);
+}
+
+uint32_t	get_player_number(t_env *e, char *nbr, int *i, int argc) /// -n
+{
+	if ((*i + 2) > argc)
+		error_exit(e, 11);
+	*i += 2;
+	return(verify_number(e, nbr));
 }
 
 t_bool	get_dump_number(t_env *e, char *nbr, int *i, int argc) /// -d

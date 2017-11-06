@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_flags_calc.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 14:49:06 by byoung-w          #+#    #+#             */
-/*   Updated: 2017/11/04 14:33:50 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/06 15:55:46 by ppatel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ t_bool	add_stealth(t_env *e)
 	return (t_true);
 }
 
-void	add_player(t_env *e, char **argv, int *i)
+void	add_player(t_env *e, char **argv, uint32_t nb, int *i)
 {
-	e->new_player = lst_players_add(e, create_player(argv[*i]));
+	e->new_player = lst_players_add(e, create_player(argv[*i], nb));
 }
 
 void	check_flag_number_valid(t_env *e, char *nbr)

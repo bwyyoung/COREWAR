@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: douglas <douglas@student.42.fr>            +#+  +:+       +#+         #
+#    By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/06 18:30:14 by douglas           #+#    #+#              #
-#    Updated: 2017/11/05 14:49:31 by douglas          ###   ########.fr        #
+#    Updated: 2017/11/06 15:04:08 by ppatel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ INC		=-I sound/
 LIBFT = ./libft
 mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
 current_dir := $(notdir $(patsubst %/,%,$(dir $(mkfile_path))))
-LIB = libft/libft.a -lncurses sound/libsndfile.1.dylib
+LIB = libft/libft.a -lncurses ~/.brew/lib/libsndfile.1.dylib
 SOUND = $(PWD)/sound
 LINK = -L sound/ -lcommon  -L sound/ -lportaudio -L$(PWD)/sound -lsndfile
 FRAMEWORK = -framework CoreServices -framework CoreFoundation \

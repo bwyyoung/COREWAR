@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   creator.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 17:12:50 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/04 16:58:18 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/06 15:37:57 by ppatel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_env			*create_env(void)
 	return (env);
 }
 
-t_player		*create_player(char *file_name)
+t_player		*create_player(char *file_name, uint32_t nb)
 {
 	t_player	*player;
 
@@ -53,7 +53,7 @@ t_player		*create_player(char *file_name)
 		ft_error_errno(NULL);
 	if (!(player->name = ft_strnew(PROG_NAME_LENGTH)))
 		ft_error_errno(NULL);
-	player->prog_num = 0;
+	player->prog_num = nb;
 	player->prev = NULL;
 	player->next = NULL;
 	player->file_name = file_name;

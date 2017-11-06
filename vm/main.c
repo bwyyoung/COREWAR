@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 13:26:46 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/04 20:21:32 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/06 16:32:23 by ppatel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,10 @@ void		parse_flags(t_env *e, int argc, char **argv)
 	while (++i < argc)
 	{
 		if (!add_option(e, argv, &i, argc) && (i < argc))
-			add_player(e, argv, &i);
+			if (ft_strequ(argv[i], "-n"))
+				add_player(e, argv, get_player_number(e, argv[i + 1], &i, argc), &i);
+			else
+				add_player(e, argv, -1, &i);
 	}
 }
 
