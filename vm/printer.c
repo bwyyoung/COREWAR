@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/29 17:49:15 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/03 14:29:23 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/04 14:50:43 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,18 @@ void			introduce_players(t_env *env)
 
 void			declare_winner(t_env *env)
 {
+	t_player *player;
+
 	if (env->options[d])
 		return ;
 	if (!env->last_live_name)
+	{
+		player = env->lst_players;
+		while (player->next)
+			player = player->next;
 		ft_printf("Contestant %d, \"%s\", has won !\n",
-		env->lst_players->prog_num * -1, env->lst_players->name);
+		player->prog_num * -1, player->name);
+	}
 	else
 		ft_printf("Contestant %d, \"%s\", has won !\n",
 		env->last_live_num * -1,

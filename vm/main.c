@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 13:26:46 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/03 20:51:32 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/04 20:21:32 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_bool		add_option(t_env *e, char **argv, int *i, int argc)
 	return (t_false);
 }
 
-int				count_players(t_env *env, t_player *player)
+int			count_players(t_env *env, t_player *player)
 {
 	int num_players;
 
@@ -52,7 +52,7 @@ int				count_players(t_env *env, t_player *player)
 	return (num_players);
 }
 
-void			parse_flags(t_env *e, int argc, char **argv)
+void		parse_flags(t_env *e, int argc, char **argv)
 {
 	int			i;
 

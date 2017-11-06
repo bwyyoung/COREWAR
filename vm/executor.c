@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:10:13 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/02 20:40:34 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/06 13:00:41 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 int					is_valid_type(uint8_t type)
 {
-	return (type != DIR_CODE && type != IND_CODE && type != REG_CODE);
+	return (type != DIR_CODE
+			&& type != IND_CODE
+			&& type != REG_CODE);
 }
 
 int					check_types(t_env *env, t_process *process)
@@ -43,13 +45,8 @@ int					check_types(t_env *env, t_process *process)
 **	changed by the zjmp function.
 */
 
-void				execute_op(t_env *env, t_process *process)
+void				execute_op(t_env *env, t_process *process, int op, int pc)
 {
-	int	op;
-	int	pc;
-
-	pc = process->regs[0];
-	op = process->op;
 	process->types = get_board_val(env->board, pc + 1, 1);
 	get_params(env, process, op);
 	if (check_types(env, process))
@@ -58,8 +55,10 @@ void				execute_op(t_env *env, t_process *process)
 		op_live(env, process);
 	else if (op == ld || op == lld)
 		op_load(env, process);
-	else if (op == st || op == sti)
-		op_store(env, process, pc, op);
+	else if (op == st)
+		op_store(env, process, pc);
+	else if (op == sti)
+		op_index_store(env, process, pc);
 	else if (op == add || op == sub)
 		op_arithmetic(env, process);
 	else if (op == and || op == or || op == xor)
@@ -67,7 +66,7 @@ void				execute_op(t_env *env, t_process *process)
 	else if (op == zjmp)
 		op_zjmp(env, process);
 	else if (op == ldi || op == lldi)
-		op_index_load(env, process);
+		op_index_load(env, process, pc);
 	else if (op == e_fork || op == lfork)
 		op_forker(env, process, op);
 	else if (op == aff)
@@ -97,11 +96,10 @@ void				execute_process(t_env *env, t_process *process)
 	int	op;
 	int	old_pc;
 
-	process->last_live++;
 	if (process->cycles_left == 1)
 	{
 		old_pc = process->regs[0];
-		execute_op(env, process);
+		execute_op(env, process, process->op, process->regs[0]);
 		process->cycles_left = 0;
 		print_verbosity_sixteen(env, process,
 								get_op_size(env, process), old_pc);
@@ -132,6 +130,7 @@ void				execute_cycle(t_env *env)
 	cur_process = env->lst_process;
 	while (cur_process)
 	{
+		cur_process->last_live++;
 		execute_process(env, cur_process);
 		cur_process = cur_process->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 17:12:50 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/03 20:48:08 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/04 16:58:18 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ t_process		*create_process(t_env *env, t_player *player)
 	env->i = 1;
 	process->vis = env->options[visual];
 	process->g_ref = env->g_ref;
+	process->last_live = 0;
 	if (player)
 	{
 		process->name = player->name;

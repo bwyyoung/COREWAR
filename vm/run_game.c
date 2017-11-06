@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:13:32 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/29 16:51:54 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/04 20:09:10 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void		perform_check(t_env *env)
 	{
 		env->cycle_to_die -= CYCLE_DELTA;
 		if (env->options[v] && env->verbose_value == 2)
-			P(env->g_ref, env->options[visual], "Cycle to die is now %d\n", env->cycle_to_die);
+			P(env->g_ref, env->options[visual],
+				"Cycle to die is now %d\n", env->cycle_to_die);
 		env->checks = 0;
 	}
 	else
@@ -37,6 +38,7 @@ void		perform_check(t_env *env)
 ** perform check. During the check all the processes that didn't execute the
 ** live command will be deleted.
 */
+
 void		run_game(t_env *env)
 {
 	while (1)
@@ -44,19 +46,20 @@ void		run_game(t_env *env)
 		if (env->cycles_since_check >= env->cycle_to_die)
 			perform_check(env);
 		if (env->lst_process == NULL)
-			break;
+			break ;
 		if (env->options[d] == 1 && env->dump_value == env->total_cycles)
 		{
 			dump_memory(env);
-			break;
+			break ;
 		}
+		execute_cycle(env);
 		if (env->options[s] == 1 && (env->total_cycles % env->cycle_value) == 0)
 			dump_memory(env);
-		execute_cycle(env);
 		env->total_cycles++;
 		env->cycles_since_check++;
 		if (env->options[v] && env->verbose_value == 2)
-			P(env->g_ref, env->options[visual], "It is now cycle %d\n", env->total_cycles);
+			P(env->g_ref, env->options[visual],
+				"It is now cycle %d\n", env->total_cycles);
 	}
 }
 

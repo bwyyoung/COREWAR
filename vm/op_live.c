@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:22:29 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/02 20:33:37 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/06 13:03:37 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ static void		print_verbosity_four(t_env *env, t_process *process)
 	if (!env->options[v] || env->verbose_value != 4)
 		return ;
 	P(env->g_ref, env->options[visual], "P %4u | live %d\n",
-						process->process_num, process->param_val[0]);
+								process->process_num,
+								process->param_val[0]);
 }
 
 t_player		*add_live(t_env *env, int prog_num)
@@ -55,7 +56,7 @@ void			op_live(t_env *env, t_process *process)
 		if (env->options[v] && env->verbose_value == 1)
 			P(env->g_ref, env->options[visual],
 				"Player %d (%s) is said to be alive\n",
-					process->prog_num * -1, process->name);
+					player->prog_num * -1, player->name);
 		env->last_live_num = player->prog_num;
 		env->last_live_name = player->name;
 	}

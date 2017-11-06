@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 15:37:30 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/03 20:35:18 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/06 13:23:51 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,11 +187,12 @@ int						get_param_size(uint8_t type, int label_size);
 void					kill_processes(t_env *env);
 void					op_live(t_env *env, t_process *process);
 void					op_load(t_env *env, t_process *process);
-void					op_store(t_env *env, t_process *process, int pc, int op);
+void					op_store(t_env *env, t_process *process, int pc);
 void					op_arithmetic(t_env *env, t_process *process);
 void					op_bitwise(t_env *env, t_process *process, int op);
 void					op_zjmp(t_env *env, t_process *process);
-void					op_index_load(t_env *env, t_process *process);
+void					op_index_store(t_env *env, t_process *process, int pc);
+void					op_index_load(t_env *env, t_process *process, int pc);
 void					op_forker(t_env *env, t_process *process, int op);
 void					op_aff(t_env *env, t_process *process, int pc);
 
