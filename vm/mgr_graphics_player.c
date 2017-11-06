@@ -13,22 +13,43 @@
 #include "mgr_graphics.h"
 #include "vm.h"
 
-void					render_player(t_graphics *g, t_env *e)
+void					init_player_colors(t_graphics *g, t_env *e)
 {
-
-	if (e->prog_num_board[g->window_index] == 0xFFFFFFFF)
-		wattron(g->game_window, COLOR_PAIR(GREEN_PAIR));
-	else if (e->prog_num_board[g->window_index] == 0xFFFFFFFE)
-		wattron(g->game_window, COLOR_PAIR(RED_PAIR));
-	else if (e->prog_num_board[g->window_index] == 0xFFFFFFFD)
-		wattron(g->game_window, COLOR_PAIR(YELLOW_PAIR));
-	else if (e->prog_num_board[g->window_index] == 0xFFFFFFFC)
-		wattron(g->game_window, COLOR_PAIR(MAGENTA_PAIR));
-	else
+	g->i = -1;
+	while(++g->i < MAX_PLAYERS)
 	{
-		wattroff(g->game_window, COLOR_PAIR(GREEN_PAIR));
-		wattroff(g->game_window, COLOR_PAIR(RED_PAIR));
-		wattroff(g->game_window, COLOR_PAIR(YELLOW_PAIR));
-		wattroff(g->game_window, COLOR_PAIR(MAGENTA_PAIR));
+		g->player_id_init[g->i] = false;
+		g->player_id[g->i] = 0;
 	}
+	g->player_colors[0] = COLOR_PAIR(GREEN_PAIR);
+	g->player_colors[1] = COLOR_PAIR(RED_PAIR);
+	g->player_colors[2] = COLOR_PAIR(YELLOW_PAIR);
+	g->player_colors[3] = COLOR_PAIR(MAGENTA_PAIR);
+	g->i = -1;
+	e->new_player = e->lst_players;
+	while(++g->i < e->num_players)
+	{
+		g->player_id_init[g->i] = true;
+		g->player_id[g->i] = e->new_player->prog_num;
+		e->new_player = e->new_player->next;
+	}
+}
+
+void					render_player(t_graphics *g, uint32_t pn)
+{
+	g->i = -1;
+	g->j = -1;
+	g->player_match = false;
+	while(++g->i < MAX_PLAYERS && g->player_id_init[g->i])
+	{
+		if (pn != g->player_id[g->i])
+			continue;
+		g->player_match = true;
+		wattron(g->game_window, g->player_colors[g->i]);
+		break;
+	}
+	if (g->player_match)
+		return ;
+	while(++g->j < MAX_PLAYERS && g->player_id_init[g->j])
+		wattroff(g->game_window, g->player_colors[g->j]);
 }

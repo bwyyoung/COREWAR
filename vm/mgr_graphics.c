@@ -12,8 +12,6 @@
 
 #include "mgr_graphics.h"
 
-# define ACTUAL_BOARD (BOARD_WIDTH * 2 + BOARD_WIDTH)
-
 void					graphics_start(t_graphics *g)
 {
 	initscr();

@@ -48,7 +48,11 @@
 # define BOARD_WIDTH 64
 # define BOARD_SPACING 1
 # define BOARD_HEIGHT 64
+# define ACTUAL_BOARD (BOARD_WIDTH * 2 + BOARD_WIDTH)
 # define BOARD_CELL_LENGTH 2
+# ifndef MAX_PLAYERS
+#  define MAX_PLAYERS 4
+# endif
 
 typedef struct s_env	t_env;
 
@@ -75,6 +79,7 @@ typedef struct			s_graphics
 	int					window_y;
 	int					window_index;
 	bool				app_is_running;
+	bool				player_match;
 	int					key_pressed;
 	t_mgr_scene				mgr_cutscene;
 	dword				start_time;
@@ -85,6 +90,9 @@ typedef struct			s_graphics
 	dword				seconds2;
 	dword				seconds3;
 	dword				sleep_time;
+	bool				player_id_init[MAX_PLAYERS];
+	uint32_t			player_id[MAX_PLAYERS];
+	chtype				player_colors[MAX_PLAYERS];
 	char				hex[3];
 	char				*buffer;
 }						t_graphics;
@@ -106,10 +114,11 @@ void					graphics_loop(t_env *e);
 dword					GetTickCount();
 void					render_board(t_graphics *g, t_env *e);
 void					render_log(t_graphics *g, t_env *e);
-void					render_player(t_graphics *g, t_env *e);
+void					render_player(t_graphics *g, uint32_t pn);
 void					render_process(t_graphics *g, t_env *e);
 void					render_stats(t_graphics *g, t_env *e);
 void					render_cutscene(t_graphics *g);
 void 					play_cutscene(t_graphics *g, char *name);
 t_graphics				*init_graphics(t_env *e);
+void					init_player_colors(t_graphics *g, t_env *e);
 #endif

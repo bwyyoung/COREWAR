@@ -20,18 +20,7 @@ void					render_process(t_graphics *g, t_env *e)
 	wattron(g->game_window, A_REVERSE);
 	while (e->new_process)
 	{
-		wattroff(g->game_window, COLOR_PAIR(GREEN_PAIR));
-		wattroff(g->game_window, COLOR_PAIR(RED_PAIR));
-		wattroff(g->game_window, COLOR_PAIR(YELLOW_PAIR));
-		wattroff(g->game_window, COLOR_PAIR(MAGENTA_PAIR));
-		if (e->new_process->prog_num == 0xFFFFFFFF)
-			wattron(g->game_window, COLOR_PAIR(GREEN_PAIR));
-		else if (e->new_process->prog_num == 0xFFFFFFFE)
-			wattron(g->game_window, COLOR_PAIR(RED_PAIR));
-		else if (e->new_process->prog_num == 0xFFFFFFFD)
-			wattron(g->game_window, COLOR_PAIR(YELLOW_PAIR));
-		else if (e->new_process->prog_num == 0xFFFFFFFC)
-			wattron(g->game_window, COLOR_PAIR(MAGENTA_PAIR));
+		render_player(g, e->new_process->prog_num);
 		g->window_y = e->new_process->regs[0] / BOARD_WIDTH;
 		g->window_x = e->new_process->regs[0] % BOARD_WIDTH;
 		mvwprintw(g->game_window, g->window_y,

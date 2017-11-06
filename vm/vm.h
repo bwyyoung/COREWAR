@@ -131,7 +131,6 @@ typedef struct			s_env
 	uint32_t			prog_num_board[MEM_SIZE];
 	uint32_t			offset;
 	t_op				*op_tab;
-
 	int					i;
 	int					j;
 	int					k;
