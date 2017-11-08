@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:22:29 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/06 13:03:37 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/08 17:42:11 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,5 @@ void			op_live(t_env *env, t_process *process)
 	env->lives_since_check++;
 	print_verbosity_four(env, process);
 	process->last_live = 0;
+	env->last_live_visual = env->total_cycles + 1;
 }

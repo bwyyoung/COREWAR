@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 15:37:30 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/08 16:01:32 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/08 17:33:54 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ typedef struct			s_env
 	uint32_t			prog_num_board[MEM_SIZE];
 	uint32_t			offset;
 	t_op				*op_tab;
+	int					last_live_visual;
 	int					i;
 	int					j;
 	int					k;
