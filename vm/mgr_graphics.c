@@ -26,6 +26,8 @@ void					graphics_start(t_graphics *g)
 	init_matrix(&g->background_window, &g->mat);
 	g->border_window = newwin(WORLD_HEIGHT + 2, WORLD_WIDTH + 2,
 	g->offsety - 1, g->offsetx - 1);
+	g->dialog_window = newwin(WORLD_HEIGHT + 2, WORLD_WIDTH + 2,
+		g->offsety - 1, g->offsetx - 1);
 	g->game_window = newwin(WORLD_HEIGHT, WORLD_WIDTH, g->offsety, g->offsetx);
 	getmaxyx(stdscr, g->max_y, g->max_x);
 	g->video_window = newwin(WORLD_HEIGHT + 2, CUTSCENE_WIDTH + 2,
@@ -61,7 +63,10 @@ void					render_start(t_graphics *g)
 	g->i = -1;
 	g->j = -1;
 	werase(g->game_window);
-	werase(g->video_window);
+	if (g->mgr_cutscene.is_scene_playing)
+		werase(g->video_window);
+	if (g->mgr_cutscene.is_dialog_playing)
+		werase(g->dialog_window);
 	box(g->border_window, 0 , 0);
 	box(g->log_window, 0 , 0);
 }
@@ -74,5 +79,7 @@ void					render_end(t_graphics *g)
 	wnoutrefresh(g->log_window);
 	if (g->mgr_cutscene.is_scene_playing)
 		wnoutrefresh(g->video_window);
+	if (g->mgr_cutscene.is_dialog_playing)
+		wnoutrefresh(g->dialog_window);
 	doupdate();
 }

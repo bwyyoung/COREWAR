@@ -62,19 +62,21 @@ void					update_app(t_graphics *g, t_env *env)
 void					display_app(t_graphics *g, t_env *e)
 {
 	render_start(g);
-	if (g->seconds2 > MAT_REFRESH_RATE && (!g->mgr_cutscene.is_scene_playing))
+	if (g->mgr_cutscene.is_scene_playing)
+		render_cutscene(g);
+	else if (g->mgr_cutscene.is_dialog_playing)
+		render_dialog(g);
+	else
 	{
-		werase(g->background_window);
-		g->seconds2 = 0;
-		loop_matrix(g, g->background_window, g->flag, g->col);
-	}
-	if ((!g->mgr_cutscene.is_scene_playing))
-	{
+		if (g->seconds2 > MAT_REFRESH_RATE)
+		{
+			werase(g->background_window);
+			g->seconds2 = 0;
+			loop_matrix(g, g->background_window, g->flag, g->col);
+		}
 		render_board(g, e);
 		render_process(g, e);
 	}
-	else
-		render_cutscene(g);
 	render_stats(g, e);
 	render_log(g, e);
 	render_end(g);

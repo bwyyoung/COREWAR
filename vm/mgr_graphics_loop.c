@@ -19,15 +19,18 @@ void		graphics_loop_start(t_graphics *g, t_env *e)
 	g->elapsed = g->current - g->start_time;
 	g->seconds += g->elapsed;
 	g->seconds2 += g->elapsed;
-	g->seconds3 += g->elapsed;
+	if (g->mgr_cutscene.is_scene_playing)
+		g->seconds3 += g->elapsed;
+	if (g->mgr_cutscene.is_dialog_playing)
+		g->seconds4 += g->elapsed;
 	get_keyboard_event(g);
-	if (g->seconds > APP_REFRESH_RATE)
-	{
-		g->seconds = 0;
-		if (!g->mgr_cutscene.is_scene_playing)
+	if (g->seconds <= APP_REFRESH_RATE)
+		return ;
+	g->seconds = 0;
+	if (!g->mgr_cutscene.is_scene_playing)
+		if  (!g->mgr_cutscene.is_dialog_playing)
 			update_app(g, e);
-		display_app(g, e);
-	}
+	display_app(g, e);
 }
 
 void 		graphics_loop_end(t_graphics *g)
@@ -44,14 +47,11 @@ void		graphics_loop(t_env *e)
 	t_graphics		*g;
 
 	g = init_graphics(e);
-	load_players(e);
-	introduce_players(e);
 	graphics_start(g);
 	init_cutscenes(&g->mgr_cutscene);
 	init_player_colors(g, e);
-	//play_cutscene(g, VIDEO_THE_ONE);
-	//snd_play_background_music(&g->mgr_cutscene);
-	//play_cutscene(g, VIDEO_BULLET_TIME);
+	introduce_players(e);
+	play_dialog(g, g->mgr_cutscene.dialog_intro);
 	while (g->app_is_running)
 	{
 		graphics_loop_start(g, e);

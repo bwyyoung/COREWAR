@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "mgr_graphics.h"
-#define G ((t_mgr_scene *)userdata)
 
 void						frame_audio(t_audio *s)
 {

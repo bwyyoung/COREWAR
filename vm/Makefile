@@ -61,7 +61,9 @@ SRC = main.c run_game.c \
 		mgr_graphics_loop.c		\
 		cutscene_sound_music.c	\
 		cutscene_video_load.c	\
-		cutscene_video_play.c
+		cutscene_video_play.c	\
+		cutscene_dialog_load.c	\
+		cutscene_dialog_play.c
 
 
 SRCO = ${SRC:%.c=%.o}

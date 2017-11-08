@@ -63,6 +63,7 @@ typedef struct			s_graphics
 	WINDOW				*log_window;
 	WINDOW				*background_window;
 	WINDOW				*video_window;
+	WINDOW				*dialog_window;
 	int					offsetx;
 	int					offsety ;
 	int					max_y;
@@ -89,6 +90,7 @@ typedef struct			s_graphics
 	dword				seconds;
 	dword				seconds2;
 	dword				seconds3;
+	dword				seconds4;
 	dword				sleep_time;
 	bool				player_id_init[MAX_PLAYERS];
 	uint32_t			player_id[MAX_PLAYERS];
@@ -104,21 +106,17 @@ void					graphics_end(t_graphics *g);
 void					render_start(t_graphics *g);
 void					render_end(t_graphics *g);
 void					graphics_print_message(t_graphics *g, char *str);
-
 bool					keyboard_event();
 void					get_keyboard_event(t_graphics *g);
 void					update_app(t_graphics *g, t_env *e);
 void					display_app(t_graphics *g, t_env *e);
 void					graphics_loop(t_env *e);
-
 dword					GetTickCount();
 void					render_board(t_graphics *g, t_env *e);
 void					render_log(t_graphics *g, t_env *e);
 void					render_player(t_graphics *g, uint32_t pn);
 void					render_process(t_graphics *g, t_env *e);
 void					render_stats(t_graphics *g, t_env *e);
-void					render_cutscene(t_graphics *g);
-void 					play_cutscene(t_graphics *g, char *name);
 t_graphics				*init_graphics(t_env *e);
 void					init_player_colors(t_graphics *g, t_env *e);
 #endif
