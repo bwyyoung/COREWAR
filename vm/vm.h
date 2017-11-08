@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 15:37:30 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/08 09:28:18 by douglas          ###   ########.fr       */
+/*   Updated: 2017/11/08 16:01:32 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,10 @@ enum
 typedef struct			s_player
 {
 	int					lives;
-	char				*name;
-	char				*comment;
+	char				name[PROG_NAME_LENGTH + 1];
+	char				comment[COMMENT_LENGTH + 1];
 	uint32_t			size;
 	uint32_t			prog_num;
-	int					file_pos;
 	struct s_player		*prev;
 	struct s_player		*next;
 	int					vis;
@@ -112,7 +111,6 @@ typedef struct			s_env
 	int					lives_since_check;
 	uint32_t			num_processes;
 	uint8_t				board[MEM_SIZE];
-	t_list				*element;
 	t_player			*lst_players;
 	t_process			*lst_process;
 	int					last_live_num;
@@ -147,6 +145,7 @@ typedef struct			s_index_info
 	int					index_sum;
 }						t_index_info;
 
+void					cpy_env(t_env *dst, t_env *src);
 t_op					*get_op_tab(void);
 int						get_board_pos(int val);
 void					declare_winner(t_env *env);

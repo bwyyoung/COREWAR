@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 13:26:46 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/06 16:32:23 by ppatel           ###   ########.fr       */
+/*   Updated: 2017/11/08 17:22:33 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,20 @@ void		parse_flags(t_env *e, int argc, char **argv)
 	}
 }
 
+void		init(t_env *env, t_env *backup)
+{
+	if (env->options[visual])
+	{
+		graphics_loop(env, backup);
+	}
+	else
+	{
+		introduce_players(env);
+		run_game(env);
+		declare_winner(env);
+	}
+}
+
 void		delete_env(t_env *env)
 {
 	lst_process_clr(env);
@@ -74,29 +88,45 @@ void		delete_env(t_env *env)
 	SAFE_DELETE(env);
 }
 
+void		cpy_env(t_env *dst, t_env *src)
+{
+	ft_bzero(dst, sizeof(t_env));
+	dst->cycle_to_die = CYCLE_TO_DIE;
+	dst->to_die = CYCLE_TO_DIE;
+	dst->lst_process = NULL;
+	dst->num_players = src->num_players;
+	dst->op_tab = src->op_tab;
+	dst->lst_players = src->lst_players;
+	dst->lst_process = NULL;
+	dst->last_live_name = NULL;
+	ft_memcpy(dst->options, src->options, sizeof(int) * 10);
+	dst->verbose_value = src->verbose_value;
+	dst->dump_value = src->dump_value;
+	dst->cycle_value = src->cycle_value;
+	lst_process_clr(src);
+	load_players(dst);
+}
+
 int			main(int argc, char *argv[])
 {
-	t_env			*env;
+	t_env *backup;
+	t_env *env;
 
-	// ft_printf("hello\n");
 	if (argc < 2)
 	{
 		print_instructions();
 		return (0);
 	}
-	srand(time(NULL));
+	backup = create_env();
+	parse_flags(backup, argc, argv);
+	backup->num_players = count_players(backup, backup->lst_players);
+	load_players(backup);
 	env = create_env();
-	parse_flags(env, argc, argv);
-	env->num_players = count_players(env, env->lst_players);
-	load_players(env);
-	introduce_players(env);
-	if (env->options[visual])
-		graphics_loop(env);
-	else
-	{
-		run_game(env);
-		declare_winner(env);
-	}
+	cpy_env(env, backup);
+	srand(time(NULL));
+	init(env, backup);
 	delete_env(env);
+	lst_process_clr(backup);
+	SAFE_DELETE(backup);
 	return (0);
 }

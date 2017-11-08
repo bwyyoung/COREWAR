@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:18:29 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/04 15:27:38 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/08 11:26:05 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,26 @@ uint32_t	rev_endian(uint32_t num)
 			| ((num >> 24)));
 }
 
+int			check_magic(t_env *env, int fd)
+{
+	uint32_t	magic;
+
+	magic = 0;
+	if (-1 == read(fd, &magic, sizeof(4)))
+		ft_error_errno(NULL);
+	if (rev_endian(magic) != COREWAR_EXEC_MAGIC)
+		error_exit(env, 4);
+	return (fd);
+
+}
+
 /*
 ** Reads the .cor file given as argument.
 ** The file is invalid if it doesn't have the COREWAR_EXEC_MAGIC
 ** at the start of it.
 */
 
-void		reader(t_env *e, t_player *player, char *arg)
+void		reader(t_env *env, t_player *player, char *arg)
 {
 	int			fd;
 	uint32_t	magic;
@@ -72,11 +85,12 @@ void		reader(t_env *e, t_player *player, char *arg)
 
 	if (-1 == (fd = open(arg, O_RDONLY)))
 		ft_error_errno(NULL);
-	magic = 0;
-	if (-1 == read(fd, &magic, sizeof(magic)))
-		ft_error_errno(NULL);
-	if (rev_endian(magic) != COREWAR_EXEC_MAGIC)
-		error_exit(e, 4);
+	// magic = 0;
+	// if (-1 == read(fd, &magic, sizeof(magic)))
+		// ft_error_errno(NULL);
+	// if (rev_endian(magic) != COREWAR_EXEC_MAGIC)
+		// error_exit(env, 4);
+	fd = check_magic(env, fd);
 	if (-1 == read(fd, player->name, PROG_NAME_LENGTH))
 		ft_error_errno(NULL);
 	if (-1 == lseek(fd, 4, SEEK_CUR))
@@ -91,7 +105,7 @@ void		reader(t_env *e, t_player *player, char *arg)
 		ft_error_errno(NULL);
 	if (read_return < 4)
 		ft_error("File is too small to be a champ");
-	write_program_to_board(e, player, e->offset, fd);
+	write_program_to_board(env, player, env->offset, fd);
 	if (-1 == close(fd))
 		ft_error_errno(NULL);
 }

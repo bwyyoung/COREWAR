@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mgr_graphics.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byoung-w <byoung-w@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 13:26:46 by byoung-w          #+#    #+#             */
-/*   Updated: 2017/10/19 15:32:45 by byoung-w         ###   ########.fr       */
+/*   Updated: 2017/11/08 15:57:54 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ bool					keyboard_event();
 void					get_keyboard_event(t_graphics *g);
 void					update_app(t_graphics *g, t_env *e);
 void					display_app(t_graphics *g, t_env *e);
-void					graphics_loop(t_env *e);
+void					graphics_loop(t_env *e, t_env *backup);
 
 dword					GetTickCount();
 void					render_board(t_graphics *g, t_env *e);
