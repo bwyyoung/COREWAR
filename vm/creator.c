@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   creator.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 17:12:50 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/06 15:37:57 by ppatel           ###   ########.fr       */
+/*   Updated: 2017/11/08 17:14:20 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,6 @@ t_player		*create_player(char *file_name, uint32_t nb)
 		ft_error_errno(NULL);
 	player->lives = 0;
 	player->size = 0;
-	if (!(player->comment = ft_strnew(COMMENT_LENGTH)))
-		ft_error_errno(NULL);
-	if (!(player->name = ft_strnew(PROG_NAME_LENGTH)))
-		ft_error_errno(NULL);
 	player->prog_num = nb;
 	player->prev = NULL;
 	player->next = NULL;

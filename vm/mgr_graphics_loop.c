@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:13:32 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/29 16:51:54 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/08 17:11:14 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,11 @@ void 		graphics_loop_end(t_graphics *g)
 	g->start_time = g->current;
 }
 
-void		graphics_loop(t_env *e)
+void		graphics_loop(t_env *e, t_env *backup)
 {
 	t_graphics		*g;
 
+	UNUSED(backup);
 	g = init_graphics(e);
 	graphics_start(g);
 	init_cutscenes(&g->mgr_cutscene);

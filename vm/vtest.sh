@@ -26,7 +26,7 @@ then
 	champs="$path$2.cor"
 fi
 ./vm -v $1 $champs > ft.txt
-~/team/corewar/software/corewar -v $1 $champs > cp.txt 
+~/corewar/software/corewar -v $1 $champs > cp.txt 
 
 #diff ft.txt cp.txt > diff.txt
 diff ft.txt cp.txt
