@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:10:13 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/08 17:41:59 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/08 18:04:39 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int					check_types(t_env *env, t_process *process)
 
 void				execute_op(t_env *env, t_process *process, int op, int pc)
 {
-	process->types = get_board_val(env->board, pc + 1, 1);
 	get_params(env, process, op);
 	if (check_types(env, process))
 		return (inc_pc(process, get_op_size(env, process)));
@@ -99,6 +98,7 @@ void				execute_process(t_env *env, t_process *process)
 	if (process->cycles_left == 1)
 	{
 		old_pc = process->regs[0];
+		process->types = get_board_val(env->board, old_pc + 1, 1);
 		execute_op(env, process, process->op, process->regs[0]);
 		process->cycles_left = 0;
 		print_verbosity_sixteen(env, process,

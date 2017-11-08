@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:18:29 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/08 11:26:05 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/08 18:07:59 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int			check_magic(t_env *env, int fd)
 	if (rev_endian(magic) != COREWAR_EXEC_MAGIC)
 		error_exit(env, 4);
 	return (fd);
-
 }
 
 /*
@@ -85,11 +84,6 @@ void		reader(t_env *env, t_player *player, char *arg)
 
 	if (-1 == (fd = open(arg, O_RDONLY)))
 		ft_error_errno(NULL);
-	// magic = 0;
-	// if (-1 == read(fd, &magic, sizeof(magic)))
-		// ft_error_errno(NULL);
-	// if (rev_endian(magic) != COREWAR_EXEC_MAGIC)
-		// error_exit(env, 4);
 	fd = check_magic(env, fd);
 	if (-1 == read(fd, player->name, PROG_NAME_LENGTH))
 		ft_error_errno(NULL);

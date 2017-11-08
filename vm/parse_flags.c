@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse_flags.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 14:49:06 by byoung-w          #+#    #+#             */
-/*   Updated: 2017/11/06 16:30:13 by ppatel           ###   ########.fr       */
+/*   Updated: 2017/11/08 18:09:17 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-long	verify_number(t_env *e, char *nbr)
+long		verify_number(t_env *e, char *nbr)
 {
 	long		temp;
 
@@ -30,10 +30,10 @@ uint32_t	get_player_number(t_env *e, char *nbr, int *i, int argc) /// -n
 	if ((*i + 2) > argc)
 		error_exit(e, 11);
 	*i += 2;
-	return(verify_number(e, nbr));
+	return (verify_number(e, nbr));
 }
 
-t_bool	get_dump_number(t_env *e, char *nbr, int *i, int argc) /// -d
+t_bool		get_dump_number(t_env *e, char *nbr, int *i, int argc) /// -d
 {
 	e->options[d] = t_true;
 	if ((*i + 2) > argc)
@@ -43,7 +43,7 @@ t_bool	get_dump_number(t_env *e, char *nbr, int *i, int argc) /// -d
 	return (t_true);
 }
 
-t_bool	get_cycle_number(t_env *e, char *nbr, int *i, int argc) /// -s
+t_bool		get_cycle_number(t_env *e, char *nbr, int *i, int argc) /// -s
 {
 	e->options[s] = t_true;
 	if ((*i + 2) > argc)
@@ -53,13 +53,13 @@ t_bool	get_cycle_number(t_env *e, char *nbr, int *i, int argc) /// -s
 	return (t_true);
 }
 
-t_bool	get_verbose_level(t_env *e, char *nbr, int *i, int argc)
+t_bool		get_verbose_level(t_env *e, char *nbr, int *i, int argc)
 {
 	e->options[v] = t_true;
 	if ((*i + 2) > argc)
 		error_exit(e, 11);
 	if (!ft_strcmp(nbr, "0") || !ft_strcmp(nbr, "1") || !ft_strcmp(nbr, "2") ||
-	 !ft_strcmp(nbr, "4") || !ft_strcmp(nbr, "8") || !ft_strcmp(nbr, "16"))
+		!ft_strcmp(nbr, "4") || !ft_strcmp(nbr, "8") || !ft_strcmp(nbr, "16"))
 		e->verbose_value = verify_number(e, nbr);
 	else
 		error_exit(e, 13);

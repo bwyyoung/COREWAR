@@ -6,7 +6,7 @@
 #    By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/06 18:30:14 by douglas           #+#    #+#              #
-#    Updated: 2017/11/06 15:04:08 by ppatel           ###   ########.fr        #
+#    Updated: 2017/11/08 18:18:11 by dengstra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SOUND = $(PWD)/sound
 #export LD_LIBRARY_PATH := $(shell /bin/pwd)/sound:$(LD_LIBRARY_PATH)
 
 SRC = main.c run_game.c \
+	  	env.c			\
 		load_programs.c \
 		creator.c regs.c ft_error.c \
 		kill_processes.c dump_memory.c executor.c\
