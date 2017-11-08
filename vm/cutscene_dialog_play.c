@@ -43,8 +43,8 @@ void				forward_dialog(t_graphics *g, t_dialog *d)
 	}
 	mvwprintw(g->dialog_window, 63, 80,
 		g->mgr_cutscene.current_dialog->current->text);
-	mvwprintw(g->dialog_window, 64, 80,
-		"seconds: %i", g->seconds4);
+	//mvwprintw(g->dialog_window, 64, 80,
+	//	"seconds: %i", g->seconds4);
 }
 
 void 				render_dialog(t_graphics *g)
