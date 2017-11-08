@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_bitwise.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 19:03:47 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/02 19:09:07 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/07 14:40:55 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ static void	print_verbosity_four(t_env *env, t_process *process,
 {
 	if (!env->options[v] || env->verbose_value != 4)
 		return ;
-	P(env->g_ref, env->options[visual], "P %4u | %s ", process->process_num,
-								env->op_tab[process->op].name);
-	P(env->g_ref, env->options[visual], "%d", val1);
-	P(env->g_ref, env->options[visual], " %d", val2);
-	P(env->g_ref, env->options[visual], " r%d", process->param_val[2]);
-	P(env->g_ref, env->options[visual], "\n");
+	P(env->g_ref, env->options[visual], "P %4u | %s %d %d r%d\n",
+								process->process_num,
+								env->op_tab[process->op].name,
+								val1,
+								val2,
+								process->param_val[2]);
 }
 
 /*
@@ -43,8 +43,8 @@ void		op_bitwise(t_env *env, t_process *process, int op)
 		return ;
 	if (check_param_reg_nums(process))
 		return ;
-	val1 = get_param_val(env, 0, process, REG_SIZE);
-	val2 = get_param_val(env, 1, process, REG_SIZE);
+	val1 = get_param_val(env, process, 0);
+	val2 = get_param_val(env, process, 1);
 	if (op == and)
 		result = val1 & val2;
 	else if (op == or)

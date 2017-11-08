@@ -26,4 +26,4 @@ then
 	champs="$path$1.cor"
 fi
 
-./vm -v 2 $champs | awk '{v[c++]=$0}END{print v[c-2]}'
+./vm -v 2 $champs | awk '{v[c++]=$0}END{print v[c-2]}' | awk '{print $NF}'

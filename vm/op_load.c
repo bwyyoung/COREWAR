@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_load.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:18:48 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/06 13:23:37 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/07 14:18:02 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,7 @@ void		op_load(t_env *env, t_process *process)
 		return ;
 	if (check_param_reg_nums(process))
 		return ;
-	if (process->param_type[0] == IND_CODE && process->op == lld)
-		new_reg_val = get_param_val(env, 0, process, IND_SIZE);
-	else
-		new_reg_val = get_param_val(env, 0, process, REG_SIZE);
+	new_reg_val = get_param_val(env, process, 0);
 	set_reg_val(process, process->param_val[1], new_reg_val);
 	modify_carry(process, new_reg_val);
 	print_verbosity_four(env, process, process->op, new_reg_val);

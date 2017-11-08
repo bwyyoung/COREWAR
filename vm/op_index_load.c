@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_index_load.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/05 14:47:50 by douglas           #+#    #+#             */
-/*   Updated: 2017/11/06 12:34:02 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/08 08:51:48 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void		op_index_load(t_env *env, t_process *process, int pc)
 		return ;
 	if (check_param_reg_nums(process))
 		return ;
-	index1 = get_param_val(env, 0, process, REG_SIZE);
-	index2 = get_param_val(env, 1, process, REG_SIZE);
+	index1 = get_param_val(env, process, 0);
+	index2 = get_param_val(env, process, 1);
 	index_sum = index1 + index2;
 	if (process->op == ldi)
 		index_sum %= IDX_MOD;

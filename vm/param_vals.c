@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   param_vals.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:27:07 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/04 20:09:20 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/07 14:17:12 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,13 @@ void			get_params(t_env *env, t_process *process, int op)
 ** will want a IND_VAL of size 2.
 */
 
-int				get_ind_val(t_env *env, t_process *process,
-							int16_t param_val, int read_size)
+int				get_ind_val(t_env *env, t_process *process, int16_t param_val)
 {
 	int	pc;
 	int	val;
+	int read_size;
 
+	read_size = (process->op == lld) ? 2 : 4;
 	pc = process->regs[0];
 	if (env->op_tab[process->op].use_idx)
 		val = get_board_val(env->board, pc + ((int16_t)param_val % IDX_MOD),
@@ -89,8 +90,7 @@ int				get_ind_val(t_env *env, t_process *process,
 ** If the param_val is a direct val(DIR_VAL), return the param_val.
 */
 
-int				get_param_val(t_env *env, int which_param,
-								t_process *process, int read_size)
+int				get_param_val(t_env *env, t_process *process, int which_param)
 {
 	int		val;
 	uint8_t	param_type;
@@ -101,7 +101,7 @@ int				get_param_val(t_env *env, int which_param,
 	if (param_type == REG_CODE)
 		val = get_reg_val(process, param_val);
 	else if (param_type == IND_CODE)
-		val = get_ind_val(env, process, (int16_t)param_val, read_size);
+		val = get_ind_val(env, process, (int16_t)param_val);
 	else
 	{
 		val = (env->op_tab[process->op].label_size == 4)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 15:37:30 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/06 16:30:46 by ppatel           ###   ########.fr       */
+/*   Updated: 2017/11/08 09:28:18 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,12 +165,12 @@ void					load_programs(t_env *env, char *argv[]);
 void					dump_memory(t_env *env);
 void					run_game(t_env *env);
 void					execute_cycle(t_env *env);
-int						get_param_val(t_env *env, int which_param,
-						t_process *process, int read_size);
+int						get_param_val(t_env *env, t_process *process,
+						int which_param);
 void					get_params(t_env *env, t_process *process, int op);
 t_env					*create_env(void);
 uint8_t					*create_board(void);
-t_player				*create_player(char *file_name, uint32_t);
+t_player				*create_player(char *file_name, uint32_t num);
 t_process				*create_process(t_env *e, t_player *player);
 int						is_reg_num_invalid(int reg_num);
 int						get_reg_val(t_process *process, int reg_num);

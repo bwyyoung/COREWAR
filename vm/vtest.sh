@@ -5,7 +5,7 @@ rm -rf diff.txt
 rm -rf ft.txt
 rm -rf cp.txt
 
-path=~/team/corewar/champions/
+path=~/corewar/champions/
 
 ./asm $path$2.s
 ./asm $path$3.s

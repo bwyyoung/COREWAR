@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_index_store.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/05 14:22:00 by douglas           #+#    #+#             */
-/*   Updated: 2017/11/06 12:53:15 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/07 14:18:27 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ void		op_index_store(t_env *env, t_process *process, int pc)
 		return ;
 	if (check_param_reg_nums(process))
 		return ;
-	index1 = get_param_val(env, 1, process, REG_SIZE);
-	index2 = get_param_val(env, 2, process, REG_SIZE);
+	index1 = get_param_val(env, process, 1);
+	index2 = get_param_val(env, process, 2);
 	index_sum = index1 + index2;
 	new_reg_val = get_reg_val(process, process->param_val[0]);
 	set_board_val(env, process, pc + (index_sum % IDX_MOD), new_reg_val);

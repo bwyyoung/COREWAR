@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_arithmetic.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:13:26 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/02 18:45:22 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/07 14:40:25 by douglas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ static void	print_verbosity_four(t_env *env, t_process *process)
 	if (!env->options[v] || env->verbose_value != 4)
 		return ;
 	P(env->g_ref, env->options[visual], "P %4u | %s r%d r%d r%d\n",
-		process->process_num,
-		env->op_tab[process->op].name,
-		process->param_val[0],
-		process->param_val[1],
-		process->param_val[2]);
+								process->process_num,
+								env->op_tab[process->op].name,
+								process->param_val[0],
+								process->param_val[1],
+								process->param_val[2]);
 }
 
 /*
