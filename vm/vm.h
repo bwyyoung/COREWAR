@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 15:37:30 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/08 17:33:54 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/08 17:47:59 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ typedef struct			s_env
 	int					cycle_to_die;
 	int					cycles_since_check;
 	long				total_cycles;
-	int					lives_since_check;
+	int					lives_since_check; // visual lives in current period
 	uint32_t			num_processes;
 	uint8_t				board[MEM_SIZE];
 	t_player			*lst_players;
@@ -129,7 +129,7 @@ typedef struct			s_env
 	uint32_t			prog_num_board[MEM_SIZE];
 	uint32_t			offset;
 	t_op				*op_tab;
-	int					last_live_visual;
+	int					last_live_visual; // visual
 	int					i;
 	int					j;
 	int					k;
