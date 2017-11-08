@@ -34,7 +34,10 @@ void					get_keyboard_event(t_graphics *g)
 	if (!keyboard_event())
 		return ;
 	g->key_pressed = getch();
+	printf("key pressed %i\n", g->key_pressed);
 	if (g->key_pressed == APP_KEY_SPACE)
+		return ;
+	else if (g->key_pressed == APP_KEY_ENTER)
 		return ;
 	else if (g->key_pressed != APP_KEY_ESC)
 		return ;
