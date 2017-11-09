@@ -43,7 +43,7 @@ void					render_player(t_graphics *g, uint32_t pn)
 	while(++g->i < MAX_PLAYERS && g->player_id_init[g->i])
 	{
 		if (pn != g->player_id[g->i])
-			continue;
+			continue ;
 		g->player_match = true;
 		wattron(g->game_window, g->player_colors[g->i]);
 		break;

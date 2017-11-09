@@ -37,14 +37,19 @@ void					render_data(t_graphics *g, t_env *e)
 void					render_log(t_graphics *g, t_env *e)
 {
 	g->i = -1;
-	g->j = -1;
 	g->player_match = false;
 	e->new_player = e->lst_players;
 	while(++g->i < MAX_PLAYERS && g->player_id_init[g->i])
 	{
-		wattron(g->game_window, g->player_colors[g->i]);
-		render_data(g, e);
-		wattroff(g->game_window, g->player_colors[g->j]);
+		g->j = -1;
+		while(++g->j < MAX_PLAYERS && g->player_id_init[g->j])
+			if (g->player_id[g->j] == e->new_player->prog_num)
+			{
+				wattron(g->game_window, g->player_colors[g->j]);
+				render_data(g, e);
+				wattroff(g->game_window, g->player_colors[g->j]);
+				break ;
+			}
 		e->new_player = e->new_player->next;
 	}
 }
