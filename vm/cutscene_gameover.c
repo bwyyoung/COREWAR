@@ -17,10 +17,7 @@ void			game_over(t_graphics *g, t_env *e)
 	if (!g->game_over || (g->init_game_over_menu))
 		return ;
 	if (ENABLE_SOUND)
-	{
 		snd_delete_playing_audio(&g->mgr_cutscene);
-		snd_play_beep(&g->mgr_cutscene);
-	}
 	declare_winner(e);
 	wnoutrefresh(g->log_window);
 	doupdate();
@@ -33,6 +30,8 @@ void			game_over(t_graphics *g, t_env *e)
 	else
 		play_cutscene(g, VIDEO_BULLET_TIME);
 	g->init_game_over_menu = true;
+	if (ENABLE_SOUND)
+		snd_play_beep(&g->mgr_cutscene);
 }
 
 void			prep_game_over(t_graphics *g)
