@@ -22,14 +22,18 @@
 # define SOUND_BACKGROUND "/sound/burly_brawl2.ogg"
 # define SOUND_BULLET_TIME "/sound/bullet_time.ogg"
 # define SOUND_THE_ONE "/sound/the_one.ogg"
+# define SOUND_GAMEOVER "/sound/game_over.ogg"
+# define VIDEO_NEO_WINS "/animation/neo_win.txt"
+# define VIDEO_NEO_LOSE "/animation/neo_lose.txt"
 # define SOUND_BEEP "/sound/Powerup14.wav"
 # define VIDEO_BULLET_TIME "/animation/bullet_time.txt"
 # define VIDEO_THE_ONE "/animation/the_one.txt"
+# define VIDEO_PILL "/animation/pill.txt"
 # define DIALOG_INTRO_VID "/animation/intro.txt"
 # define DIALOG_INTRO_SUB "/animation/script_intro.txt"
 # define DIALOG_INTRO_SND "/sound/intro_speech.ogg"
-# define AVATAR_NEO "(⌐■_■)_•︻̷┻̿═━一"
-# define AVATAR_SMITH "╾━╤デ╦︻(▀̿̿Ĺ̯̿̿▀̿ ̿)"
+# define AVATAR_NEO "~ NEO ~ (⌐■_■)_•︻̷┻̿═━一"
+# define AVATAR_SMITH "╾━╤デ╦︻(▀̿̿Ĺ̯̿̿▀̿ ̿) ~ SMITH ~"
 # define CURSCENE scene->current_cutscene
 # define G ((t_mgr_scene *)userdata)
 # ifdef WIN32
@@ -132,6 +136,7 @@ typedef struct 				s_mgr_scene
 	t_cutscene				*cutscenes;
 	t_cutscene				*new_cutscene;
 	t_cutscene				*current_cutscene;
+	t_cutscene				*pill;
 	t_dialog				*dialog_intro;
 	t_dialog				*current_dialog;
 	bool					skip_intro;
@@ -200,4 +205,7 @@ void 						snd_play_bullet_time(t_mgr_scene *snd);
 void 						snd_play_the_one(t_mgr_scene *snd);
 void						render_cutscene(t_graphics *g);
 void						render_dialog(t_graphics *g);
+void 						play_cutscene(t_graphics *g, char *name);
+void render_game_over(t_graphics *g);
+void						prep_game_over(t_graphics *g);
 #endif

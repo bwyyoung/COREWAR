@@ -71,9 +71,7 @@ void		parse_flags(t_env *e, int argc, char **argv)
 void		init(t_env *env, t_env *backup)
 {
 	if (env->options[visual])
-	{
 		graphics_loop(env, backup);
-	}
 	else
 	{
 		introduce_players(env);

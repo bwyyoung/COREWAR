@@ -77,7 +77,7 @@ typedef struct			s_player
 	struct s_player		*next;
 	int					vis;
 	char				*file_name;
-	int					last_live; // visual
+	long				last_live; // visual
 }						t_player;
 
 typedef struct s_graphics t_graphics;
@@ -114,7 +114,7 @@ typedef struct			s_env
 	uint8_t				board[MEM_SIZE];
 	t_player			*lst_players;
 	t_process			*lst_process;
-	int					last_live_num;
+	uint32_t			last_live_num;
 	char				*last_live_name;
 	int					checks;
 	int					options[10];

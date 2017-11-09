@@ -43,6 +43,9 @@ void				init_cutscenes(t_mgr_scene *scene)
 	scene->cutscenes = NULL;
 	load_cutscene(scene, VIDEO_BULLET_TIME, SOUND_BULLET_TIME, 80);
 	load_cutscene(scene, VIDEO_THE_ONE, SOUND_THE_ONE, 90);
+	load_cutscene(scene, VIDEO_NEO_WINS, SOUND_GAMEOVER, 0);
+	load_cutscene(scene, VIDEO_NEO_LOSE, SOUND_GAMEOVER, 0);
+	load_cutscene(scene, VIDEO_PILL, SOUND_GAMEOVER, 0);
 	scene->dialog_intro = load_dialog(scene, DIALOG_INTRO_VID, DIALOG_INTRO_SND,
 	DIALOG_INTRO_SUB);
 	scene->dialog_intro->finished = &snd_play_background_music;

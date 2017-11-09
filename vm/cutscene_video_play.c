@@ -16,18 +16,14 @@ void					forward_cutscene(t_graphics *g, t_cutscene *thescene)
 {
 	if (!thescene->current)
 	{
-		g->mgr_cutscene.is_scene_playing = false;
-		if (ENABLE_SOUND)
-			snd_delete_playing_audio(&g->mgr_cutscene);
+		prep_game_over(g);
 		return ;
 	}
 	thescene->index = -1;
 	while (++thescene->index < CUTSCENE_HEIGHT)
-	{
 		if (thescene->current->frame[thescene->index])
 			mvwprintw(g->video_window, thescene->index + 5, 1, "%s",
 			thescene->current->frame[thescene->index]);
-	}
 	thescene->index = -1;
 	if (g->seconds3 <= thescene->refresh_rate)
 		return ;
@@ -66,8 +62,4 @@ void 					play_cutscene(t_graphics *g, char *name)
 	if (ENABLE_SOUND)
 		play_audio(&g->mgr_cutscene, start, 
 	g->mgr_cutscene.current_cutscene->sound_file, false);
-	/*if (!ft_strcmp(name, VIDEO_BULLET_TIME))
-		snd_play_bullet_time(&g->mgr_cutscene);
-	else if (!ft_strcmp(name, VIDEO_THE_ONE))
-		snd_play_the_one(&g->mgr_cutscene);*/
 }

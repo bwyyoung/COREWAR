@@ -15,8 +15,6 @@
 void					break_video(t_cutscene *s)
 {
 	SAFE_DELETE(s->line);
-	if (!s->animation)
-		s->animation = s->current;
 	s->prev = s->current;
 	s->index = 0;
 	s->current = s->current->next;
@@ -55,6 +53,8 @@ void					load_cutscene_video(t_cutscene *s)
 		else
 			SAFE_DELETE(s->line);
 		s->index++;
+		if (!s->animation)
+			s->animation = s->current;
 	}
 	SAFE_DELETE(s->line);
 	close(s->pfd);

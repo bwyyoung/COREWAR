@@ -34,7 +34,6 @@ void			introduce_players(t_env *env)
 ** So if there are four player player 4 will win.
 ** Else the player who has gotten the last live wins
 */
-
 void			declare_winner(t_env *env)
 {
 	t_player *player;
@@ -46,11 +45,15 @@ void			declare_winner(t_env *env)
 		player = env->lst_players;
 		while (player->next)
 			player = player->next;
-		ft_printf("Contestant %d, \"%s\", has won !\n",
+		P(env->g_ref, env->options[visual],
+		"Contestant %d, \"%s\", has won !\n",
 		player->prog_num * -1, player->name);
+		env->last_live_num = player->prog_num;
+		env->last_live_name = player->name;
+		return ;
 	}
-	else
-		ft_printf("Contestant %d, \"%s\", has won !\n",
-		env->last_live_num * -1,
-		env->last_live_name);
+	P(env->g_ref, env->options[visual],
+	"Contestant %d, \"%s\", has won !\n",
+	env->last_live_num * -1,
+	env->last_live_name);
 }

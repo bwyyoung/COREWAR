@@ -81,9 +81,13 @@ typedef struct			s_graphics
 	int					window_y;
 	int					window_index;
 	bool				app_is_running;
+	bool				game_over;
 	bool				player_match;
+	bool				init_game_over_menu;
+	bool				neo_wins;
+	bool				restart;
 	int					key_pressed;
-	t_mgr_scene				mgr_cutscene;
+	t_mgr_scene			mgr_cutscene;
 	dword				start_time;
 	dword				next_app_tick;
 	dword				current;
@@ -120,4 +124,5 @@ void					render_process(t_graphics *g, t_env *e);
 void					render_stats(t_graphics *g, t_env *e);
 t_graphics				*init_graphics(t_env *e);
 void					init_player_colors(t_graphics *g, t_env *e);
+void					game_over(t_graphics *g, t_env *e);
 #endif

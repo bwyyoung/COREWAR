@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mgr_graphics_loop.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: byoung-w <byoung-w@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/12 14:13:32 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/08 17:11:14 by dengstra         ###   ########.fr       */
+/*   Created: 2017/10/12 13:26:46 by byoung-w          #+#    #+#             */
+/*   Updated: 2017/10/19 15:32:45 by byoung-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,18 @@ void		graphics_loop_start(t_graphics *g, t_env *e)
 	g->elapsed = g->current - g->start_time;
 	g->seconds += g->elapsed;
 	g->seconds2 += g->elapsed;
-	if (g->mgr_cutscene.is_scene_playing)
+	if (g->mgr_cutscene.is_scene_playing ||
+		(g->game_over && g->init_game_over_menu))
 		g->seconds3 += g->elapsed;
 	if (g->mgr_cutscene.is_dialog_playing)
 		g->seconds4 += g->elapsed;
-	get_keyboard_event(g);
 	if (g->seconds <= APP_REFRESH_RATE)
 		return ;
 	g->seconds = 0;
 	if (!g->mgr_cutscene.is_scene_playing)
 		if  (!g->mgr_cutscene.is_dialog_playing)
-			update_app(g, e);
-	display_app(g, e);
+			if (!g->game_over)
+				update_app(g, e);
 }
 
 void 		graphics_loop_end(t_graphics *g)
@@ -42,6 +42,19 @@ void 		graphics_loop_end(t_graphics *g)
 	g->start_time = g->current;
 }
 
+void		game_intro(t_env *e, t_graphics *g)
+{
+	clear();
+	if (ENABLE_SOUND)
+		snd_delete_playing_audio(&g->mgr_cutscene);
+	g->game_over = false;
+	g->init_game_over_menu = false;
+	g->restart = false;
+	introduce_players(e);
+	if (!g->game_over)
+		play_dialog(g, g->mgr_cutscene.dialog_intro);
+}
+
 void		graphics_loop(t_env *e, t_env *backup)
 {
 	t_graphics		*g;
@@ -51,12 +64,18 @@ void		graphics_loop(t_env *e, t_env *backup)
 	graphics_start(g);
 	init_cutscenes(&g->mgr_cutscene);
 	init_player_colors(g, e);
-	introduce_players(e);
-	play_dialog(g, g->mgr_cutscene.dialog_intro);
+	game_intro(e, g);
 	while (g->app_is_running)
 	{
+		get_keyboard_event(g);
 		graphics_loop_start(g, e);
+		display_app(g, e);
 		graphics_loop_end(g);
+		game_over(g, e);
+		if (!g->restart)
+			continue ;
+		cpy_env(e, backup);
+		game_intro(e, g);
 	}
 	destroy_cutscenes(&g->mgr_cutscene);
 	graphics_end(g);

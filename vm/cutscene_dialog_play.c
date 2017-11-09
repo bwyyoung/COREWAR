@@ -23,11 +23,9 @@ void 				forward_dialog_cutscene(t_graphics *g, t_cutscene *thescene)
 	}
 	thescene->index = -1;
 	while (++thescene->index < CUTSCENE_HEIGHT)
-	{
 		if (thescene->current->frame[thescene->index])
 			mvwprintw(g->dialog_window, thescene->index + 5, 1, "%s",
 				thescene->current->frame[thescene->index]);
-	}
 	thescene->index = -1;
 }
 
@@ -56,7 +54,7 @@ void 				render_dialog(t_graphics *g)
 	forward_dialog(g, g->mgr_cutscene.current_dialog);
 	forward_dialog_cutscene(g, g->mgr_cutscene.current_cutscene);
 	if (g->mgr_cutscene.current_dialog->current->next)
-		if (g->mgr_cutscene.current_dialog->current->next->timestamp < 
+		if (g->mgr_cutscene.current_dialog->current->next->timestamp <
 			g->seconds4)
 		{
 			g->mgr_cutscene.current_dialog->current = 

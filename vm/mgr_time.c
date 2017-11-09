@@ -43,13 +43,13 @@ void					update_app(t_graphics *g, t_env *env)
 		perform_check(env);
 	if (env->lst_process == NULL)
 	{
-		g->app_is_running = false;
+		g->game_over = true;
 		return ;
 	}
 	if (env->options[d] == 1 && env->dump_value == env->total_cycles)
 	{
 		dump_memory(env);
-		g->app_is_running = false;
+		g->game_over = true;
 		return ;
 	}
 	if (env->options[s] == 1 && (env->total_cycles % env->cycle_value) == 0)
@@ -62,7 +62,9 @@ void					update_app(t_graphics *g, t_env *env)
 void					display_app(t_graphics *g, t_env *e)
 {
 	render_start(g);
-	if (g->mgr_cutscene.is_scene_playing)
+	if ((!g->mgr_cutscene.is_scene_playing) && (g->init_game_over_menu))
+		render_game_over(g);
+	else if (g->mgr_cutscene.is_scene_playing)
 		render_cutscene(g);
 	else if (g->mgr_cutscene.is_dialog_playing)
 		render_dialog(g);

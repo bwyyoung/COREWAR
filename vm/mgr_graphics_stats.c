@@ -39,19 +39,19 @@ void					render_stats(t_graphics *g, t_env *e)
 {
 	render_logo(g);
 	wattron(g->game_window, COLOR_PAIR(CYAN_PAIR));
-	mvwprintw(g->game_window, 8, 199, "Cycle       : ");
-	mvwprintw(g->game_window, 8, 215, "%ld", e->total_cycles);
-	mvwprintw(g->game_window, 9, 199, "Processes   : ");
-	mvwprintw(g->game_window, 9, 215, "%lu", e->num_processes);
-	mvwprintw(g->game_window, 10, 199, "Players     : ");
-	mvwprintw(g->game_window, 10, 215, "%i", e->num_players);
-	mvwprintw(g->game_window, 11, 199, "Cycle_To_Die: ");
-	mvwprintw(g->game_window, 11, 215, "%i",  e->cycle_to_die);
-	mvwprintw(g->game_window, 12, 199, "Cycle_Delta : ");
-	mvwprintw(g->game_window, 12, 215, "%i", CYCLE_DELTA);
-	mvwprintw(g->game_window, 13, 199, "Nbr_Live    : ");
-	mvwprintw(g->game_window, 13, 215, "Unknown");
-	mvwprintw(g->game_window, 14, 199, "Max_Checks  : ");
-	mvwprintw(g->game_window, 14, 215, "%i", MAX_CHECKS);
+	mvwprintw(g->game_window, 8, 229, "Cycle       : ");
+	mvwprintw(g->game_window, 8, 243, "%ld", e->total_cycles);
+	mvwprintw(g->game_window, 9, 229, "Processes   : ");
+	mvwprintw(g->game_window, 9, 243, "%lu", e->num_processes);
+	mvwprintw(g->game_window, 10, 229, "Players     : ");
+	mvwprintw(g->game_window, 10, 243, "%i", e->num_players);
+	mvwprintw(g->game_window, 11, 229, "Cycle_To_Die: ");
+	mvwprintw(g->game_window, 11, 243, "%i",  e->cycle_to_die);
+	mvwprintw(g->game_window, 12, 229, "Cycle_Delta : ");
+	mvwprintw(g->game_window, 12, 243, "%i", CYCLE_DELTA);
+	mvwprintw(g->game_window, 13, 229, "Nbr_Live    : ");
+	mvwprintw(g->game_window, 13, 243, "%i", NBR_LIVE);
+	mvwprintw(g->game_window, 14, 229, "Max_Checks  : ");
+	mvwprintw(g->game_window, 14, 243, "%i", MAX_CHECKS);
 	wattroff(g->game_window, COLOR_PAIR(CYAN_PAIR));
 }
