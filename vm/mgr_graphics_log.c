@@ -24,7 +24,7 @@ void					render_data(t_graphics *g, t_env *e)
 		e->new_player->name);
 	mvwprintw(g->game_window, 16 + g->i * 6, 193,
 		"Player ID    : ");
-	mvwprintw(g->game_window, 16 + g->i * 6, 210, "%zu",
+	mvwprintw(g->game_window, 16 + g->i * 6, 210, "%d",
 		e->new_player->prog_num);
 	mvwprintw(g->game_window, 17 + g->i * 6, 193, "Last Live    : ");
 	mvwprintw(g->game_window, 17 + g->i * 6, 210, "%ld",
