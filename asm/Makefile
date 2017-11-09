@@ -3,72 +3,90 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+         #
+#    By: mda-cost <mda-cost@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2017/09/17 14:59:23 by ppatel            #+#    #+#              #
-#    Updated: 2017/10/18 20:07:48 by ppatel           ###   ########.fr        #
+#    Created: 2017/11/09 17:07:28 by mda-cost          #+#    #+#              #
+#    Updated: 2017/11/09 17:07:29 by mda-cost         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = gcc
+NAME 	= asm
 
-FLAGS = -Wall \
-		-Wextra \
-		-Werror \
+CC		= gcc
 
-NAME = asm
+CFLAGS	= -Wall -Wextra -Werror
 
-SDIR = srcs
+RM		= rm -rf
 
-ODIR = objects
+OBJS		= objs
+SRCS		= srcs
+INCS		= includes
+LIB			= libft
 
-SRCS = $(SDIR)/asm.c \
-	   $(SDIR)/op.c \
-	   $(SDIR)/lexical.c \
-	   $(SDIR)/check_lexical.c \
-	   $(SDIR)/syntax_analyser.c \
-	   $(SDIR)/check_syntax.c \
-	   $(SDIR)/instructions.c \
-	   $(SDIR)/write_hex.c \
-	   $(SDIR)/tools.c \
-	   $(SDIR)/error.c \
-	   $(SDIR)/free.c \
+INCLUDES	= -I$(INCS) -I$(LIB)
+LIBS		= -L $(LIB) -lft
 
-OBJ = $(SRCS:$(SDIR)/%.c=$(ODIR)/%.o)
+# headers files
+I_FILES 	=	asm.h \
+				op.h
+I_SRCS		=	$(addprefix $(INCS)/,$(I_FILES))
 
-HDRS = -I./includes \
-	   -I./libft/includes
+# source files
+C_FILES		=	asm.c \
+				op.c \
+				lexical.c \
+				check_lexical.c \
+				syntax_analyser.c \
+				check_syntax.c \
+				instructions.c \
+				write_hex.c \
+				tools.c \
+				error.c \
+				free.c
+C_SRCS		=	$(addprefix $(SRCS)/,$(C_FILES))
 
-LIBFT = ./libft/libft.a
+# object files
+O_FILES		=	$(C_FILES:.c=.o)
+O_SRCS		=	$(addprefix $(OBJS)/,$(O_FILES))
 
-LIBS = -L./libft/ -lft
+# Print
+ACTUAL		= $(words $(COUNT))
+TOTAL		= $(words $(filter %.c,$(C_SRCS)))
+INCREMENT	= $(eval COUNT+=1)
 
-all : $(NAME)
+PRINTINC	= $(INCREMENT) $(PRINT)
+PRINT		= printf "\r $(REDB)%3s%%$(NC)\t -->>\t$(REDB)%-60s$(NC)\r" "$(shell echo $(ACTUAL)\*100\/$(TOTAL) | bc)" "$^"
+PRINTDONE	= printf "\r $(GREENB)%3s%%$(NC)\t -->>\t$(GREENB)%-60s$(NC)\r" "$(shell echo $(ACTUAL)\*100\/$(TOTAL) | bc)" "$@"
 
-$(NAME): $(ODIR) $(LIBFT) $(OBJ)
-	@$(CC) $(FLAGS) $(LIBS) $(OBJ) -o $@
-	@echo "asm created."
+# colors
 
-$(ODIR):
-	@mkdir objects
+RED=\033[0;31m
+LBLUE=\033[0;34m
+CYAN=\033[0;36m
+ORANGE=\033[0;33m
+GREEN=\033[0;32m
+REDB=\033[31;1m
+GREENB=\033[32;1m
+NC=\033[0m
 
-$(ODIR)/%.o: $(SDIR)/%.c
-	@$(CC) $(FLAGS) -c $< $(HDRS) -o $@
-	@echo "Object created."
+all: $(NAME)
 
-$(LIBFT):
-	@make -C libft/
+$(NAME): $(O_SRCS)
+	@make -C $(LIB)
+	@$(CC) $(C_FLAGS) $(LIBS) $^ -o $@ && $(PRINTDONE) && echo
 
-clean:
-	@rm -rf $(ODIR)
-	@make clean -C libft
-	@echo "Objects deleted."
-
-fclean: clean
-	@rm -f $(NAME)
-	@make fclean -C libft
-	@echo "Executable deleted."
-
-re: fclean all
+$(OBJS)/%.o: $(SRCS)/%.c $(I_SRCS)
+	@mkdir -p $(OBJS)
+	@$(CC) $(C_FLAGS) $(INCLUDES) -c $< -o $@ && $(PRINTINC)
 
 .PHONY: all clean fclean re
+
+clean:
+	@make clean -C $(LIB)
+	@rm -rf $(O_FILES) $(OBJS)
+
+fclean: clean
+	@make fclean -C $(LIB)
+	@rm -f $(NAME)
+
+re: fclean all
