@@ -134,21 +134,34 @@ HDRS =  -I./get_next_line.h \
 		-I./libft.h \
 		-I./ft_printf.h
 
+# Print
+ACTUAL		= $(words $(COUNT))
+TOTAL		= $(words $(filter %.c,$(SRCS)) $(filter %.c,$(PFSRCS)))
+INCREMENT	= $(eval COUNT+=1)
+
+PRINTINC	= $(INCREMENT) $(PRINT)
+PRINT		= printf "\r $(REDB)%3s%%$(NC)\t -->>\t$(REDB)%-60s$(NC)\r" "$(shell echo $(ACTUAL)\*100\/$(TOTAL) | bc)" "$@"
+PRINTDONE	= printf "\r $(GREENB)%3s%%$(NC)\t -->>\t$(GREENB)%-60s$(NC)\r" "$(shell echo $(ACTUAL)\*100\/$(TOTAL) | bc)" "$@"
+
+# colors
+REDB=\033[31;1m
+GREENB=\033[32;1m
+NC=\033[0m
+
+
 all: $(NAME)
 
 $(NAME): $(ODIR) $(OBJ) $(PFOBJ)
-	@ar rc $@ $(OBJ) $(PFOBJ)
-	@echo "Lib created."
+	@ar rc $@ $(OBJ) $(PFOBJ) && $(PRINTDONE)
 
 $(ODIR):
-	@echo "Wait \c"
 	@mkdir $@
 
 $(ODIR)/%.o: $(SDIR)/%.c
-	@$(CC) $(FLAGS) -c $< $(HDRS) -o $@
+	@$(CC) $(FLAGS) -c $< $(HDRS) -o $@ && $(PRINTINC)
 
 $(ODIR)/%.o: $(SDIRPF)/%.c
-	@$(CC) $(FLAGS) -c $< $(HDRS) -o $@
+	@$(CC) $(FLAGS) -c $< $(HDRS) -o $@ && $(PRINTINC)
 
 clean:
 	@rm -rf $(ODIR)

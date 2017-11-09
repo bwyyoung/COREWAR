@@ -23,10 +23,10 @@ OBJS		=	objs
 SRCS		=	.
 INCS		=	.
 SHELL		=	/bin/bash
-SOUND		=	$(PWD)/sound
+SOUND		=	$(CURDIR)/sound
 INCLUDES	=	-I$(INCS) -I$(LIB) -I sound/
 LIBS		=	-L $(LIB) -lft -lncurses /Users/$(USER)/.brew/opt/libsndfile/lib/libsndfile.1.dylib
-LINK		=	-L sound/ -lcommon  -L sound/ -lportaudio -L$(PWD)/sound -lsndfile
+LINK		=	-L sound/ -lcommon  -L sound/ -lportaudio -L $(SOUND) -lsndfile
 FRAMEWORK	=	-framework CoreServices -framework CoreFoundation \
 				-framework AudioUnit -framework AudioToolbox -framework CoreAudio
 
@@ -98,12 +98,6 @@ PRINT		= printf "\r $(REDB)%3s%%$(NC)\t -->>\t$(REDB)%-60s$(NC)\r" "$(shell echo
 PRINTDONE	= printf "\r $(GREENB)%3s%%$(NC)\t -->>\t$(GREENB)%-60s$(NC)\r" "$(shell echo $(ACTUAL)\*100\/$(TOTAL) | bc)" "$@"
 
 # colors
-
-RED=\033[0;31m
-LBLUE=\033[0;34m
-CYAN=\033[0;36m
-ORANGE=\033[0;33m
-GREEN=\033[0;32m
 REDB=\033[31;1m
 GREENB=\033[32;1m
 NC=\033[0m
