@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cutscene_dialog_play.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byoung-w <byoung-w@student.42.fr>            +#+  +:+       +#+      */
+/*   By: byoung-w <byoung-w@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/12 14:16:45 by byoung-w          #+#    #+#             */
-/*   Updated: 2017/10/23 21:48:45 by byoung-w          ###   ########.fr      */
+/*   Created: 2017/11/09 20:23:39 by byoung-w          #+#    #+#             */
+/*   Updated: 2017/11/09 20:23:40 by mda-cost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mgr_graphics.h"
 
-void 				forward_dialog_cutscene(t_graphics *g, t_cutscene *thescene)
+void				forward_dialog_cutscene(t_graphics *g, t_cutscene *thescene)
 {
 	if (!thescene->current)
 	{
@@ -45,19 +45,19 @@ void				forward_dialog(t_graphics *g, t_dialog *d)
 		"PRESS [ENTER] TO SKIP CUTSCENE");
 }
 
-void 				render_dialog(t_graphics *g)
+void				render_dialog(t_graphics *g)
 {
 	if (g->key_pressed == APP_KEY_ENTER)
 		g->seconds4 = g->mgr_cutscene.current_dialog->duration + 100;
 	wattron(g->dialog_window, COLOR_PAIR(GREEN_PAIR));
-	box(g->dialog_window, 0 , 0);
+	box(g->dialog_window, 0, 0);
 	forward_dialog(g, g->mgr_cutscene.current_dialog);
 	forward_dialog_cutscene(g, g->mgr_cutscene.current_cutscene);
 	if (g->mgr_cutscene.current_dialog->current->next)
 		if (g->mgr_cutscene.current_dialog->current->next->timestamp <
 			g->seconds4)
 		{
-			g->mgr_cutscene.current_dialog->current = 
+			g->mgr_cutscene.current_dialog->current =
 				g->mgr_cutscene.current_dialog->current->next;
 			g->mgr_cutscene.current_cutscene->current =
 				g->mgr_cutscene.current_cutscene->current->next;
@@ -65,7 +65,7 @@ void 				render_dialog(t_graphics *g)
 	wattroff(g->dialog_window, COLOR_PAIR(GREEN_PAIR));
 }
 
-void play_dialog(t_graphics *g, t_dialog *d, int delay)
+void				play_dialog(t_graphics *g, t_dialog *d, int delay)
 {
 	prep_cutscene(g, d->video_file);
 	if (ENABLE_SOUND)

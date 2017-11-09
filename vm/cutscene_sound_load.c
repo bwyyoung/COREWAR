@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cutscene_sound_load.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byoung-w <byoung-w@student.42.fr>            +#+  +:+       +#+      */
+/*   By: byoung-w <byoung-w@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/12 14:16:45 by byoung-w          #+#    #+#             */
-/*   Updated: 2017/10/23 21:48:45 by byoung-w          ###   ########.fr      */
+/*   Created: 2017/11/09 20:33:54 by byoung-w          #+#    #+#             */
+/*   Updated: 2017/11/09 20:33:57 by mda-cost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ bool loop)
 		ft_error_errno(NULL);
 	if (!(b = audio_exists(snd, thefile)))
 		b = create_audiofile(snd, thefile);
-	a->pb = (t_playback *)malloc(sizeof(t_playback));;
+	a->pb = (t_playback *)malloc(sizeof(t_playback));
 	a->pb->pos = 0;
 	a->next = NULL;
 	a->prev = NULL;
@@ -84,7 +84,7 @@ int							play_audio(t_mgr_scene *snd,
 		if (!snd->sounds)
 			return ((snd->sounds = new_audio(snd, thefile, loop)) != NULL);
 		snd->new_s = snd->sounds;
-		while(snd->new_s->next != NULL)
+		while (snd->new_s->next != NULL)
 			snd->new_s = snd->new_s->next;
 		snd->new_s->next = new_audio(snd, thefile, loop);
 		snd->new_s->next->prev = snd->new_s;

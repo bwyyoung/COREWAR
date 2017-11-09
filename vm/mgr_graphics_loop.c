@@ -15,7 +15,7 @@
 
 void		graphics_loop_start(t_graphics *g, t_env *e)
 {
-	g->current = GetTickCount();
+	g->current = gettickcount();
 	g->elapsed = g->current - g->start_time;
 	g->seconds += g->elapsed;
 	g->seconds2 += g->elapsed;
@@ -28,15 +28,15 @@ void		graphics_loop_start(t_graphics *g, t_env *e)
 		return ;
 	g->seconds = 0;
 	if (!g->mgr_cutscene.is_scene_playing)
-		if  (!g->mgr_cutscene.is_dialog_playing)
+		if (!g->mgr_cutscene.is_dialog_playing)
 			if (!g->game_over)
 				update_app(g, e);
 }
 
-void 		graphics_loop_end(t_graphics *g)
+void		graphics_loop_end(t_graphics *g)
 {
 	g->next_app_tick += SKIP_TICKS;
-	g->sleep_time = (g->next_app_tick - GetTickCount());
+	g->sleep_time = (g->next_app_tick - gettickcount());
 	if (g->sleep_time >= 0)
 		usleep((useconds_t)g->sleep_time);
 	g->start_time = g->current;
@@ -69,7 +69,7 @@ void		graphics_loop(t_env *e, t_env *backup)
 	{
 		get_keyboard_event(g);
 		if (!g->app_is_running)
-			break;
+			break ;
 		graphics_loop_start(g, e);
 		display_app(g, e);
 		graphics_loop_end(g);

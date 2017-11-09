@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cutscene_video_play.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byoung-w <byoung-w@student.42.fr>            +#+  +:+       +#+      */
+/*   By: byoung-w <byoung-w@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/12 14:16:45 by byoung-w          #+#    #+#             */
-/*   Updated: 2017/10/23 21:48:45 by byoung-w          ###   ########.fr      */
+/*   Created: 2017/11/09 20:38:06 by byoung-w          #+#    #+#             */
+/*   Updated: 2017/11/09 20:38:07 by mda-cost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void					forward_cutscene(t_graphics *g, t_cutscene *thescene)
 void					render_cutscene(t_graphics *g)
 {
 	wattron(g->video_window, COLOR_PAIR(GREEN_PAIR));
-	box(g->video_window, 0 , 0);
+	box(g->video_window, 0, 0);
 	forward_cutscene(g, g->mgr_cutscene.current_cutscene);
 	wattroff(g->video_window, COLOR_PAIR(GREEN_PAIR));
 }
@@ -55,11 +55,11 @@ void					prep_cutscene(t_graphics *g, char *name)
 		g->mgr_cutscene.current_cutscene->animation;
 }
 
-void 					play_cutscene(t_graphics *g, char *name)
+void					play_cutscene(t_graphics *g, char *name)
 {
 	g->mgr_cutscene.is_scene_playing = true;
 	prep_cutscene(g, name);
 	if (ENABLE_SOUND)
-		play_audio(&g->mgr_cutscene, start, 
+		play_audio(&g->mgr_cutscene, start,
 	g->mgr_cutscene.current_cutscene->sound_file, false);
 }

@@ -38,14 +38,14 @@ void		ft_hex(int dec, char *buffer)
 	buffer = ft_strrev(buffer);
 }
 
-void 					render_cell(t_graphics *g, t_env *e)
+void		render_cell(t_graphics *g, t_env *e)
 {
 	render_player(g, e->prog_num_board[g->window_index]);
 	mvwprintw(g->game_window, g->window_y,
 		g->window_x * 2 + g->window_x, "%02X", e->board[g->window_index]);
 }
 
-void					render_board(t_graphics *g, t_env *e)
+void		render_board(t_graphics *g, t_env *e)
 {
 	g->window_x = 0;
 	g->window_y = 0;

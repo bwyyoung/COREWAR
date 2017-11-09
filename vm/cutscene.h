@@ -6,11 +6,12 @@
 /*   By: byoung-w <byoung-w@student.42.fr>            +#+  +:+       +#+      */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:16:45 by byoung-w          #+#    #+#             */
-/*   Updated: 2017/10/23 21:48:45 by byoung-w          ###   ########.fr      */
+/*   Updated: 2017/11/09 20:20:14 by mda-cost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUTSCENE_H
+
 # define CUTSCENE_H
 # define CUTSCENE_WIDTH 200
 # define CUTSCENE_HEIGHT 60
@@ -164,9 +165,10 @@ void 						snd_processevent(enum audioeventtype t,
 							t_audiofile *af,
 							bool loop);
 t_dialog					*load_dialog(t_mgr_scene *g, char *video,
-	char *audio, char *sub);
+								char *audio, char *sub);
 void						delete_dialog(t_dialog *d);
-void play_dialog(t_graphics *g, t_dialog *d, int delay);
+void						play_dialog(t_graphics *g, t_dialog *d, int delay);
+
 /*
 ** Portaudio callback function. It takes 6 parameters, hence
 ** breaking the norminette, but it is necessary in order to use the library.
@@ -178,6 +180,7 @@ void play_dialog(t_graphics *g, t_dialog *d, int delay);
 ** unsigned long frameCount, const PaStreamCallbackTimeInfo *timeInfo,
 ** PaStreamCallbackFlags statusFlags, void *userData)
 */
+
 int							PortAudioCallback(const void * input,
 							void *output,
 							unsigned long framecount,
@@ -206,6 +209,7 @@ void 						snd_play_the_one(t_mgr_scene *snd);
 void						render_cutscene(t_graphics *g);
 void						render_dialog(t_graphics *g);
 void 						play_cutscene(t_graphics *g, char *name);
-void render_game_over(t_graphics *g);
+void						render_game_over(t_graphics *g);
 void						prep_game_over(t_graphics *g);
+
 #endif

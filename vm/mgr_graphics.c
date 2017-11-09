@@ -69,8 +69,8 @@ void					render_start(t_graphics *g)
 		werase(g->dialog_window);
 	else if ((!g->mgr_cutscene.is_scene_playing) && (g->init_game_over_menu))
 		werase(g->dialog_window);
-	box(g->border_window, 0 , 0);
-	box(g->log_window, 0 , 0);
+	box(g->border_window, 0, 0);
+	box(g->log_window, 0, 0);
 }
 
 void					render_end(t_graphics *g)

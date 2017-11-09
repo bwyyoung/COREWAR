@@ -12,18 +12,18 @@
 
 #include "mgr_graphics.h"
 
-bool					keyboard_event()
+bool					keyboard_event(void)
 {
 	int		ch;
 
 	ch = getch();
 	if (ch == ERR)
-		return t_false;
+		return (t_false);
 	ungetch(ch);
-	return t_true;
+	return (t_true);
 }
 
-void 					quit_graphics(t_graphics *g)
+void					quit_graphics(t_graphics *g)
 {
 	g->app_is_running = t_false;
 }

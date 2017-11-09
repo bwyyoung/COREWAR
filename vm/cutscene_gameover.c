@@ -37,7 +37,7 @@ void			prep_game_over(t_graphics *g)
 	g->mgr_cutscene.is_scene_playing = false;
 	wnoutrefresh(g->video_window);
 	if (!g->game_over || !g->init_game_over_menu)
-		return;
+		return ;
 	if (g->neo_wins)
 		prep_cutscene(g, VIDEO_NEO_WINS);
 	else

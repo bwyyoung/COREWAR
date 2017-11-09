@@ -54,8 +54,8 @@ void			render_pill(t_graphics *g, int y, int x, chtype c)
 		g->mgr_cutscene.pill->current = g->mgr_cutscene.pill->animation;
 	while (++g->mgr_cutscene.pill->index < CUTSCENE_HEIGHT)
 		if (g->mgr_cutscene.pill->current->frame[g->mgr_cutscene.pill->index])
-			mvwprintw(g->dialog_window, g->mgr_cutscene.pill->index + y,
-			x, "%s", 
+			mvwprintw(g->dialog_window, g->mgr_cutscene.pill->index + y, x
+				, "%s",
 			g->mgr_cutscene.pill->current->frame[g->mgr_cutscene.pill->index]);
 	wattroff(g->dialog_window, c);
 }
@@ -69,9 +69,9 @@ void			render_game_over(t_graphics *g)
 		g->seconds2 = 0;
 		loop_matrix(g, g->background_window, g->flag, g->col);
 	}
-	box(g->dialog_window, 0 , 0);
-	render_pill(g, 50, 60,  COLOR_PAIR(RED_PAIR));
-	render_pill2(g, 50, 194,  COLOR_PAIR(CYAN_PAIR));
+	box(g->dialog_window, 0, 0);
+	render_pill(g, 50, 60, COLOR_PAIR(RED_PAIR));
+	render_pill2(g, 50, 194, COLOR_PAIR(CYAN_PAIR));
 	render_header(g, g->mgr_cutscene.current_cutscene);
 	if (g->key_pressed == APP_KEY_ENTER)
 		g->restart = true;

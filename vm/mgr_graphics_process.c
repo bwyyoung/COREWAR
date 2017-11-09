@@ -15,7 +15,6 @@
 
 void					render_process(t_graphics *g, t_env *e)
 {
-
 	e->new_process = e->lst_process;
 	wattron(g->game_window, A_REVERSE);
 	while (e->new_process)

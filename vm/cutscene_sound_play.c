@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cutscene_sound_play.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byoung-w <byoung-w@student.42.fr>            +#+  +:+       +#+      */
+/*   By: byoung-w <byoung-w@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/12 14:16:45 by byoung-w          #+#    #+#             */
-/*   Updated: 2017/10/23 21:48:45 by byoung-w          ###   ########.fr      */
+/*   Created: 2017/11/09 20:39:51 by byoung-w          #+#    #+#             */
+/*   Updated: 2017/11/09 20:39:52 by mda-cost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void						frame_audio(t_audio *s)
 	}
 }
 
-void 						cursor_audio(t_audio *s, t_mgr_scene *g)
+void						cursor_audio(t_audio *s, t_mgr_scene *g)
 {
 	s->i = -1;
 	while (++s->i < g->stereoframecount)
@@ -60,6 +60,7 @@ void 						cursor_audio(t_audio *s, t_mgr_scene *g)
 t_audio						*ended_audio(t_audio *s, t_mgr_scene *g)
 {
 	t_audio			*new_s;
+
 	UNUSED(g);
 	SAFE_DELETE(s->outputbuffer);
 	new_s = s->next;
@@ -77,10 +78,10 @@ t_audio						*ended_audio(t_audio *s, t_mgr_scene *g)
 	return (new_s);
 }
 
-int							portaudiocallback(const void * input,
-							void * output,
+int							portaudiocallback(const void *input,
+							void *output,
 							unsigned long framecount,
-							const PaStreamCallbackTimeInfo * patimeinfo,
+							const PaStreamCallbackTimeInfo *patimeinfo,
 							PaStreamCallbackFlags statusflags,
 							void *userdata)
 {
@@ -108,4 +109,3 @@ int							portaudiocallback(const void * input,
 		return (paComplete);
 	return (paContinue);
 }
-

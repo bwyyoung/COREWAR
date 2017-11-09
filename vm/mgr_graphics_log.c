@@ -39,10 +39,10 @@ void					render_log(t_graphics *g, t_env *e)
 	g->i = -1;
 	g->player_match = false;
 	e->new_player = e->lst_players;
-	while(++g->i < MAX_PLAYERS && g->player_id_init[g->i])
+	while (++g->i < MAX_PLAYERS && g->player_id_init[g->i])
 	{
 		g->j = -1;
-		while(++g->j < MAX_PLAYERS && g->player_id_init[g->j])
+		while (++g->j < MAX_PLAYERS && g->player_id_init[g->j])
 			if (g->player_id[g->j] == e->new_player->prog_num)
 			{
 				wattron(g->game_window, g->player_colors[g->j]);

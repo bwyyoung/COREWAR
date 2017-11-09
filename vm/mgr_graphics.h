@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #ifndef MGR_GRAPHICS_H
+
 # define MGR_GRAPHICS_H
 # include "matrix.h"
 # include "libft/libft.h"
@@ -66,7 +67,7 @@ typedef struct			s_graphics
 	WINDOW				*video_window;
 	WINDOW				*dialog_window;
 	int					offsetx;
-	int					offsety ;
+	int					offsety;
 	int					max_y;
 	int					max_x;
 	int					margin_x;
@@ -111,12 +112,12 @@ void					graphics_end(t_graphics *g);
 void					render_start(t_graphics *g);
 void					render_end(t_graphics *g);
 void					graphics_print_message(t_graphics *g, char *str);
-bool					keyboard_event();
+bool					keyboard_event(void);
 void					get_keyboard_event(t_graphics *g);
 void					update_app(t_graphics *g, t_env *e);
 void					display_app(t_graphics *g, t_env *e);
 void					graphics_loop(t_env *e, t_env *backup);
-dword					GetTickCount();
+dword					gettickcount(void);
 void					render_board(t_graphics *g, t_env *e);
 void					render_log(t_graphics *g, t_env *e);
 void					render_player(t_graphics *g, uint32_t pn);
@@ -125,4 +126,5 @@ void					render_stats(t_graphics *g, t_env *e);
 t_graphics				*init_graphics(t_env *e);
 void					init_player_colors(t_graphics *g, t_env *e);
 void					game_over(t_graphics *g, t_env *e);
+
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cutscene_video_load.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byoung-w <byoung-w@student.42.fr>            +#+  +:+       +#+      */
+/*   By: byoung-w <byoung-w@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/12 14:16:45 by byoung-w          #+#    #+#             */
-/*   Updated: 2017/10/23 21:48:45 by byoung-w          ###   ########.fr      */
+/*   Created: 2017/11/09 20:35:08 by byoung-w          #+#    #+#             */
+/*   Updated: 2017/11/09 20:35:10 by mda-cost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,12 @@ void					break_video(t_cutscene *s)
 	s->current = s->current->next;
 }
 
-void 					new_frame(t_cutscene *s)
+void					new_frame(t_cutscene *s)
 {
 	s->index = 0;
 	if (!(s->current = (t_scene_frame *)malloc(sizeof(t_scene_frame))))
 		ft_error_errno("malloc fail");
-	if (!(s->current->frame = (char **)malloc
-		(sizeof(char *) * CUTSCENE_HEIGHT)))
+	if (!(s->current->frame = (char**)malloc(sizeof(char*) * CUTSCENE_HEIGHT)))
 		ft_error_errno("malloc fail");
 	ft_memset(s->current->frame, 0, sizeof(char *) * CUTSCENE_HEIGHT);
 	s->current->next = NULL;

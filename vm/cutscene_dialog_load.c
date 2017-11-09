@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cutscene_dialog_load.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byoung-w <byoung-w@student.42.fr>            +#+  +:+       +#+      */
+/*   By: byoung-w <byoung-w@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/12 14:16:45 by byoung-w          #+#    #+#             */
-/*   Updated: 2017/10/23 21:48:45 by byoung-w          ###   ########.fr      */
+/*   Created: 2017/11/09 20:23:39 by byoung-w          #+#    #+#             */
+/*   Updated: 2017/11/09 20:23:40 by mda-cost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char *sub)
 	dialog->current->timestamp = 0;
 	load_subtitle(dialog);
 	load_cutscene(g, video, audio, 0);
-	return(dialog);
+	return (dialog);
 }
 
 void				delete_dialog(t_dialog *d)

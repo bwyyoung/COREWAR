@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cutscene.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byoung-w <byoung-w@student.42.fr>            +#+  +:+       +#+      */
+/*   By: mda-cost <mda-cost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/12 14:16:45 by byoung-w          #+#    #+#             */
-/*   Updated: 2017/10/23 21:48:45 by byoung-w          ###   ########.fr      */
+/*   Created: 2017/11/09 20:16:14 by mda-cost          #+#    #+#             */
+/*   Updated: 2017/11/09 20:16:55 by mda-cost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void				init_cutscenes(t_mgr_scene *scene)
 	scene->is_scene_playing = false;
 }
 
-void 				destroy_animation(t_mgr_scene *scene)
+void				destroy_animation(t_mgr_scene *scene)
 {
 	CURSCENE->index = -1;
 	while (++CURSCENE->index < CUTSCENE_HEIGHT)
@@ -80,7 +80,7 @@ void				destroy_cutscenes(t_mgr_scene *scene)
 	CURSCENE = scene->cutscenes;
 	while (CURSCENE)
 	{
-		while(CURSCENE->animation)
+		while (CURSCENE->animation)
 			destroy_animation(scene);
 		scene->new_cutscene = CURSCENE->next;
 		SAFE_DELETE(CURSCENE);

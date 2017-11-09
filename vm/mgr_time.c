@@ -13,12 +13,12 @@
 #include "mgr_graphics.h"
 #include "vm.h"
 
-dword			GetTickCount()
+dword			gettickcount(void)
 {
-	struct timespec		ts;
-	dword				theTick;
+	struct timespec	ts;
+	dword			thetick;
 
-	theTick= 0U;
+	thetick = 0U;
 	clock_serv_t cclock;
 	mach_timespec_t mts;
 	host_get_clock_service(mach_host_self(), CALENDAR_CLOCK, &cclock);
@@ -26,18 +26,18 @@ dword			GetTickCount()
 	mach_port_deallocate(mach_task_self(), cclock);
 	ts.tv_sec = mts.tv_sec;
 	ts.tv_nsec = mts.tv_nsec;
-	theTick  = (ts.tv_nsec / 1000000);
-	theTick += (ts.tv_sec * 1000);
-	return theTick;
+	thetick = (ts.tv_nsec / 1000000);
+	thetick += (ts.tv_sec * 1000);
+	return (thetick);
 }
 
-void					graphics_print_message(t_graphics *g, char *str)
+void			graphics_print_message(t_graphics *g, char *str)
 {
 	if (!g->graphics_end)
-		mvwprintw(g->game_window, 0,0 , str);
+		mvwprintw(g->game_window, 0, 0, str);
 }
 
-void					update_app(t_graphics *g, t_env *env)
+void			update_app(t_graphics *g, t_env *env)
 {
 	if (env->cycles_since_check >= env->cycle_to_die)
 		perform_check(env);
@@ -59,7 +59,7 @@ void					update_app(t_graphics *g, t_env *env)
 	env->cycles_since_check++;
 }
 
-void					display_app(t_graphics *g, t_env *e)
+void			display_app(t_graphics *g, t_env *e)
 {
 	render_start(g);
 	if ((!g->mgr_cutscene.is_scene_playing) && (g->init_game_over_menu))
