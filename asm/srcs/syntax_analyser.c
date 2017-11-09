@@ -6,7 +6,7 @@
 /*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/18 18:07:20 by ppatel            #+#    #+#             */
-/*   Updated: 2017/10/20 12:57:33 by ppatel           ###   ########.fr       */
+/*   Updated: 2017/11/09 14:46:54 by ppatel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,16 @@ void		init_label(t_env *env, t_token *token)
 
 t_token		*syntax_header(t_token *token, t_env *env)
 {
-	if (ft_strcmp(token->value, NAME_CMD_STRING))
+	if (!token || ft_strcmp(token->value, NAME_CMD_STRING))
 		syntax_error(token, env);
 	token = token->next;
-	if (token->type != 32)
+	if (!token || token->type != 32)
 		syntax_error(token, env);
 	token = token->next;
-	if (ft_strcmp(token->value, COMMENT_CMD_STRING))
+	if (!token || ft_strcmp(token->value, COMMENT_CMD_STRING))
 		syntax_error(token, env);
 	token = token->next;
-	if (token->type != 32)
+	if (!token || token->type != 32)
 		syntax_error(token, env);
 	if (!token->next)
 		syntax_error(NULL, env);
