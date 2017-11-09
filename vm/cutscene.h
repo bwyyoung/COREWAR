@@ -166,7 +166,7 @@ void 						snd_processevent(enum audioeventtype t,
 t_dialog					*load_dialog(t_mgr_scene *g, char *video,
 	char *audio, char *sub);
 void						delete_dialog(t_dialog *d);
-void						play_dialog(t_graphics *g, t_dialog *d);
+void play_dialog(t_graphics *g, t_dialog *d, int delay);
 /*
 ** Portaudio callback function. It takes 6 parameters, hence
 ** breaking the norminette, but it is necessary in order to use the library.

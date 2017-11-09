@@ -16,10 +16,15 @@ void			game_over(t_graphics *g, t_env *e)
 {
 	if (!g->game_over || (g->init_game_over_menu))
 		return ;
-	declare_winner(e);
-	g->neo_wins = false;
 	if (ENABLE_SOUND)
+	{
 		snd_delete_playing_audio(&g->mgr_cutscene);
+		snd_play_beep(&g->mgr_cutscene);
+	}
+	declare_winner(e);
+	wnoutrefresh(g->log_window);
+	doupdate();
+	g->neo_wins = false;
 	if (e->last_live_num == e->lst_players->prog_num)
 		if (!ft_strcmp(e->last_live_name, e->lst_players->name))
 			g->neo_wins = true;
@@ -48,10 +53,9 @@ void			prep_game_over(t_graphics *g)
 		g->mgr_cutscene.pill = g->mgr_cutscene.pill->next;
 	}
 	g->mgr_cutscene.pill->current = g->mgr_cutscene.pill->animation;
-	if (ENABLE_SOUND)
-	{
-		snd_delete_playing_audio(&g->mgr_cutscene);
-		play_audio(&g->mgr_cutscene, start,
-			g->mgr_cutscene.current_cutscene->sound_file, false);
-	}
+	if (!ENABLE_SOUND)
+		return ;
+	snd_delete_playing_audio(&g->mgr_cutscene);
+	play_audio(&g->mgr_cutscene, start,
+		g->mgr_cutscene.current_cutscene->sound_file, false);
 }

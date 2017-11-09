@@ -65,14 +65,14 @@ void 				render_dialog(t_graphics *g)
 	wattroff(g->dialog_window, COLOR_PAIR(GREEN_PAIR));
 }
 
-void				play_dialog(t_graphics *g, t_dialog *d)
+void play_dialog(t_graphics *g, t_dialog *d, int delay)
 {
 	prep_cutscene(g, d->video_file);
 	if (ENABLE_SOUND)
 		play_audio(&g->mgr_cutscene, start,
 			g->mgr_cutscene.current_cutscene->sound_file, false);
 	d->current = d->subtitle;
-	g->seconds4 = -1500;
+	g->seconds4 = delay;
 	g->mgr_cutscene.current_dialog = d;
 	g->mgr_cutscene.is_dialog_playing = true;
 }

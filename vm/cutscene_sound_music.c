@@ -21,7 +21,7 @@ void					snd_play_background_music(t_mgr_scene *snd)
 void					snd_play_beep(t_mgr_scene *snd)
 {
 	if (ENABLE_SOUND)
-		play_audio(snd, start, SOUND_BEEP, true);
+		play_audio(snd, start, SOUND_BEEP, false);
 }
 
 void 					snd_play_bullet_time(t_mgr_scene *snd)

@@ -42,7 +42,7 @@ void 		graphics_loop_end(t_graphics *g)
 	g->start_time = g->current;
 }
 
-void		game_intro(t_env *e, t_graphics *g)
+void		game_intro(t_env *e, t_graphics *g, int delay)
 {
 	clear();
 	if (ENABLE_SOUND)
@@ -52,7 +52,7 @@ void		game_intro(t_env *e, t_graphics *g)
 	g->restart = false;
 	introduce_players(e);
 	if (!g->game_over)
-		play_dialog(g, g->mgr_cutscene.dialog_intro);
+		play_dialog(g, g->mgr_cutscene.dialog_intro, delay);
 }
 
 void		graphics_loop(t_env *e, t_env *backup)
@@ -64,10 +64,12 @@ void		graphics_loop(t_env *e, t_env *backup)
 	graphics_start(g);
 	init_cutscenes(&g->mgr_cutscene);
 	init_player_colors(g, e);
-	game_intro(e, g);
+	game_intro(e, g, -1500);
 	while (g->app_is_running)
 	{
 		get_keyboard_event(g);
+		if (!g->app_is_running)
+			break;
 		graphics_loop_start(g, e);
 		display_app(g, e);
 		graphics_loop_end(g);
@@ -75,7 +77,7 @@ void		graphics_loop(t_env *e, t_env *backup)
 		if (!g->restart)
 			continue ;
 		cpy_env(e, backup);
-		game_intro(e, g);
+		game_intro(e, g, -800);
 	}
 	destroy_cutscenes(&g->mgr_cutscene);
 	graphics_end(g);
