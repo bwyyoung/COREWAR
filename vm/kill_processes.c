@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/28 21:47:27 by douglas           #+#    #+#             */
-/*   Updated: 2017/11/04 19:55:08 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/09 11:27:57 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void		print_and_delete(t_env *env, t_process *curr, t_process *prev)
 		env->lst_process = curr->next;
 	print_verbosity_eight(env, curr);
 	SAFE_DELETE(curr);
+	env->num_processes--;
 }
 
 void		kill_processes(t_env *env)

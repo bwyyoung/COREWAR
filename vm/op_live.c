@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:22:29 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/08 17:42:11 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/09 11:14:16 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_player		*add_live(t_env *env, int prog_num)
 		if ((uint32_t)prog_num == cur_player->prog_num)
 		{
 			cur_player->lives++;
+			cur_player->last_live = env->total_cycles + 1;
 			break ;
 		}
 		cur_player = cur_player->next;
@@ -64,5 +65,4 @@ void			op_live(t_env *env, t_process *process)
 	env->lives_since_check++;
 	print_verbosity_four(env, process);
 	process->last_live = 0;
-	env->last_live_visual = env->total_cycles + 1;
 }

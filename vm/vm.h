@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 15:37:30 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/08 17:47:59 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/09 11:13:49 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ enum
 
 typedef struct			s_player
 {
-	int					lives;
+	int					lives; // visual; lives since check
 	char				name[PROG_NAME_LENGTH + 1];
 	char				comment[COMMENT_LENGTH + 1];
 	uint32_t			size;
@@ -77,6 +77,7 @@ typedef struct			s_player
 	struct s_player		*next;
 	int					vis;
 	char				*file_name;
+	int					last_live; // visual
 }						t_player;
 
 typedef struct s_graphics t_graphics;
@@ -108,7 +109,7 @@ typedef struct			s_env
 	int					cycle_to_die;
 	int					cycles_since_check;
 	long				total_cycles;
-	int					lives_since_check; // visual lives in current period
+	int					lives_since_check;
 	uint32_t			num_processes;
 	uint8_t				board[MEM_SIZE];
 	t_player			*lst_players;
@@ -129,7 +130,6 @@ typedef struct			s_env
 	uint32_t			prog_num_board[MEM_SIZE];
 	uint32_t			offset;
 	t_op				*op_tab;
-	int					last_live_visual; // visual
 	int					i;
 	int					j;
 	int					k;
