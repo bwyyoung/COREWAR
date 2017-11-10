@@ -76,6 +76,9 @@ t_graphics	*init_graphics(t_env *e)
 	g->next_app_tick = g->start_time;
 	g->sleep_time = 0;
 	g->seconds = 0;
+	g->seconds2 = 0;
+	g->seconds3 = 0;
+	g->seconds4 = 0;
 	g->app_is_running = t_true;
 	g->margin_x = 2;
 	g->margin_y = 2;

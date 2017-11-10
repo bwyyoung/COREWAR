@@ -50,6 +50,8 @@ void		game_intro(t_env *e, t_graphics *g, int delay)
 	g->game_over = false;
 	g->init_game_over_menu = false;
 	g->restart = false;
+	g->mgr_cutscene.is_scene_playing = false;
+	g->mgr_cutscene.is_dialog_playing = false;
 	introduce_players(e);
 	if (!g->game_over)
 		play_dialog(g, g->mgr_cutscene.dialog_intro, delay);
