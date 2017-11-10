@@ -17,7 +17,7 @@ void		init_matrix(WINDOW **mainwin, struct s_matrix **mat)
 {
 	*mat = malloc(sizeof(struct s_matrix));
 	*mainwin = newwin(0, 0, 0, 0);
-	(*mat)->cols = malloc(sizeof(struct s_column) * COLS/ 2);
+	(*mat)->cols = malloc(sizeof(struct s_column) * COLS / 2);
 	(*mat)->c = COLS;
 	(*mat)->r = LINES;
 	start_color();
@@ -34,7 +34,7 @@ void		init_matrix(WINDOW **mainwin, struct s_matrix **mat)
 	while (++(*mat)->i < (*mat)->c / 2)
 	{
 		((*mat)->cols[(*mat)->i]).rows =
-			(char *) malloc((*mat)->r * sizeof(char));
+			(char *)malloc((*mat)->r * sizeof(char));
 		ft_bzero((void *)((*mat)->cols[(*mat)->i]).rows,
 		(*mat)->r * sizeof(char));
 	}
@@ -53,7 +53,7 @@ void		loop_matrix_sub(t_graphics *g, struct s_column *col,
 WINDOW *mainwin, int *flag)
 {
 	g->mat->j = g->mat->r;
-	while (--g->mat->j  >= 0)
+	while (--g->mat->j >= 0)
 	{
 		if (g->mat->j > g->offsety && g->mat->j < (g->offsety + WORLD_HEIGHT))
 			if ((g->mat->i * 2) > g->offsetx && (g->mat->i * 2) <
@@ -77,8 +77,8 @@ WINDOW *mainwin, int *flag)
 	}
 }
 
-void		loop_matrix(t_graphics *g, WINDOW *mainwin, int flag,
-struct s_column *col)
+void		loop_matrix(t_graphics *g, WINDOW *mainwin,
+			int flag, struct s_column *col)
 {
 	g->mat->i = -1;
 	while (++g->mat->i < g->mat->c / 2)
@@ -86,17 +86,17 @@ struct s_column *col)
 		col = &g->mat->cols[g->mat->i];
 		ft_memmove(col->rows + 1, col->rows, g->mat->r - 1);
 		g->mat->j = g->mat->r;
-		if(!(col->rows[1]))
+		if (!(col->rows[1]))
 		{
 			if (PROB(5))
 				col->rows[0] = matrix_char();
 		}
 		else if (PROB(20))
-				col->rows[0] = 0;
+			col->rows[0] = 0;
 		else
 			col->rows[0] = matrix_char();
 		flag = 0;
 		wattron(mainwin, COLOR_PAIR(GREEN_PAIR));
 		loop_matrix_sub(g, col, mainwin, &flag);
 	}
-};
+}

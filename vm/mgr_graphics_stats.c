@@ -33,7 +33,7 @@ void					render_logo(t_graphics *g)
 	mvwaddstr(g->game_window, 7, 191, "███████▀  ▀████▀  ██   ██ ████████▀███▀█"
 		"██▀  ██    █▀  ██    ██");
 	wattroff(g->game_window, COLOR_PAIR(GREEN_PAIR));
-};
+}
 
 void					render_stats(t_graphics *g, t_env *e)
 {
@@ -46,7 +46,7 @@ void					render_stats(t_graphics *g, t_env *e)
 	mvwprintw(g->game_window, 10, 229, "Players     : ");
 	mvwprintw(g->game_window, 10, 243, "%i", e->num_players);
 	mvwprintw(g->game_window, 11, 229, "Cycle_To_Die: ");
-	mvwprintw(g->game_window, 11, 243, "%i",  e->cycle_to_die);
+	mvwprintw(g->game_window, 11, 243, "%i", e->cycle_to_die);
 	mvwprintw(g->game_window, 12, 229, "Cycle_Delta : ");
 	mvwprintw(g->game_window, 12, 243, "%i", CYCLE_DELTA);
 	mvwprintw(g->game_window, 13, 229, "Nbr_Live    : ");

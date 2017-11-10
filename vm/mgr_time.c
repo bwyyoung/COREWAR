@@ -13,14 +13,14 @@
 #include "mgr_graphics.h"
 #include "vm.h"
 
-dword			gettickcount(void)
+t_dword			gettickcount(void)
 {
 	struct timespec	ts;
-	dword			thetick;
+	t_dword			thetick;
+	clock_serv_t	cclock;
+	mach_timespec_t	mts;
 
 	thetick = 0U;
-	clock_serv_t cclock;
-	mach_timespec_t mts;
 	host_get_clock_service(mach_host_self(), CALENDAR_CLOCK, &cclock);
 	clock_get_time(cclock, &mts);
 	mach_port_deallocate(mach_task_self(), cclock);

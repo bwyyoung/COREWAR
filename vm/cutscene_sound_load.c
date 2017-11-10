@@ -74,7 +74,7 @@ bool loop)
 }
 
 int							play_audio(t_mgr_scene *snd,
-							enum audioeventtype type,
+							t_audioeventtype type,
 							char *thefile, bool loop)
 {
 	if (type == start)

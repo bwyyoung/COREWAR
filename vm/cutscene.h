@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   cutscene.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byoung-w <byoung-w@student.42.fr>            +#+  +:+       +#+      */
+/*   By: byoung-w <byoung-w@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:16:45 by byoung-w          #+#    #+#             */
 /*   Updated: 2017/11/09 20:20:14 by mda-cost         ###   ########.fr       */
@@ -38,12 +38,15 @@
 # define CURSCENE scene->current_cutscene
 # define G ((t_mgr_scene *)userdata)
 # ifdef WIN32
-#  else
-typedef long					dword;
-typedef unsigned long			uword;
-typedef unsigned short			word;
-typedef unsigned int			unint32;
+# else
+
+typedef long					t_dword;
+typedef unsigned long			t_uword;
+typedef unsigned short			t_word;
+typedef unsigned int			t_unint32;
 # endif
+
+typedef struct s_mgr_scene	t_mgr_scene;
 
 typedef struct				s_audiofile
 {
@@ -61,11 +64,11 @@ typedef struct				s_playback
 	bool					loop;
 }							t_playback;
 
-enum						audioeventtype
+typedef enum
 {
-							start,
-							stop
-};
+	start,
+	stop
+}	t_audioeventtype;
 
 typedef struct				s_audio
 {
@@ -73,16 +76,15 @@ typedef struct				s_audio
 	struct s_audio			*next;
 	t_playback				*pb;
 	SF_INFO					info;
-	uword					i;
-	unint32					framesleft;
-	unint32					framesread;
+	t_uword					i;
+	t_unint32				framesleft;
+	t_unint32				framesread;
 	int						*buffercursor;
 	int						*outputcursor;
-	int 					*outputbuffer;
+	int						*outputbuffer;
 	bool					playbackended;
-	uword					stereoframecount;
-}
-							t_audio;
+	t_uword					stereoframecount;
+}							t_audio;
 
 typedef struct				s_scene_frame
 {
@@ -114,7 +116,6 @@ typedef struct				s_subtitle
 	int						timestamp;
 }							t_subtitle;
 
-typedef struct 				s_mgr_scene t_mgr_scene;
 typedef struct				s_dialog
 {
 	bool					is_playing;
@@ -124,15 +125,15 @@ typedef struct				s_dialog
 	int						pfd;
 	char					*video_file;
 	char					*sound_file;
-	char 					*sub_file;
-	char 					*full_sub_path;
+	char					*sub_file;
+	char					*full_sub_path;
 	char					*line;
 	int						status;
 	int						duration;
-	void 					(*finished)(t_mgr_scene *);
+	void					(*finished)(t_mgr_scene *);
 }							t_dialog;
 
-typedef struct 				s_mgr_scene
+struct						s_mgr_scene
 {
 	t_cutscene				*cutscenes;
 	t_cutscene				*new_cutscene;
@@ -150,18 +151,18 @@ typedef struct 				s_mgr_scene
 	PaStreamParameters		sndparameters;
 	PaStream				*stream;
 	char					*binary_path;
-	PaError 				errorcode;
+	PaError					errorcode;
 	PaStreamParameters		*no_input;
 	PaStreamCallback		*streamcallback;
-	uword					stereoframecount;
+	t_uword					stereoframecount;
 	bool					is_scene_playing;
 	bool					is_dialog_playing;
-}							t_mgr_scene;
+};
 
 void						load_cutscene(t_mgr_scene *g, char *s, char *a,
 							int f);
 void						load_cutscene_video(t_cutscene *s);
-void 						snd_processevent(enum audioeventtype t,
+void						snd_processevent(t_audioeventtype t,
 							t_audiofile *af,
 							bool loop);
 t_dialog					*load_dialog(t_mgr_scene *g, char *video,
@@ -181,10 +182,10 @@ void						play_dialog(t_graphics *g, t_dialog *d, int delay);
 ** PaStreamCallbackFlags statusFlags, void *userData)
 */
 
-int							PortAudioCallback(const void * input,
+int							portaudiocallback(const void *input,
 							void *output,
 							unsigned long framecount,
-							const PaStreamCallbackTimeInfo * patimeinfo,
+							const PaStreamCallbackTimeInfo *patimeinfo,
 							PaStreamCallbackFlags statusflags,
 							void *userdata);
 void						snd_init_audio(t_mgr_scene *snd);
@@ -193,22 +194,22 @@ void						init_cutscenes(t_mgr_scene *scene);
 void						prep_cutscene(t_graphics *g, char *name);
 void						destroy_cutscenes(t_mgr_scene *scene);
 int							play_audio(t_mgr_scene *snd,
-							enum audioeventtype type,
+							t_audioeventtype type,
 							char *thefile, bool loop);
 void						snd_play_background_music(t_mgr_scene *snd);
 void						snd_play_beep(t_mgr_scene *snd);
 int							portaudiocallback(const void *input,
 								void *output,
-								unsigned long frameCount,
-								const PaStreamCallbackTimeInfo *paTimeInfo,
-								PaStreamCallbackFlags statusFlags,
-								void *userData);
+								unsigned long framecount,
+								const PaStreamCallbackTimeInfo *patimeinfo,
+								PaStreamCallbackFlags statusflags,
+								void *userdata);
 void						snd_delete_playing_audio(t_mgr_scene *snd);
-void 						snd_play_bullet_time(t_mgr_scene *snd);
-void 						snd_play_the_one(t_mgr_scene *snd);
+void						snd_play_bullet_time(t_mgr_scene *snd);
+void						snd_play_the_one(t_mgr_scene *snd);
 void						render_cutscene(t_graphics *g);
 void						render_dialog(t_graphics *g);
-void 						play_cutscene(t_graphics *g, char *name);
+void						play_cutscene(t_graphics *g, char *name);
 void						render_game_over(t_graphics *g);
 void						prep_game_over(t_graphics *g);
 
