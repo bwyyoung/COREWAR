@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 11:50:53 by dengstra          #+#    #+#             */
-/*   Updated: 2017/07/13 14:37:26 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/10 13:48:48 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,14 @@
 # define SAFE_DELETE(a) if((a) != NULL) free(a); (a) = NULL;
 # ifndef T_BOOL
 #  define T_BOOL
+
 typedef enum
 {
 	t_false,
 	t_true
 }	t_bool;
 # endif
+
 # define ABS(value)  (value > 0 ? value : -value)
 # ifndef BOOL_INT
 #  define BOOL_INT

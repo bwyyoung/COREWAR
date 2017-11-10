@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   param_vals.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:27:07 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/07 14:17:12 by douglas          ###   ########.fr       */
+/*   Updated: 2017/11/10 14:24:25 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,29 +57,20 @@ void			get_params(t_env *env, t_process *process, int op)
 ** This function will get a value from the board.
 ** It will either get the val with the param_val itself
 ** or by converting it to a idx_val depending on the op.
-** It uses the function op_uses_idx to do that which is
-** defined in the op.c.
 ** IND_VALs are always relative to the pc,
 ** so the val is always added to the pc.
-** The function will read a val of size read_size.
-** This is because different ops will need different size vals
-** for example one op will want a REG_VAL of size 4 and another
-** will want a IND_VAL of size 2.
 */
 
 int				get_ind_val(t_env *env, t_process *process, int16_t param_val)
 {
-	int	pc;
-	int	val;
-	int read_size;
+	int		pc;
+	int		val;
 
-	read_size = (process->op == lld) ? 2 : 4;
 	pc = process->regs[0];
-	if (env->op_tab[process->op].use_idx)
-		val = get_board_val(env->board, pc + ((int16_t)param_val % IDX_MOD),
-							read_size);
+	if (process->op == lld)
+		val = (int16_t)get_board_val(env->board, pc + param_val, 2);
 	else
-		val = get_board_val(env->board, pc + param_val, read_size);
+		val = get_board_val(env->board, pc + (param_val % IDX_MOD), 4);
 	return (val);
 }
 
@@ -103,10 +94,8 @@ int				get_param_val(t_env *env, t_process *process, int which_param)
 	else if (param_type == IND_CODE)
 		val = get_ind_val(env, process, (int16_t)param_val);
 	else
-	{
 		val = (env->op_tab[process->op].label_size == 4)
 										? param_val : (int16_t)param_val;
-	}
 	return (val);
 }
 

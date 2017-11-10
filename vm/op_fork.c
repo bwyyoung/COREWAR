@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 20:31:02 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/06 13:02:44 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/10 12:13:31 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void			op_forker(t_env *env, t_process *process, int op)
 	else
 		cpy->regs[0] += (int16_t)process->param_val[0] % IDX_MOD;
 	cpy->cycles_left = 0;
-	cpy->process_num = env->num_processes + 1;
 	lst_process_add(env, cpy);
+	cpy->process_num = env->total_num_processes;
 	print_verbosity_four(env, process, cpy, op);
 	cpy->regs[0] = get_board_pos(cpy->regs[0]);
 }

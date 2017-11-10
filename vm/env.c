@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 17:57:43 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/08 18:02:52 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/10 12:11:13 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void		cpy_env(t_env *dst, t_env *src)
 	dst->verbose_value = src->verbose_value;
 	dst->dump_value = src->dump_value;
 	dst->cycle_value = src->cycle_value;
+	dst->op_tab = src->op_tab;
 	lst_process_clr(src);
 	load_players(dst);
 }

@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:21:37 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/02 20:34:39 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/10 12:32:48 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static void	print_verbosity_four(t_env *env, t_process *process)
 
 void		op_zjmp(t_env *env, t_process *process)
 {
-	(void)env;
 	if (process->carry == 1)
 		inc_pc(process, (int16_t)process->param_val[0] % IDX_MOD);
 	else

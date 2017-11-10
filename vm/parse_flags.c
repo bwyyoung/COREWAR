@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 14:49:06 by byoung-w          #+#    #+#             */
-/*   Updated: 2017/11/08 18:09:17 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/10 13:48:03 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ long		verify_number(t_env *e, char *nbr)
 	return (temp);
 }
 
-uint32_t	get_player_number(t_env *e, char *nbr, int *i, int argc) /// -n
+uint32_t	get_player_number(t_env *e, char *nbr, int *i, int argc)
 {
 	if ((*i + 2) > argc)
 		error_exit(e, 11);
@@ -33,7 +33,7 @@ uint32_t	get_player_number(t_env *e, char *nbr, int *i, int argc) /// -n
 	return (verify_number(e, nbr));
 }
 
-t_bool		get_dump_number(t_env *e, char *nbr, int *i, int argc) /// -d
+t_bool		get_dump_number(t_env *e, char *nbr, int *i, int argc)
 {
 	e->options[d] = t_true;
 	if ((*i + 2) > argc)
@@ -43,7 +43,7 @@ t_bool		get_dump_number(t_env *e, char *nbr, int *i, int argc) /// -d
 	return (t_true);
 }
 
-t_bool		get_cycle_number(t_env *e, char *nbr, int *i, int argc) /// -s
+t_bool		get_cycle_number(t_env *e, char *nbr, int *i, int argc)
 {
 	e->options[s] = t_true;
 	if ((*i + 2) > argc)

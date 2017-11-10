@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/29 17:49:15 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/04 14:50:43 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/10 13:46:57 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,12 @@ void			introduce_players(t_env *env)
 ** So if there are four player player 4 will win.
 ** Else the player who has gotten the last live wins
 */
+
 void			declare_winner(t_env *env)
 {
 	t_player *player;
 
-	if (env->options[d])
+	if (env->options[d] && env->lst_process != NULL)
 		return ;
 	if (!env->last_live_name)
 	{

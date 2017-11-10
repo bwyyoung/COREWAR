@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2017/10/29 16:15:13 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/10 13:54:08 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@
 # define NBR_LIVE				21
 # define MAX_CHECKS				10
 
-typedef char	t_arg_type;
-
 # define T_REG					1
 # define T_DIR					2
 # define T_IND					4
@@ -67,11 +65,9 @@ typedef struct					s_op
 {
 	char						*name;
 	int							num_params;
-	int							arg_types[3];
 	int							cycles;
 	int							has_type;
 	int							label_size;
-	int							use_idx;
 }								t_op;
 
 #endif

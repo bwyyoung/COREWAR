@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 15:37:30 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/09 11:13:49 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/10 14:58:38 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ typedef struct			s_player
 	long				last_live; // visual
 }						t_player;
 
-typedef struct s_graphics t_graphics;
+typedef struct s_graphics	t_graphics;
 
 typedef struct			s_process
 {
@@ -111,6 +111,7 @@ typedef struct			s_env
 	long				total_cycles;
 	int					lives_since_check;
 	uint32_t			num_processes;
+	uint32_t			total_num_processes;
 	uint8_t				board[MEM_SIZE];
 	t_player			*lst_players;
 	t_process			*lst_process;
@@ -152,8 +153,10 @@ int						get_board_pos(int val);
 void					declare_winner(t_env *env);
 void					introduce_players(t_env *env);
 void					load_players(t_env *env);
-void					print_verbosity_sixteen(t_env *env, t_process *process, int inc, int pc);
-t_index_info			*create_index_info(int index1, int index2, int index_sum);
+void					print_verbosity_sixteen(t_env *env, t_process *process,
+						int inc, int pc);
+t_index_info			*create_index_info(int index1, int index2,
+						int index_sum);
 int						check_param_reg_nums(t_process *process);
 void					ft_error_errno(char *msg);
 void					ft_error(char *msg);
@@ -181,7 +184,7 @@ void					modify_carry(t_process *process, int val);
 int						get_board_val(uint8_t *board, int index,
 						int size);
 void					set_board_val(t_env *env, t_process *process, int index,
-							int val);
+						int val);
 int						get_param_size(uint8_t type, int label_size);
 void					kill_processes(t_env *env);
 void					op_live(t_env *env, t_process *process);
@@ -202,9 +205,11 @@ t_bool					add_binary(t_env *e);
 t_bool					add_stealth(t_env *e);
 t_bool					check_duplicate_player(t_env *e, long nbr);
 void					check_flag_number_valid(t_env *e, char *nbr);
-uint32_t				get_player_number(t_env *e, char *nbr, int *i, int args);
+uint32_t				get_player_number(t_env *e, char *nbr, int *i,
+						int args);
 t_bool					get_dump_number(t_env *e, char *nbr, int *i, int args);
-t_bool					get_verbose_level(t_env *e, char *nbr, int *i, int args);
+t_bool					get_verbose_level(t_env *e, char *nbr, int *i,
+						int args);
 t_bool					get_cycle_number(t_env *e, char *nbr, int *i, int args);
 void					reader(t_env *e, t_player *player, char *arg);
 void					add_player(t_env *e, char **argv, uint32_t nb, int *i);

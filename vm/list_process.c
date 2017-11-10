@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 14:49:06 by byoung-w          #+#    #+#             */
-/*   Updated: 2017/11/04 14:35:29 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/10 12:12:07 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,15 @@ void		lst_process_add(t_env *e, t_process *p)
 		e->lst_process = p;
 		e->lst_process->next = NULL;
 		e->lst_process->prev = NULL;
-		e->num_processes++;
-		return ;
 	}
-	p->next = e->lst_process;
-	e->lst_process->prev = p;
-	e->lst_process = p;
+	else
+	{
+		p->next = e->lst_process;
+		e->lst_process->prev = p;
+		e->lst_process = p;
+	}
 	e->num_processes++;
+	e->total_num_processes++;
 }
 
 void		lst_process_del(t_env *e, t_process *p)

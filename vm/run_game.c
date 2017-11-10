@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:13:32 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/04 20:09:10 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/10 14:33:49 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,19 @@
 #include "mgr_graphics.h"
 #include <locale.h>
 
+void		reset_player_lives(t_player *player)
+{
+	while (player)
+	{
+		player->lives = 0;
+		player = player->next;
+	}
+}
+
 void		perform_check(t_env *env)
 {
 	kill_processes(env);
+	reset_player_lives(env->lst_players);
 	if (env->lives_since_check >= NBR_LIVE || env->checks == MAX_CHECKS - 1)
 	{
 		env->cycle_to_die -= CYCLE_DELTA;

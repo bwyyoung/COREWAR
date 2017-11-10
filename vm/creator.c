@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 17:12:50 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/08 17:14:20 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/10 12:10:34 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ t_env			*create_env(void)
 	env->offset = 0;
 	env->to_die = CYCLE_TO_DIE;
 	env->program_size = 0;
-	env->op_tab = get_op_tab();
 	return (env);
 }
 
@@ -77,7 +76,7 @@ t_process		*create_process(t_env *env, t_player *player)
 		process->prog_num = player->prog_num;
 		process->regs[1] = player->prog_num;
 	}
-	process->process_num = env->num_processes + 1;
+	process->process_num = env->total_num_processes + 1;
 	return (process);
 }
 

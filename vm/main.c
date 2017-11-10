@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 13:26:46 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/08 18:02:00 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/10 12:13:02 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,13 @@ int			main(int argc, char *argv[])
 	backup = create_env();
 	parse_flags(backup, argc, argv);
 	backup->num_players = count_players(backup, backup->lst_players);
+	backup->op_tab = get_op_tab();
 	load_players(backup);
 	env = create_env();
 	cpy_env(env, backup);
 	srand(time(NULL));
 	init(env, backup);
+	SAFE_DELETE(env->op_tab);
 	delete_env(env);
 	lst_process_clr(backup);
 	SAFE_DELETE(backup);
