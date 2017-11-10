@@ -20,9 +20,16 @@ NAME = libft.a
 
 SDIR = .
 
+INCS = .
+
 SDIRPF = ft_printf
 
 ODIR = objects
+
+I_FILES	= ft_printf.h \
+		  get_next_line.h \
+		  libft.h
+I_SRCS	= $(addprefix $(INCS)/,$(I_FILES))
 
 SRCS = $(SDIR)/ft_atoi.c \
 	   $(SDIR)/ft_bzero.c \
@@ -157,10 +164,10 @@ $(NAME): $(ODIR) $(OBJ) $(PFOBJ)
 $(ODIR):
 	@mkdir $@
 
-$(ODIR)/%.o: $(SDIR)/%.c
+$(ODIR)/%.o: $(SDIR)/%.c $(I_SRCS)
 	@$(CC) $(FLAGS) -c $< $(HDRS) -o $@ && $(PRINTINC)
 
-$(ODIR)/%.o: $(SDIRPF)/%.c
+$(ODIR)/%.o: $(SDIRPF)/%.c $(I_SRCS)
 	@$(CC) $(FLAGS) -c $< $(HDRS) -o $@ && $(PRINTINC)
 
 clean:
