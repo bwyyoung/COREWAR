@@ -22,14 +22,15 @@
 
 void		print_instructions(void)
 {
-	ft_printf("Usage: ./corewar [-d N -s N -v N | -b --stealth "
-		"| --visual --stealth] [-a] <champion1.cor> <...>\n");
-	ft_printf("Example              : ./corewar --visual filename.cor");
-	ft_printf("-a        : Prints output from \"aff\" (Default is to hide it)");
-	ft_printf("\n#### TEXT OUTPUT MODE #######################################"
+	ft_printf("Usage: ./corewar [-d N -s N -v N -n N"
+		"| --visual] [-a] <champion1.cor> <...>\n");
+	ft_printf("\tExample              : ./corewar --visual filename.cor\n");
+	ft_printf("\t-a     : Prints output from \"aff\"\n");
+	ft_printf("\t-n N   : set champion number\n");
+	ft_printf("#### TEXT OUTPUT MODE #######################################"
 		"###################\n");
 	ft_printf("\t-d N   : Dumps memory after N cycles then exits\n");
-	ft_printf("\t-s N   : Runs N cycles, dumps memory, pauses, then repeats\n");
+	ft_printf("\t-s N   : Runs N cycles, dumps memory, then repeats\n");
 	ft_printf("\t-v N   : Verbosity levels, can be added together to enable "
 		"several\n");
 	ft_printf("\t\t- 0 : Show only essentials\n");
@@ -38,10 +39,6 @@ void		print_instructions(void)
 	ft_printf("\t\t- 4 : Show operations (Params are NOT literal ...)\n");
 	ft_printf("\t\t- 8 : Show deaths\n");
 	ft_printf("\t\t- 16 : Show PC movements (Except for jumps)\n");
-	ft_printf("#### BINARY OUTPUT MODE ########################################"
-		"################\n");
-	ft_printf("\t-b        : Binary output mode for corewar\n");
-	ft_printf("\t--stealth : Hides the real contents of the memory\n");
 	ft_printf("#### NCURSES OUTPUT MODE #######################################"
 		"################\n");
 	ft_printf("\t--visual  : Visual output mode\n");
