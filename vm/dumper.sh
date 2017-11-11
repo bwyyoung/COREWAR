@@ -4,7 +4,7 @@ rm -rf diff.txt
 rm -rf ft.txt
 rm -rf cp.txt
 
-path=~/corewar/champions/
+path=../champions/
 
 ./asm $path$2.s > /dev/null
 ./asm $path$3.s > /dev/null
@@ -27,4 +27,16 @@ fi
 
 cycles=$( ./get_cycles.sh $2 $3 $4 $5 )
 
-diff <( ./vm -d $cycles $champs) <( ./corewar -d $cycles $champs ) 
+echo "-------------------------------------------------------------"
+echo $2
+echo $3
+echo $4
+echo $5
+
+if [[ $(diff <( ./vm -d $cycles $champs) <( ./corewar -d $cycles $champs )) ]]
+then
+	echo "			Error"
+else
+	echo "			OK"
+fi
+echo "-------------------------------------------------------------"

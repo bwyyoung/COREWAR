@@ -1,15 +1,12 @@
 #!/bin/bash
 
-func=./differ.sh
+func=./dumper.sh
 i=0
-while [ $i -le 16 ]
-do
-	echo "Verbosity $i"
 
 	# slow
-	#$func $i bee_gees
-	#$func $i big_feet
-	#$func $i meowluigi
+	$func $i bee_gees
+	$func $i big_feet
+	$func $i meowluigi 	
 
 	$func $i _ _ _ _
 	$func $i _ fluttershy _ _
@@ -116,12 +113,3 @@ do
 	$func $i varimathras
 	$func $i wall
 	$func $i youforkmytralala
-
-	((i = i * 2))
-
-	if [[ i -eq 0 ]]
-	then
-		((i = 1))
-	fi
-done
-

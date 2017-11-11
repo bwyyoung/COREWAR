@@ -27,8 +27,18 @@ then
 fi
 
 echo "---------------------------------------"
-echo $champs | tr ' ' '\n'
-diff <(./vm -v $1 $champs) <(~/corewar/software/corewar -v $1 $champs )
+#echo "Verbosity $1"
+echo $2
+echo $3
+echo $4
+echo $5
+
+if [[ $(diff <(./vm -v $1 $champs) <(~/corewar/software/corewar -v $1 $champs )) ]]
+then
+	echo "			Error"
+else
+	echo "			OK"
+fi
 echo "---------------------------------------"
 #./vm -v $1 $champs > ft.txt
 #~/corewar/software/corewar -v $1 $champs > cp.txt 

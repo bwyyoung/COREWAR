@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:18:29 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/08 18:07:59 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/11 14:27:00 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ void		write_program_to_board(t_env *env, t_player *player,
 	champ_size = 0;
 	while (0 < (read_return = read(fd, &c, 1)))
 	{
-		if (read_return == -1)
-			ft_error_errno(NULL);
 		env->board[offset % MEM_SIZE] = c;
 		env->prog_num_board[offset % MEM_SIZE] = player->prog_num;
 		offset++;
 		champ_size++;
 	}
+	if (read_return == -1)
+		ft_error_errno(NULL);
 	if (champ_size != player->size)
 		ft_error("The player's size is different from"
 					" the size defined in the header");
@@ -92,13 +92,13 @@ void		reader(t_env *env, t_player *player, char *arg)
 	if (-1 == read(fd, &player->size, sizeof(player->size)))
 		ft_error_errno(NULL);
 	if ((player->size = rev_endian(player->size)) > CHAMP_MAX_SIZE)
-		ft_error("Champ is too large"); // use varargs?
+		ft_error("Champ is too large");
 	if (-1 == read(fd, player->comment, COMMENT_LENGTH))
 		ft_error_errno(NULL);
 	if (-1 == (read_return = read(fd, &magic, 4)))
 		ft_error_errno(NULL);
 	if (read_return < 4)
-		ft_error("File is too small to be a champ");
+		ft_error("File is too small to be a champion");
 	write_program_to_board(env, player, env->offset, fd);
 	if (-1 == close(fd))
 		ft_error_errno(NULL);
