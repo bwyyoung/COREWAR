@@ -33,7 +33,7 @@ echo $3
 echo $4
 echo $5
 
-if [[ $(diff <(./vm -v $1 $champs) <(~/corewar/software/corewar -v $1 $champs )) ]]
+if [[ $(diff <(./corewar -v $1 $champs) <(../software/corewar -v $1 $champs )) ]]
 then
 	echo "			Error"
 else

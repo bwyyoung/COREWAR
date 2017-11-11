@@ -6,14 +6,14 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 15:37:30 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/26 18:36:29 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/11 17:28:37 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include "mgr_graphics.h"
 
-int			vp(t_graphics *g,char *str, ...)
+int			vp(t_graphics *g, char *str, ...)
 {
 	va_list		argptr;
 

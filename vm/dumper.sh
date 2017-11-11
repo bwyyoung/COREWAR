@@ -33,7 +33,7 @@ echo $3
 echo $4
 echo $5
 
-if [[ $(diff <( ./vm -d $cycles $champs) <( ./corewar -d $cycles $champs )) ]]
+if [[ $(diff <( ./corewar -d $cycles $champs) <( ../software/corewar -d $cycles $champs )) ]]
 then
 	echo "			Error"
 else
