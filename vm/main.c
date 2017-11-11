@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 13:26:46 by dengstra          #+#    #+#             */
-/*   Updated: 2017/11/10 12:13:02 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/11 19:33:23 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 t_bool		add_option(t_env *e, char **argv, int *i, int argc)
 {
-	if (ft_strequ(argv[*i], "-d"))
+	if (ft_strequ(argv[*i], "-dump"))
 		return (get_dump_number(e, argv[*i + 1], i, argc));
 	else if (ft_strequ(argv[*i], "-s"))
 		return (get_cycle_number(e, argv[*i + 1], i, argc));

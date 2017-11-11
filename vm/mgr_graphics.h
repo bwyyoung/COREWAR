@@ -6,13 +6,14 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 13:26:46 by byoung-w          #+#    #+#             */
-/*   Updated: 2017/11/08 15:57:54 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/11 19:32:48 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MGR_GRAPHICS_H
 
 # define MGR_GRAPHICS_H
+# include <mach-o/dyld.h>
 # include "matrix.h"
 # include "libft/libft.h"
 # include "cutscene.h"

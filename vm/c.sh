@@ -1,4 +1,4 @@
 #!/bin/bash
 
-../software/asm ../champions/$1.s; make; ./vm ../champions/$1.cor
+../software/asm ../champions/$1.s; make; ./corewar ../champions/$1.cor
 
