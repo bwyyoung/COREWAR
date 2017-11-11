@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byoung-w <byoung-w@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/09/08 14:49:06 by byoung-w          #+#    #+#             */
-/*   Updated: 2017/10/19 14:59:30 by ppatel           ###   ########.fr       */
+/*   Updated: 2017/11/11 22:07:51 by ppatel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <stdlib.h>
-# define BUFF_SIZE 3
+# define BUFF_SIZE 1000000
 # define NEWLINE 10
 # define SAFE_DELETE_GNL(b, a) if((a) != NULL){free(a); (a) = NULL;} return (b);
 

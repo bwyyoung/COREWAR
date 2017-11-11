@@ -6,7 +6,7 @@
 /*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/18 17:48:23 by ppatel            #+#    #+#             */
-/*   Updated: 2017/11/11 15:27:24 by ppatel           ###   ########.fr       */
+/*   Updated: 2017/11/11 22:13:22 by ppatel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void		check_label(t_env *env, char *line, int *col, int j)
 {
 	char	*str;
 
+	str = NULL;
 	if (j == 0)
 	{
 		while (ft_strchr(LABEL_CHARS, line[*col + j + 1]))

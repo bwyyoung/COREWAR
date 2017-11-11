@@ -6,7 +6,7 @@
 /*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/18 18:07:20 by ppatel            #+#    #+#             */
-/*   Updated: 2017/11/11 19:44:55 by ppatel           ###   ########.fr       */
+/*   Updated: 2017/11/11 21:17:29 by ppatel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,9 @@ void		syntax_analyser(t_env *env)
 	init_label(env, token);
 	while (token)
 	{
+		if (token->type == T_LAB && token->next && token->next->type == T_LAB)
+			if (token->pos->line == token->next->pos->line)
+				syntax_error(token->next, env);
 		end = syntax_instruction(token, env);
 		ft_make_inst(token, end, env);
 		token = end;
