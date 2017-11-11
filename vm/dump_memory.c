@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dump_memory.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: douglas <douglas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 14:16:45 by dengstra          #+#    #+#             */
-/*   Updated: 2017/10/23 21:48:45 by douglas          ###   ########.fr       */
+/*   Updated: 2017/11/11 20:31:09 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	dump_memory(t_env *env)
 	P(env->g_ref, env->options[visual], "0x0000 : ");
 	while (mem_size)
 	{
-		if (mem_size % 0x40 == 0 && i >= 0x40)
+		if (mem_size % 32 == 0 && i >= 32)
 		{
-			hex += 0x40;
+			hex += 32;
 			P(env->g_ref, env->options[visual], "\n0x%04x : ", hex);
 		}
 		P(env->g_ref, env->options[visual], "%02x ", board[i]);
