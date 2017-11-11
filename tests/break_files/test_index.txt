@@ -1,0 +1,125 @@
+header_error:										OK (Monday: 07pm19)
+	- name:
+		- name_twice_one_empty
+		- name_missing_one_quote
+		- name_missing_quote
+		- name_is_missing
+		- name_only
+		- name_several
+		- name_with_bad_instruct_after
+		- name_with_instruct_after
+		- name_too_long.s
+	- comment:
+		- comment_twice_one_empty
+		- comment_missing_one_quote
+		- comment_missing_quote
+		- comment_is_missing
+		- comment_only
+		- comment_several
+		- comment_with_bad_instruct_after
+		- comment_with_instruct_after
+		- comment_too_long
+
+header_success:									OK
+	- empty_comment
+	- empty_name
+	- comment_at_start
+	- comment_is_long
+	- name_is_long
+	- several_lines
+
+instruction_arg_error:							OK
+	- too much argument
+	- invalid argument
+	- not enought argument
+	for:	live, ld, st, add, sub, and,
+	TODO: 	or, xor, zjmp, ldi, sti, fork, lld, lldi, lfork, aff
+
+instruction_arg_success:						OK
+	for: live, ld, st, add, sub, and, or, xor,
+	TODO: zjmp, ldi, sti, fork, lld, lldi, lfork, aff
+
+label_error:									OK
+	- call inexist label
+	- call emptystring label
+	- emptystring label
+	- several_label_on_one_line
+	- several_label_char
+	- label_with_invalid_char
+	- direct_as_label
+
+label_success:									OK
+	- only labels
+	- label_twice
+	- label_follow_by_comment_char
+	- register_as_label
+	- indirect_as_label
+
+instruction_error:								OK
+	- big_string_instead_of_instruction
+	- direct_instead_of_instruction
+	- indirect_instead_of_instruction
+	- label_instead_of_instruction
+	- register_instead_of_instruction
+	- string_instead_of_instruction
+	- unknow_instruction
+	- unknow_long_instruction
+	- eof_after_instruction
+	- eol_after_instruction
+	- comment_after_instruction
+
+param_error:								OK
+	- register:
+		- register_big_number
+		- register_char_only
+		- register_char_follow_by_eol
+		- register_char_follow_by_eof
+		- register_follow_by_direct_label
+		- register_follow_by_direct_number
+		- register_follow_by_indirect_label
+		- register_follow_by_random_string
+		- register_follow_by_comment
+	- direct:
+		- direct_char_follow_by_register
+		- direct_char_follow_by_label_char_only
+		- direct_char_follow_by_nothing
+		- direct_char_follow_by_string
+		- direct_char_follow_by_random_string
+		- direct_char_follow_by_eol
+		- direct_char_follow_by_eof
+		- direct_char_follow_by_label_and_direct_char
+		- direct_char_follow_by_comment
+		- direct_char_mix_number_and_char
+		- direct_char_twice
+		- direct_param_follow_by_label
+		- direct_param_follow_by_register
+	- indirect:
+		- indirect_only_label_char
+		- indirect_mix_number_char
+		- indirect_with_space_inside
+		- indirect_follow_by_label
+		- indirect_follow_by_register
+		- indirect_follow_by_direct
+	- separator_char:
+		- separator_char_follow_by_eof
+		- separator_char_follow_by_eol
+		- separator_char_follow_by_comment
+		- separator_char_follow_by_label
+
+	- empty_param
+	- string_in_param
+	- command_comment_in_param
+	- command_name_in_param
+	- comment_char_on_param
+	- param_follow_by_label
+	- param_without_comma_inside
+
+
+param_success:
+	- direct:
+		- direct_char_follow_by_big_number
+		- direct_follow_by_comment
+	- indirect:
+		- indirect_big_number
+		- indirect_follow_by_comment
+

@@ -6,7 +6,7 @@
 /*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/18 18:07:20 by ppatel            #+#    #+#             */
-/*   Updated: 2017/11/09 14:46:54 by ppatel           ###   ########.fr       */
+/*   Updated: 2017/11/11 19:44:55 by ppatel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,20 @@ t_token		*syntax_header(t_token *token, t_env *env)
 {
 	if (!token || ft_strcmp(token->value, NAME_CMD_STRING))
 		syntax_error(token, env);
+	if (!token->next || token->next->type != 32 ||
+		token->pos->line != token->next->pos->line)
+		syntax_error(token->next, env);
 	token = token->next;
-	if (!token || token->type != 32)
-		syntax_error(token, env);
+	if (!token->next || ft_strcmp(token->next->value, COMMENT_CMD_STRING) ||
+		token->pos->line == token->next->pos->line)
+		syntax_error(token->next, env);
 	token = token->next;
-	if (!token || ft_strcmp(token->value, COMMENT_CMD_STRING))
-		syntax_error(token, env);
+	if (!token->next || token->next->type != 32 ||
+		token->pos->line != token->next->pos->line)
+		syntax_error(token->next, env);
 	token = token->next;
-	if (!token || token->type != 32)
-		syntax_error(token, env);
-	if (!token->next)
-		syntax_error(NULL, env);
+	if (!token->next || token->next->pos->line == token->pos->line)
+		syntax_error(token->next, env);
 	return (token->next);
 }
 
