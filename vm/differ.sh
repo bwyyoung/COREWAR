@@ -27,7 +27,7 @@ then
 fi
 
 echo "---------------------------------------"
-#echo "Verbosity $1"
+echo "Verbosity $1"
 echo $2
 echo $3
 echo $4
@@ -40,8 +40,3 @@ else
 	echo "			OK"
 fi
 echo "---------------------------------------"
-#./vm -v $1 $champs > ft.txt
-#~/corewar/software/corewar -v $1 $champs > cp.txt 
-
-#diff ft.txt cp.txt > diff.txt
-#diff ft.txt cp.txt
