@@ -6,7 +6,7 @@
 /*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/18 17:48:23 by ppatel            #+#    #+#             */
-/*   Updated: 2017/10/23 16:11:58 by ppatel           ###   ########.fr       */
+/*   Updated: 2017/11/11 15:27:24 by ppatel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void		check_command(t_env *env, char *line, int *col)
 		add_token(env, col, '.', COMMENT_CMD_STRING);
 	else
 	{
-		ft_printf("Lexical error at [%d:%d].", env->line, *col + 1);
+		ft_printf("Lexical error at [%d:%d]", env->line, *col + 1);
 		ft_exit("");
 	}
 }
@@ -76,7 +76,7 @@ void		check_direct(t_env *env, char *line, int *col)
 	}
 	else
 	{
-		ft_printf("Lexical error at [%d:%d].", env->line, *col);
+		ft_printf("Lexical error at [%d:%d]", env->line, *col);
 		ft_exit("");
 	}
 	str = ft_strndup(line + *col, j);
@@ -94,7 +94,7 @@ void		check_label(t_env *env, char *line, int *col, int j)
 			j++;
 		if (j == 0)
 		{
-			ft_printf("Lexical error at [%d:%d].", env->line, *col + 1);
+			ft_printf("Lexical error at [%d:%d]", env->line, *col + 1);
 			ft_exit("");
 		}
 		str = ft_strndup(line + *col, j + 1);

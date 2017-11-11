@@ -6,7 +6,7 @@
 /*   By: ppatel <ppatel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/18 17:53:46 by ppatel            #+#    #+#             */
-/*   Updated: 2017/10/26 16:27:05 by ppatel           ###   ########.fr       */
+/*   Updated: 2017/11/11 15:27:47 by ppatel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void		check_op_reg(t_env *env, int *col, char *str)
 			add_token(env, col, T_REG, str);
 		else
 		{
-			ft_printf("Lexical error at [%d:%d].", env->line, *col + 1);
+			ft_printf("Lexical error at [%d:%d]", env->line, *col + 1);
 			ft_exit("");
 		}
 	}
@@ -61,7 +61,7 @@ void		check_token(t_env *env, char *line, int *col, int j)
 	}
 	else
 	{
-		ft_printf("Lexical error at [%d:%d].", env->line, *col + 1);
+		ft_printf("Lexical error at [%d:%d]", env->line, *col + 1);
 		ft_exit("");
 	}
 	free(str);
