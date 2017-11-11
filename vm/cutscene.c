@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 20:16:14 by mda-cost          #+#    #+#             */
-/*   Updated: 2017/11/11 19:36:05 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/11 19:41:08 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void				init_cutscenes(t_mgr_scene *scene)
 
 	size = 4096;
 	path = ft_strnew(size);
-	if (!path || (_NSGetExecutablePath(path, &size)))
+	if (!path || _NSGetExecutablePath(path, &size) == -1)
 		ft_error("Unable to get executable path");
 	path[ft_strlen(path) - 8] = '\0';
 	scene->binary_path = path;
