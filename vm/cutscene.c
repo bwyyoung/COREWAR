@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   cutscene.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mda-cost <mda-cost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 20:16:14 by mda-cost          #+#    #+#             */
-/*   Updated: 2017/11/09 20:16:55 by mda-cost         ###   ########.fr       */
+/*   Updated: 2017/11/11 19:36:05 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mgr_graphics.h"
+#include "vm.h"
 
 void				load_cutscene(t_mgr_scene *g, char *s, char *a, int f)
 {
@@ -37,7 +38,15 @@ void				load_cutscene(t_mgr_scene *g, char *s, char *a, int f)
 
 void				init_cutscenes(t_mgr_scene *scene)
 {
-	scene->binary_path = getcwd(NULL, 4096);
+	char		*path;
+	uint32_t	size;
+
+	size = 4096;
+	path = ft_strnew(size);
+	if (!path || (_NSGetExecutablePath(path, &size)))
+		ft_error("Unable to get executable path");
+	path[ft_strlen(path) - 8] = '\0';
+	scene->binary_path = path;
 	if (ENABLE_SOUND)
 		snd_init_audio(scene);
 	scene->cutscenes = NULL;

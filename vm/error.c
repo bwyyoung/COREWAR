@@ -6,15 +6,15 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 14:49:06 by byoung-w          #+#    #+#             */
-/*   Updated: 2017/11/04 20:11:05 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/11 19:02:51 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
 /*
-**	Example: ./corewar -visual -n -1 filename.cor
-**	GUI: ./corewar -visual [Players]
+**	Example: ./corewar --visual -n -1 filename.cor
+**	GUI: ./corewar --visual [Players]
 **	Default Player Numbers: 1, 2, 3, 4...
 **	Change Player Number: -n -1 filename.cor
 **	Dump: ./corewar -dump 300 [Players](prints the memory after 300 cycles)
@@ -22,8 +22,8 @@
 
 void		print_instructions(void)
 {
-	ft_printf("Usage: ./corewar [-d N -s N -v N -n N"
-		"| --visual] [-a] <champion1.cor> <...>\n");
+	ft_printf("Usage: ./corewar [-d N -s N -v N "
+		"| --visual] [-a] <[-n N] champion1.cor> <...>\n");
 	ft_printf("\tExample              : ./corewar --visual filename.cor\n");
 	ft_printf("\t-a     : Prints output from \"aff\"\n");
 	ft_printf("\t-n N   : set champion number\n");
