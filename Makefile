@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME	= corewar
-ASM		= asm
+ASM		= assembler
 VM		= vm
 
 all:	$(NAME)
@@ -19,12 +19,18 @@ all:	$(NAME)
 $(NAME):
 	@make -C $(VM)
 	@make -C $(ASM)
+	@cp $(VM)/corewar .
+	@rsync -tr $(VM)/sound .
+	@rsync -tr $(VM)/animation .
+	@cp $(ASM)/asm .
 
 clean:
 	@make -C $(VM) clean
 	@make -C $(ASM) clean
 
 fclean:	clean
+	@rm corewar
+	@rm asm
 	@make -C $(VM) fclean
 	@make -C $(ASM) fclean
 
