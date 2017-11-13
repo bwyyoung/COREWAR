@@ -23,6 +23,8 @@ void					graphics_start(t_graphics *g)
 	g->graphics_end = t_false;
 	g->offsetx = (COLS - WORLD_WIDTH) / 2 + 7;
 	g->offsety = (LINES - WORLD_HEIGHT) / 2;
+	if ((g->offsetx < 0) || (g->offsety < 0))
+		ft_error_errno("Screen not large enough. Please enlarge screen.\n");
 	init_matrix(&g->background_window, &g->mat);
 	g->border_window = newwin(WORLD_HEIGHT + 2, WORLD_WIDTH + 2,
 	g->offsety - 1, g->offsetx - 1);
@@ -42,6 +44,7 @@ void					graphics_start(t_graphics *g)
 void					graphics_end(t_graphics *g)
 {
 	g->graphics_end = t_true;
+	delwin(g->dialog_window);
 	delwin(g->video_window);
 	delwin(g->log_window);
 	delwin(g->game_window);
