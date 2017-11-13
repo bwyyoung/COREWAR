@@ -6,7 +6,7 @@
 /*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 14:49:06 by byoung-w          #+#    #+#             */
-/*   Updated: 2017/11/11 19:02:51 by dengstra         ###   ########.fr       */
+/*   Updated: 2017/11/13 16:08:57 by dengstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void		print_instructions(void)
 	ft_printf("\t-n N   : set champion number\n");
 	ft_printf("#### TEXT OUTPUT MODE #######################################"
 		"###################\n");
-	ft_printf("\t-d N   : Dumps memory after N cycles then exits\n");
+	ft_printf("\t-dump N   : Dumps memory after N cycles then exits\n");
 	ft_printf("\t-s N   : Runs N cycles, dumps memory, then repeats\n");
 	ft_printf("\t-v N   : Verbosity levels, can be added together to enable "
 		"several\n");
