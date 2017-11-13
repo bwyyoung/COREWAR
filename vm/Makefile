@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME 	= corewar
+NAME 	= ../corewar
 
 CC		= gcc
 
@@ -23,10 +23,10 @@ OBJS		=	objs
 SRCS		=	.
 INCS		=	.
 SHELL		=	/bin/bash
-SOUND		=	$(CURDIR)/sound
-INCLUDES	=	-I$(INCS) -I$(LIB) -I sound/
+SOUND		=	../sound
+INCLUDES	=	-I$(INCS) -I$(LIB) -I $(SOUND)
 LIBS		=	-L $(LIB) -lft -lncurses /Users/$(USER)/.brew/opt/libsndfile/lib/libsndfile.1.dylib
-LINK		=	-L sound/ -lcommon  -L sound/ -lportaudio -L $(SOUND) -lsndfile
+LINK		=	-L $(SOUND) -lcommon -L $(SOUND) -lportaudio -L $(SOUND) -lsndfile
 FRAMEWORK	=	-framework CoreServices -framework CoreFoundation \
 				-framework AudioUnit -framework AudioToolbox -framework CoreAudio
 
@@ -82,7 +82,6 @@ C_FILES		=	main.c \
 				cutscene_gameover_pill.c
 
 C_SRCS		=	$(addprefix $(SRCS)/,$(C_FILES))
-
 
 # object files
 O_FILES		=	$(C_FILES:.c=.o)

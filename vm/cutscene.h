@@ -17,8 +17,8 @@
 # define CUTSCENE_HEIGHT 60
 # define SAMPLE_RATE 44100
 # define CHANNEL_COUNT 2
-# include "sound/sndfile.h"
-# include "sound/portaudio.h"
+# include "../sound/sndfile.h"
+# include "../sound/portaudio.h"
 # define ENABLE_SOUND true
 # define SOUND_BACKGROUND "/sound/burly_brawl2.ogg"
 # define SOUND_BULLET_TIME "/sound/bullet_time.ogg"
