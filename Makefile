@@ -6,11 +6,11 @@
 #    By: mda-cost <mda-cost@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/09 18:51:43 by mda-cost          #+#    #+#              #
-#    Updated: 2017/11/13 12:27:25 by mda-cost         ###   ########.fr        #
+#    Updated: 2017/11/13 16:18:36 by mda-cost         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= corewar
+NAME	= main_corewar
 ASM		= assembler
 VM		= vm
 
